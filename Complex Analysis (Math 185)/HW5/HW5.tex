@@ -1,0 +1,304 @@
+% Insert HW number and date into heading!
+
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+%\addtolength{\oddsidemargin}{-.1in} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{lipsum}
+\usepackage[]{units}
+\usepackage{relsize}
+\usepackage{verbatim}
+\usepackage{mathrsfs}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{graphicx}
+\usepackage{xfrac}
+
+\setenumerate{listparindent=\parindent}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\U}{\mathcal{U}}
+\newcommand{\Int}{\displaystyle\int}
+
+\DeclareMathOperator*{\dom}{dom}
+\DeclareMathOperator*{\re}{Re}
+\DeclareMathOperator*{\im}{Im}
+\renewcommand{\bar}{\overline}
+%\renewcommand{\int}{\int}
+
+\definecolor{mygray}{rgb}{.8,.8,0.8}
+
+\newtheorem*{lem}{Lemma}
+
+%%% Heading %%%
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Math 185 (HW 5)}
+\chead{Michael Knopf (24457981)}
+\rhead{July $30^{\text{th}}$, 2015}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+\renewcommand\headrulewidth{0.4pt}
+
+\begin{document}
+
+\begin{enumerate}
+\setcounter{enumi}{32}
+\item Let $E$ be a nonempty set, and let $f_n, g_n : E \rightarrow \C$ be sequences of functions converging uniformly to $f,g$, respectively.
+\begin{enumerate}
+\item Prove that $f_n + g_n \rightarrow f + g$ uniformly.
+\begin{proof}
+For all $\epsilon > 0$, there exist $N_1$ and $N_2$ such that, for all $x \in E$ and all $n \geq \max(N_1, N_2)$, we have $|f_n(x) - f(x)| \leq \frac{\epsilon}{2}$ and $|g_n(x) - g(x)| \leq \frac{\epsilon}{2}$.  Therefore, for all $x \in E$ and all $n \geq \max(N_1, N_2)$, we have
+$$
+|(f_n(x) + g_n(x)) - (f(x) - g(x))| = |(f_n(x) - f(x)) - (g_n(x) - g(x))|
+$$
+$$
+\leq |f_n(x) - f(x)| + |g_n(x) - g(x)| \leq \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon.
+$$
+\end{proof}
+\item Prove that if $f$ and $g$ are bounded functions, then $f_n g_n \rightarrow fg$ uniformly.
+\begin{proof}
+Observe that
+\begin{align*}
+|f_n(x)g_n(x) - f(x)g(x)| &=
+|f_n(x)g_n(x) - f(x)g_n(x) + f(x)g_n(x) - f(x)g(x)|
+\\
+&= |g_n(x)(f_n(x) - f(x)) + f(x)(g_n(x)-g(x))|
+\\
+&\leq |g_n(x)||f_n(x) - f(x)| + |f(x)||g_n(x)-g(x)|.
+\end{align*}
+Let $\epsilon > 0.$  Since $f$ and $g$ are bounded, there exists some $M \in \R$ such that $f(x), g(x) < M$ for all $x \in E$.  Since both sequences are uniformly convergent, there exists some $N \in \N$ such that if $n > N$, then $|f_n(x) - f(x)|, |g_n(x) - g(x)| < \sqrt{\epsilon + M^2} - M$.
+
+Now, we see that, for $n > N$, $g_n$ must be bounded as well, since
+$$
+|g_n(x)| - |g(x)| \leq |g_n(x) - g(x)| < \sqrt{\epsilon + M^2} - M
+$$
+$$
+\implies
+|g_n(x)| < \sqrt{\epsilon + M^2} - M + |g(x)| < \sqrt{\epsilon + M^2}.
+$$
+Substituting these bounds into the inequality from the first paragraph gives
+$$
+|f_n(x)g_n(x) - f(x)g(x)| \leq\sqrt{\epsilon + M^2}(\sqrt{\epsilon + M^2} - M) + M (\sqrt{\epsilon + M^2} - M) = \epsilon.
+$$
+\end{proof}
+\item Prove that if $f$ is bounded away from $0$ then $\frac{1}{f_n} \rightarrow \frac{1}{f}$ uniformly.
+\begin{proof}
+First, note that there exists some $N_1 \in \N$ such that, for all $n > N_1$, $|f_n|$ is bounded away from zero.  Simply choose $N_1$ so that $|f_n(x) - f(x)| < \frac{a}{2}$ for all $x \in E$.  Then, whenever $n \geq N_1$, we have $|f_n(x)| > a - \frac{a}{2} = \frac{a}{2} > 0$.
+
+Now, let $\epsilon > 0$, and let $N_2$ be such that whenever $n > N_2$, we have $|f_n(x) - f(x)| < \frac{a^2}{2} \epsilon$ for all $x \in E$.  Then, whenever $n > \max(N_1, N_2)$, we have
+$$
+\left| \frac{1}{f_n(x)} - \frac{1}{f(x)} \right| = \frac{|f(x) - f_n(x)|}{|f(x)||f_n(x)|} < \frac{\frac{a^2}{2}\epsilon}{\frac{a}{2}a} = \epsilon.
+$$
+\end{proof}
+\item Suppose $E$ is the image of a piecewise-$C^1$ path $\gamma$, and suppose each $f_n$ is continuous.  Prove that $\Int_{\gamma} f_n(z) dz \rightarrow \Int_{\gamma} f(z) dz$.
+
+\begin{proof}
+Let $\epsilon > 0$.  There exists some $N$ such that, whenever $n > N$ we have $|f_n(z) - f(z)| < \frac{\epsilon}{L(\gamma)}$ for all $z \in E$.  This gives
+\begin{align*}
+\left| \Int_\gamma f_n(z)dz - \Int_\gamma f(z)dz \right| &= \left| \Int_\gamma f_n(z) - f(z)dz \right| \leq  \Int_\gamma |f_n(z) - f(z)| dz \leq \Int_{\gamma} \frac{\epsilon}{L(\gamma)}dz = \epsilon.
+\end{align*}
+Without uniform convergence, the second inequality would not hold.
+\end{proof}
+\end{enumerate}
+
+\item Let $\Omega \subseteq \C$ be open, and let $f_n: \Omega \rightarrow \C$ be a sequence of functions.  We say that $(f_n)$ \emph{converges locally uniformly} to $f$ if for each $z \in \Omega$, there exists an open neighborhood $\mathcal{U}$ of $z$ such that $f_n$ converges uniformly to $f$ on $\mathcal{U}$.  Prove that $f_n \rightarrow f$ locally uniformly if and only if $f_n \rightarrow f$ uniformly on compact sets of $\Omega$.
+
+\begin{proof}
+Suppose $f_n \rightarrow f$ locally uniformly.  Let $C \subseteq \Omega$ be a compact set, and for each $z \in C$ choose an open neighborhood $\U_z$ on which $f_n \rightarrow f$ uniformly, and let $\mathscr{C} = \{\U_z : z \in C \}$.  Since $\mathscr{C}$ forms an open cover of $C$, it has a finite subcover $\mathscr{C}' = \{\U_1, \dots, \U_m \}$.
+
+Let $\epsilon > 0$.  For each $\U_k \in \mathscr{C}'$, there is some $N_k$ such that whenever $n > N_k$ we have $|f_n(x) - f(x)| < \epsilon$ for all $x \in \U_k$.  Letting $N = \max(N_1, \dots , N_m)$, we have $|f_n(x) - f(x)| < \epsilon$ for all $x \in C$ whenever $n > N$, thus $f_n \rightarrow f$ uniformly on $C$.
+
+For the reverse direction, suppose $f_n \rightarrow f$ uniformly on compact sets.  Let $z \in \Omega$.  Since $\Omega$ is open, there is some closed ball $B_r(z)$ of radius $r$, centered at $z$, that is contained within $\Omega$.  Closed balls are compact, so $f_n \rightarrow f$ uniformly on $B_r(z)$.  In particular, this occurs on the open ball of radius $\frac{r}{2}$ around $z$, which is an open neighborhood of $z$.  So $f_n \rightarrow f$ locally uniformly.
+\end{proof}
+
+\item Let $f$ be an entire function, and suppose that for all sufficiently large $|z|$, $|f(z)| \leq C \cdot |z|^n$.  Prove that $f$ is a polynomial of degree at most $n$.
+
+\begin{proof}
+By hypothesis, there exists some $R \in \R^+$ such that, whenever $|z| \geq R$, we have $|f(z)| \leq C \cdot |z|^n$.  So, for all $w$ on the circle $C_r$ of radius $r > R$ centered at $0$, we have $|w| = r > R$.  Therefore,
+$$
+|f(w)| \leq C \cdot |w|^n = C \cdot r^n.
+$$
+
+Since $f$ is holomorphic, Cauchy's estimate gives us
+$$
+f^{(k)}(0) \leq \frac{k!}{r^k} \sup\limits_{z \in C_r} |f(z)| \leq Ck!\frac{r^n}{r^k}.
+$$
+When $k > n$, the righthand side approaches 0 as $r \rightarrow \infty$.  Since this inequality holds for arbitrarily large $r$, we must have $f^{(k)}(0) = 0$ whenever $k > n$.
+
+Since $f$ is entire, we know it is analytic and that the coefficient of the $k$th term in its power series expansion about $0$ is $\dfrac{f^{(k)}(0)}{k!}$.  Thus, all terms for which $k > n$ are 0, so $f$ must be a polynomial of degree at most $n$.
+\end{proof}
+
+\item Let $f: \Omega \rightarrow \C$ be holomorphic.  Prove that for any $z_0 \in \Omega$, the sequence of derivatives cannot satisfy $|f^{(n)}(z_0)| > n! \cdot n^n$.
+
+\begin{proof}
+Suppose, for a contradiction, that this inequality does hold for all $n$.  Let $z_0 \in \Omega$ (since $\Omega$ is nonempty), and consider any nonempty open ball $B_{r}(z_0)$ whose closure is contained in $\Omega$ (we know one exists because $\Omega$ is nonempty).  Since $f$ is holomorphic on $\Omega$, it has a power series expansion $\sum\limits_{n=0}^\infty \frac{f^{(n)}(z_0)}{n!}(z-z_0)^n$ that converges to $f$ on all of $B_{r}(z_0)$.  However, Hadamard's formula tells us that its radius of convergence satisfies
+$$
+\frac{1}{R} = \limsup \left| \frac{f^{(n)}(z_0)}{n!} \right|^{\frac{1}{n}}
+\leq
+\limsup \left| \frac{n! \cdot n^n}{n!} \right|^{\frac{1}{n}} = \limsup n = \infty
+$$
+thus $R = 0$.  This is a contradiction, since it implies that $r \leq 0$, but we assumed that $B_r(z_0)$ is open and nonemtpy.
+\end{proof}
+\pagebreak
+\item Prove that the range of a nonconstant entire function is dense in $\C$.
+
+\begin{proof}
+Suppose the range of $f$ is not dense in $\C$.  Then there exist $r \in \R$ and $w \in \C$ such that $|f(z) - w| > r$ for all $z \in \C$.  But then $\frac{1}{f(z) - w}$ is an entire, bounded function (the denominator is always nonzero since $w \not \in f(\C)$, and its modulus is bounded by $r$).  Therefore, $\frac{1}{f(z) - w} = c$ for some nonzero $c \in \C$.  Thus, $f(z) = w + \frac{1}{c}$ is constant.
+\end{proof}
+
+\item Compute the following integrals:
+\begin{enumerate}
+\item $\Int_{|z|=1} \dfrac{\sin z}{z^{38}}dz$
+\begin{proof}
+\begin{align*}
+\Int_{|z|=1} \dfrac{\sin z}{z^{38}}dz
+&=
+\frac{2\pi i}{37!} \left[ \frac{37!}{2\pi i} \Int_C \frac{\sin z}{(z-0)^{37+1}}dz \right] = \frac{2\pi i}{37!} \frac{d^{37}}{dz^{37}}[\sin z]_{z = 0}
+= \frac{2\pi i}{37!} \cos 0 = \frac{2\pi i}{37!}
+\end{align*}
+\end{proof}
+\item $\Int_{|z|=1} \left[ \dfrac{z-2}{2z-1} \right]^3 dz$
+\begin{proof}
+\begin{align*}
+\Int_{|z|=1} \left[ \dfrac{z-2}{2z-1} \right]^3 dz
+=
+\frac18 \Int_{|z|=1} \dfrac{(z-2)^3}{(z-\frac12)^3} dz
+= \frac18 \frac{2\pi i}{2!}\frac{d^2}{dz^2}[(z-2)^3]_{z=\frac12}
+= \frac{\pi i}{8}(3)(2)(\frac12 - 2)
+= -\frac{9\pi i}{8}
+\end{align*}
+\end{proof}
+\item $\dfrac{1}{2\pi i} \Int_{|z|=1} \dfrac{(z-b)^m}{(z-a)^n}dz,$ $|a|< 1 < |b|$; $m,n \in \Z$
+\begin{proof}
+Since $|a| < 1 < |b|$, we know that $a$ is within the circle of integration.  Also, $z-b$ is nonzero on this circle.  So whenever $n \geq 1$, we may apply Theorem II.3.1.
+
+However, first observe that if $n \leq 0$, then the integrand is holomorphic on an open ball containing the circle $|z| = 1$.  So, in this case, the integral is $0$.  This holds regardless of the value of $m$, since $z-b$ is always nonzero within the open ball.
+
+Next, assume $n \geq 1$:
+\begin{align*}
+\dfrac{1}{2\pi i} \Int_{|z|=1} \dfrac{(z-b)^m}{(z-a)^n}dz
+&=
+\dfrac{1}{(n-1)!}\left(\dfrac{(n-1)!}{2\pi i} \Int_{|z|=1} \dfrac{(z-b)^m}{(z-a)^{(n-1)+1}}dz
+\right)
+\\
+&=
+\frac{1}{(n-1)!}\left( (n-1)! \binom{m}{n-1} (z-a)^{m-n+1} \right)
+\\
+&=
+\binom{m}{n-1} (z-a)^{m-n+1}
+\end{align*}
+\end{proof}
+\end{enumerate}
+
+\item Let $f$ be an entire function.
+\begin{enumerate}
+\item Prove that if $f$ has uncountably many zeros, then $f = 0$.
+
+\begin{proof}
+
+Let $S = \{z \in \C : f(z) = 0\}$.  We will show that there exists some $N \in \N$ such that the open ball $B_N$ of radius $N$, centered at $0$, is such that $B_N \cap S$ is uncountable.
+
+Suppose this is false.  Then, for every $N$, $B_N \cap S$ is countable.  But then $\bigcup_{N=1}^\infty B_N \cap S = S$ is a countable union of countable sets, and is thus countable - a contradiction.
+
+So let $N$ be such that $B_N \cap S$ is uncountable.  Take any sequence $\{z_n\}$ from this set.  Since $\{z_n\} \subseteq B_N \cap S \subset \bar{B_N}$, and $\bar{B_N}$ is compact, we know that $z_n$ has a convergent subsequence $z_n'$.  Since $f(z_n') = 0$ for all $n$, and $z_n'$ converges to some point in the domain of $f$ (since $f$ is entire), the analytic continuation theorem states that $f = 0$.
+
+\end{proof}
+
+\item Suppose that, for each $z_0 \in \Omega$, at least one coefficient in the power series expansion of $f$ at $z_0$ is 0.  Prove that $f$ is a polynomial.
+
+\begin{proof}
+
+Let $S_n = \{z \in \C : f^{(n)}(z) = 0 \}$.  The $n$th coefficient in the power series expansion of $f$ about $z_0$ can be $0$ only if $f^{(n)}(z_0) = 0$.  Therefore, every $z \in \C$ falls into at least one $S_n$.  Thus, $\bigcup_{n=1}^\infty S_n = \C$.  Since $\C$ is uncountable, there must be some $n$ such that $S_n$ is uncountable (otherwise this would be a countable union of countable sets, hence countable).  By part (a), this implies that $f^{(n)} = 0$.  But then $f^{(k)} = 0$ for all $k \geq n$.  This implies that only finitely many coefficients in the power series expansion of $f$ are nonzero, therefore $f$ is a polynomial.
+
+\end{proof}
+
+\end{enumerate}
+
+\item Prove that, for all $\xi \in \C$,
+$
+\Int_{-\infty}^\infty e^{-\pi x^2} \cdot e^{-2\pi i x \xi} dx = e^{- \pi \xi^2}.
+$
+
+\begin{proof}
+
+In lecture, this equality was proven for all $\xi \in \R$.  Therefore, if we can show that $f(\xi) = \Int_{-\infty}^\infty e^{-\pi x^2} \cdot e^{-2\pi i x \xi} dx$ is entire, then the analytic continuation theorem states that we must have $f(\xi) = e^{- \pi \xi^2}$ for all $\xi \in \C$, since these two functions agree on an entire line.
+
+By Morera's theorem, if we can show that $\Int_T f(\xi) d\xi = 0$ for every triangle $T \subseteq \C$, then $f$ is entire.  In order to do this, however, it will be useful to show that
+
+$$
+\Int_T \Int_{-\infty}^\infty e^{-\pi x^2} \cdot e^{-2\pi i x \xi} dx d\xi
+=
+\Int_{-\infty}^\infty \Int_T e^{-\pi x^2} \cdot e^{-2\pi i x \xi} d\xi dx.
+$$
+Fubini's theorem tells us that this equality holds if
+$$
+\Int_T \Int_{-\infty}^\infty |e^{-\pi x^2} \cdot e^{-2\pi i x \xi}| dx d\xi < \infty.
+$$
+First, observe that
+\begin{align*}
+|e^{-\pi x^2} \cdot e^{-2\pi i x \xi}|
+&=
+|e^{-\pi x^2} \cdot e^{-2\pi i x (\re(\xi) + i \im(\xi)}|
+\\
+&=| e^{-\pi(x^2 - 2\im(\xi)x)}||e^{-2\pi x \re(\xi) i}|
+\\
+&= e^{-\pi(x^2 - 2\im(\xi)x + \im(\xi)^2 - \im(\xi)^2)}
+\\
+&= e^{-\pi(x - \im(\xi))^2 - \pi\im(\xi)^2)}.
+\end{align*}
+So we have
+$$
+\Int_T \Int_{-\infty}^\infty |e^{-\pi x^2} \cdot e^{-2\pi i x \xi}| dx d\xi
+=
+\Int_T \Int_{-\infty}^\infty e^{-\pi(x - \im(\xi))^2 - \pi\im(\xi)^2)} dx d\xi
+=
+\Int_T e^{- \pi\im(\xi)^2)} d\xi\
+< \infty
+$$
+for any triangle $T$.
+
+By Fubini, we have
+$$
+\Int_T \Int_{-\infty}^\infty e^{-\pi x^2} \cdot e^{-2\pi i x \xi} dx d\xi
+=
+\Int_{-\infty}^\infty \Int_T e^{-\pi x^2} \cdot e^{-2\pi i x \xi} d\xi dx
+=
+\Int_{-\infty}^\infty 0 d\xi
+=
+0
+$$
+because $ e^{-\pi x^2} \cdot e^{-2\pi i x \xi}$ is holomorphic.  Therefore, $f$ is holomorphic, and so by analytic continuation we must have $f(\xi) = e^{- \pi \xi^2}$.
+\end{proof}
+
+\end{enumerate}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

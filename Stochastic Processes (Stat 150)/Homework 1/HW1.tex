@@ -1,0 +1,232 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=.75in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{units}
+\usepackage{bm}
+\usepackage{enumitem}
+\setenumerate{listparindent=\parindent}
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\p}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+
+\theoremstyle{definition}
+\newtheorem*{prob1}{Q 1}
+\newtheorem*{prob2}{Q 2}
+\newtheorem*{prob3}{Q 3}
+\newtheorem*{prob4}{Q 4}
+\newtheorem*{prob5}{Q 5}
+
+ 
+\begin{document}
+
+\title{Homework 1 \\ Stat 150}
+\author{Michael Knopf}
+\date{February 6, 2015}
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%     1     %%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{prob1}
+Let $S$ and $T$ be stopping times with respect to some sequences $X_n$ and $Y_n$.  Which of the following are stopping times?
+\begin{itemize}
+\item $T - 1$ \\ No
+\item $\min\{S,T\}$ \\ Yes
+\item $\max\{S,T\}$ \\ Yes
+\end{itemize}
+\end{prob1}
+
+\begin{proof}
+A random variable $T$ is a stopping time with respect to a sequence $X_n$ if and only if, for all $n$, $\p\left(T = n \ | \ \mathcal{F}_n\right)$ is either $0$ or $1$.  Equivalent definitions for stopping time, when the index set is $\N$, are that $\p\left(T \leq n \ | \ \mathcal{F}_{n}\right)$ $\p\left(T < n \ | \ \mathcal{F}_{n-1}\right)$, $\p\left(T > n \ | \ \mathcal{F}_{n}\right)$, or $\p\left(T \geq n \ | \ \mathcal{F}_{n-1}\right)$ are either 1 or 0 for all $n$.  The first case follows from the fact that $$\p\left(T \leq n | \mathcal{F}_n\right) = \sum_{i=1}^{n} \p\left(T = i | \mathcal{F}_n\right).$$  If $T$ is a stopping time, then exactly one term on the righthand side is 1 and the rest are 0, thus the lefthand side is either 1 or 0 -- and conversely.  The other cases are proven in a similar way, by a combination of lowering the upper index to $n-1$ and subtracting the righthand side from $1$.
+
+$T - 1$ may not be a stopping time because the event $T - 1 = n \iff T = n+1$ could depend on the value of $X_{n+1}$.  For a counterexample, let $X_n \sim \text{Bern}\left(\frac12\right)$ and let $T = \min \{n : X_n = 1 \}$.  $T$ is a stopping time, but $\p\left(T - 1 = 1 | X_1\right)$ is $0$ if $X_1 = 1$ and $\frac12$ if $X_1 = 0$.  Thus $T - 1$ is not a stopping time.
+
+$\min \{ S,T \}$ is a stopping time because it is simply the rule that says to stop when either of $T$ or $S$ have occured.  Let $\mathcal{F}_n = \{S_1 = x_1, \dots S_n = x_n\}$ and $\mathcal{G}_n = \{ T_1 = y_1, \dots , T_n = y_n \}$.
+More formally, $\min \{S, T \}$ is a stopping time relative to the sequence $\left(X_n, Y_n\right)$ because
+\begin{align*}
+&\p\left(\min \{S, T \} > n \ | \ \left(S_1,T_1\right) = \left(x_1,y_1\right), \dots , \left(S_n,T_n\right) = \left(x_n,y_n\right) \right)
+\\
+&= 1 - \p\left(S \leq n, T \leq n \ | \ \mathcal{F}_n, \mathcal{G}_n \right)
+\\
+&= 1 - \p\left(S \leq n \ | \ \mathcal{F}_n, \mathcal{G}_n \right)\p\left(T \leq n \ | \ \mathcal{F}_n, \mathcal{G}_n \right)
+\\
+&= 1 - \p\left(S \leq n \ | \ \mathcal{F}_n \right)\p\left(T \leq n | \mathcal{G}_n \right) = 0 \text{ or } 1
+\end{align*}
+where we were able to factor the joint probability on the second line because $S$ and $T$ are conditionally independent given $\mathcal{F}_n \cap \mathcal{G}_n$.
+
+Similarly, $\max \{S,T \}$ is a stopping time relative to the sequence $\left(X_n, Y_n\right)$ because
+\begin{align*}
+&\p\left(\max \{S, T \} \leq n \ | \ \left(S_1,T_1\right) = \left(x_1,y_1\right), \dots , \left(S_n,T_n\right) = \left(x_n,y_n\right) \right)
+\\
+&= \ \p\left(S \leq n, T \leq n \ | \ \mathcal{F}_n, \mathcal{G}_n \right)
+\\
+&= \ \p\left(S \leq n \ | \ \mathcal{F}_n, \mathcal{G}_n \right)\p\left(T \leq n \ | \ \mathcal{F}_n, \mathcal{G}_n \right)
+\\
+&= \ \p\left(S \leq n \ | \ \mathcal{F}_n \right)\p\left(T \leq n | \mathcal{G}_n \right) = 0 \text{ or } 1.
+\end{align*}
+Again, $\max \{S,T\}$ is the rule that says to stop when both of $S$ and $T$ have occured.
+\end{proof}
+
+\begin{prob2}
+
+Let $S_n = \sum_{i=1}^n W_i$ be a simple random walk with $W_i$ iid and $\p[W_i = 1] = \p[W_i = -1] = \frac12$.  Find $\E\left[S_m \ | \ S_n\right]$ when (a) $m>n$ and (b) $m<n$.
+
+\end{prob2}
+
+\begin{proof}
+
+(a) Assume $m > n$.  Then
+\begin{align*}
+\E\left[S_m \ | \ S_n\right] &= \E\left[ S_n + \sum_{i=n+1}^m W_i \ | \ S_n\right]
+\\
+&= \E\left[ S_n \ | \ S_n\right] + \E\left[\sum_{i=n+1}^m W_i \ | \ S_n\right]
+\\
+&= S_n + \sum_{i=n+1}^m \E\left[W_i \ | \ S_n\right]
+\\
+&= S_n.
+\end{align*}
+
+\noindent (b) Assume $m < n$.  Note that, since the $W_i$ are $iid$, $\E\left[W_i \ | \ S_n\right] = \E\left[W_j \ | \ S_n\right] = \dfrac{S_n}{n}$ for $i, j \leq n$.  So
+$$\E\left[S_m \ | \ S_n\right] = \E\left[\sum_{i=1}^m W_i \ | \ S_n\right] = \sum_{i=1}^m \E\left[W_i \ | \ S_n\right] = \sum_{i=1}^m \dfrac{S_n}{n} = \frac{m}{n}S_n.$$
+
+\end{proof}
+
+\begin{prob3}
+A bag contains red and blue balls. At each step a ball is chosen uniformly from the bag, and it is returned to the bag together with another of the same color. After $n$ rounds,
+let $R_n$ and $B_n$ be the number of red and blue balls respectively. Show that $$\frac{R_n}{R_n + B_n}$$ is a martingale.  If the bag starts with 5 red and 3 blue balls, what is the expected number of blue balls after $n$ rounds?
+\end{prob3}
+
+\begin{proof}
+First, note that $R_{n+1} + B_{n+1} = R_n + B_n + 1$ with probability 1 for every $n$, since we always add one ball to the bag at each step.  Also, $\p\left(R_{n+1} = R_n + 1\right) = \dfrac{R_n}{R_n + B_n}$ and $\p\left(R_{n+1} = R_n\right) = \dfrac{B_n}{R_n + B_n}$.  So
+$$\E\left[\frac{R_{n+1}}{R_{n+1} + B_{n+1}} \ | \ \mathcal{F}_n \right] = \frac{\E\left[R_n \ | \ \mathcal{F}_n\right]}{R_n + B_n + 1} = \frac{R_n\frac{R_n}{R_n + B_n} + \left(R_n + 1\right)\frac{B_n}{R_n + B_n}}{R_n + B_n + 1}$$
+$$ = \frac{R_n\left(R_n + B_n + 1\right)}{\left(R_n + B_n\right)\left(R_n + B_n + 1\right)} = \frac{R_n}{R_n + B_n},$$ thus $\dfrac{R_n}{R_n + B_n}$ is a martingale.
+
+Now, assume $R_0 = 5$ and $B_0 = 3$.  Then
+$$ \E\left[B_n\right] = \E\left[\left(B_n + R_n\right) - R_n\right] = \E\left[8+n - \left(8+n\right)\frac{R_n}{R_n+B_n}\right]$$
+$$= \left(8+n\right)\left(1-\E\left[\frac{R_n}{R_n + B_n}\right]\right) = \left(8+n\right)\left(1-\frac{R_0}{R_0 + B_0}\right) = \left(8+n\right)\left(1-\frac{5}{8}\right) = 3 + \frac38 n.$$
+
+\end{proof}
+
+\begin{prob4}
+
+A die is rolled repeatedly. Which of the following are Markov chains?
+\begin{itemize}
+\item The number $N_n$ of sixes rolled in $n$ rolls. \emph{Yes}
+\item At time $n$ the number of rolls $C_n$ since the most recent six. \emph{Yes}
+\item At time $n$ the number of rolls $B_n$ until the next six. \emph{Yes}
+\end{itemize}
+For each one that is a Markov chain, find the transition matrix.
+\end{prob4}
+
+\begin{proof}
+
+$N_n$ is a Markov Chain because, given $N_n$, $N_{n+1} = N_n$ with probability $\frac56$ and $N_{n+1} = N_n+1$ with probability $\frac16$, regardless of the values of $N_1, \dots, N_{n-1}$.  $C_n$ is a Markov Chain because, given $C_n$, $C_{n+1} = C_{n} + 1$ with probability $\frac56$ and $C_{n+1} = 0$ with probability $\frac16$, regardless of the values of $C_1, \dots, C_{n-1}$.  $B_n$ is a Markov Chain because, given $B_n$, $B_{n+1} = B_n - 1$ with probability 1 if $B_n > 1$, and $B_{n+1} \sim \text{Geom}\left(\frac16\right)$ (with support $\{1,2, \dots \}$) if $B_n = 1$, regardless of the values of $B_1, \dots, B_{n-1}$.
+
+From the definition of a transition matrix given in class, it is difficult to decide what the transition matrices for $N_n$ and $C_n$ should be.  The definition given was that the $i,j$th entry in the matrix is $\p\left(X_{n+1} = j \ | \ X_n = i\right)$.  However, there are different conventions on how to define $\p\left(A \ | \ B\right)$ when $\p\left(B\right) = 0$.  I am going to choose to consider a conditional probability undefined in this case.  So the $n$th transition matrix will only contain an $i$th row if $\p\left(X_n = i\right) \neq 0$.  Also, it might make sense to not have a $j$th column in the matrix if $\p\left(X_{n+1} = k\right) = 0$ for all $k \geq j$.  However, since these probabilities are defined, I will include these columns.
+
+The $n$th step transition matrix for $N_n$ is thus an $\left(n+1\right) \times \infty$ matrix, since the support of $N_n$ is $\{0, 1, 2, \dots , n \}$, where the $i,j$th entry is $P_{ij} = \p\left(N_{n+1} = j - 1 \ | \ N_n = i - 1\right)$, so that the first row and column correspond to the first state, which is $N_n = 0$.  The matrix is defined by
+\[ P_{ij} = \begin{cases}
+      \frac16 & j = i+1 \\
+      \frac56 & j = i \\
+      0 & \text{else}
+   \end{cases}
+\]
+for all $i \in \{0, 1, 2 \dots , n \}$ and $j \in \{0, 1, 2, \dots \}$.
+
+The $n$th step transition matrix for $C_n$ is again an $\left(n+1\right) \times \infty$ matrix, since the support of $C_n$ is $\{0, 1, 2, \dots , n \}$, where the $i,j$th entry is $Q_{ij} = \p\left(C_{n+1} = j - 1 \ | \ C_n = i - 1\right)$, so that the first row and column correspond to the first state, which is $C_n = 0$.  The matrix is defined by
+\[ Q_{ij} = \begin{cases}
+      \frac16 & j = 0 \\
+      \frac56 & j = i + 1 \\
+      0 & \text{else}
+   \end{cases}
+\]
+for all $i \in \{0, 1, 2 \dots , n \}$ and $j \in \{0, 1, 2, \dots \}$.
+
+The transition matrix for $B_n$ is homogeneous.  It is an $\infty \times \infty$ matrix where the $ij$th entry is $R_{ij} = \p\left(B_{n+1} = j \ | \ B_n = i\right)$, since the $k$th state is $B_n = k$.  The matrix is defined by
+\[ R_{ij} = \begin{cases}
+      1 & j = i-1 \text{ and } i > 1 \\
+      \frac16 (\frac56)^{j-1} & i = 1 \\
+      0 & \text{else}
+   \end{cases}
+\]
+where $i,j \in \{1,2, \dots \}$.
+
+$$
+P = \left(
+\begin{matrix}
+\nicefrac56 & \nicefrac16 & 0 & 0 & \cdots & 0 & 0 & \cdots \\ 
+0 & \nicefrac56 & \nicefrac16 & 0 & \cdots & 0 & 0 & \cdots\\ 
+0 & 0 & \nicefrac56 & \ddots & \cdots & 0 & 0 & \cdots \\ 
+\vdots & \vdots & \vdots & \ddots & \ddots & \vdots & \vdots & \cdots \\
+0 & 0 & 0 & \cdots & \ddots & \nicefrac16 & 0 & \cdots \\
+0 & 0 & 0 & \cdots & \cdots & \nicefrac56 & 0 & \cdots \\ 
+\end{matrix}
+\right)
+\hspace{.5cm}
+%
+%
+%
+Q = \left(
+\begin{matrix}
+\nicefrac16 & \nicefrac56 & 0 & 0 & \cdots & 0 & 0 & \cdots \\ 
+\nicefrac16 & 0 & \nicefrac56 & 0 & \cdots & 0 & 0 & \cdots\\ 
+\nicefrac16 & 0 & 0 & \nicefrac56 & \cdots & 0 & 0 & \cdots \\ 
+\vdots & \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \cdots \\
+\nicefrac16 & 0 & 0 & 0 & \cdots & \nicefrac56 & 0 & \cdots \\
+\end{matrix}
+\right)
+$$
+$$ R = \left(
+\begin{matrix}
+\frac16 & (\frac56)(\frac16) & (\frac56)^2(\frac16) & \cdots \\
+1 & 0 & 0 & \cdots \\
+0 & 1 & 0 & \cdots \\
+0 & 0 & 1 & \cdots \\
+\vdots & \vdots & \vdots & \ddots
+\end{matrix} \right)
+$$
+
+\end{proof}
+
+\begin{prob5}
+Let $M_n$ be a martingale.  Show that for $0 < n < m$, $$\text{Cov}(M_{n+1} - M_n, M_{m+1} - M_m) = 0.$$
+\end{prob5}
+
+\begin{proof}
+First, note that $\E\left[M_{n+1} - M_n\right] = \E\left[M_0\right] - \E\left[M_0\right] = 0$ because $M_n$ is a martingale.  So the numerator of $\text{Cov}(M_{n+1} - M_n, M_{m+1} - M_m)$ is
+\begin{align*}
+& \E\left[(M_{n+1} - M_n)(M_{m+1} - M_m)\right] - \E\left[M_{n+1} - M_n\right] \E\left[M_{m+1} - M_m\right]
+\\
+= \ & \E\left[M_{n+1}M_{m+1}\right] - \E\left[M_n M_{m+1}\right] - \E\left[M_{n+1}M_m\right] + \E\left[M_n M_m\right] - 0
+\\
+= \ & \E\left[\E\left[M_{n+1}M_{m+1} \ | \ \mathcal{F}_m\right]\right] - \E\left[\E\left[M_n M_{m+1} \ | \ \mathcal{F}_m\right]\right] - \E\left[M_{n+1}M_m\right] + \E\left[M_n M_m\right]
+\\
+= \ & \E\left[M_{n+1} \E\left[M_m \ | \ \mathcal{F}_m\right]\right] - \E\left[M_n \E\left[M_m \ | \ \mathcal{F}_m\right]\right] - \E\left[M_{n+1}M_m\right] + \E\left[M_n M_m\right]
+\\
+= \ & \E\left[M_{n+1}M_m\right] - \E\left[M_nM_m\right] - \E\left[M_{n+1}M_m\right] + \E\left[M_n M_m\right] = 0
+\end{align*}
+therefore the covariance is 0.
+\end{proof}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

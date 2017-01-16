@@ -1,0 +1,161 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+%\addtolength{\oddsidemargin}{-.1in} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{lipsum}
+\usepackage[]{units}
+\usepackage{relsize}
+\usepackage{verbatim}
+\usepackage{bbm}
+\usepackage{mathtools}
+\usepackage{eufrak}
+\usepackage[mathscr]{euscript}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{graphicx}
+\usepackage{xfrac}
+%\usetikzlibrary{cd}
+\usepackage{tikz-cd}
+\usepackage{tkz-berge}
+\usetikzlibrary{shapes,snakes}
+
+\setenumerate{listparindent=\parindent}
+
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Int}{{\displaystyle \int}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\U}{\mathcal{U}}
+\renewcommand{\L}{\mathcal{L}}
+\newcommand{\T}{\mathcal{T}}
+
+\newcommand{\dd}[2]{\frac{d#1}{d#2}}
+
+\DeclareMathOperator*{\dom}{dom}
+\DeclareMathOperator*{\Aut}{Aut}
+\DeclareMathOperator*{\Ann}{Ann}
+\DeclareMathOperator*{\Tor}{Tor}
+\DeclareMathOperator*{\Gal}{Gal}
+\DeclareMathOperator*{\Hom}{Hom}
+\DeclareMathOperator*{\End}{End}
+\DeclareMathOperator*{\im}{Im}
+\DeclareMathOperator*{\card}{card}
+\DeclareMathOperator*{\id}{id}
+
+\renewcommand{\bar}{\overline}
+\renewcommand{\P}{\mathcal{P}}
+
+\usepackage{fancyhdr} % Required for custom headers 
+%\usepackage{lastpage} % Required to determine the last page for the footer
+
+\pagestyle{fancy}
+\lhead{Math 202A (HW 12)}
+\chead{Michael Knopf (24457981)}
+\rhead{December $3^\text{rd}$, 2015}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+%\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}
+\renewcommand\headrulewidth{0.4pt}
+%\renewcommand\footrulewidth{0.4pt}
+
+\begin{document}
+
+\begin{enumerate}
+\item[B 20.27] Find two disjoint closed subsets $E$ and $F$ of $\R$ such that $\inf\limits_{x \in E, y \in F} |x-y| = 0$.
+
+\begin{proof}
+Let $E = \{ x + \frac{1}{x} : x \in \Z \setminus \{-1,0,1\} \}$ and $F = \Z$.  Then $E \cap F = \emptyset$, but for any $\epsilon > 0$ we can find some $n \in \Z$ such that $|(n - \frac{1}{n}) - n| = |\frac{1}{n}| < \epsilon$.
+\end{proof}
+
+\item[B 20.28] Prove that every metric space is a normal space.
+
+\begin{proof}
+Let $X$ be a metric space.  If $x \neq y$, then $d(x,y) = d > 0$.  So the ball of radius $\frac{d}{2}$ around $x$ is open and does not contain $y$, so $X$ is T1.
+
+Let $S \subseteq X$.  First, we will show that $d(x,y) \geq |d(x,S) - d(y,S)|$ for all $x,y \in X$.  Let $x,y \in X$ and $z \in S$.  Then $d(x,S) \leq d(x,z) \leq d(x,y) + d(y,z)$, thus $d(x,S) - d(x,y) \leq d(y,z)$.  Since $z$ is arbitrary, we may take the infimum of both sides (over $z \in S$) to obtain
+$d(x,S) - d(x,y) \leq d(y,S)$, or equivalently $d(x,y) \geq d(x,S) - d(y,S)$.  Since $x$ and $y$ were arbitrary, interchanging them gives $d(x,y) = d(y,x) \geq d(x,S) - d(y,S)$, thus the desired inequality holds.  Using this inequality, we see that $d(x,S)$ is a continuous function, since taking $\delta = \epsilon$ we have
+$$
+|d(x,S) - d(y,S)| \leq d(x,y) < \epsilon
+$$
+whenever $d(x,y) < \delta$.
+
+Now, let $E,F \subseteq X$ be disjoint and closed.  Define $f(x) = d(x,E)$ and $g(x) = d(x,F)$.  Then $h(x) = f(x) - g(x)$ is continuous, so $h^{-1}((0,\infty))$ and $h^{-1}((-\infty, 0))$ are open and disjoint.  Suppose now that $x \in E$.  Then clearly $0 \leq d(x,E) \leq d(x,x) = 0$, so $d(x,E) = 0$.  If we also had $d(x,F) = 0$, then we would have $d(x,y_n) \rightarrow 0$ for some sequence $y_n \in F$.  Since $F$ is closed, $y_n \rightarrow y \in F$.  Clearly the singleton $\{x\}$ is closed in a metric space, so $d(x,z)$ is continuous in $z$ by the previous paragraph.  Thus, $d(x,y) = \lim d(x,y_n) = 0$, and so $x = y \in F$.  This contradicts that $E$ and $F$ are disjoint, since $x$ is also in $E$.  Thus, $d(x,F) > 0$, and so $h(x) = f(x) - g(x) > 0$, so $x \in h^{-1}((0,\infty))$.  Since $x \in E$ was arbitrary, this means $E \subseteq h^{-1}((0,\infty))$.  Interchanging $E$ and $F$ in this argument shows that $F \subseteq h^{-1}((-\infty,0))$.  So $X$ is normal, by definition.
+
+\end{proof}
+
+\item[B 20.30] Show that a closed subspace of a normal space is normal.
+
+\begin{proof}
+Let $X$ be a normal topological space and let $Y \subseteq X$ is closed.  The topology on $Y$ is the set $\{\U \cap Y : \U \subseteq X \text{ is open} \}$.  We will first show that the collection of closed sets is $\{\U \cap Y : \U \subseteq X \text{ is closed} \}$.  This is better done just by thinking about it, since the symbols are really just an overcomplication of the key idea, however I have learned to err extremely far on the side of writing too much for this class.  This fact is really equivalent to saying that a function is continuous if and only if the preimage of every closed set is closed, which is an elementary fact we proved in real analysis, since the subspace topology is the coarsest possible topology that makes the projection map continuous.  Still, I'll play it safe and bore you with the details.
+
+Suppose $E \subseteq Y$ is closed in $Y$.  Then $Y \setminus E = Y \cap E^c = Y \cap \U$ for some open $\U \subseteq X$.  We will show that $Y \cap \U^c = E$, proving that $E$ is the intersection of the closed set $\U^c$ with $Y$.  Let $x \in Y \cap \U^c$.  Then $x \not \in Y \cap \U = Y \cap E^c$.  Since $x \in Y$, we must have $x \in E$.  Conversely, suppose $x \in E$.  Then $x \in Y$ because $E \subseteq Y$.  However, $x \not \in Y \cap E^c = Y \cap \U$, so we must have $x \in \U^c$.  So $x \in Y \cap \U^c$.  This proves the equality.
+
+We also need to show that the intersection of a closed set with $Y$ is closed in $Y$.  A closed set in $X$ takes the form $\U^c$ for some open $\U \subseteq X$.  Now,
+$$Y \setminus (Y \cap \U^c)= Y \cap (Y^c \cup \U) = (Y \cap Y^c) \cup (Y \cap \U) = Y \cap \U$$
+is open in $Y$, thus $\U^c \cap Y$ is closed in $Y$.
+
+Now, suppose $Y$ is closed in $X$, and let $E',F' \subseteq Y$ be two closed, disjoint subsets.  Then $E' = E \cap Y$ and $F' = F \cap Y$ for some closed subsets $E$ and $F$ of $X$.  Since $Y$ is closed, this means that $E'$ and $F'$ are closed in $X$ as well as in $Y$.  Because $X$ is normal, there are disjoint open neighborhoods $M$ and $N$ of $E$ and $F$ in $X$, respectively.  Then $M \cap Y$ and $N \cap Y$ are open neighborhoods of $E'$ and $F'$, respectively.
+
+Finally, let $x,y \in Y$ be distinct.  Then there is an open neighborhood $\U$ of $x$ in $X$ such that $y \not \in \U$.  So $\U \cap Y$ is an open neighborhood of $x$ in $Y$ with $y \not \in \U \cap Y$.  So $Y$ is normal.
+\end{proof}
+
+\item[B 20.49] A topological space $X$ is \emph{arcwise connected} if whenever $x,y \in X$, there exists a continuous function $f$ from $[0,1]$ into $X$ such that $f(0) = x$ and $f(1) = y$.
+\begin{enumerate}
+\item[(1)] Prove that if $X$ is arcwise connected, then $X$ is connected.
+
+\begin{proof}
+Suppose for a contradiction that $X$ is path connected but not connected.  Then there are disjoint nonempty open sets $G$ and $H$ such that $X = G \cup H$.  Let $x \in G$ and $y \in H$.  Since $X$ is path connected, there is a continuous function $f: [0,1] \rightarrow X$ such that $f(0) = x$ and $f(1) = y$.  Therefore, $f^{-1}(G)$ and $f^{-1}(H)$ are both nonempty.  They are disjoint and open because $G$ and $H$ are disjoint and open, and their union must be $[0,1]$ because $f([0,1]) \subseteq X = G \cup H$.  This contradicts the result of Proposition 20.47, which implies that $[0,1]$ is connected.  So $X$ must be connected if it is path connected.
+\end{proof}
+
+\item[(2)] Let $A_1 = \{(x,y) \in \R^2 : y = \sin(1/x), 0 < x \leq 1\}$ and $A_2 = \{(x,y) \in \R^2 : x = 0, -1 \leq y \leq 1\}$.  Let $X = A_1 \cup A_2$ with the relative topology derived from $\R^2$.  Prove that $X$ is connected but not arcwise connected.
+
+\begin{proof}
+We can form a sequence $s_n$ in $A_1$ converging to $(0,0)$ as follows.  Let $s_1 = (\frac{1}{2\pi}, 0) \in A_1$.  Suppose we have defined the first $k$ terms of $s_n$.  Consider the interval $I = (0,\min(s_k,\frac{1}{k+1}))$.  We can always find two values $r < s$ in this interval such that $\frac1r - \frac1s = \pi$.  If $\sin(\frac{1}{s}) \neq 0$, then since
+$$\sin\left(\frac{1}{r}\right) = \sin\left(\frac1s + \left(\frac{1}{r} - \frac1s\right)\right) = \sin\left(\frac1s + \pi\right)  = -\sin\left(\frac1s\right)$$
+we can apply the intermediate value theorem to conclude that $\sin$ has a root in the interval $(\frac{1}{s}, \frac{1}{r})$.  Equivalently, $\sin(\frac1x)$ has a root $x_0$ in $(r,s) \subseteq I$.  Define $s_{k+1} = (x_0,0) \in A_1$.  By construction, $s_n \rightarrow (0,0)$.
+
+$A_2$ is connected because it is path connected: given any two points $(0,x), (0,y) \in A_2$, define $[0,1] \rightarrow \R^2$ by $t \rightarrow (0, x + (y-x)t)$.  $A_1$ is also connected.  Given any two points $(x, \sin(\frac1x)), (y,\sin(\frac1y)) \in A_2$, define $f:[0,1] \rightarrow \R^2$ by $f(t) = x + (y-x)t$, then define $g(t) = (t,\sin(\frac{1}{f(t)}))$.  Since $f$, $\sin$, and $\frac{1}{x}$ are continuous on the domains of interest, $g$ is continuous, and clearly $g(0) = (x, \sin(\frac1x))$ and $g(1) = (y,\sin(\frac1y))$.
+
+Now, suppose $X$ is disconnected, so that $X \subseteq G \cup H$ for some disjoint $G, H$.  Because both $A_1$ and $A_2$ are path connected, we must have WLOG $A_1 \subseteq G$ and $A_2 \subseteq H$.  Otherwise, we would have, for instance, that $A_1$ has nonempty intersection with two disjoint open sets and is contained in their union, contradicting that $A_1$ is connected.  We know that $(0,0)$ is interior to $G$, and there is a nonempty open set $\U$ such that $(0,0) \in \U \subseteq G$.  However, $s_n$ converges to $(0,0)$, and so $\U$ must contain points of $A_2$, contradicting that $G$ and $H$ are disjoint.  Therefore, $X$ is connected.
+
+Suppose, for a contradiction, that $X$ is path connected.  Then there is a continuous path $f:[0,1] \rightarrow X$ such that $f(0) = (0,1)$ and $f(1) = (1,\sin 1))$.  Thus, there is some $\delta > 0$ such that $|f(t) - (0,1)| < \frac12$ whenever $t < \delta$.  Consider the projection map $\pi: \R^2 \rightarrow \R$ given by $(x,y) \mapsto x$.  $\pi$ is continuous, hence $\pi \circ f$ is continuous.  Since $[0,\delta]$ is connected, then, so is $\pi \circ f([0,\delta])$.  The only connected subsets of $\R$ are intervals (by Proposition 20.47), so $\pi \circ f([0,\delta]) = I$ for some interval $I$.  We must have $0 \in I$ because $\pi \circ f (0) = \pi ((0,1)) = 0$, and $\delta \in I$ by similar reasoning.  So $[0,\delta] \subseteq I$.
+
+So for all $x \in [0,\delta]$, there exist $t$ and $y$ such that $f(t) = (x,y)$.  However, for a large enough choice of $n$, we have $0 < t_0 = \frac{1}{2\pi n} < \delta$, and so $\sin(\frac{1}{t_0}) = 0$.  Since $f(t_0) \in X$ and $t_0 > 0$, we must have $f(t_0) = \sin(\frac{1}{t_0}) = 0$, contradicting that $|f(t) - (0,1)| < \frac12$ whenever $t < \delta$.
+
+\end{proof}
+
+\end{enumerate}
+
+\item[F 4.2.23] Give an elementary proof of the Tietze extension theorem for the case $X = \R$:
+if $A \subseteq \R$ is closed and $f \in C(A, [a,b])$, there exists $F \in C(\R,[a,b])$ such that $F \mid_A = f$.
+
+\begin{proof}
+$A^c$ is open in $\R$, thus it is a countable union of disjoint open intervals.  That is,
+$$
+A^c = \bigcup_1^\infty (a_i,b_i)
+$$
+where these intervals are disjoint.  For each $i$, define
+$$F(x) = f(a_i) + (x-a_i)\frac{f(b_i) - f(a_i)}{b_i-a_i}$$
+on $(a_i , b_i)$, so that $F(a_i) = f(a_i)$, $F(b_i) = f(b_i)$, and $F$ is linear in between $a_i$ and $b_i$.  This is well-defined because $f$ is defined on each $a_i$ and $b_i$, since these are not in $A^c$.  Clearly, $F$ is continuous and restricts to $f$ on $A$.
+\end{proof}
+
+\end{enumerate}
+
+\end{document}
+
+
+
+
+
+
+

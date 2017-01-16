@@ -1,0 +1,113 @@
+
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html> <head>
+<title>STAT 133; Project 2; Temi Lal and Michael Knopf </title>
+
+  <style type="text/css">
+  h1 {
+    font-family: Helvetica, Geneva, Arial,
+          SunSans-Regular, sans-serif;
+    color: purple; }
+  figcaption {
+    font-style: italic;
+    font-size: 80%;
+}
+  </style>
+</head>
+
+<body>
+<h1>Simulation of Birth and Assassination Process</h1>
+<h3>Michael Knopf and Temi Lal </h3>
+
+<h2>Introduction</h2>
+
+<p>
+We are using a simulation to study the "birth-and-assassination" process proposed by Professor Davis Aldous. The birth and death process is stochastic and our project is set up to randomly generate family trees based on given birth and death rates. The phenomenon we are simulating follows certain rules. We start with the head of the family, born at time 0. This person has children according to a Poisson process with rate lambda. These children also have their own offspring at the same rate. The head of the family gets assassinated at a random time that follows an exponential distribution with rate kappa. Only once the head of the family is dead can his or her children die. In general, offspring cannot die until after their parents do because parents protect their children from assassination. It is possible that no one in a given generation has any children. In this case, we say that the family died out. It is possible for the population to grow rapidly without stopping, as well. This is why we limit the amount of time and the number of generations during which we observe the simulation. Our program takes in birth rates lambda and a death rates kappa. For each pair of rates, we simulated the process multiple times and returned certain summary statistics involving the number of offspring and generations produced. This allows us to study the impact of birth and death rates on population growth.
+</p>
+
+<h2>Simulation Design</h2>
+
+<p>
+The lambda and kappa pairs we were required to simulate were (1,1), (1,2), (1,3), (2,1), and (2,2). The professor said we could run the simulation with other lambda and kappa values if we wanted to explore the birth and assassination process further. We included the parameter pairs (1.2,1), (1.4,1), (1.5,1), (1.6,1), (1.7,1), (1.8,1), and (1.9,1) as well. The maximum number of generations we chose to observe was 10. The maximum time we chose to observe the simulation was 5 times lambda. We did 100 replications per parameter pair.
+</p>
+
+
+<h2>Profiling and Improvement</h2>
+
+<p>
+Writing the code to make this simulation work was an iterative process that involved a lot of editing to increase efficiency. Small improvements in the efficiency of a few lines of code had a large impact on how long it took for our simulation to run with all one hundred repeats. We have commented out some of the original lines of code that we wrote using for loops instead of taking advantage of vectorized operations in R.
+</p>
+
+<p>
+Profiling our original code revealed that it was incredibly inefficient. It took 2 hours and 20 minutes to run the simulation using the 5 given parameter values. Rprof revealed that the simulation was bottlenecking at the chunk in genKids which randomly generated birth and death times for the children. We had been using for loops to complete this process, which turned out to be very slow. After converting the program to use the apply function instead, it was able to run with these parameter values in around 6 minutes.
+</p>
+
+
+<h2>Findings</h2>
+<p>
+Our results reveal that statistics indicating survival are positively correlated with the ratio of birth to death rate. For high ratios, when families died out they died out early.  This agrees with what we would expect.  However, our results also show that, for higher ratios of birth to death rate, if a family does not die out early then it most likely will not die out at all.  This also agrees with probabilistic analysis of the situation, since once a family has more than a few members, a high birth rate to death rate ratio will essentially ensure divergent growth.
+</p>
+
+<table cellspacing="2" border="1">
+  <tr>
+    <th></th><th></th><th></th><th colspan="3">Number of Offspring</th><th colspan="3">Number of Generations</th>
+  </tr>
+    <tr>
+    <th>Kappa</th><th>Lambda</th><th>Number<br/>of<br/>Surviving Trees</th>
+    <th>Lower<br/> Quartile</th><th>Median</th><th>Upper<br/> Quartile</th><th>Lower<br/> Quartile</th><th>Median</th><th>Upper<br/> Quartile</th>
+  </tr>
+  <tr  align="center">
+    <td>1</td><td>1</td><td>55</td><td>0</td><td>2</td><td>47.25</td><td>1</td><td>2</td><td>10</td>
+  </tr>
+  <tr  align="center">
+    <td>2</td><td>1</td><td>94</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>2</td>
+  </tr>
+  <tr  align="center">
+    <td>3</td><td>1</td><td>100</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td>
+  </tr>
+    <tr  align="center">
+    <td>2</td><td>2</td><td>63</td><td>0</td><td>1</td><td>2538</td><td>1</td><td>2</td><td>10</td>
+  </tr>
+    <tr  align="center">
+    <td>1</td><td>1.2</td><td>58</td><td>0</td><td>1</td><td>484.8</td><td>1</td><td>2</td><td>10</td>
+  </tr>
+    <tr  align="center">
+    <td>1</td><td>1.4</td><td>48</td><td>0</td><td>5.5</td><td>2712</td><td>1</td><td>10</td><td>10</td>
+    <tr  align="center">
+    <td>1</td><td>1.5</td><td>47</td><td>0</td><td>687.5</td><td>8508</td><td>1</td><td>10</td><td>10</td>
+    <tr  align="center">
+    <td>1</td><td>1.6</td><td>51</td><td>0</td><td>1.5</td><td>14760</td><td>1</td><td>2</td><td>10</td>
+    <tr  align="center">
+    <td>1</td><td>1.7</td><td>49</td><td>0</td><td>2097</td><td>38850</td><td>1</td><td>10</td><td>10</td>
+    <tr  align="center">
+    <td>1</td><td>1.8</td><td>45</td><td>0</td><td>1870</td><td>58880</td><td>1</td><td>10</td><td>10</td>
+    <tr  align="center">
+    <td>1</td><td>1.9</td><td>46</td><td>0</td><td>26480</td><td>210800</td><td>1</td><td>10</td><td>10</td>
+    <tr  align="center">
+    <td>1</td><td>2</td><td>34</td><td>0</td><td>98410</td><td>427700</td><td>1</td><td>10</td><td>10</td>
+</table>
+
+<figure align="center" height = "100" width = "100">
+<img src="LalKnopf_survivalproportion.png"/>
+<figcaption>
+This barplot shows the proportion of family trees that survived through the final generation of the simulation versus the parameter pairs. In our results, if birth rate was greater than or equal to death rate, the survival proportion was always greater than 0.4. In the two cases where death rate exceeded birth rate, very few families survived. This makes sense intuitively.</figcaption>
+</figure>
+
+<figure align="center">
+<img src="LalKnopf_thirdquartile.png"/>
+<figcaption>
+This barplot shows the third quartile of the number of children born versus the different pairs of parameters. We chose to plot the third quartile because this is where we started to observe major differences between the parameter pairs. We observe that the number of offspring produced stays low and then shoots up when lambda equals 1.9 and 2 and kappa equals 1. When the birth rate is twice the death rate, the population gets very large.
+</figcaption>
+</figure>
+
+<figure align="center">
+<img src="LalKnopf_genmedian.png"/>
+<figcaption>
+This is a scatterplot of the ratio of birth rate to death rate versus the median number of generations produced per parameter pair. These median values seem to be either quite low or quite high. We would expect that as the ratio of birth rate to death rate gets higher, there should be fewer families dying out and more reaching the maximum number of generations, which is 10. This is very roughly what we find in this plot. More importantly, though, this graph reveals that there is a critical region for which ratios beyond will always produce medians equal to the maximum generation, meaning that the median family will always survive.
+</figcaption>
+</figure>
+
+<hr>
+<address></address>
+
+</body> </html>

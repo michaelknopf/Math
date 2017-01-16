@@ -1,0 +1,395 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+%\addtolength{\oddsidemargin}{-.1in} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{lipsum}
+\usepackage[]{units}
+\usepackage{relsize}
+\usepackage{verbatim}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{graphicx}
+\usepackage{xfrac}
+
+\setenumerate{listparindent=\parindent}
+
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\R}{\mathbf{R}}
+\DeclareMathOperator*{\dom}{dom}
+\DeclareMathOperator*{\Aut}{Aut}
+\DeclareMathOperator*{\Ann}{Ann}
+\DeclareMathOperator*{\Tor}{Tor}
+\DeclareMathOperator*{\Gal}{Gal}
+\DeclareMathOperator*{\Hom}{Hom}
+\DeclareMathOperator*{\End}{End}
+\renewcommand{\bar}{\overline}
+
+\usepackage{fancyhdr} % Required for custom headers 
+%\usepackage{lastpage} % Required to determine the last page for the footer
+
+\pagestyle{fancy}
+\lhead{Math 114 (HW7)}
+\chead{Michael Knopf (24457981)}
+\rhead{April $23^\text{rd}$, 2015}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+%\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}
+\renewcommand\headrulewidth{0.4pt}
+%\renewcommand\footrulewidth{0.4pt}
+
+\begin{document}
+
+In all exercises, you may assume $R$ is a commutative ring with identity where $1 \neq 0$.  For some of the questions, you may find Theorem 17 and its corollaries (pp. 373-374) helpful; we have not covered these yet in class but will next week.
+
+\begin{enumerate}
+
+\item (Exercise 2 in DF \S 10.4.) Show that the element $2 \otimes \overline{1}$ is zero in the $\mathbf{Z}$-module $\mathbf{Z} \otimes_\mathbf{Z} (\mathbf{Z}/2\mathbf{Z})$, but is nonzero in $(2\mathbf{Z}) \otimes_\mathbf{Z} (\mathbf{Z}/2\mathbf{Z})$.
+
+\begin{proof}
+By the relations given at the beginning of section 10.4, in $\mathbf{Z} \otimes_\mathbf{Z} (\mathbf{Z}/2\mathbf{Z})$ we have $$2 \otimes \overline{1} = (1+1) \otimes \overline{1} = 1 \otimes \overline{1} + 1 \otimes \overline{1} = 1 \otimes (\overline{1} + \overline{1}) = 1 \otimes 0 = 0$$ because $1 \otimes 0 = 1 \otimes (0 + 0) = 1 \otimes 0 + 1 \otimes 0$.
+
+Now, assume that $2 \otimes \overline{1} = 0$ in $(2\mathbf{Z}) \otimes_\mathbf{Z} (\mathbf{Z}/2\mathbf{Z})$.  We will show that this impies that $(2\mathbf{Z}) \otimes_\mathbf{Z} (\mathbf{Z}/2\mathbf{Z}) = \{0\}$.  Any element of $(2\mathbf{Z}) \times (\mathbf{Z}/2\mathbf{Z})$ is of the form $(2x,\overline{y})$ where $x,y \in \Z$.  By example 1 on pg. 368, $m \otimes \overline{0} = 0$ for all $m$.  So we may assume that $\overline{y} = 1$.  This gives
+$$
+(2x) \otimes \overline{1} = (x2) \otimes \overline{1} = x (2 \otimes \overline{1}) = 0
+$$
+therefore $(2\mathbf{Z}) \otimes_\mathbf{Z} (\mathbf{Z}/2\mathbf{Z}) = \{0\}$.  By the universal property of the tensor product, there are no nonzero $\Z$-bilinear maps from $(2\mathbf{Z}) \times (\mathbf{Z}/2\mathbf{Z})$ to any abelian group.  However, the map $\varphi: (2\mathbf{Z}) \times (\mathbf{Z}/2\mathbf{Z}) \rightarrow \Z$ defined by $\varphi(x,y) = xy$ is a nonzero $\Z$-bilinear to an abelian group:
+\begin{align*}
+\varphi(r_1a + r_2b,x) &= (r_1a+r_2b)x = r_1ax + r_2bx = r_1\varphi(a,x) + r_2\varphi(b,x)
+\\
+\varphi(x,r_1a + r_2b) &= x(r_1a + r_2b) = r_1ax + r_2bx = r_1\varphi(x,a) + r_2\varphi(x,b).
+\end{align*}
+This is a contradiction, thus $2 \otimes \overline{1} \neq 0$.
+\end{proof}
+
+\item (Exercise 8 in DF \S 10.4.) Let $R$ be an integral domain with quotient field (a.k.a. field of fractions; to review this, see \S 7.5) $Q$, and let $N$ be any $R$-module.  Let $U = R \backslash \{0\}$ denote the set of nonzero elements in $R$, and define $U^{-1}N$ to be the set of equivalence classes of ordered pairs $(u,n)$ with $u \in U$ and $n \in N$, under the equivalence relation $(u,n) \sim (u',n')$ if and only if there exists $v \in U$ such that $v(u'n - un') = 0$.  (That is, $U^{-1}N$ is the quotient of the set $U \times N$ by the given equivalence relation.)   Given an ordered pair $(u,n) \in U \times N$, let $\overline{(u,n)} \in U^{-1}N$ denote the equivalence class of $(u,n)$.
+
+(a) Prove that $U^{-1}N$ is an abelian group under the addition defined by
+\[
+\overline{(u_1,n_1)} + \overline{(u_2,n_2)} = \overline{(u_1u_2, u_2n_1 + u_1n_2)} \text{.}
+\]
+Prove that the operation $r \cdot \overline{(u,n)} = \overline{(u,rn)}$ defines an action of $R$ on $U^{-1}N$ making it into an $R$-module.  [This is an example of \emph{localization}, considered in general in \S 15.4.]
+
+\begin{proof}
+Note: $R$ is an integral domain, so we will commute under multiplaction as necessary.
+
+First, suppose that $(a,x) \sim (c,z)$ and $(b,y) \sim (d,w)$ for some $a,b,c,d \in U, x,y,z,w \in N$.  Then $u(az - cx) = 0$ and $v(bw - dy) = 0$ in $N$ for some $u,v \in U$.  We have
+\begin{align*}
+\bar{(a,x)} + \bar{(b,y)} &= \bar{(ab,bx + ay)}
+\\
+\bar{(c,z)} + \bar{(d,w)} &= \bar{(cd,dz+cw)}.
+\end{align*}
+But also
+\begin{align*}
+uv(ab(dz+cw) - cd(bx+ay))
+&= uvabdz + uvabcw - uvbcdx - uvacdy
+\\
+&= vbd(uaz) + uac(vbw) - vbd(ucx) - uac(vdy)
+\\
+&=vbd(u(az-cx)) + uac(v(bw - dy))
+\\
+&= vbd(0) + uac(0)
+\\
+&= 0
+\end{align*}
+thus the righthand sides are equivalent under $\sim$.  So the operation is well-defined.
+
+It is clear from the definition of $+$ that the righthand side is of the form $\overline{(u,n)}$ for $u \in U$ and $n \in N$: $u_1u_2 \in U$ because $R$ is an integral domain (so $u_1u_2 \neq 0$) and $u_2n_1 + u_1n_2 \in N$ because $N$ is a $R$-module.  Therefore the set is closed under this operation.
+
+We will check associativity.  Let $a,b,c \in U$ and $x,y,z \in N$.
+\begin{align*}
+(\bar{(a,x)} + \bar{(b,y)}) + \bar{(c,z)} &= \bar{(ab,bx + ay)} + \bar{(c,z)}
+\\
+&= \bar{(abc,c(bx+ay)+abz)}
+\\
+&= \bar{(abc, bcx + acy + abz)}
+\end{align*}
+where in the last step we have taken advantage of the commutativity of multiplication in $R$, since it is an integral domain.  Also,
+\begin{align*}
+\bar{(a,x)} + (\bar{(b,y)} + \bar{(c,z)}) &=
+\bar{(a,x)} + \bar{(bc,cy + bz)}
+\\
+&= \bar{(abc,a(cy+bz) + bcx)}
+\\
+&= \bar{(abc,acy + abz + bcx)}
+\\
+&= \bar{(abc,bcx + acy + abz)}
+\end{align*}
+where in the last step we have taken advantage of the commutativity of addition in $R$, simply because it is a ring.  So the operation $+$ is associative.
+
+Denote the identity element of $N$ by $0_N$.  The element $(1_R,0_N)$ serves as an additive identity in $U^{-1}N$ since, for any $a \in U, x \in N$, we have
+\begin{align*}
+\bar{(a,x)} + \bar{(1_R,0_N)} = \bar{(a(1_R), 1_Rx + a(0_N))} = \bar{(a,x)} = \bar{(1_R,0_N)} + \bar{(a,x)}.
+\end{align*}
+
+We will use the following fact several times, so I will state it here:
+\begin{align}
+\text{for any } u,v \in U, n \in N \text{ we have } (u,n) \sim (uv,vn)
+\end{align}
+This is clear because $1_R(u(vn) - (uv)n) = 0$.
+
+For any $a \in U, x \in N$, the element $(a-x)$ is an additive inverse (where $-x$ is the inverse of $x$ in $N$):
+\begin{align*}
+\bar{(a,x)} + \bar{(a,-x)} = \bar{(a^2,ax - ax)} = \bar{(a^2,0_N)} = \bar{(a^2 (1_R), a^2(0_N))} = \bar{(1_R, 0_N)}
+\end{align*}
+where the last equality is given by (1).  It is clear that the operation is commutative, since it is symmetric in $u_1,u_2$ and in $n_1,n_2$.  Thus, $U^{-1}N$ is an abelian group.
+
+We will now check that the operation $r \cdot \bar{(u,n)} = \bar{(u,rn)}$ defines an action of $R$ onto $U^{-1}N$, making it into an $R$-module.  Let $r,s \in R$, $a,b \in U$, and $x,y \in N$.
+\begin{align*}
+r\cdot (\bar{(a,x)} + \bar{(b,y)}) &= r \cdot (\bar{(ab, bx + ay)})
+\\
+&=\bar{(ab,r(bx + ay))}
+\\
+&=\bar{(ab,b(rx) + a(ry)))}
+\\
+&= \bar{(a,rx)} + \bar{(b,ry)}
+\\
+&= r\cdot \bar{(a,x)} + r\cdot \bar{(b,y)}
+\\
+(r+s) \cdot \bar{(a,x)} &= \bar{(a,(r+s)x)}
+\\
+&= \bar{(a^2,a(r+s)x)} \ \ \ \ \ (\text{by } (1))
+\\
+&= \bar{(a^2, arx + asx)}
+\\
+&= \bar{(a,rx)} + \bar{(a,sx)}
+\\
+&= r \cdot \bar{(a,x)} + s\cdot \bar{(a,x)}
+\\
+(rs)\bar{(a,x)} &= \bar{(a,rsx)}
+\\
+&= r \cdot \bar{(a,sx)}
+\\
+&= r\cdot (s\cdot \bar{(a,x)})
+\\
+1_R \cdot \bar{(a,x)} &= \bar{(a,1_Rx)}
+\\
+&= \bar{(a,x)}
+\end{align*}
+So this operation makes $U^{-1}N$ into an $R$-module.
+\end{proof}
+
+(b) Show that the map from $Q \times N$ to $U^{-1}N$ defined by sending $(a/b,n)$ to $\overline{(b,an)}$ for $a \in R$, $b \in U$, $n \in N$, is an $R$-bilinear map, so induces a homomorphism $f$ from $Q \otimes_R N$ to $U^{-1}N$.  Show that the map $g: U^{-1}N \rightarrow Q \otimes_R N$ defined by
+\[
+g(\overline{(u,n)}) = (1/u) \otimes n
+\]
+is well defined and is an inverse homomorphism to $f$.  Conclude that $Q \otimes_R N \cong U^{-1}N$ as $R$-modules.
+
+\begin{proof}
+Let $\varphi: Q \times N \rightarrow U^{-1}N$ be defined by $(a/b,n) \mapsto \overline{(b,an)}$.  Let $a,b,c,d \in U$, $r,s \in $, and $m,n \in N$.
+\begin{align*}
+\varphi\left(\left(r\frac{a}{b} + s\frac{c}{d},n\right)\right) &= \varphi\left(\left(\frac{rad + scb}{bd},n\right)\right)
+\\
+&= \bar{\left(bd,\left(rad + scb\right)n\right)}
+\\
+&= \bar{\left(bd, \left(rad\right)n + \left(scb\right)n\right)}
+\\
+&= \bar{\left(b,ran\right)} + \bar{\left(d,scn\right)}
+\\
+&=r\cdot \bar{\left(b,an\right)} + s\cdot \bar{\left(d,cn\right)}
+\\
+&= r \varphi\left(\frac{a}{b},n\right) + s \varphi\left(\frac{c}{d},n\right)
+\\
+\varphi\left(\left(\frac{a}{b},r\cdot m + s \cdot n\right)\right)
+&= \bar{\left(b,a\left(rm + sn\right)\right)}
+\\
+&= \bar{\left(b^2,ab\left(rm + sn\right)\right)} \ \ \ \ \ \left(\text{by } (1) \right)
+\\
+&= \bar{\left(b,arm\right)} + \bar{\left(b,asn\right)}
+\\
+&= r \cdot \bar{\left(b,am\right)} + s \cdot \bar{\left(b,an\right)}
+\\
+&= r \varphi\left(\frac{a}{b}, m\right) + s \varphi\left(\frac{a}{b},n\right)
+\end{align*}
+Therefore, $\varphi$ is an $R$-bilinear map.  By the universal property of the tensor product, $\varphi$ induces a homomorphism $f : Q \otimes_R N \rightarrow U^{-1}N$ such that $\varphi = f \circ \iota$, where $\iota: Q \times N \rightarrow Q \otimes_R N$ is given by $\iota(\frac{a}{b}, n) = \frac{a}{b} \otimes n$.  This means that $f$ must be defined by $f(\frac{a}{b} \otimes n) = \varphi(\frac{a}{b},n) = \bar{(b,an)}$.
+
+Let $g: U^{-1}N \rightarrow Q \otimes_R N$ be defined by
+$$
+g(\overline{(u,n)}) = \frac1u \otimes n.
+$$
+First, we will show that $g$ is well-defined.  Suppose $\bar{(a,x)} \sim \bar{(b,y)}$ for some $a,b \in U$, $x,y \in N$.  Then $u(ay - bx)$ for some $u \in U$.  We have
+$$
+g(\overline{(a,x)}) = \frac{1}{a} \otimes x = \frac{1}{uab}(ub) \otimes x = \frac{1}{uab} \otimes ubx = \frac{1}{uab} \otimes uay = \frac{1}{uab}ua \otimes y = \frac{1}{b} \otimes y = g(\overline{(b,y)}).
+$$
+Next, we will show that $g$ is an $R$-module homomorphism.  Let $r,a,b \in R$ and $x,y \in N$.  We have
+\begin{align*}
+g(\bar{(a,x)} + r \bar{(b,y)}) &= g(\bar{(ab,bx+ary)}
+\\
+&= \frac{1}{ab} \otimes (bx+ary)
+\\
+&= \frac{1}{ab} \otimes bx + \frac{1}{ab} \otimes ray
+\\
+&= \frac1a \otimes x + r(\frac{1}{b} \otimes y)
+\\
+&= g(\bar{(a,x)}) + r g(\bar{(b,y)}).
+\end{align*}
+
+Finally, we will show that $g$ is an inverse of $f$:
+$$
+g \circ f \left(\frac{a}{b} \otimes n \right)
+= g (\bar{(b,an)}) = \frac1b \otimes an
+= \frac1b (a) \otimes n = \frac{a}{b} \otimes n
+$$
+$$
+f \circ g(\bar{(u,n)}) = f \left(\frac1u \otimes n \right) = \bar{\left( u, 1(n) \right)} = \bar{\left( u, n \right)}
+$$
+thus $g$ is an inverse of $f$.  So $f$ is an isomorphism, therefore $Q \otimes_R N \cong U^{-1}N$ as $R$-modules.
+\end{proof}
+
+(c) Conclude from (b) that $(1/d) \otimes n$ is $0$ in $Q \otimes_R N$ if and only if $rn = 0$ for some nonzero $r \in R$.
+
+\begin{proof}
+Since $g$ is an isomorphism, $(\frac{1}{d}) \otimes n$ is $0$ in $Q \otimes_R N$ if and only if $g(\frac{1}{d} \otimes n) = \bar{(d,n)} = 0_{U^{-1}N} = \bar{(1,0)}$.  This means that $\bar{(d,n)} = \bar{(1,0)}$ and thus $u(1(n) - d(0)) = un = 0$ for some $u \in U$.  Since $U$ is the nonzero elements of $R$, the result follows.
+\end{proof}
+
+(d) If $A$ is an abelian group, show that $\mathbf{Q} \otimes_\mathbf{Z} A = 0$ (where $0$ denotes the zero module $\{0\}$) if and only if $A$ is a torsion abelian group (i.e., every element of $A$ has finite order).  (Caution: this does not mean $A$ itself has finite order!)
+
+\begin{proof}
+$\Q$ is the field of fractions of $\Z$, and $A$ is naturally a $\Z$ module under the action $n\cdot a = a + \cdots + a$ ($n$ times).  Therefore, the above result applies to $\Q \otimes_{\Z} A$; so, for any $a \in A$, $\frac{1}{d} \otimes a$ is $0$ in $\Q \otimes_{\Z} A$ if and only if $ra=0$ for some nonzero $r \in \Z$.
+
+First, suppose that $A$  is a torsion abelian group, and let $a \in A$.  $a$ has some finite order $n$ in $A$, therefore $na = a + \cdots + a = 0$.  Since $a$ was arbitrary, $\Q \otimes_{\Z} A = 0$.
+
+Next, assume $\Q \otimes_{\Z} A = 0$, and let $a \in A$.  There is some $n \in \Z$ such that $na = a + \cdots + a = 0$, thus $a$ has finite order and divides $n$.  So every element of $A$ has finite order, therefore $A$ is a torsion abelian group.
+\end{proof}
+
+\item (Exercise 10 in DF \S 10.4.) Suppose $N \cong R^n$ is a free $R$-module of rank $n$ with $R$-module basis $\{e_1,\ldots,e_n\}$.
+
+(a) Let $M$ be a nonzero $R$-module.  Show that for each element $\alpha \in M \otimes_R N$ there is a unique sequence of elements $m_1,\ldots,m_n \in M$ such that $\alpha = \sum_{i=1}^n m_i \otimes e_i$.  Deduce that if $\sum_{i=1}^n m_i \otimes e_i = 0$ in $M \otimes_R N$, then $m_1=\ldots=m_n=0$.
+
+\begin{proof}
+We aim to show that the map $f: M^n \rightarrow M \otimes_R N$ defined by $f(m_1, \dots , m_n) = \sum_{i=1}^n m_i \otimes e_i$ is a bijection.  Define a map $\varphi: M \times N \rightarrow M^n$ by $(m, \sum_{i=1}^n r_i e_i) \mapsto (r_1 m, \dots , r_n m)$ (since every element of $M \otimes_R N$ takes this form in a unique way).  Observe that $\varphi$ is $R$-balanced:
+\begin{align*}
+\varphi(x + y, \sum_{i=1}^n r_i e_i)
+&= (r_1(x+y), \dots , r_n(x+y))
+\\
+&= (r_1x+ r_1y, \dots , r_nx+ r_ny)
+\\
+&= (r_1x, \dots , r_n x) + (r_1y, \dots , r_ny)
+\\
+&= \varphi(x, \sum_{i=1}^n r_i e_i) + \varphi(y, \sum_{i=1}^n r_i e_i)
+\\
+\varphi(x, \sum_{i=1}^n r_i e_i + \sum_{i=1}^n s_i e_i)
+&= \varphi(x, \sum_{i=1}^n (r_i + s_i) e_i)
+\\
+&= ((r_1 + s_1)x, \dots , (r_n + s_n)x)
+\\
+&= (r_1x, \dots , r_nx) + (s_1x, \dots  , s_nx)
+\\
+&= \varphi(x, \sum_{i=1}^n r_i e_i) + \varphi(x, \sum_{i=1}^n s_i e_i).
+\end{align*}
+By the universal property of tensor product, $\varphi$ induces a unique group homomorphism $\Phi: M \otimes_R N \rightarrow M^n$ such that $\Phi(m \otimes \sum_{i=1}^n r_i e_i) = (r_1m, \cdots , r_nm)$.
+
+To see that $f$ is a bijection, we may simply show that it is the inverse of $\Phi$:
+\begin{align*}
+f \circ \Phi(m \otimes \sum_{i=1}^n r_i e_i)
+&= f(r_1m, \dots , r_nm) = \sum_{i=1}^n r_im \otimes e_i = m \otimes \sum_{i=1}^n r_i e_i
+\\
+\Phi \circ f(m_1, \dots , m_n)
+&= \Phi(\sum_{i=1}^n m_i \otimes e_i)
+= \sum_{i=1}^n \Phi(m_i \otimes e_i)
+= \sum_{i=1}^n (0,\dots,m_i,\dots,0)
+= (m_1, \dots , m_n)
+\end{align*}
+where we have distributed $\Phi$ through the summation because it is a group homomorphism with respect to addition in $M \otimes_R N$.  So $f$ is invertible and, thus, a bijection.
+
+Since the representation of $0$ as $\sum_{i=1}^n m_i \otimes e_i$ is unique with respect to the sequence $m_1, \dots, m_n$, and we know that $\sum_{i=1}^n 0 \otimes e_i = 0$, we must have $m_1 = \cdots = m_n = 0$ if $\sum_{i=1}^n m_i \otimes e_i = 0$.
+\end{proof}
+
+(b) Show that if $f_1,\ldots,f_n \in N$ are merely $R$-linearly independent elements (but do not form a basis for $N$ over $R$), then it is not necessarily true that $\sum_{i=1}^n m_i \otimes f_i = 0$ implies $m_1=\ldots=m_n=0$.  (Hint: Consider $R = \mathbf{Z}$, $n=1$, $M = \mathbf{Z}/2\mathbf{Z}$, and the element $\overline{1} \otimes 2$.)
+
+\begin{proof}
+Let $R = \Z$, $n=1$, and $M = \Z / 2\Z$.  We have
+$$
+\bar{1} \otimes 2 = \bar{1}(2) \otimes 1 = \bar{2} \otimes 1 = 0 \otimes 1 = 0
+$$
+However, $\bar{1}$ is nonzero in $(\Z / 2\Z) \otimes_{\Z} \Z$.  Clearly, $2$ is linearly independent in $\Z$ because $z\cdot 2 = 0$ implies $z = 0$.
+\end{proof}
+
+\item (Exercise 11 in DF \S 10.4.) Let $\{e_1,e_2\}$ be a basis of the $\mathbf{R}$-module $V = \mathbf{R}^2$.  Show that the element $e_1 \otimes e_2 + e_2 \otimes e_1$ in $V \otimes_\mathbf{R} V$ cannot be written as a simple tensor $v \otimes w$ for any $v,w \in V$.
+
+\begin{proof}
+Suppose, for a contradiction, that there do exist $v,w \in \R^2$ such that $v \otimes w = e_1 \otimes e_2 + e_2 \otimes e_1$.  Since $\{e_1, e_2\}$ forms a basis for $\R^2$ over $\R$, there exist unique $a,b,c,d \in \R$ such that $v = ae_1 + be_2$ and $w = ce_1 + de_2$.  So
+$$
+v \otimes w
+= ac (e_1 \otimes e_1) + ad (e_1 \otimes e_2) + bc (e_2 \otimes e_1) + bd (e_2 \otimes e_2)
+=
+e_1 \otimes e_2 + e_2 \otimes e_2.
+$$
+By the result of part (a) in the previous exercise, we must have $ac = bd = 0$ and $ad = bc = 1$.  So either $a=0$ or $c=0$.  However, if $a=0$ then $ad \neq 0$ and if $c = 0$ then $bc \neq 0$, a contradiction.  So the result follows.
+\end{proof}
+
+%\item (Exercies 12 in DF \S 10.4.) Let $V$ be a vector space over the field $F$ and let $v, v'$ be nonzero elements of $V$.  Prove that $v \otimes v' = v' \otimes v$ in $V \otimes_F V$ if and only if $v = av'$ for some $a \in F$.  (Do not assume that $V$ is finite-dimensional!)
+
+\item (Exercise 15 in DF \S 10.4.) Show that tensor products do not in general commute with direct products; that is, there exist $R$, $M$, $N_i$ such that $M \otimes_R \left( \prod N_i \right) \not \cong \prod (M \otimes_R N_i)$.  (Hint: consider the direct product of the $\mathbf{Z}$-modules $\mathbf{Z}/2^i \mathbf{Z}$ where $i = 1, 2, \ldots$; tensor this with $\mathbf{Q}$ over $\mathbf{Z}$.)
+
+\begin{proof}
+We want to show that $\prod (\Z / 2^i \Z) \otimes_{/Z} \Q \not \cong \prod (\Q \otimes_{\Z} \Z / 2^i \Z)$.  We have shown in exercise 2 that, if $A$ is an abelian group, then $\Q \otimes_{\Z} A = 0$ if and only if $A$ is a torsion abelian group.  Note that $\prod (\Z / 2^i \Z)$ is an abelian group, and also that $\Z / 2^i \Z$ is an abelian group for every $i$.
+
+For every $i$, $\Z / 2^i \Z$ is torsion because every element has order at most $2^i$.  Therefore, $\prod (\Q \otimes_{\Z} \Z / 2^i \Z) = \prod 0 = 0$.  However, $\prod (\Z / 2^i \Z)$ is not torsion because the element $\prod 1_{\Z / 2^i \Z}$ has infinite order.  Thus, $\prod (\Z / 2^i \Z) \otimes_{/Z} \Q \neq 0$.  So clearly these tensor products cannot be isomorphic.
+\end{proof}
+
+\item (Exercise 17 in DF \S 10.4.) Let $I = (2,X)$ be the ideal generated by $2$ and $X$ in the ring $R = \mathbf{Z}[X]$.  The ring $\mathbf{Z}/2\mathbf{Z} = R/I$ is naturally an $R$-module (the $R$-action being given by multiplication in $R$ followed by reduction mod $I$) that is annihilated by both $2$ and $X$.
+
+(a) Show that the map $\phi: I \times I \rightarrow \mathbf{Z}/2\mathbf{Z}$ defined by
+\[
+\phi(a_0+a_1X+\ldots+a_nX^n,b_0+b_1X+\ldots+b_mX^m) = \overline{\frac{a_0}{2} b_1}
+\]
+(where the bar over the integer denotes its equivalence class in $\mathbf{Z}/2\mathbf{Z}$) is $R$-bilinear.
+
+\begin{proof}
+Note that $I$ is the set of all polynomials in $\Z[x]$ with even constant term.  This is stated in example 3 on pg. 252, although it should be clear.  Therefore, the action of $\Z[x]$ on $\Z/2\Z$ is simply $p(x) \cdot a = (p(x))(a) + I = \bar{a(p(0))}$, i.e. it is the constant term of $p(x)$, times $a$, taken modulo 2.  Further, this map can be written as $\phi(p(x),q(x)) = \bar{\frac{p(0)}{2}r'(0)}$, where $r'(0)$ is the derivative of $r(x)$ evaluated at $0$. %(I only use the derivative for convenient notation).
+
+Let $a(x), b(x) \in \Z[x]$ and $p(x),q(x),r(x) \in I$.  Since multiplication in $\Z[x]$ is equivalent to pointwise of polynomials as functions, we have
+\begin{align*}
+\phi(a(x)p(x) + b(x)q(x), r(x))
+&= \phi((a\cdot p + b\cdot q)(x),r(x))
+\\
+&= \bar{\frac{(a\cdot p + b\cdot q)(0)}{2} r'(0)}
+\\
+&= \bar{\frac{a(0)p(0) + b(0)q(0)}{2}r'(0)}
+\\
+&= a(x) \cdot \bar{\frac{p(0)}{2}r'(0)}
++ b(x) \cdot \bar{\frac{q(0)}{2}r'(0)}
+\\
+&= a(x) \cdot \phi(p(x),r(x)) + b(x) \cdot \phi(q(x),r(x))
+\end{align*}
+Note now that, for any $s(x) \in I$, $s(0) = s(x) + I = \bar{0}$.  So we have
+\begin{align*}
+\phi(r(x), a(x)p(x) + b(x)q(x))
+&= \phi(r(x), (a\cdot p + b \cdot q)(x))
+\\
+&= \bar{\frac{r(0)}{2}(a\cdot p + b\cdot q)'(0)}
+\\
+&= \bar{\frac{r(0)}{2}(a'p + ap' + b'q + bq')(0)}
+\\
+&= \bar{\frac{r(0)}{2}}(\bar{a'(0)} \cdot \bar{p(0)} + \bar{a(0)} \cdot \bar{p'(0)} + \bar{b'(0)} \cdot \bar{q(0)} + \bar{b(0)} \cdot \bar{q'(0)})
+\\
+&= \bar{\frac{r(0)}{2}}(\bar{a'(0)} \cdot \bar{0} + \bar{a(0)} \cdot \bar{p'(0)} + \bar{b'(0)} \cdot \bar{0} + \bar{b(0)} \cdot \bar{q'(0)})
+\\
+&= \bar{\frac{r(0)}{2} a(0) p'(0)} + \bar{\frac{r(0)}{2} b(0) q'(0)}
+\\
+&= a(x) \cdot \bar{\frac{r(0)}{2} p'(0)} + b(x) \cdot \bar{\frac{r(0)}{2} q'(0)}
+\\
+&= a(x) \cdot \phi(r(x),p(x)) + b(x) \cdot \phi(r(x),q(x))
+\end{align*}
+thus $\phi$ is $Z[x]$-bilinear.
+\end{proof}
+
+(b) Show that there is an $R$-module homomorphism from $I \otimes_R I \rightarrow \mathbf{Z}/2\mathbf{Z}$ mappyng $p(X) \otimes q(X)$ to $\overline{\frac{p(0)}{2} q'(0)}$, where $q'$ denotes the usual polynomial derivative of $q$.
+
+\begin{proof}
+This follows immediately from Corrolary 12, which says that there is an $R$-module homomorphism $\Phi: I \otimes_R I \rightarrow \mathbf{Z}/2\mathbf{Z}$ such that $\phi = \Phi \circ \iota$.  Thus, $\Phi (p(x) \otimes q(x)) = \phi ((p(x),q(x)) = \phi(p(x),q(x)) = \bar{\frac{p(0)}{2}q'(0)}$.
+\end{proof}
+
+(c) Show that $2 \otimes X \neq X \otimes 2$ in $I \otimes_R I$.
+\begin{proof}
+Suppose that $2 \otimes x = x \otimes 2$ in $I \otimes_R I$.  Then we must have $\Phi(2 \otimes x) = \Phi(x \otimes 2)$, simply because $\Phi$ is a well-defined function.  However, $\Phi(x \otimes 2) = \bar{\frac{0}{2}0} = \bar{0}$ but $\Phi(2 \otimes x) = \bar{\frac{2}{2}1} = \bar{1}$, a contradiction because $\bar{0} \neq \bar{1}$ in $\Z / 2\Z$.  So $2 \otimes x \neq x \otimes 2$.
+\end{proof}
+
+\end{enumerate}
+\end{document}

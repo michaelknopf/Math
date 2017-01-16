@@ -1,0 +1,204 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+%\addtolength{\oddsidemargin}{-.1in} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{lipsum}
+\usepackage[]{units}
+\usepackage{relsize}
+\usepackage{verbatim}
+\usepackage{bbm}
+\usepackage{mathtools}
+\usepackage{eufrak}
+\usepackage[mathscr]{euscript}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{graphicx}
+\usepackage{xfrac}
+
+\setenumerate{listparindent=\parindent}
+
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Int}{{\displaystyle \int}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\U}{\mathcal{U}}
+\renewcommand{\L}{\mathcal{L}}
+
+\newcommand{\dd}[2]{\frac{d#1}{d#2}}
+
+\DeclareMathOperator*{\dom}{dom}
+\DeclareMathOperator*{\Aut}{Aut}
+\DeclareMathOperator*{\Ann}{Ann}
+\DeclareMathOperator*{\Tor}{Tor}
+\DeclareMathOperator*{\Gal}{Gal}
+\DeclareMathOperator*{\Hom}{Hom}
+\DeclareMathOperator*{\End}{End}
+\DeclareMathOperator*{\im}{Im}
+\DeclareMathOperator*{\card}{card}
+\DeclareMathOperator*{\id}{id}
+
+\renewcommand{\bar}{\overline}
+\renewcommand{\P}{\mathcal{P}}
+
+\usepackage{fancyhdr} % Required for custom headers 
+%\usepackage{lastpage} % Required to determine the last page for the footer
+
+\pagestyle{fancy}
+\lhead{Math 202A (HW 9)}
+\chead{Michael Knopf (24457981)}
+\rhead{November $12^\text{th}$, 2015}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+%\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}
+\renewcommand\headrulewidth{0.4pt}
+%\renewcommand\footrulewidth{0.4pt}
+
+\begin{document}
+
+\begin{enumerate}
+\item[Exercise]  Read the solution to Q1 of the midterm that was posted on bcourses and answer the question posed, i.e., consider sets $\{A_i : 1 \leq i \leq N\}$ which are non-empty and whose union is $X$, but which are not necessarily disjoint. Show that the generated $\sigma$-algebra $\M$ is finite, and give an explicit description of its collection of atoms.
+
+\begin{proof}
+Let $G$ be the space consisting of two functions on $\P(X)$: the identity function, and the function which takes a set to its complement.  The set of atoms of $\M$ is $\A = \{\bigcap_{i=1}^N g_i(A_i) : g_1, \dots , g_N \in G \} \setminus \{\emptyset\}$.  I will prove this, but first note two facts:
+\begin{enumerate}
+\item The elements of $\A$ are pairwise disjoint.  If $A,B \in \A$ are nonempty and $A \neq B$, then $A = \bigcap_1^N g_i(A_i)$ and $B = \bigcap_1^N h_i(A_i)$ where, for some $i$, $g_i \neq h_i$.  Since $A \subseteq g_i(A_i)$ and $B \subseteq h_i(A_i) = g_i(A_i)^c$, $A$ and $B$ must be disjoint.
+\item $\bigcup_{A \in \A} A = X$.  If $x \in X$, then for each $i$ we have either $x \in A_i$ or $x \in A_i^c$.  So define $g_i$ accordingly, and we will have $x \in \bigcap_1^N g_i(A_i)$.
+\end{enumerate}
+
+Define $\B = \{ \bigcup_{A \in S} A : S \in \P(\A)  \}$.  We will show that $\B$ is a $\sigma$-algebra. First, let $B \in \B$, so that $B = \bigcup_{A \in S}A$ for some $S \in \P(\A)$.  Then from our two observations above, we see that $B^c = \bigcup_{A \in S^c} A$, where $S^c$ is take in $\A$, i.e. it is the set of elements of $\A$ not in $S$.  Since $S^c \in \P(\A)$, we know $B^c \in \B$.  To check countable unions, let $S_i \in \P(\A)$ for all $i \in \N$, and notice that
+$$
+\bigcup_{i=1}^\infty \bigcup_{A \in S_i} A = \bigcup_{A \in \bigcup_{i=1}^\infty S_i} A.
+$$
+since $\bigcup_{i=1}^\infty S_i \in \P(\A)$, this set is in $\B$.  Clearly, $\emptyset \in \B$ because it is the union over $\emptyset \in \P(\A)$.  So $\B$ is a $\sigma$-algebra.
+
+We will now show that $\M = \B$.  Obviously, $\B \subseteq \M$, since each $A_i \in \M$ and the $A_i$ generate $\B$.  For the reverse inclusion, let $S$ be the set of all elements of $\A$ formed by taking $g_i = \id$ (i.e. we let $g_j$ range over both possible values for all $j \neq i$, but fix $g_i$ to be the identity).  Then $A_i = \bigcup_{A \in S} A \in \B$, and so $\M \subseteq \B$ as well.
+
+We now know at least that $\M$ is finite, since it equals $\B$, and $|\B| \leq |\P(\A)|$, and $\A$ is finite.  It remains to show that $\A$ truly is the set of atoms, so suppose $E \in \M$ is an atom.  We know that $E = E_1 \cup \cdots \cup E_n$ for some $E_i \in \A$, which we may assume are distinct.  So we have $E_i \subseteq E$ for all $i$.  Thus, if $n > 1$, then we will have $\emptyset \subsetneq E_1 \subsetneq E_1 \cup E_2 \subseteq E$, a contradiction.  So $n = 1$, and thus $E \in \A$.  Conversely, if $E \in \A$ and $F \subseteq E$, then we may write $F$ as $F = F_1 \cup \cdots \cup F_n$ for some $F_i \in \A$.  Then $\emptyset \subsetneq F_i \subseteq E$ for all $i$.  But $E \in \A$, and so either $E = E_i$ for some $i$ or $E$ is disjoint from all the $E_i$.  The only possibility is that $n=1$ and $E = F = E_1$.  So $E$ is an atom.
+\end{proof}
+
+\item[B 13.5] Let $(X,\A)$ be a measurable space and let $\mu$ and $\nu$ be two finite measures.  We say $\mu$ and $\nu$ are \emph{equivalent measure} if $\mu \ll \nu$ and $\nu \ll \mu$.  Show that $\mu$ and $\nu$ are equivalent if and only if there exists a $\mu$-integrable function $f$ that is strictly positive a.e. with respect to $\mu$ such that $d\nu = fd\mu$.
+
+\begin{proof}
+By the Radon-Nikodym theorem, we know there is a $\mu$-integrable non-negative function $f$ which is measurable with respect to $\A$ such that
+$$
+\nu(A) = \int_A f d\mu.
+$$
+Let $N = f^{-1}(0)$.  Then $\nu(N) = \int_N f d\mu = \int_N 0 d\mu = 0$.  Since $\mu \ll \nu$, this means $\mu(N) = 0$ as well, hence $f$ is strictly positive almost everywhere.
+\end{proof}
+
+\item[B 13.8] Suppose $\nu \ll \mu$ and $\rho \ll \nu$.  Prove that $\rho \ll \mu$ and
+$$
+\frac{d\rho}{d\mu} = \frac{d\rho}{d\nu} \cdot \frac{d\nu}{d\mu}.
+$$
+
+\begin{proof}
+$\rho \ll \mu$ is obvious: given $A \in \A$, if $\mu(A) = 0$ then $\nu(A) = 0$, which implies $\rho(A) = 0$.  There are functions $f$ and $g$ such that
+$$
+\nu(A) = \int_A f d\mu,  \hspace{20pt} \rho(A) = \int_A g d\nu
+$$
+for all $A \in \A$.  Note that for characteristic functions we have
+$$
+\int_A \chi_E d\nu = \nu(A \cap E) = \int_{A \cap E} f d\mu = \int_A (\chi_E \cdot f) d\mu
+$$
+for all $A \in \A$.  Thus, by linearity, this will hold for simple functions as well.
+
+Now take a sequence $s_n$ of simple functions increasing to $g$.  For all $A \in \A$ and for each $n$, we have
+$$
+\int_A s_n d\nu = \int_A s_n f d\mu.
+$$
+Thus, by the monotone convergence theorem,
+$$
+\rho(A) = \int_A d\rho = \int_A g d\nu = \int_A (g \cdot f) d\mu.
+$$
+So $\frac{d\rho}{d\mu} = g\cdot f = \frac{d\rho}{d\nu} \cdot \frac{d\nu}{d\mu}.$
+
+\begin{comment}
+To deal with the general case, first note that if $\mu_1$ and $\mu_2$ are signed, finite measures on $\A$, then so is $c_1\mu_1 + c_2\mu_2$ for any $c_1,c_2 \in \R$.  Further, if $\mu_1, \mu_2 \ll \nu$ then also $c_1\mu_1 + c_2\mu_2 \ll \nu$, and
+$$
+(c_1\mu_1 + c_2\mu_2)(A) = \int_A c_1\frac{d\mu_1}{d\nu}d\nu + c_2\int_A \frac{d\mu_2}{d\nu}d\nu = \int_A \left( c_1\frac{d\mu_1}{d\nu} + c_2\frac{d\mu_2}{d\nu} \right) d\nu
+$$
+and so $\frac{d(c_1\mu_1+c_2\mu_2)}{d\nu} = c_1\frac{d\mu_1}{d\nu} + c_2\frac{d\mu_2}{d\nu}$.
+
+Now in the case of signed measures $\rho \ll \nu \ll \mu$, we have
+$$
+\frac{d\rho}{d\mu} = \frac{d(\rho^+ - \rho^-)}{d\mu}
+$$
+\end{comment}
+\end{proof}
+
+\begin{comment}
+
+\item[B 13.9]  Let $\mu$ be a positive measure and $\nu$ a signed measure.  Prove that $\nu \ll \mu$ if and only if $\nu^+ \ll \mu$ and $\nu^- \ll \mu$.
+
+\begin{proof}
+Let $X = E \cup F$ with $E$ and $F$ disjoint and $\nu^+(E) = \nu^-(F) = 0$.  One direction is trivial: suppose $\nu^+ \ll \mu$ and $\nu^- \ll \mu$, and suppose $\mu(A) = 0$ for some $A \subseteq X$; then $\nu(A) = \nu^+(A) - \nu^-(A) = 0-0 = 0$, so $\nu \ll \mu$.
+
+Now suppose $\nu \ll \mu$, and $\mu(A) = 0$ for some $A \subseteq X$.  Since $\mu$ is a positive measure, $\mu(A \cap E) = \mu(A \cap F) = 0$ by monotonicity, thus $\nu(A \cap E) = \nu(A \cap F) = 0$.  But
+$$
+\nu^+(A\cap F) = \nu(A \cap F) + \nu^-(A \cap F) = 0 + 0 =  0
+$$
+and similarly $\nu^-(A\cap E) = 0$.  Thus, $\nu^+(A) = \nu^+(A \cap F) = 0$ and $\nu^-(A) = \nu^-(A \cap E) = 0$, thus $\nu^+ \ll \mu$ and $\nu^- \ll \mu$.
+\end{proof}
+
+\end{comment}
+
+\item[B 13.9] Suppose $\lambda_n$ is a sequence of positive measures on a measurable space $(X,\A)$ with $\sup_n \lambda_n(X) < \infty$ and $\mu$ is another finite positive measure on $(X,\A)$.  Suppose $\lambda_n = f_n d\mu + \nu_n$ is the Lebesgue decomposition of $\lambda_n$; in particular, $\nu_n \perp \mu$.  If $\lambda = \sum_{n=1}^\infty \lambda_n$ is a finite measure, show that
+$$
+\lambda = \left(\sum_{n=1}^\infty f_n \right) d\mu + \sum_{n=1}^\infty \nu_n
+$$
+is the Lebesgue decomposition of $\lambda$.
+
+\begin{proof}
+First, I have to mention that this notation is completely idiotic.  Bass has introduced the notation $d\mu_1 = f d\mu_2$, but certainly $f_n d\mu$ is not a measure!  It is a symbol that means nothing on its own.  If Bass intended for this to denote the measure $\nu(A) = \Int_A f_n d\mu$, then he should have mentioned that somewhere before this exercise.  This book, even moreso than Folland, is full of ambiguous and even false statements such as this, and it's honestly ridiculous.  There is no excuse for being ambiguous in a setting like analysis, where rigor is stressed.  Anyone who writes things like this has no business doing math.  Any problem that uses phrasing this lazy and ambiguous merits nothing more than a lazy and ambiguous solution, and it would be total hypocrisy to mark someone down for such an answer.  Look, it's not that hard: if you ask me a question, be clear about what you are asking.  If you can't spare the few extra words it might take, then don't ask the question!  I will assume that $f_n d\mu$ is the measure given by $f_n d\mu(A) = \Int_A f_n d\mu$, even though this is a stupid notation.  If this is not what it is meant to mean, then someone should have been responsible enough to make clear what was intended.
+
+$\nu_n \perp \mu$ for each $n$, so there is a sequence $E_n \subseteq X$ such that $\nu_n(A) = 0$ for all $A \subseteq E_n$ and $\mu(A) = 0$ for all $A \subseteq E_n^c$.  Let $E = \bigcap_1^\infty E_n$.  Then for $A \subseteq E$, we have
+$$
+\left( \sum_1^\infty \nu_n \right)(A) = \sum_1^\infty \nu_n(A) = \sum_1^\infty 0 = 0.
+$$
+since $A \subseteq E_n$ for all $n$.  Also, let note $E^c = \bigcup_1^\infty E_n^c$.  Then for $A \subseteq E^c$, we clearly have $A = \bigcup_1^\infty A \cap E_i^c$, so
+$$
+\mu(A) = \mu(\bigcup_1^\infty A \cap E_i^c) \leq \sum_1^\infty \mu(A \cap E_i^c) = \sum_1^\infty 0 = 0.
+$$
+because $\mu$ is $0$ on all subsets of $E_i$ for all $i$.  Therefore, $\mu \perp \sum_1^\infty \nu_n$.
+
+Let $\eta(A) = \int_A \left( \sum_1^\infty f_n \right) d\mu$.  All that remains is to show that $\eta \ll \mu$.  Define $\eta_n(A) = \int_A f_n d\mu$ for each $A$.  We know that $\eta_n \ll \mu$ for each $n$.  Now, suppose $\mu(A) = 0$.  Then $\eta_n(A) = 0$ for all $n$.  By the monotone convergence theorem, we can interchange the summation and the integral, since the $f_n$ are nonnegative.  So
+$$
+\eta(A) = \int_A \left( \sum_1^\infty f_n \right) d\mu = \sum_1^\infty \Int_A f_n d\mu = \sum_1^\infty \eta_n(A) = \sum_1^\infty 0 = 0.
+$$
+Thus, $\eta \ll \mu$, as desired.
+\end{proof}
+
+\item[B 13.10] The point of this exercise is to demonstrate that the Radon-Nikodym derivative can depend on the $\sigma$-algebra.
+
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\F}{\mathcal{F}}
+
+Suppose $X$ is a set and $\mathcal{E} \subseteq \mathcal{F}$ are two $\sigma$-algebras of subsets of $X$.  Let $\mu,\nu$ be two finite positive measures on $(X,\mathcal{F})$ and suppose $\nu \ll \mu$.  Let $\bar{\mu}$ be the restriction of $\mu$ to $(X, \mathcal{E})$ and $\bar{\nu}$ the restriction of $\nu$ to $\E$.  Find an example of the above framework where $\dd{\bar{\nu}}{\bar{\mu}} \neq \dd{\nu}{\mu}$, that is, where the Radon-Nikodym derivative of $\bar{\nu}$ with respect to $\bar{\mu}$ (in terms of $\E$) is not the same as the Radon-Nikodym derivative of $\nu$ with respect to $\mu$ (in terms of $\F$).
+
+\begin{proof}
+Let $X = [0,1]$ with $\F = \B_{[0,1]}$ and $\E = \{\emptyset, [0,1]\}$.  Let $f(x) = x$.  If $\mu$ is the Lebesgue measure, then $f$ induces a measure $\nu$ given by $\nu(A) = \Int_A x d\mu$ for all $A \in \B_{[0,1]}$.  However, $f$ is not even measurable with respect to $\E$, so by Radon-Nikodym it cannot be $\dd{\bar{\nu}}{\bar{\mu}}$.  We are already done, but just for the sake of curiosity, notice that the constant function $\frac12$ is actually this derivative.  It is measurable because the preimage of a Borel set is $[0,1]$ if the set contains $\frac12$ and $\emptyset$ otherwise.  Furthermore,
+$$
+\bar{\nu}(\emptyset) = 0 = \int_\emptyset \frac12 d\bar{\mu} \hspace{15pt} \text{and} \hspace{15pt} \bar{\nu}([0,1]) = \frac12 = \int_{[0,1]} \frac12 d\bar{\mu}.
+$$
+\end{proof}
+
+\end{enumerate}
+
+\end{document}
+
+
+
+
+
+
+

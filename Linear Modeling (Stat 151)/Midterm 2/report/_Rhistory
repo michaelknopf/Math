@@ -1,0 +1,512 @@
+i = which(rownames(cormat) == 'nox')
+cormat = cormat[-i,-i]
+which(cormat > .7, arr.ind = TRUE)
+i = which(rownames(cormat) == 'tax')
+i = which(rownames(cormat) == 'tax')
+i
+cormat = cormat[-i,-i]
+which(cormat > .7, arr.ind = TRUE)
+which(cormat > .65, arr.ind = TRUE)
+which(cormat > .6, arr.ind = TRUE)
+pvalues
+i = which(rownames(cormat) == 'age')
+cormat = cormat[-i,-i]
+i = which(rownames(cormat) == 'indus')
+cormat = cormat[-i,-i]
+which(cormat > .6, arr.ind = TRUE)
+which(cormat > .5, arr.ind = TRUE)
+which(cormat > .4, arr.ind = TRUE)
+cormat
+which(cormat > .5, arr.ind = TRUE)
+pvalues
+i = which(rownames(cormat) == 'londist')
+cormat = cormat[-i,-i]
+which(cormat > .5, arr.ind = TRUE)
+which(cormat > .4, arr.ind = TRUE)
+cormat
+which(cormat > .3, arr.ind = TRUE)
+which(cormat > .4, arr.ind = TRUE)
+which(cormat > .35, arr.ind = TRUE)
+i = which(rownames(cormat) == 'ptratio')
+cormat = cormat[-i,-i]
+i = which(rownames(cormat) == 'crim')
+cormat = cormat[-i,-i]
+which(cormat > .35, arr.ind = TRUE)
+which(cormat > .3, arr.ind = TRUE)
+pvalues
+cormat
+dat = as.matrix(bost[,allvars[-1]])
+cormat = cor(dat)
+diag(cormat) = 0
+which(cormat > .85, arr.ind = TRUE)
+pvalues
+i = which(rownames(cormat) == 'rad')
+cormat = cormat[-i,-i]
+which(cormat > .8, arr.ind = TRUE)
+i = which(rownames(cormat) == 'dis')
+cormat = cormat[-i,-i]
+which(cormat > .75, arr.ind = TRUE)
+i = which(rownames(cormat) == 'nox')
+cormat = cormat[-i,-i]
+which(cormat > .7, arr.ind = TRUE)
+which(cormat > .6, arr.ind = TRUE)
+i = which(rownames(cormat) == 'age')
+cormat = cormat[-i,-i]
+which(cormat > .6, arr.ind = TRUE)
+pvalues
+cormat
+dat = as.matrix(bost[,allvars[-1]])
+cormat
+apply(cormat,2,sum)
+apply(cormat,2,function(x) sum(abs(x)))
+apply(cormat,2,function(x) sum(x^2))
+pvalues
+a = apply(cormat,2,function(x) sum(x^2))
+sort(a)
+rev(sort(a))
+i = which(rownames(cormat) == 'indus')
+cormat = cormat[-i,-i]
+a = apply(cormat,2,function(x) sum(x^2))
+a
+rev(sort(a))
+pvalues
+i = which(rownames(cormat) == 'tax')
+cormat = cormat[-i,-i]
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+i = which(rownames(cormat) == 'lstat')
+cormat = cormat[-i,-i]
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+cormat
+pvalues
+i = which(rownames(cormat) == 'zn')
+cormat = cormat[-i,-i]
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+cormat
+allvars = c('medv', 'londist', 'crim', 'zn', 'indus', 'chas', 'nox',
+'rm', 'age', 'dis', 'rad', 'tax', 'ptratio', 'b', 'lstat')
+pvalues = sort(sapply(allvars[-1], function(var) {
+coefficients(summary(lm(medv ~ bost[,var], data = bost)))[2,4]
+}))
+dat = as.matrix(bost[,allvars[-1]])
+cormat = cor(dat)
+diag(cormat) = 0
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+i = which(rownames(cormat) == 'indus')
+cormat = cormat[-i,-i]
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+i = which(rownames(cormat) == 'dis')
+cormat = cormat[-i,-i]
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+pvalues
+i = which(rownames(cormat) == 'tax')
+cormat = cormat[-i,-i]
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+i = which(rownames(cormat) == 'nox')
+cormat = cormat[-i,-i]
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+i = which(rownames(cormat) == 'lstat')
+cormat = cormat[-i,-i]
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+i = which(rownames(cormat) == 'rad')
+cormat = cormat[-i,-i]
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+pvalues
+i = which(rownames(cormat) == 'zn')
+cormat = cormat[-i,-i]
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+i = which(rownames(cormat) == 'age')
+cormat = cormat[-i,-i]
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+cormat
+pvalues
+i = which(rownames(cormat) == 'chas')
+cormat = cormat[-i,-i]
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+cormat
+max(cormat)
+max(abs(cormat))
+pvalues
+i = which(rownames(cormat) == 'b')
+cormat = cormat[-i,-i]
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+cormat
+allvars = c('londist', 'crim', 'zn', 'indus', 'chas', 'nox',
+'rm', 'age', 'dis', 'rad', 'tax', 'ptratio')
+dat = as.matrix(bost[,allvars[-1]])
+cormat = cor(dat)
+diag(cormat) = 0
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+pvalues
+cormat
+i = which(rownames(cormat) == 'nox')
+cormat = cormat[-i,-i]
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+cormat
+i = which(rownames(cormat) == 'tax')
+cormat = cormat[-i,-i]
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+cormat
+pvalues
+i = which(rownames(cormat) == 'dis')
+cormat = cormat[-i,-i]
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+cormat
+i = which(rownames(cormat) == 'age')
+cormat = cormat[-i,-i]
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+i
+cormat = cormat[-i,-i]
+cormat
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+allvars = c('londist', 'crim', 'zn', 'indus', 'chas', 'nox',
+'rm', 'age', 'dis', 'rad', 'tax', 'ptratio')
+pvalues = sort(sapply(allvars[-1], function(var) {
+coefficients(summary(lm(medv ~ bost[,var], data = bost)))[2,4]
+}))
+dat = as.matrix(bost[,allvars[-1]])
+cormat = cor(dat)
+diag(cormat) = 0
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+pvalues
+i = which(rownames(cormat) == 'age')
+cormat = cormat[-i,-i]
+i = which(rownames(cormat) == 'rad')
+cormat = cormat[-i,-i]
+i = which(rownames(cormat) == 'zn')
+cormat = cormat[-i,-i]
+i = which(rownames(cormat) == 'dis')
+cormat = cormat[-i,-i]
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+cormat
+pvalues
+i = which(rownames(cormat) == 'nox')
+cormat = cormat[-i,-i]
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+i = which(rownames(cormat) == 'indus')
+cormat = cormat[-i,-i]
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+cormat
+i = which(rownames(cormat) == 'tax')
+cormat = cormat[-i,-i]
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+allvars = c('londist', 'crim', 'zn', 'indus', 'chas', 'nox',
+'rm', 'age', 'dis', 'rad', 'tax', 'ptratio')
+dat = as.matrix(bost[,allvars[-1]])
+cormat = cor(dat)
+diag(cormat) = 0
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+allvars = c('londist', 'crim', 'zn', 'indus', 'chas', 'nox',
+'rm', 'age', 'dis', 'rad', 'tax', 'ptratio')
+dat = as.matrix(bost[,allvars[-1]])
+cormat = cor(dat)
+diag(cormat) = 0
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+cormat
+allvars = c('londist', 'crim', 'zn', 'indus', 'chas', 'nox',
+'rm', 'age', 'dis', 'rad', 'tax', 'ptratio')
+pvalues = sort(sapply(allvars, function(var) {
+coefficients(summary(lm(medv ~ bost[,var], data = bost)))[2,4]
+}))
+dat = as.matrix(bost[,allvars])
+cormat = cor(dat)
+diag(cormat) = 0
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+cormat
+cormat[c('rm','ptratio','crim','zn')]
+cormat[c('rm','ptratio','crim','zn'),c('rm','ptratio','crim','zn')]
+cormat = cormat[c('rm','ptratio','crim','zn'),c('rm','ptratio','crim','zn')]
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+cormat = cormat[c('rm','ptratio','crim','londist'),c('rm','ptratio','crim','londist')]
+dat = as.matrix(bost[,allvars])
+cormat = cor(dat)
+diag(cormat) = 0
+cormat = cormat[c('rm','ptratio','crim','londist'),c('rm','ptratio','crim','londist')]
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+cormat
+cormat2 = cormat[c('rm','ptratio','crim','zn'),c('rm','ptratio','crim','zn')]
+dat = as.matrix(bost[,allvars])
+cormat = cor(dat)
+diag(cormat) = 0
+cormat1 = cormat[c('rm','ptratio','crim','londist'),c('rm','ptratio','crim','londist')]
+cormat2 = cormat[c('rm','ptratio','crim','zn'),c('rm','ptratio','crim','zn')]
+cormat1
+cormat2
+sum(cormat1^2)
+sum(cormat2^2)
+model = lm(medv ~ rm + ptratio + crim + londist)
+model = lm(medv ~ rm + ptratio + crim + londist, data = bost)
+summary(model)
+summary(model)
+model = lm(medv ~ rm + ptratio + crim + zn, data = bost)
+summary(model)
+allvars = c('crim', 'indus', 'chas', 'nox',
+'rm', 'age', 'dis', 'rad', 'tax', 'ptratio')
+pvalues = sort(sapply(allvars, function(var) {
+coefficients(summary(lm(medv ~ bost[,var], data = bost)))[2,4]
+}))
+dat = as.matrix(bost[,allvars])
+cormat = cor(dat)
+diag(cormat) = 0
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+i = which(rownames(cormat) == 'tax')
+cormat = cormat[-i,-i]
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+i = which(rownames(cormat) == 'nox')
+cormat = cormat[-i,-i]
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+cormat
+i = which(rownames(cormat) == 'age')
+cormat = cormat[-i,-i]
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+i = which(rownames(cormat) == 'dis')
+cormat = cormat[-i,-i]
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+i = which(rownames(cormat) == 'rad')
+cormat = cormat[-i,-i]
+a = apply(cormat,2,function(x) sum(x^2))
+rev(sort(a))
+cormat
+model = lm(medv ~ rm + ptratio + crim + chas + indus, data = bost)
+summary(model)
+cormat
+model
+model
+model = lm(medv ~ rm + ptratio + crim + londist, data = bost)
+summary(model)
+model = lm(medv ~ rm + ptratio + crim + zn, data = bost)
+summary(model)
+model = lm(medv ~ rm + ptratio + crim + chas + indus, data = bost)
+summary(model)
+cormat
+model = lm(medv ~ rm + ptratio + crim + chas, data = bost)
+summary(model)
+cormat
+i = which(rownames(cormat) == 'indus')
+cormat = cormat[-i,-i]
+cormat
+# Initialize selected model
+ft = lm(formula = medv ~ rm + ptratio + crim + chas, data = bost)
+# Compute statistics used in outlier detection
+coefs = names(ft$coefficients)[-1]
+n = length(ft$fitted.values)
+p = length(coefs)
+x = matrix(c(rep(1,n), as.matrix(bost[,coefs])), nrow = n)
+h = x %*% solve(t(x)%*% x) %*% t(x)
+fit = unname(ft$fitted.values)
+res = unname(ft$residuals)
+sigma = summary(ft)$sigma
+stdRes = unname(res / (sigma*(1-diag(h))))
+predRes = unname(res / (1 - diag(h)))
+stdPredRes = unname(stdRes*sqrt((n-p-1) / (n-p-stdRes^2)))
+cook = stdRes^2 * diag(h) / ((1-diag(h)) * (p+1))
+# Make regression diagnostic plots
+plots = list()
+plots[[1]] = qplot(x = res, y = diag(h), xlab = "Leverage", ylab = "Residual",
+geom = 'point') + theme(legend.position="none")
+plots[[2]] = qplot(x = 1:n, y = cook, xlab = "Cook's Distance", ylab = "Observation #",
+geom = 'point') + theme(legend.position="none")
+plots[[3]] = qplot(x = qnorm(p = (1:n)/(n+1)), y = sort(res), geom = 'point',
+xlab = "Normal Quantile", ylab = "Residual") + theme(legend.position="none")
+plots[[4]] = qplot(x = fit, y = res, xlab = "Fitted Value", ylab = "Residual",
+geom = 'point') + theme(legend.position="none")
+plots[[5]] = qplot(x = bost$londist, y = res, xlab = "londist", ylab = "Residual",
+geom = 'point') + theme(legend.position="none")
+plots[[6]] = qplot(x = bost$crim, y = res, xlab = "crim", ylab = "Residual",
+geom = 'point') + theme(legend.position="none")
+plots[[7]] = qplot(x = bost$zn, y = res, xlab = "zn", ylab = "Residual",
+geom = 'point') + theme(legend.position="none")
+plots[[8]] = qplot(x = bost$chas, y = res, xlab = "chas", ylab = "Residual",
+geom = 'point') + theme(legend.position="none")
+plots[[9]] = qplot(x = bost$nox, y = res, xlab = "nox", ylab = "Residual",
+geom = 'point') + theme(legend.position="none")
+plots[[10]] = qplot(x = bost$rm, y = res, xlab = "rm", ylab = "Residual",
+geom = 'point') + theme(legend.position="none")
+plots[[11]] = qplot(x = bost$dis, y = res, xlab = "dis", ylab = "Residual",
+geom = 'point') + theme(legend.position="none")
+plots[[12]] = qplot(x = bost$rad, y = res, xlab = "rad", ylab = "Residual",
+geom = 'point') + theme(legend.position="none")
+plots[[13]] = qplot(x = bost$tax, y = res, xlab = "tax", ylab = "Residual",
+geom = 'point') + theme(legend.position="none")
+plots[[14]] = qplot(x = bost$ptratio, y = res, xlab = "ptratio", ylab = "Residual",
+geom = 'point') + theme(legend.position="none")
+plots[[15]] = qplot(x = bost$b, y = res, xlab = "b", ylab = "Residual",
+geom = 'point') + theme(legend.position="none")
+plots[[16]] = qplot(x = bost$lstat, y = res, xlab = "lstat", ylab = "Residual",
+geom = 'point') + theme(legend.position="none")
+multiplot(plotlist = plots, layout = matrix(1:16, nrow = 4, byrow = TRUE))
+source('~/Desktop/Stat 151/Midterm 2/multiplot.R', echo=TRUE)
+multiplot(plotlist = plots, layout = matrix(1:16, nrow = 4, byrow = TRUE))
+# Identify significant observations (outliers)
+bonferroni = .05 / n
+pValues = sapply(stdPredRes, function(t) {
+2*(1-pt(abs(t), n-p-2))
+})
+plot.bon = qplot(x = 1:n, y = pValues, xlab = "Observation #", ylab = "pValue",
+geom = 'point', size = I(5)) + theme(legend.position="none") + geom_hline(y=bonferroni, col = "red") +
+coord_cartesian(xlim=c(368,374), ylim = c(-.00001, bonferroni*1.5))
+plot.pValues = qplot(x = 1:n, y = pValues, xlab = "Observation #", ylab = "pValue",
+geom = 'point', size = I(4)) + theme(legend.position="none")
+multiplot(plot.pValues, plot.bon, cols = 2)
+# Create model with outliers dropped
+ftDropOutliers = lm(formula = medv ~ londist + crim + zn + chas + nox + rm + dis +
+rad + tax + ptratio + b + lstat, data = bost[-which(pValues < bonferroni),])
+summary(ftDropOutliers)
+ft = lm(formula = medv ~ rm + ptratio + crim + chas, data = bost)
+ftDropOutliers = lm(formula = medv ~ rm + ptratio + crim + chas, data = bost[-which(pValues < bonferroni),])
+summary(ftDropOutliers)
+summary(ft)
+ft = lm(formula = medv ~ rm + ptratio + crim, data = bost)
+# Compute statistics used in outlier detection
+coefs = names(ft$coefficients)[-1]
+n = length(ft$fitted.values)
+p = length(coefs)
+x = matrix(c(rep(1,n), as.matrix(bost[,coefs])), nrow = n)
+h = x %*% solve(t(x)%*% x) %*% t(x)
+fit = unname(ft$fitted.values)
+res = unname(ft$residuals)
+sigma = summary(ft)$sigma
+stdRes = unname(res / (sigma*(1-diag(h))))
+predRes = unname(res / (1 - diag(h)))
+stdPredRes = unname(stdRes*sqrt((n-p-1) / (n-p-stdRes^2)))
+cook = stdRes^2 * diag(h) / ((1-diag(h)) * (p+1))
+# Make regression diagnostic plots
+plots = list()
+plots[[1]] = qplot(x = res, y = diag(h), xlab = "Leverage", ylab = "Residual",
+geom = 'point') + theme(legend.position="none")
+plots[[2]] = qplot(x = 1:n, y = cook, xlab = "Cook's Distance", ylab = "Observation #",
+geom = 'point') + theme(legend.position="none")
+plots[[3]] = qplot(x = qnorm(p = (1:n)/(n+1)), y = sort(res), geom = 'point',
+xlab = "Normal Quantile", ylab = "Residual") + theme(legend.position="none")
+plots[[4]] = qplot(x = fit, y = res, xlab = "Fitted Value", ylab = "Residual",
+geom = 'point') + theme(legend.position="none")
+plots[[5]] = qplot(x = bost$londist, y = res, xlab = "londist", ylab = "Residual",
+geom = 'point') + theme(legend.position="none")
+plots[[6]] = qplot(x = bost$crim, y = res, xlab = "crim", ylab = "Residual",
+geom = 'point') + theme(legend.position="none")
+plots[[7]] = qplot(x = bost$zn, y = res, xlab = "zn", ylab = "Residual",
+geom = 'point') + theme(legend.position="none")
+plots[[8]] = qplot(x = bost$chas, y = res, xlab = "chas", ylab = "Residual",
+geom = 'point') + theme(legend.position="none")
+plots[[9]] = qplot(x = bost$nox, y = res, xlab = "nox", ylab = "Residual",
+geom = 'point') + theme(legend.position="none")
+plots[[10]] = qplot(x = bost$rm, y = res, xlab = "rm", ylab = "Residual",
+geom = 'point') + theme(legend.position="none")
+plots[[11]] = qplot(x = bost$dis, y = res, xlab = "dis", ylab = "Residual",
+geom = 'point') + theme(legend.position="none")
+plots[[12]] = qplot(x = bost$rad, y = res, xlab = "rad", ylab = "Residual",
+geom = 'point') + theme(legend.position="none")
+plots[[13]] = qplot(x = bost$tax, y = res, xlab = "tax", ylab = "Residual",
+geom = 'point') + theme(legend.position="none")
+plots[[14]] = qplot(x = bost$ptratio, y = res, xlab = "ptratio", ylab = "Residual",
+geom = 'point') + theme(legend.position="none")
+plots[[15]] = qplot(x = bost$b, y = res, xlab = "b", ylab = "Residual",
+geom = 'point') + theme(legend.position="none")
+plots[[16]] = qplot(x = bost$lstat, y = res, xlab = "lstat", ylab = "Residual",
+geom = 'point') + theme(legend.position="none")
+multiplot(plotlist = plots, layout = matrix(1:16, nrow = 4, byrow = TRUE))
+# Identify significant observations (outliers)
+bonferroni = .05 / n
+pValues = sapply(stdPredRes, function(t) {
+2*(1-pt(abs(t), n-p-2))
+})
+# Plot pValues vs. observation number and compare to Bonferroni line
+plot.pValues = qplot(x = 1:n, y = pValues, xlab = "Observation #", ylab = "pValue",
+geom = 'point', size = I(4)) + theme(legend.position="none")
+# Plot influential observations with Bonferroni line
+plot.bon = qplot(x = 1:n, y = pValues, xlab = "Observation #", ylab = "pValue",
+geom = 'point', size = I(5)) + theme(legend.position="none") + geom_hline(y=bonferroni, col = "red") +
+coord_cartesian(xlim=c(368,374), ylim = c(-.00001, bonferroni*1.5))
+multiplot(plot.pValues, plot.bon, cols = 2)
+ftDropOutliers = lm(formula = medv ~ rm + ptratio + crim + chas, data = bost[-which(pValues < bonferroni),])
+summary(ftDropOutliers)
+ftDropOutliers = lm(formula = medv ~ rm + ptratio + crim, data = bost[-which(pValues < bonferroni),])
+summary(ftDropOutliers)
+cormat
+cormat[-2,-2]
+cormat[-2,-2] -> cormat
+cormat
+source('~/Desktop/Stat 151/Midterm 2/Third Trial/interpretation.R', echo=TRUE)
+data = bost[-which(pValues < bonferroni),]
+ft = lm(formula = medv ~ rm + crim + ptratio, data = data)
+variables = names(ft$coefficients)[-1]
+summ = data.frame(coef = c(ft$coefficients),
+min = c(0, apply(data[,variables], 2, min)),
+firstQuartile = c(0, apply(data[,variables],2, function(x) quantile(x, probs = .25))),
+median = c(0, apply(data[,variables], 2, median)),
+thirdQuartile = c(0, apply(data[,variables],2, function(x) quantile(x, probs = .75))),
+max = c(0, apply(data[,variables], 2, max)))
+summ = rbind(c(0,min(data$medv),
+quantile(data$medv, probs = .25),
+median(data$medv),
+quantile(data$medv, probs = .75),
+max(data$medv)),
+summ)
+rownames(summ)[1] = "medv"
+summ$improvement = summ$coef*(summ$thirdQuartile - summ$firstQuartile)
+summ = summ[rev(order(abs(summ$improvement))),]
+summ
+summ[4,2:7] = rep(NA,6)
+summ
+summ[5,c(1,7)] = c(NA,NA)
+summ
+setwd("~/Desktop/Stat 151/Midterm 2/report")
+sink(file = "interpretation2.R")
+summ
+sink()
+cormat
+dat2 = as.matrix(bost[-which(pValues < bonferroni),allvars])
+cormat2 = cor(dat)
+diag(cormat2) = 0
+cormat2
+cormat
+dat2 = as.matrix(bost[-which(pValues < bonferroni),c('crim','rm','ptratio')])
+cormat2 = cor(dat)
+diag(cormat2) = 0
+cormat
+cormat2
+dat2 = as.matrix(bost[-which(pValues < bonferroni),c('crim','rm','ptratio')])
+cormat2 = cor(dat2)
+diag(cormat2) = 0
+cormat
+cormat2
+res
+source('~/Desktop/Stat 151/Midterm 2/Third Trial/data.R', echo=TRUE)
+source('~/Desktop/Stat 151/Midterm 2/Third Trial/outliers.R', echo=TRUE)
+hist(res)
+mean(res)
+median(res)

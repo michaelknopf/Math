@@ -1,0 +1,291 @@
+% --------------------------------------------------------------
+% This is all preamble stuff that you don't have to worry about.
+% Head down to where it says "Start here"
+% --------------------------------------------------------------
+ 
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{enumitem}
+\usepackage{verbatim}
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+ 
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{question}[2][Question]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+ 
+\begin{document}
+ 
+% --------------------------------------------------------------
+%                         Start here
+% --------------------------------------------------------------
+ 
+\title{Homework 3}
+\author{Michael Knopf}
+\date{September 18, 2014}
+ 
+\maketitle
+
+\noindent Note: $\N$ denotes the set $\{0, 1, 2, \dots \}$.
+
+\section*{1.4.1 Exercises}
+
+\begin{exercise}{2}
+
+For $\Gamma \subseteq \mathcal{L}_0$ and $\psi \in \mathcal{L}_0$, show that $\Gamma \cup \{ \varphi \}$ logically implies $\psi$ if and only if $\Gamma$ logically implies $(\varphi \to \psi)$.
+
+\end{exercise}
+
+\begin{proof}
+
+This proof relies on the fact that $\mathcal{L}_0$ is sound and complete: because $\mathcal{L}_0$ is complete (in the sense of Completeness; Version II), any subset that logically implies some formula proves that formula as well; because $\mathcal{L}_0$ is sound, any subset that proves some formula logically implies that formula as well.
+
+First, suppose $\Gamma \cup \{ \varphi \}$ logically implies $\psi$.  By Version II of Completeness of $\mathcal{L}_0$, $\Gamma \cup \{ \varphi \} \vdash \psi$.  By the deduction lemma, $\Gamma \vdash (\varphi \to \psi)$.  Thus, by the soundness lemma, $\Gamma$ logically implies $(\varphi \to \psi)$.
+
+Now, suppose $\Gamma$ logically implies $(\varphi \to \psi)$.  By Version II of Completeness of $\mathcal{L}_0$, $\Gamma \vdash (\varphi \to \psi)$.  Since $\Gamma \subseteq \Gamma \cup \{ \varphi \}$, we know that any $\Gamma \textrm{-proof}$ is also a $\Gamma \cup \{ \varphi \} \textrm{-proof}$.  So, $\Gamma \cup \{ \varphi \} \vdash (\varphi \to \psi)$.  So, by the inference lemma, $\Gamma \cup \{ \varphi \} \vdash \psi$.  Thus, by the soundness lemma, $\Gamma \cup \{ \varphi \}$ logically implies $\psi$.
+
+Therefore, $\Gamma \cup \{ \varphi \}$ logically implies $\psi$ if and only if $\Gamma$ logically implies $(\varphi \to \psi)$.
+
+\end{proof}
+
+\begin{exercise}{4}
+
+For $\Gamma_1$ and $\Gamma_2$ subsets of $\mathcal{L}_0$, $\Gamma_1$ is \emph{logically equivalent} to $\Gamma_2$ if and only if, for all $\varphi \in \mathcal{L}_0$, $\Gamma_1$ logically implies $\varphi$ if and only if $\Gamma_2$ logically implies $\varphi$.  For $\Gamma \subseteq \mathcal{L}_0$, $\Gamma$ is \emph{independent} if it is not logically equivalent to any of its proper subsets.  Prove the following.
+
+\begin{enumerate}[label = \alph*)]
+
+\item If $\Gamma$ is finite, then there is a $\Gamma_0$ such that $\Gamma_0 \subseteq \Gamma$, $\Gamma$ and $\Gamma_0$ are logically equivalent, and $\Gamma_0$ is independent.
+
+\end{enumerate}
+
+\begin{proof}
+Suppose $\Gamma \subseteq \mathcal{L}_0$ is finite.  So we may induct on the number of formulas in $\Gamma$.  If $\Gamma$ contains $0$ formulas, then $\Gamma$ is empty, and thus has no proper subsets.  So $\Gamma$ is independent, vacuously.  Thus $\Gamma_0 = \Gamma$ satisfies the conditions of the proposition.
+
+For the inductive step, we will need to first show that logical equivalence is transitive (this is basically obvious).  Suppose that $\Gamma_1$ is logically equivalent to $\Gamma_2$ and $\Gamma_2$ is logically equivalent to $\Gamma_3$.  Then, for all $\varphi \in \mathcal{L}_0$, if $\Gamma_1$ logically implies $\varphi$ then so does $\Gamma_2$.  Since $\Gamma_2$ logically implies $\varphi$, so does $\Gamma_3$.    Switching the roles of $\Gamma_1$ and $\Gamma_3$ gives that $\Gamma_3$ logically implies $\varphi$ only if $\Gamma_1$ does, too.  So $\Gamma_1$ and $\Gamma_3$ are logically equivalent, and thus logical equivalence is transitive.
+
+Now, assume for some $k \in \mathbb{Z}^+ \cup \{ 0 \}$ that the proposition holds for all subsets of $\mathcal{L}_0$ containing less than or equal to $k$ formulas.  Suppose $\Gamma$ contains $k+1$ formulas.  If $\Gamma$ is independent, then $\Gamma_0 = \Gamma$ is a subset of $\Gamma$ that satisfies the conditions of the proposition.
+
+So assume that $\Gamma$ is not independent.  Then $\Gamma$ has some proper subset $\Gamma_1$ that is logically equivalent to $\Gamma$.  Since $\Gamma_1$ is a proper subset, it contains less formulas than $\Gamma$ does.  So the number of formulas in $\Gamma_1$ is less than or equal to $k$.  By the inductive hypothesis, then, there is a subset $\Gamma_0$ of $\Gamma_1$ such that $\Gamma_0$ is independent and logically equivalent to $\Gamma_1$ (which is, in turn, logically equivalent to $\Gamma$).
+
+So $\Gamma_0 \subseteq \Gamma_1 \subset \Gamma$ and, by the transitivity of logical equivalence, $\Gamma_0$ is logically equivalent to $\Gamma$.  Thus $\Gamma_0$ satisfies the conditions of the proposition, since it is an independent subset of $\Gamma$ that is logically equivalent to $\Gamma$.  Therefore, we have shown inductively that the proposition holds for all finite $\Gamma \subseteq \mathcal{L}_0$.
+
+\end{proof}
+
+\begin{enumerate}[label = \alph*)]
+\setcounter{enumi}{1}
+\item There is an infinite set $\Gamma$ such that $\Gamma$ has no independent and logically equivalent subset.
+\end{enumerate}
+
+\begin{proof}
+
+Define a sequence of formulas $\{ \varphi_n \}$ by $\varphi_n = A_0 \wedge A_1 \wedge A_2 \wedge \cdots \wedge A_n$ for each $n \in \N$.  Notice that, for any $i < j$, $\{ \varphi_j \}$ logically implies $\varphi_i$.  Take $\Gamma$ to be the set $\{ \varphi_n : n \in \N \}$.
+
+Assume, for a contradiction, that $\Gamma_0$ is an independent and logically equivalent subset of $\Gamma$.  Clearly, $\Gamma$ is not empty because the empty set only implies tautologies, yet $\Gamma$ implies $A_0$, for instance, which is not a tautology.  Thus, the set $M = \{ n : \varphi_n \in \Gamma_0 \}$ is nonempty.
+
+If this set $M$ has no maximum, then for any $\varphi_i \in \Gamma_0$ there is some $j > i$ such that $\varphi_j \in \Gamma_0$ as well.  But by our statement in the first paragraph, $\varphi_j$ logically implies $\varphi_i$.  So $\Gamma_0$ is logically equivalent to its own proper subset $\Gamma_0 \setminus \{ \varphi_i \}$.  Therefore $\Gamma_0$ is not independent, a contradiction.
+
+So we may assume that $M$ has a maximum $m$.  Thus for all $k > m$, $\varphi_k \not \in \Gamma_0$, and it is clear that $\varphi_k$ is not logically implied by $\Gamma_0$.  Thus $\Gamma_0$ is not logically equivalent to $\Gamma$, a contradiction.
+
+Therefore, $\Gamma$ is an infinite subset of $\mathcal{L}_0$ that has no independent and logically equivalent subset.
+
+\end{proof}
+
+
+
+\begin{enumerate}[label = \alph*)]
+\setcounter{enumi}{2}
+\item For every $\Gamma \subseteq \mathcal{L}_0$, there is a $\Delta \subseteq \mathcal{L}_0$ such that $\Delta$ is independent and logically equivalent to $\Gamma$.
+\end{enumerate}
+
+\end{exercise}
+
+\begin{proof}
+
+For this proof, we will need to use the fact that $\mathcal{L}_0$ is countable.  So we will begin by proving this.  We have already shown that $\mathcal{L}_0$ can be constructed recursively as $$\mathcal{L}_0 = \bigcup_{i=0}^\infty F_m$$ where $$F_0 = \{ A_n : n \in \N \} \textrm{ \ \ \ \ and \ \ \ \ \ } F_{m+1} = F_m \cup \{ (\neg \varphi ) : \varphi \in F_m \} \cup \{ (\varphi \to \psi) : \varphi, \psi \in F_m \}.$$
+
+We can induct on $m$ to show that each $F_m$ is countable.  $F_0$ is countable because it the set of elements of a sequence.  Now, assume that $F_m$ is countable for some $m \in \N$.  Then $\{ (\neg \varphi ) : \varphi \in F_M \}$ is countable because it is clearly in bijection with $F_m$.  Also, $\{ (\varphi \to \psi) : \varphi, \psi \in F_m \}$ is countable because it is in bijection with $F_m \times F_m$.  So $F_{m+1}$ is a union of three countable sets, and is thus countable.  So each $F_m$ is countable, so $\mathcal{L}_0$ is a countable union of countable sets, and is therefore countable.
+
+Now, to prove the main claim, let $\Gamma \subseteq \mathcal{L}_0$ and let $\Phi$ be the set of all consequences of $\Gamma$, i.e. $\Phi = \{ \varphi \in \mathcal{L}_0 : \Gamma \models \varphi \}$.  Since $\Phi \subseteq \mathcal{L}_0$, we know that $\Phi$ is countable.  So there is a sequence $\{ \varphi_n \}$, for $n \in \N$, such that $\Phi$ = $\{ \varphi_n : n \in \N \}$.
+
+Define a sequence $\{ \Delta_n \}$ as follows:
+
+If $\{ \varphi_0 \}$ is independent, let $\Delta_0 = \{ \varphi_0 \}$.  Otherwise, let $\Delta_0 = \emptyset$.  Next, for $n \geq 0$, follow these instructions:
+
+\begin{enumerate}
+\item If $\Delta_n \cup \{\varphi_{n+1} \}$ is independent, let $\Delta_{n+1} = \Delta_n \cup \{\varphi_{n+1} \}$.
+\item Otherwise, if $\Delta_n$ is logically equivalent to $\Delta_n \cup \{\varphi_{n+1} \}$, then let $\Delta_{n+1} = \Delta_n$.
+\item Otherwise, let $$\Delta_{n+1} = \Delta_n \cup \Big \{ \Big( \Big( \bigwedge_{\psi \in \Delta_n} \psi \Big) \to \varphi_{n+1} \Big) \Big \}.$$
+\end{enumerate}
+
+Finally, let $$\Delta = \bigcup_{i=0}^\infty \Delta_i.$$
+
+We will now show that $\Delta$ and $\Gamma$ are logically equivalent.  Suppose that $\Gamma$ logically implies some $\varphi \in \mathcal{L}_0$.  Then $\varphi \in \Phi$, so $\varphi = \varphi_n$ for some $n \in \N$.  We will induct on $n$ to show that $\Delta$ logically implies $\varphi_n$.  If $n = 0$, then either $\varphi_0 \in \Delta_0 \subseteq \Delta$ or $\{ \varphi_0 \}$ is not independent, meaning that $\varphi_0$ is a tautology.  In either case, $\Delta$ logically implies $\varphi$.
+
+Now, assume for some $k \in \N$ that $\Delta$ logically implies $\varphi_n$ for all $n \leq k$.  Then $\Delta_{n+1}$ is constructed using the set of instructions listed above.  In $(1)$ we know $\varphi_{n+1} \in \Delta_{n+1}$, and in $(2)$ we know $\Delta_{n+1} = \Delta_n$ is logically equivalent to $\Delta_n \cup \{ \varphi_{n+1} \}$.  So clearly $\Delta_{n+1}$ logically implies $\varphi_{n+1}$ in if either $(1)$ or $(2)$ are followed.
+
+Otherwise $(3)$ is followed, so $\big( \big( \bigwedge_{\psi \in \Delta_n} \psi \big) \to \varphi_{n+1} \big) \in \Delta_{n+1}$.  By the inductive hypothesis, $\Delta_n$ implies each of $\varphi_1, \varphi_2, \dots , \textrm{and } \varphi_n$ (thus so does $\Delta_{n+1}$).  So by the completeness of $\mathcal{L}_0$, $\Delta_{n+1}$ proves $\varphi_1, \varphi_2, \dots , \textrm{and } \varphi_n$.  By concatenating these $\Delta_{n+1} \textrm{-proofs}$ with $\left( \bigwedge_{\psi \in \Delta_n} \psi \right)$, then with $\big( \big( \bigwedge_{\psi \in \Delta_n} \psi \big) \to \varphi_{n+1} \big)$ (we also need to include some other formulas which are needed to express conjunction in terms of $\neg$ and $\to$, but all of these are present in $\Delta_{n+1}$), we can form a $\Delta_{n+1} \textrm{-proof}$ for $\varphi_{n+1}$.  Therefore, by the soundness of $\mathcal{L}_0$, $\Delta_{n+1}$ logically implies $\varphi_{n+1}$.  So $\Delta$ logically implies $\varphi_{n+1}$.
+
+It is not hard to see that $\Gamma$ logically implies every formula in $\Delta$.  We can show this simply by showing that $\Delta$ is a subset of $\Phi$, which is the set of all formulas that $\Gamma$ implies.  If $\varphi \in \Delta$, then $\varphi = \varphi_0 \in \Phi$, or $\varphi = \varphi_n \in \Phi$, or $\varphi = \big( \big( \bigwedge_{\psi \in \Delta_n} \psi \big) \to \varphi_{n+1} \big)$ for some $n \in \N$.  We know that $\varphi_1, \dots, \varphi_{n+1} \in \Phi$ and that these formulas together logically imply $\big( \big( \bigwedge_{\psi \in \Delta_n} \psi \big) \to \varphi_{n+1} \big)$.  Thus, by the transitivity of logical implication, $\varphi = \big( \big( \bigwedge_{\psi \in \Delta_n} \psi \big) \to \varphi_{n+1} \big)$ is implied by $\Gamma$, so $\varphi \in \Phi$.  Thus, in all cases, $\varphi \in \Phi$.  So $\Delta \subseteq \Phi$, and therefore $\Gamma$ logically implies every formula in $\Delta$.  So $\Gamma$ and $\Delta$ are logically equivalent.
+
+Finally, we wish to show that $\Delta$ is independent.  We will now explain that this amounts to showing that each $\Delta_n$ is independent.  Suppose there was some $\varphi$ which was implied by $\Delta \setminus \{ \varphi \}$.  Then there would be a $(\Delta \setminus \{ \varphi \}) \textrm{-proof}$ of $\varphi$.  A proof is a finite sequence of formulas, and each formula of $\Delta$ must be in some $\Delta_n$, so let $N$ be such that $\varphi \in \Delta_N$ and all symbols used in the $(\Delta \setminus \{ \varphi \}) \textrm{-proof}$ of $\varphi$ are in $\Delta_N$.  Then $\Delta_N$ is not independent.  Thus $\Delta$ is independent if each $\Delta_n$ is independent.
+
+We can induct on $n$ to show that each $\Delta_n$ is independent.  We have clearly defined $\Delta_0$ to be independent.  Now, assume $\Delta_n$ is independent.  If $(1)$ or $(2)$ is used, then clearly $\Delta_{n+1}$ is independent.  So assume $(3)$ is used.  We know that no subset of $\Delta_n$ implies $\big( \bigwedge_{\psi \in \Delta_n} \psi \big)$ because $\Delta_n$ is independent.  Also, $\Delta_n$ does not imply $\varphi_{n+1}$, or else $(2)$ would have been used.  Therefore, if any element of $\Delta_n$ is removed from $\Delta_{n+1}$, then $\varphi_{n+1}$ is no longer a consequence.  So the only possibility would be to remove $\big( \big( \bigwedge_{\psi \in \Delta_n} \psi \big) \to \varphi_{n+1} \big)$.  But without this formula, $\Delta_{n+1}$ again cannot imply $\varphi_{n+1}$, since it would be reduced to the subset $\Delta_n$, which does not imply $\varphi_{n+1}$ because $(2)$ was not used.  Thus we cannot remove any element from $\Delta_{n+1}$ and still have that $\Delta_{n+1}$ logically implies $\varphi_{n+1}$.  So $\Delta_{n+1}$ is independent.
+
+Therefore, since each $\Delta_n$ is independent, $\Delta$ is independent.  So $\Delta$ is an independent set which is logically equivalent to $\Gamma$.
+
+\end{proof}
+
+\section*{Extra Problems}
+
+\begin{exercise}{1}
+Does there exist a $\varphi \in \mathcal{L}_0$ such that the following conditions hold?
+\begin{enumerate}[label=\alph*)]
+\item $\varphi$ is neither a contradiction nor a tautology.
+\item For every $\psi \in \mathcal{L}_0$ using only the propositional letters that
+appear in $\varphi$, if $\varphi$ does not logically imply $\psi$ then $\psi$ logically
+implies $\varphi$.
+\end{enumerate}
+\end{exercise}
+
+\noindent \textbf{No such $\psi$ exists.}
+
+\begin{proof}
+
+We will show that, if $\varphi$ satisfies the first condition, then $\psi = (\neg \varphi)$, which uses only the propositional symbols found in $\varphi$, necessarily fails the second condition.
+
+Assume that $\varphi$ is neither a tautology nor a contradiction.  Then there exist truth assignments $\nu_T$ and $\nu_F$ such that $\overline{\nu}_T(\varphi)=T$ and $\overline{\nu}_F(\varphi) = F$.  By the recursive definitions of $\overline{\nu}_T$ and $\overline{\nu}_F$, we know then that $$\overline{\nu}_T (\psi) = \overline{\nu}_T ((\neg \varphi)) = F \textrm{ and } \overline{\nu}_F (\psi) = \overline{\nu}_F ((\neg \varphi)) = T.$$
+
+Therefore, $\varphi$ does not logically imply $\psi$ because $\overline{\nu}_T$ satisfies $\varphi$ but does not satisfy $\psi$.  Likewise, $\psi$ does not logically imply $\varphi$ because $\overline{\nu}_F$ satisfies $\psi$ but does not satisfy $\varphi$.
+
+\end{proof}
+
+\begin{exercise}{2}
+
+Given two truth assignments $\nu_1$ and $\nu_2$, show that there is an infinite set $\Gamma$ such that $\Gamma$ is satisfied by $\nu_1$ and $\nu_2$ and by no other truth assignments.
+
+\end{exercise}
+
+Note: If $\nu_1(A_i) = \nu_2(A_i)$, say that $\nu_1$ and $\nu_2$ \emph{agree} on $A_i$.  Otherwise, say $\nu_1$ and $\nu_2$ \emph{disagree} on $A_i$.
+
+\begin{proof}
+
+We construct $\Gamma$ as follows:
+
+For every $i \in \mathbb{N}$, if $\nu_1(A_i) = \nu_2(A_i) = T$, include $A_i$ in $\Gamma$.  If $\nu_1(A_i) = \nu_2(A_i) = F$, include $(\neg A_i)$ in $\Gamma$.
+
+Next, if $\nu_1$ and $\nu_2$ disagree on some $A_i$ and $A_j$ for $i < j$, then include $\varphi_{i,j}$ in $\Gamma$, which we define in the table below.  It is obvious that $\Gamma$ is infinite (if it is not obvious, then simply add infinitely many distinct tautologies to $\Gamma$ and it will still satisfy the claim).
+
+\begin{table}[h]
+\centering
+\begin{tabular}{| c | c | c | c | c | c | l | c |}
+\hline
+$\nu_1(A_i)$ & $\nu_1(A_j)$ & $\nu_2(A_i)$ & $\nu_2(A_j)$ & \multicolumn{1}{c |}{$\varphi_{i,j}$} \\ [0.5ex]
+%heading
+\hline % inserts single horizontal line
+T & T & F & F & $ (\neg A_i) \to (\neg A_j)$ \\
+T & F & F & T & $(\neg A_i) \to A_j$ \\
+F & T & T & F & $A_i \to (\neg A_j)$ \\
+F & F & T & T & $A_i \to A_j$ \\ [1ex]
+\hline
+\end{tabular}
+\label{table:nonlin} % is used to refer this table in the text
+\end{table}
+
+\begin{comment}
+First, note that $\Gamma$ must be infinite.  There are an infinite number of propositional symbols, so either there is an infinite set of propositional symbols on which $\nu_1$ and $\nu_2$ agree, or there is an infinite set of propositional symbols on which $\nu_1$ and $\nu_2$ disagree.  In the first case, this infinite set is a subset of $\Gamma$, since we have included all symbols on which $\nu_1$ and $\nu_2$ agree.  In the second case, for every two-element subset from this infinite set, there is a distinct formula $\varphi$ in $\Gamma.$  Since there are infinitely many such two-element subsets, $\Gamma$ must be infinite.  (Alternatively, we could have simply chosen to include an infinite number of distinct tautologies in $\Gamma$, which would have ensured that $\Gamma$ is infinite).
+\end{comment}
+
+Next, we show that $\nu_1$ and $\nu_2$ satisfy $\Gamma$.  Let $\theta \in \Gamma$.  There are only six forms which $\theta$ can take: $\theta = A_i$ for some $i \in \mathbb{N}$, $\theta = (\neg A_i)$ for some $i \in \mathbb{N}$, or $\theta$ is of one of the four forms in the rightmost column of the above table.  If $\theta = A_i$, then $\nu_1(A_i) = \nu_2(A_i) = T$, since this is the only situation where $A_i$ would have been included in $\Gamma$.  So $\nu_1$ and $\nu_2$ both satisfy $\theta$.  If $\theta = (\neg A_i)$, then $\nu_1(A_i) = \nu_2(A_i) = F$, since this is the only situation where $(\neg A_i)$ would have been included in $\Gamma$.  So $\nu_1$ and $\nu_2$ both satisfy $\theta$.  If $\theta$ is of one of the four forms in the rightmost column of the above table, then inspection of the left four columns reveals that $\nu_1$ and $\nu_2$ both satisfy $\theta$.  So $\nu_1$ and $\nu_2$ both satisfy $\Gamma$.
+
+Now, suppose $\nu_3$ is a truth assignment that is not equal to $\nu_1$ or $\nu_2$.  Then, for some $A_i$ and $A_j$, $\nu_3$ disagrees with $\nu_1$ on $A_i$ and disagrees with $\nu_2$ on $A_j$.  If $i = j$, then $\nu_1$ and $\nu_2$ must agree on $A_i$, since otherwise $\nu_3$ could not disagree with both of them.  Therefore, either $\nu_1(A_i) = \nu_2(A_i) = T$ and $\nu_3(A_i) = F$, so $A_i \in \Gamma$ but $\nu_3$ does not satisfy $A_i$, or $\nu_1(A_i) = \nu_2(A_i) = F$ and $\nu_3(A_i) = T$, so $(\neg A_i) \in \Gamma$ but $\nu_3$ does not satisfy $(\neg A_i)$.
+
+So we assume that $i \neq j$.  Further, assume without loss of generality that $i < j$.  The table below shows that $\nu_3$ does not satisfy $\varphi_{i,j}$, which was included in $\Gamma$ as a result of the disagreement of $\nu_1$ and $\nu_2$ on $A_i$ and $A_j$.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{| c | c | c | c | c | c | l | c |}
+\hline
+$\nu_1(A_i)$ & $\nu_1(A_j)$ & $\nu_2(A_i)$ & $\nu_2(A_j)$ & $\nu_3(A_i)$ & $\nu_3(A_j)$ & \multicolumn{1}{c |}{$\varphi_{i,j}$} & $\overline{\nu}_3(\varphi)$ \\ [0.5ex]
+%heading
+\hline % inserts single horizontal line
+T & T & F & F & F & T & $ (\neg A_i) \to (\neg A_j)$ & F \\
+T & F & F & T & F & F & $(\neg A_i) \to A_j$ & F \\
+F & T & T & F & T & T & $A_i \to (\neg A_j)$ & F \\
+F & F & T & T & T & F & $A_i \to A_j$ & F \\ [1ex]
+\hline
+\end{tabular}
+\label{table:nonlin} % is used to refer this table in the text
+\end{table}
+
+Since, in all cases, $\nu_3$ does not satisfy some formula in $\Gamma$, $\nu_3$ does not satisfy $\Gamma$.  Because $\nu_3$ was arbitrary, $\Gamma$ is satisfied by $\nu_1$ and $\nu_2$ but by no other truth assignments.
+
+\end{proof}
+ 
+\begin{exercise}{3}
+
+Show that the axioms in Group IV (2) are tautologies.
+
+\end{exercise}
+ 
+\begin{proof}
+We wish to show that the following logical axioms are tautologies:
+
+\begin{enumerate}[label = \arabic*)]
+\item $((\neg \varphi_1) \to (\varphi_1 \to \varphi_2))$
+\item $(\varphi_1 \to ((\neg \varphi_2) \to (\neg (\varphi_1 \to \varphi_2))))$
+\end{enumerate}
+
+A formula $\psi$ is a tautology if it is satisfied by every truth assignment.  We can show this with a truth table, since there are only finitely many values a truth assignment could take for the formulas specified within $\psi$.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{| c | c | c | c | c |}
+\hline
+$\overline{\nu}(\varphi_1)$ & $\overline{\nu}(\varphi_2)$ & $\overline{\nu}((\neg \varphi_1))$ & $\overline{\nu}((\varphi_1 \to \varphi_2))$ & $\overline{\nu}(((\neg \varphi_1) \to (\varphi_1 \to \varphi_2)))$ \\ [0.5ex]
+\hline
+T & T & F & T & T \\
+T & F & F & F & T \\
+F & T & T & T & T \\
+F & F & T & T & T \\ [1ex]
+\hline
+\end{tabular}
+\label{table:nonlin}
+\end{table}
+
+Let $\psi = (\varphi_1 \to ((\neg \varphi_2) \to (\neg (\varphi_1 \to \varphi_2))))$.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{| c | c | c | c | c | c | c |}
+\hline
+$\overline{\nu}(\varphi_1)$ & $\overline{\nu}(\varphi_2)$ & $\overline{\nu}((\varphi_1 \to \varphi_2))$ & $\overline{\nu}((\neg (\varphi_1 \to \varphi_2)))$ & $\overline{\nu}((\neg \varphi_2))$ & $\overline{\nu}(((\neg \varphi_2) \to (\neg (\varphi_1 \to \varphi_2))))$ & $\overline{\nu}(\psi)$  \\ [0.5ex]
+\hline
+T & T & T & F & F & T & T \\
+T & F & F & T & T & T & T \\
+F & T & T & F & F & T & T \\
+F & F & T & F & T & F & T \\ [1ex]
+\hline
+\end{tabular}
+\label{table:nonlin}
+\end{table}
+
+\end{proof}
+
+\end{document}
+
+
+
+
+

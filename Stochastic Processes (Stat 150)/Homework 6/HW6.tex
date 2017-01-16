@@ -1,0 +1,154 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=.85in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{units}
+\usepackage{bm}
+\usepackage{enumitem}
+\setenumerate{listparindent=\parindent}
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\p}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Var}{Var}
+
+\theoremstyle{definition}
+\newtheorem*{prob1}{Q 1}
+\newtheorem*{prob2}{Q 2}
+\newtheorem*{prob3}{Q 3}
+\newtheorem*{prob4}{Q 4}
+\newtheorem*{prob5}{Q 5}
+\newtheorem*{prob6}{Q 6}
+
+ 
+\usepackage{fancyhdr} % Required for custom headers 
+%\usepackage{lastpage} % Required to determine the last page for the footer
+
+\pagestyle{fancy}
+\lhead{Stat 150 (HW6)}
+\chead{Michael Knopf (24457981)}
+\rhead{March $20^\text{th}$, 2015}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+%\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}
+\renewcommand\headrulewidth{0.4pt}
+%\renewcommand\footrulewidth{0.4pt}
+
+\begin{document}
+
+%\title{Homework 5 \\ Stat 150}
+%\author{Michael Knopf \\ 24457981}
+%\maketitle
+\noindent Worked with Sydney Wong
+\begin{prob1}
+Let $N(t)$ be a rate $\lambda$ Poisson process.  Find $$\p(N(t_1) = x_1, N(t_2) = x_2, N(t_3) = x_3)$$ for $0 < t_1 < t_2 < t_3$ and $0 \leq x_1 \leq x_2 \leq x_2$.
+\end{prob1}
+
+\begin{proof}
+
+%\begin{align*}
+%& \p(N(t_1) = x_1, N(t_2) = x_2, N(t_3) = x_3)
+%\\
+%= \ & \p(N(t_1) = x_1, N(t_2 - t_1) = x_2 - x_1, N(t_3 - t_2) = x_3 - x_2)
+%\\
+%= \ & \p(N(t_1) = x_1) \p(N(t_2 - t_1) = x_2 - x_1) \p(N(t_3 - t_2) = x_3 - x_2)
+%\\
+%= \ & e^{-\lambda t_1} \dfrac{(\lambda t_1)^{x_1}}{x_1!}
+%e^{-\lambda (t_2 - t_1)} \dfrac{(\lambda (t_2 - t_1))^{x_2 - x_1}}{(x_2 - x_1)!}
+%e^{-\lambda (t_3 - t_2)} \dfrac{(\lambda (t_3 - t_2))^{x_3 - x_2}}{(x_3 - x_2)!}
+%\\
+%= \ & \dfrac{1}{x_1! (x_2 - x_1)!(x_3 - x_2)!}e^{-\lambda(t_1 - t_1 + t_2 - t_2 + t_3)} \ \lambda^{x_1 + x_2 - x_1 + x_3 - x_2} \ 
+%t_1^{x_1}(t_2-t_1)^{x_2-x_1}(t_3-t_2)^{x_3-x_2}
+%\end{align*}
+\begin{align*}
+& \p(N(t_1) = x_1, N(t_2) = x_2, N(t_3) = x_3)
+\\
+= \ & \p(N(t_3) = x_3) \p(N(t_1) = x_1, N(t_2) = x_2, N(t_3) = x_3 \ | \ N(t_3) = x_3)
+\\
+= \ & \p(N(t_3) = x_3) \p(N(t_1) = x_1, N(t_2-t_1) = x_2-x_1, N(t_3-t_2) = x_3-x_2 \ | \ N(t_3) = x_3)
+\\
+= \ & e^{-\lambda t_3} \dfrac{(\lambda t_3) ^ {x_3}}{x_3!} \dbinom{x_3}{x_1,x_2-x_1,x_3-x_2} \left(\dfrac{t_1}{t_3}\right)^{x_1} \left(\dfrac{t_2-t_1}{t_3}\right)^{x_2-x_1} \left( \dfrac{t_3-t_2}{t_3} \right)^{x_3-x_2}
+%\\
+%= \ & e^{-\lambda t_3} \dfrac{(\lambda t_3) ^ {x_3}}{x_3!} \dbinom{x_3}{x_1,x_2-x_1,x_3-x_2} \dfrac{t_1^{x_1}(t_2-t_1)^{x_2-x_1}(t_3-t_2)^{x_3-x_2}}{t_3^{x^3}}
+\end{align*}
+\end{proof}
+
+\begin{prob2}
+New radioactive particles are generated at a rate $\mu$ from a radioactive source.  They have a lifetime with distribution $Exp(1)$ after which they decay.
+\begin{itemize}
+\item At time 0, there are no particles present.  Calculate the distribution of the number present at time 1.
+\item For a particle present at time 1, calculate the distribution of the time that it arrived.
+\end{itemize}
+\end{prob2}
+
+\begin{proof}
+Let $\lambda(x,y) = \mu e^{-y}$, since $e^{-y}$ is the density of an exponential 1 random variable.  We have shown in lecture that the distribution of the number of particles present at time 1 is Poisson, where the mean is the integral of $\lambda(x,y)$ over the region where $0 < x < 1$ and $x+y > 1$:
+$$
+\int_0^1 \int_{1-x}^\infty \mu e^{-y} dy dx
+= \int_0^1 \mu [-e^{-\infty} + e^{x-1}]dx
+= \int_0^1 \mu e^{x-1}dx
+= \mu[e^{1-1} - e^{0-1}] = \mu(1-e^{-1}).
+$$
+Thus the distribution is Pois$(\mu(1-e^{-1}))$.  Let $f_{X,Y}(x,y)$ be the joint distribution.  We want to find $f_X(x)$.
+$$f_{X,Y}(x,y) = \frac{\lambda(x,y)}{\mu(1-e^{-1})}
+= \frac{\mu e^{-y}}{\mu(1-e^{-1})}$$
+$$f_{X}(x) = \int \frac{\mu e^{-y}}{\mu(1-e^{-1})}dy = -\frac{e^{1-x}}{e-1}.$$
+\end{proof}
+
+
+\begin{prob3}
+Red cars arrive according to a rate $\alpha$ Poisson process, and blue cars according to an independent rate $\beta$ Poisson process.  We are told that exactly one blue car has arrived by time 1.  Conditional on this event, find the distribution of the time of the first blue car.  Find the conditional distribution of the first car of either color.
+\end{prob3}
+
+\begin{proof}
+Given that one blue car arrived during the first minute, the distribution of the time $U$ of the first blue car's arrival is uniform on the interval $(0,1)$.  The time $T_R$ of the first red car's arrival is simply exponential, and is independent of $U$.
+\begin{align*}
+\p(T = k \ | \ N_B(1) = 1) &= \frac{d}{dt}\left[ \p(\max\{U,T_R\} < t) \right]
+\\
+&= \frac{d}{dt}\left[ 1 - \p(\min\{U,T_R\} > t) \right]
+\\
+&= -\frac{d}{dt}\left[\p(U > t)\p(T_R > t)
+\right]
+\\
+&= -\frac{d}{dt}\left[(1-t)e^{-\alpha t}
+\right]
+\\
+&= e^{-\alpha t} - \alpha t e^{-\alpha t} + \alpha e^{-\alpha t}
+\\
+&= (1 + \alpha - \alpha t) e^{-\alpha t}
+\end{align*}
+\end{proof}
+
+\begin{prob4}
+Blue, red and green cars arrive according to Poisson processes with rates 1, 2 and 3 respectively.  Find the expected time until the first blue car arrives.  Find the expected time until the first blue car that arrives directly after a red car.
+\end{prob4}
+
+\begin{proof}
+The expected time until the first blue car arrives is $1/1 = 1$.
+
+To find the expected time until the first blue car that arrives directly after a red car, notice that the number of times this event occurs in one unit time interval is Poisson distributed, where the mean is the overall rate ($1 + 2 + 3 = 6$) times the probability that a given pair of consecutive arrivals is a red car followed by a blue car ($\frac13 \cdot \frac16 = \frac{1}{18}$).  So the number of occurences of the event where a red car arrives, then a blue car arrives directly afterwards, has Poisson distribution with mean $6 \cdot \frac{1}{18} = \frac13$.  Therefore, the time until our first observance of this event is distributed exponential with rate $\frac13$.  So the expected time until this first arrival is $(\frac13)^{-1} = 3$.
+\end{proof}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

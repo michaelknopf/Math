@@ -1,0 +1,399 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+%\addtolength{\oddsidemargin}{-.1in} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{lipsum}
+\usepackage[]{units}
+\usepackage{relsize}
+\usepackage{verbatim}
+\usepackage{bbm}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{graphicx}
+\usepackage{xfrac}
+\usepackage{collectbox}
+
+\setenumerate{listparindent=\parindent}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+
+
+
+\makeatletter
+\newcommand{\sqbox}{%
+    \collectbox{%
+        \@tempdima=\dimexpr\width-\totalheight\relax
+        \ifdim\@tempdima<\z@
+            \fbox{\hbox{\hspace{-.5\@tempdima}\BOXCONTENT\hspace{-.5\@tempdima}}}%
+        \else
+            \ht\collectedbox=\dimexpr\ht\collectedbox+.5\@tempdima\relax
+            \dp\collectedbox=\dimexpr\dp\collectedbox+.5\@tempdima\relax
+            \fbox{\BOXCONTENT}%
+        \fi
+    }%
+}
+\makeatother
+
+\DeclareMathOperator*{\dom}{dom}
+\renewcommand{\bar}{\overline}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Stat 155 (HW4)}
+\chead{Michael Knopf (24457981)}
+\rhead{July $29^\text{th}$, 2015}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+\renewcommand\headrulewidth{0.4pt}
+
+\begin{document}
+
+\begin{enumerate}
+\item Consider a Transferable Utility Cooperative game such that $v:2^N \rightarrow \{0,1\}$.
+\begin{enumerate}
+\item Show the core is empty if and only if there are no veto players.
+\begin{proof}
+The core is the set $$C = \{ x \in \R^{|N|} : \sum_{i \in N} x_i = v(N) \text{ and } \sum_{i \in S} x_i \geq v(S) \text{ for all } S \subseteq N \}.$$
+
+Suppose the $j$th player is a veto player.  If $v(N) = 0$, then clearly the core is nonempty since the zero vector satisfies both constraints (if $S \subsetneq N$ then $v(S) \leq v(S) + v(N \setminus S) \leq v(S \cup (N \setminus S)) = v(N) = 0$, so $v(S) = 0$ and the second condition is satisfied).  So we may assume $v(N) = 1$.
+
+In this case, the vector $x$ that has zeros in every component except a one in the $j$th is in the core: clearly $\sum_{i \in N} x_i = 1 = v(N)$.  For the second condition, note that, for any $S \subseteq N \setminus \{j\}$,
+$$v(S) \leq v(S) + v((N \setminus \{j\}) \setminus S)) \leq v(S \cup ((N \setminus \{j\}) \setminus S)) = v(N \setminus \{j\}) = 0$$ thus $v(S) = 0$.  So $\sum_{i \in S} x_i = 0 \geq 0 = v(S)$.   If $S \not \subseteq N \setminus \{x_j\}$, then $x_j \in S$.  So $\sum_{i \in S} x_i = 1 \geq v(S)$, since $v(S)$ is either $1$ or $0$.  So the core is nonempty.
+
+For the reverse direction, suppose there are no veto players.  We must have $v(N) = 1$ or else, for a given $i$, $$v(N \setminus \{x_i\}) \leq v(N \setminus \{x_i\}) + v(\{x_i\}) \leq v((N \setminus \{x_i\}) \cup \{x_i\}) = v(N) = 0$$ which implies $v(N \setminus \{x_i\}) = 0$, contradicting that there are no veto players.
+
+Now, suppose for a contradiction that there is some $x \in C$.  Since $\sum_{i \in N} x_i = v(N) = 1$, there must be some $j \in N$ such that $x_j > 0$.  Letting $S = N \setminus \{j\}$, we know $\sum_{i \in S} x_i < \sum_{i \in S} x_i + x_j = 1$.  However, $v(S) = 1$ because $j$ is not a veto player.  This is a contradiction, since it implies $\sum_{i \in S} x_i  < 1 = v(S)$.  Thus, the core must be empty.
+\end{proof}
+\item Fill in $P(x)$ such that $C = \{x \in I | P(x) \}$ for veto players.
+
+$$C = \{x \in \R^{|N|} : \sum_{i \in N} x_i = v(N), x_i = 0 \text{ if } j \text{ is not a veto player} \}$$
+
+\begin{proof}
+First, we will show that $C$ is a subset of the core.  All elements of $C$ are group rational by definition.  By individual rationality, no component of any $x \in C$ is negative, since $x_i \geq v(\{x_i\}) \geq 0$.  If $v(N) = 0$, then this set is simply the zero vector, which we proved was in the core in this case in part(a).  So assume $v(N) = 1$.
+
+We proved in part (a) that any set which does not include every veto player will necessarily have value 0.  So if $S$ does not include some veto player, then $v(S) = 0$ and the second condition is satisfied.  So assume $S$ contains all veto players.  Then $$\sum_{i \in S} x_i = 1 - \sum_{i \not \in S} x_i = 1 - 0 = 1 \geq v(S)$$ so again the second condition is satisfied.  So $C$ is a subset of the core.
+
+For the reverse inclusion, suppose $x$ is in the core.  The final paragraph of part (a) proves that if $x_j > 0$ but $j$ is not a veto player, then $j$ can be removed and the remaining coalition can split his payoff amongst themselves, i.e. letting $S = N \setminus \{x_j\}$ we have
+$$
+\sum_{i \in S} x_i = 1 - x_j < 1 = v(S),
+$$
+a contradiction.  Therefore, the core is a subset of $C$.  So $C$ is the core.
+\end{proof}
+\end{enumerate}
+\pagebreak
+\item Let $(N,v_j)$ be the $j^\text{th}$ transferable utility game for $j \in \{1,\dots , k\}$.  Show that, for any set of real numbers $\{c_1, \dots , c_k\}$ and for all $i \in \{1, \dots , n\}$,
+$$
+\varphi_i \left( \sum_{j=1}^k c_j v_j \right) = \sum_{j=1}^k c_j \varphi_i( v_j).
+$$
+
+\begin{proof}
+I assume that $\varphi_i$ refers to the function in exercise 3, rather than to an arbitrary function satisfying the Shapley axioms (although these turn out to be equivalent).  Still, there exist additive functions that are not $\R$-linear, so the most sensible method of proof is to use the result of exercise 3 to assert that $\varphi_i$ is the only function satisfying the axioms, then show that $\varphi_i$ is linear, proving that any function satisfying these axioms is linear.
+\begin{align*}
+\varphi_i \left( \sum_{j=1}^k c_j v_j \right) &= \frac{1}{|N|!} \sum_{S \in 2^{N \setminus \{i\}}} |S|!(|N| - |S| - 1)! \left( \sum_{j=1}^k c_j v_j(S \cup \{i\}) - \sum_{j=1}^k c_j v_j(S) \right)
+\\
+&= \frac{1}{|N|!} \sum_{S \in 2^{N \setminus \{i\}}} |S|!(|N| - |S| - 1)! \sum_{j=1}^k c_j \left(v_j(S \cup \{i\}) - v_j(S) \right)
+\\
+&= \frac{1}{|N|!} \sum_{S \in 2^{N \setminus \{i\}}} \sum_{j=1}^k c_j |S|!(|N| - |S| - 1)! \left(v_j(S \cup \{i\}) - v_j(S) \right)
+\\
+&= \sum_{j=1}^k c_j \frac{1}{|N|!} \sum_{S \in 2^{N \setminus \{i\}}} |S|!(|N| - |S| - 1)! \left(v_j(S \cup \{i\}) - v_j(S) \right)
+\\
+&= \sum_{j=1}^k c_j \varphi_i( v_j).
+\end{align*}
+Switching the summations is justified simply by the fact that the domains of the summations are constant with respect to each other.
+\end{proof}
+
+\item Using the $\varphi_i(v)$ defined below, show this function is the unique Shapley-Value.
+$$
+\varphi_i(v) = \frac{1}{|N|!} \sum_{S \in 2^{N \setminus \{i\}}} |S|!(|N| - |S| - 1)!(v(S \cup \{i\}) - v(S))
+$$
+
+\begin{proof}
+
+The book proves that there is a unique function, for each $|N|$, satisfying the Shapley axioms.  We saw in lecture that $\varphi_i$ satisfies the axioms, thus it must be the unique Shapley-Value.  We will present this proof now.
+
+The proof has three parts:
+\begin{enumerate}
+\item For any $c \in \R$, the Shapley-Value function $\phi_i$, applied to $cw_S$, is $\phi_i(cw_S) = \frac{c}{|S|}\cdot \mathbbm{1}(i \in S)$, where $w_S = \mathbbm{1}(S \subseteq{T})$.
+\begin{proof}
+For a given set $N$, let $w_S$ be as defined in (a) for each $S \subseteq N$.  Suppose $i \not \in S$.  If $S \subseteq T$, then $cw_S(T) = cw_S(T \cup \{i\}) = c$.  If $S \not \subseteq T$, then $S \not \subseteq T \cup \{i\}$ either, thus $cw_S(T) = cw_S(T \cup \{i\}) = 0$.  So $i$ is a dummy, hence by axiom 3, $\phi_i(cw_s) = 0$.
+
+Suppose now that $i,j \in S$.  For all $T$ such that $i,j \not \in T$, $S \not \subseteq T \cup \{i\}$ because $j \not \in T \cup \{i\}$; and $S \not \subseteq T \cup \{j\}$ because $i \not \in T \cup \{j\}$.  Thus, $v(T \cup \{i\}) = v(T \cup \{j\}) = 0$.  So by axiom 2, $\phi_i(cw_S) = \phi_j(cw_S)$.
+
+For any $j \in S$, by axiom 1 we have
+$$
+|S| \phi_j(cw_S)
+=
+\sum\limits_{i \in S} \phi_i(cw_S) =
+\sum\limits_{i \in S} \phi_i(cw_S) + 0
+=
+\sum\limits_{i \in S} \phi_i(cw_S) + \sum\limits_{i \not \in S} \phi_i(cw_S)
+=
+\sum\limits_{i \in N} \phi_i(cw_S)
+= c
+$$
+thus $\phi_j(cw_S) = \dfrac{c}{|S|}$.
+\end{proof}
+\item Any characteristic function $v: 2^N \rightarrow \R$ can be written uniquely as an $\R$-linear combination of $\{w_S : S \subseteq N\}$.
+\begin{proof}
+Let $v: 2^N \rightarrow \R$.  First, we will show, constructively, that such a linear combination exists.  We construct the function $c_S$ recursively.  Define $c_{\emptyset} = 0$.  Now, assume that $c_S$ is defined for all $S \subseteq N$ such that $|S| < k$, for some $k > 0$.  Now, suppose $|T| = k$ for some $T \subseteq N$.  Define
+$$
+c_T = v(T) - \sum\limits_{S \subsetneq T} c_S.
+$$
+Clearly, $c_T$ is well-defined for all $T$, since if $S \subsetneq T$ then $|S| < |T|$.  Also, by construction we have
+$$
+v(T) = c_T + \sum\limits_{S \subsetneq T} c_S = \sum\limits_{S \subseteq T} c_S.
+$$
+This gives
+$$
+\sum\limits_{S \subseteq N} c_Sw_S(T)
+=
+\sum\limits_{S \subseteq T} c_Sw_S \cdot 1
++ \sum\limits_{S \not \subseteq T} c_S\cdot 0
+=
+\sum\limits_{S \subseteq T} c_S = v(T).
+$$
+thus $v = \sum\limits_{S \subseteq N} c_Sw_S$ expresses $v$ as a linear combination of $\{w_S : S \subseteq N\}$.
+
+We must now show that this expression is unique.  Suppose that there are some other constants $c_S'$, for each $S \subseteq N$, satisfying $\sum\limits_{S \subseteq N} c_S'w_S(T) = v(T) = \sum\limits_{S \subseteq N} c_Sw_S(T)$ for all $T \subseteq N$.  We will show by induction on $|S|$ that $c_S = c_S'$.
+
+Suppose $|S| = 0$.  Then $S = \emptyset$.  Recall that these linear combinations must hold for all $T \subseteq N$, thus they must hold in particular for $T = \emptyset$.  So
+$$
+\sum\limits_{S \subseteq N} c_S'w_S(\emptyset) = \sum\limits_{S \subseteq N} c_Sw_S(\emptyset)
+\implies
+\sum\limits_{S \subseteq \emptyset} c_S' = \sum\limits_{S \subseteq \emptyset} c_S
+\implies
+c'_{\emptyset} = c_{\emptyset}.
+$$
+Next, suppose the proposition holds for all $S$ such that $|S| < |T|$ for some $T \subseteq N$.  Then we may apply the equation to $T$, giving
+$$
+\sum\limits_{S \subseteq N} c_S'w_S(T) = \sum\limits_{S \subseteq N} c_Sw_S(T)
+\implies
+\sum\limits_{S \subseteq T} c_S' = \sum\limits_{S \subseteq T} c_S
+$$
+$$
+\implies
+\sum\limits_{S \subsetneq T} c_S' + c_T'
+ = \sum\limits_{S \subsetneq T} c_S + c_T
+\implies
+c'_{T} = c_{T}
+$$
+by the inductive hypothesis.  Therefore, the linear combination is unique.
+\end{proof}
+\item For any such $v = \sum_{S \subseteq N} c_S w_S$, $\phi_i(v) = \sum\limits_{S \subseteq N \setminus \{ i\}} \dfrac{c_S}{|S|}$.
+\begin{proof}
+This follows immediately from the additivity axiom:
+$$
+\phi_i(v) = \phi_i(\sum\limits_{S \subseteq N} c_Sw_S) = \sum\limits_{S \subseteq N} \phi_i(c_Sw_S) = \sum\limits_{S \subseteq N} \frac{c_S}{|S|}\mathbbm{1}(i \in S) = \sum\limits_{S \subseteq N \setminus \{i\}} \frac{c_S}{|S|}.
+$$
+\end{proof}
+Therefore, there is a unique function satisfying the Shapley axioms.  Since we have shown in lecture that $\varphi_i$ satisfies these axioms, it must be this unique function.
+\end{enumerate}
+
+
+
+\end{proof}
+\pagebreak
+\item Show that any 2 person constant sum game is inessential.  Deduce that any 2 person zero sum game is inessential.
+
+\begin{proof}
+Let $N = \{1,2\}$.  The game is constant sum, so
+$$
+\sum\limits_{i \in N} v(\{i\}) = v(\{1\}) + v(\{2\}) = v(\{1\}) + v(\{1\}^C) = v(N).
+$$
+All zero sum games are constant sum, hence inessential.
+\end{proof}
+
+\item Prove that every convex game contains the Shapley-value in the core.
+
+\begin{proof}
+In lecture, we saw the following construction, which proved that the core of a convex game is nonempty:
+Suppose a game $(N,v)$ is convex, where $n = |N|$.  Let $\pi: \{1, \dots , n\} \rightarrow N$ be any permutation of the set $N$, and denote the image of $i$ under $\pi$ as $\pi_i$.  Define a vector $x \in \R^n$ by $$x_{\pi_k} = v(\{\pi_i: 1 \leq i \leq k\}) - v(\{\pi_i: 1 \leq i \leq k-1\})$$ for $k \in \{1, \dots , N\}$.
+
+We will show that $x$ is in the core.  It is clear that $x$ is group rational, since
+\begin{align*}
+\sum_{k = 1}^n x_{\pi_k} &= \sum_{k = 1}^n v(\{\pi_i: 1 \leq i \leq k\}) - v(\{\pi_i: 1 \leq i \leq k-1\})
+\\
+&= v(\{\pi_i: 1 \leq i \leq n\}) - v(\emptyset) + \sum_{k=1}^{n-1} v(\{\pi_i: 1 \leq i \leq k\}) - v(\{\pi_i: 1 \leq i \leq k\})
+\\
+&= v(N).
+\end{align*}
+
+Next, we will show that $x$ is stable.  Let $S \subseteq N$.  By convexity, we know that, for any $R, T \subseteq N$,
+$$
+v(T) - v(R \cap T) \leq v(R \cup T) - v(R).
+$$
+For each $k \in \pi^{-1}(S)$, let $R = \{\pi_i : 1 \leq i \leq k-1\}$ and $T = \{\pi_i : 1 \leq i \leq k\} \cap S$.  Observe that 
+\begin{align*}
+R \cup T &= \{\pi_i : 1 \leq i \leq k-1\} \cup (\{\pi_i : 1 \leq i \leq k\} \cap S)
+= \{\pi_i : 1 \leq i \leq k\}
+\end{align*}
+because $\pi_k \in S$, and
+$$
+R \cap T = \{\pi_i : 1 \leq i \leq k-1\} \cap (\{\pi_i : 1 \leq i \leq k\} \cap S) = \{\pi_i : 1 \leq i \leq k-1\} \cap S.
+$$
+Thus, convexity implies
+\begin{align*}
+v(\{\pi_i : 1 \leq i \leq k\} \cap S) - v(\{\pi_i : 1 \leq i \leq k-1\} \cap S)
+&= v(T) - v(R \cap T)
+\\
+&\leq
+v(R \cup T) - v(R)
+\\
+&= v(\{\pi_i : 1 \leq i \leq k\}) - v(\{\pi_i : 1 \leq i \leq k-1\})
+\\
+&= x_{\pi_k}.
+\end{align*}
+for any $k \in \pi^{-1}(S)$.  Summing the lefthand side gives
+\begin{align*}
+& \ \ \ \ \sum_{k \in \pi^{-1}(S)} v(\{\pi_i : i \leq k\} \cap S) - v(\{\pi_i : i \leq k-1\} \cap S)
+\\
+&=
+v(\{\pi_i : \pi_i \in S\} \cap S) - v(\{\pi_i : \pi_i \not \in S\} \cap S)
+\\
+& \ \ \ + \sum_{k \in \pi^{-1}(S) \setminus \{ \max(\pi^{-1}(S)) \}} v(\{\pi_i : i \leq k\} \cap S) - v(\{\pi_i : i \leq k\} \cap S)
+\\
+&= v(S \cap S) - v(\emptyset) + 0
+\\
+&= v(S).
+\end{align*}
+Thus, $v(S) \leq \sum\limits_{\pi_k \in S} x_{\pi_k}$, so $x$ is stable.
+
+In truth, $x$ is a function of $\pi$.
+Notice that $\varphi$ is simply the average of $x(\pi)$ over all possible permutations $\pi$ of $N$.  This is because
+$$
+\varphi_i = \sum_{S \in 2^{N \setminus \{i\}}} \mathbb{P}(\{\Pi_k : k < i\} = S, \Pi_i = i\})[v(S \cup \{i\}) - v(S)] = \mathbb{E}[v(T \cup \{i\}) - v(T)]
+$$
+where $\Pi$ is a random, uniformly chosen permutation of $N$ and $T = \{\Pi_k : k \leq i\}$.  Therefore, $\phi$ is the mean of a collection of vectors all contained within the core.
+
+There are only two facts that remain to be proven: 1) the mean of any collection of vectors contained within a convex set is also within that set, and 2) the core is a convex set.
+
+We will prove the first claim by induction  on the number of vectors.  It is trivial for 1 vector, so suppose it holds for any collection of $n$ vectors in a convex set.  Then the mean of $\{x_1, \dots , x_n, x_{n+1} \}$ is
+$$
+\frac{x_1 + \cdots + x_n + x_{n+1}}{n+1} = 
+\frac{n}{n+1}\frac{x_1 + \cdots x_n}{n} + \frac{1}{n+1}x_{n+1}.
+$$
+But since $\frac{n}{n+1} = 1 - \frac{1}{n+1}$, this linear combination lies on the line between $x_{n+1}$, which is in the set by assumption, and $\dfrac{x_1 + \cdots x_n}{n}$, which is in the set by the inductive hypothesis.  The set is convex, so any point on this line lies within it.  Thus this mean lies in the set.
+
+We will now show that the core is a convex set, completing the proof.  Let $x, y$ be in the core.  The line between $x$ and $y$ can be parametrized as $\gamma(t) = tx + (1-t)y$ for $0 \leq t \leq 1$.  We will show that, for any $t \in [0,1]$, $\gamma(t)$ is group rational and stable.
+
+Let $u \in \R^n$ be the vector of all ones, i.e. $u_i = 1$ for all $i \in \{1, \dots , n\}$.  For any $S \subseteq N$, let $u_S \in \R^n$ be such that $u_i = \mathbbm{1}(i \in S)$.  Group rationality and stability of a vector $z$ are equivalent to $u^T z = v(N)$ and $u_S^T z \geq v(S)$, respectively.  Since $x$ and $y$ are group rational and stable, we have
+$$
+u^T \gamma(t) = tu^Tx + (1-t)u^Ty = t v(N) + (1-t)v(N) = v(N)
+$$
+$$
+u_S^T \gamma(t) = tu_S^Tx + (1-t)u_S^Ty \geq t v(S) + (1-t)v(S) = v(S)
+$$
+thus $\gamma(t)$ is in the core, so the core is convex.
+\end{proof}
+
+\item Consider the following conjecture: ``In a convex game $G = (N,v)$ with $v$ non-negative, $N$ is the set that maximizes $v$."  Discuss the validity of the conjecture.  If the conjecture is true, prove it.  Otherwise, provide a counterexample.
+
+\noindent \textbf{True}
+
+\begin{proof}
+Actually, convexity is not necessary, only super-additivity.  Let $S \subsetneq N$.  Then $$v(N) = v(S \cup S^C) \geq v(S) + v(S^C) \geq v(S),$$ since $v(S^C) \geq 0$.  Thus, $v(N)$ is at least $v(S)$ for all $S \subseteq N$, so $N$ maximizes $v$.
+\end{proof}
+\pagebreak
+\item (An introduction to Voting) In Nitopia, president Nitin wants to get a bill passed through Parliament.  Within Parliament, there are four political parties: $P_1, P_2, P_3,$ and $P_4$., each with $n_1, n_2, n_3$, and $n_4$ members respectively, such that $n_j > 0$ for all $j \in \{1,2,3,4\}$ and $n_1 + n_2 + n_3 + n_4 = 100$.  To get a bill passed in Parliament, a minimum of 51 votes are needed.  Furthermore, suppose all members of a party will vote the same way.  Let $N$ be the collection of all Parliament members, and let $W \subseteq 2^N$ be a set of all winning coalitions.  Define $v(S) = \mathbbm{1}(S \in W)$.  For any 4-tuple $(n_1, n_2, n_3,n_4)$, is this game super-additive?  What about convex?  Justify your findings.
+
+\noindent \textbf{The game is super-additive but not necessarily convex.}
+
+\begin{proof}
+Suppose $S, T \subseteq N$ are disjoint.  Then it is impossible that both $v(S)$ and $v(T)$ equal 1, since both cannot have size at least 51 at the same time.  So $v(S) + v(T)$ is 0 if both have size less than 51, and 1 if one of them has size at least 51.
+
+If they are both zero, then clearly $v(S \cup T) \geq v(S) + v(T)$.  If either of them has size at least 51, then their union obviously does as well.  So, in that case, $v(S \cup T) = 1 = v(S) + v(T)$.
+
+To see that the game is not necessarily convex, consider the example where $n_1 = 50$, $n_2 = n_3 = 1$, and $n_4 = 48$.  Let $S = P_1 \cup P_2$ and $T = P_1 \cup P_3$.  Then
+$$
+v(S \cup T) + v(S \cap T) = 1 + 0 < 1 + 1 = v(S) + v(T)
+$$
+since both $S$ and $T$ are winning coalitions, but $S \cap T$ is just $P_1$, which only has 50 members.
+\end{proof}
+
+\item A Transferable Utility Cooperative Game $G=(N,v)$ is called symmetric if $v(S) = z(|S|)$ for some function $z:N \rightarrow \R$.  Conjecture necessary and sufficient conditions such that $C \neq \emptyset$.  Prove all aspects of your conjecture rigorously.
+
+\noindent \textbf{$C \neq \emptyset$ if and only if $z(|S|) \leq \frac{|S|}{|N|}v(|N|)$ for all $S \subseteq N$.}
+
+\begin{proof}
+Let $n = |N|$.  Suppose $z(|S|) \leq \frac{|S|}{n}z(n)$ for all $S \subseteq N$.  Then the vector $x \in \R^n$ defined by $x_i = \frac{z(n)}{n}$ is in the core, since its components sum to $v(N)$ and, for any $S \subseteq N$, we have $\sum\limits_{i \in S} x_i = \frac{s}{n}v(N) \geq v(S)$.
+
+Now, suppose that, for some $s < n$, we have $\frac{s}{n}z(n) < z(s)$, but the core contains some vector $x$.  There are $\binom{n}{s}$ subsets of size $s$, and, for a fixed member $i$, exactly $\binom{n-1}{s-1}$ of them contain $i$.  So
+\begin{align*}
+\binom{n}{s} z(s) &= \sum\limits_{S \in \{S \subset N : |S| = s\}} z(s)
+\\
+&\leq \sum\limits_{S \in \{S \subset N : |S| = s\}} \sum_{i \in S} x_i
+\\
+&= \sum_{i \in N} \binom{n-1}{s-1} x_i
+\\
+&= \binom{n-1}{s-1}z(n)
+\\
+&< \binom{n-1}{s-1} \frac{n}{s} z(s)
+\\
+&= \binom{n}{s} z(s).
+\end{align*}
+This is a contradiction, so the core must be empty.
+\end{proof}
+\pagebreak
+\item Define $\theta_j = v(N) - v(N \setminus \{j\})$ for all $j \in N$.  Prove that if $\sum\limits_{j \in N} \theta_j < v(N)$, then $C = \emptyset$.
+
+\begin{proof}
+Let $n = |N|$.  Suppose $\sum\limits_{j \in N} \theta_j < v(N)$.  Then $nv(N) - \sum\limits_{j \in N} v(N \setminus \{j\}) < v(N)$, which gives
+$$
+\sum\limits_{j \in N} v(N \setminus \{j\}) > (n-1)v(N).
+$$
+Assume, for a contradiction, that some vector $x$ is in the core.  By stability, we have $\sum\limits_{i \in N \setminus \{j\}} x_i \geq v(N \setminus \{j\})$ for all $j \in N$.  Summing both sides of this inequality over all $j \in N$ gives
+$$
+\sum_{j \in N}\sum_{i \in N \setminus \{j\}} x_i \geq \sum_{j \in N} v(N \setminus \{j\}) > (n-1)v(N).
+$$
+Each $x_k$ contributes exactly $n-1$ terms to the lefthand side, thus this reduces to
+$$
+(n-1)\sum_{k \in N} x_k > (n-1)v(N).
+$$
+However, by group rationality, the lefthand side equals $(n-1)v(N)$, a contradiction.  Thus the core is empty.
+\end{proof}
+
+\item Suppose there exists $j \in N$ such that $v(S) = v(S \cup \{j\})$ for all $S \in 2^N$.  Show that if the core is nonempty, then the $j^\text{th}$ component of all elements in the core is 0.
+
+\begin{proof}
+Suppose $x$ is in the core, and let $S = N \setminus \{j\}$.  Then $v(S) = v(S \cup \{j\}) = v(N)$.  By stability, we have
+$$
+\sum_{i \in N \setminus \{j\}} x_i \geq v(S) = v(N).
+$$
+Adding $x_j$ to both sides gives
+$$
+v(N) = \sum_{i \in N} x_i = x_j + \sum_{i \in N \setminus \{j\}} x_i \geq x_j + v(N)
+$$
+thus $x_j \leq 0$.
+
+We also have
+$$
+v(\{j\}) = v(\emptyset \cup \{j\}) = v(\emptyset) = 0.
+$$
+So again, by stability, $x_j \geq v(\{j\}) = 0$.  Therefore, $0 \leq x_j \leq 0$, so $x_j = 0$.
+\end{proof}
+\end{enumerate}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

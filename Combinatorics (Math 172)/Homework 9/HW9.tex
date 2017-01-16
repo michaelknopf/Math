@@ -1,0 +1,371 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=.75in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{verbatim}
+\setenumerate{listparindent=\parindent}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{verbatim}
+\usepackage{gensymb}
+\usepackage{bm}
+
+\usepackage{tikz}
+\usepackage{tkz-berge}
+%\usepackage{graphics,graphicx}
+%\usepackage{pstricks,pst-node,pst-tree}
+\usepackage[colorinlistoftodos]{todonotes}
+\usetikzlibrary{arrows,shapes,positioning}
+%\usetikzlibrary{positioning,arrows}
+ 
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\p}{\mathbb{P}}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Null}{null}
+
+\usepackage{fancyhdr} % Required for custom headers 
+%\usepackage{lastpage} % Required to determine the last page for the footer
+
+\pagestyle{fancy}
+\lhead{Math 172 (HW9)}
+\chead{Michael Knopf (24457981)}
+\rhead{April $3^\text{rd}$, 2015}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+%\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}
+\renewcommand\headrulewidth{0.4pt}
+%\renewcommand\footrulewidth{0.4pt}
+
+\begin{document}
+
+\noindent I worked with Sydney Wong on this assignment.
+
+\begin{enumerate}[leftmargin=0cm,itemindent=.5cm,labelwidth=\itemindent,labelsep=0cm,align=left]
+
+\item Prove that for any fixed positive integer $k$, each positive integer $n$ has a unique representation in the form
+$$
+n = \binom{b_1}{1} + \binom{b_2}{2} + \cdots + \binom{b_k}{k}
+$$
+where $0 \leq b_1 < b_2 < \cdots < b_k$.  For example, for $k = 2, 5 = \binom{2}{1} + \binom{3}{2}$, $6 = \binom{0}{1} + \binom{4}{2}$, etc. (Hint: we already did a problem that is about a ``unique representation."  Use the same technique.)
+
+\begin{proof}
+\ First we will show that, if such a representation does exist, then the only possible choice for $b_k$ is the unique number satisfying
+$$
+\binom{b_k}{k} \leq n < \binom{b_k + 1}{k}.
+$$
+Suppose, for a contradiction, that a choice of $b_k$ not satisfying this inequality could result in such a representation.  Then this choice would have to satisfy
+$$
+\binom{b_k}{k} < \binom{b_k + 1}{k} \leq n.
+$$
+Due to the restriction $0 \leq b_1 < \cdots < b_k$, we have $b_i \leq b_k - (k-i)$ for each $i$.  However, this results in the contradiction
+$$
+n = \sum\limits_{i=1}^k \binom{b_i}{i} \leq \sum\limits_{i=1}^k \binom{b_k - (k-i)}{i} < \sum\limits_{i=0}^k \binom{(b_k - k) + i}{i} = \binom{b_k + 1}{k} \leq n
+$$
+where the strict inequality comes from decreasing the bottom index to $0$ (equivalent to adding 1), and the second to last step is an instance of the ``hockey stick identity."  Therefore, if any such representation exists for a given $k$, then it must be unique.
+
+We will now show, by induction on $k$, that this representation does exists.  This is trivial for $k = 1$, since $n = \binom{n}{1}$ gives a representation.
+
+Assume the proposition holds for some $k-1 \geq 1$, and let $b_k$ be the number that satisfies (1).  By the inductive hypothesis, there is a unique choice of $0 \leq b_1 < \dots < b_{k-1}$ giving $n - \binom{b_k}{k} = \binom{b_1}{1} + \binom{b_2}{2} + \cdots + \binom{b_{k-1}}{k-1}$.  Also, we must have $b_{k-1} < b_k$ , since $b_{k-1} \geq b_k$ would provide the contradiction
+$$
+n = \binom{b_1}{1} + \cdots + \binom{b_{k-1}}{k-1} + \binom{b_k}{k} \geq \binom{b_k}{k-1} + \binom{b_k}{k} = \binom{b_k + 1}{k} > n.
+$$
+So this choice of $0 \leq b_1 < \dots < b_{k-1} < b_k$ gives the desired representation of $n$.
+\end{proof}
+
+\item Find a closed form for
+$$
+\sum\limits_{k=0}^m \binom{m}{k} / \binom{n}{k}.
+$$
+(Hint: it is bad when the denominator moves with the numerator.  In general, try to make the denominator more constant.)
+
+\begin{proof}
+\ First of all, we can assume $n \geq m$, since otherwise some term would contain a $0$ in the denominator.
+
+To ``make the denominator more constant," we can look for an identity that relates the numerator to the denominator.  Consider a set $A$ of size $n$.  The number of ways to pick a size $m$ subset $B$ from $A$, then choose a size $k$ subset $C$ from $B$ is $\binom{n}{m}\binom{m}{k}$.  Alternatively, there are $\binom{n}{k}$ ways to choose $C$ from $A$, then $\binom{n-k}{m-k}$ ways to choose $B \setminus C$ from $A \setminus C$, which uniquely determines $B$.  This gives the identity
+\begin{align*}
+\binom{n}{m} \binom{m}{k} &= \binom{n}{k} \binom{n-k}{m-k}
+\\
+\implies
+\binom{n}{k} &= \frac{\binom{n}{m} \binom{m}{k}}{\binom{n-k}{m-k}}.
+\end{align*}
+Substituting this expression gives
+\begin{align*}
+\sum\limits_{k=0}^m \binom{m}{k} / \binom{n}{k}
+&=
+\sum\limits_{k=0}^m \binom{m}{k} / \frac{\binom{n}{m} \binom{m}{k}}{\binom{n-k}{m-k}}
+= \frac{1}{\binom{n}{m}} \sum\limits_{k=0}^m \binom{n-k}{m-k}
+\\
+&= \frac{1}{\binom{n}{m}} \sum\limits_{k=0}^m \binom{n-m+k}{k} = \frac{\binom{n+1}{m}}{\binom{n}{m}}  \\
+&= \frac{m! (n-m)!}{n!} \frac{(n+1)!}{m!(n-m +1)!} \\
+&= \frac{n+1}{n-m+1}.
+\end{align*}
+
+\end{proof}
+
+\item Consider the integers, laid out in a line.  Let us start at 0 at time 0, and at each time unit move from $i$ to $i+1$ or $i-1$ with equal probability.  (this is a usual first example of a \emph{random walk}).  Come up with a definition of what it means for us to have the event of ``we eventually return to 0" and compute its probability.
+
+\begin{proof}
+\begin{comment}
+\ First, let $W_i$ be a sequence of random variables where each $W_i$ is independent of all the others and has distribution $\p(W_i = -1) = \p(W_i = 1) = \frac12$.  Let $X_n = \sum\limits_{i=1}^n W_i$  be the location of the random walk at time $n$.  The event ``we eventually return to 0" can be written as
+$$
+E = \{\exists n > 0 : X_n = 0 \} = \{\exists n > 0 : X_{2n} = 0 \}
+$$
+(the equality of the two sets above follows from the fact that it is impossible for the walk to return to $0$ in an odd number of steps).
+\begin{align*}
+\p(E) &= \p [ \{ \exists n > 0 : \sum\limits_{i=1}^{2n} W_i = 0 \} ]
+\\
+&= \p \left[ \bigcup_{n=1}^\infty \sum\limits_{i=1}^{2n} W_i = 0  \right]
+\\
+&= \sum\limits_{i=1}^{2n} \p \left[ \sum\limits_{i=1}^{2n} W_i = 0 \right]
+\end{align*}
+\end{comment}
+
+\ First, let $W_n$ be a sequence of random variables where each $W_i$ is independent of all the others and has distribution $\p(W_i = -1) = \p(W_i = 1) = \frac12$.  Let $X_n = \sum\limits_{i=1}^n W_i$  be the location of the random walk at time $n$.  The outcome space can be interpreted to be the set $\{-1,1\}^{\infty}$ of possible sequences of steps, all of which are equally likely.  The proper definition of the event ``we eventually return to 0" is the event
+$$
+\{(w_n) : \exists n > 0 \text{ such that } \sum\limits_{i=1}^{n} w_i = 0 \}.
+$$
+For convenience, we may divide our analysis into the two symmetric cases, one where $W_1 = 1$ and one where $W_1 = -1$.  We will show that the probability of returning home in the first case is $1$, since the argument for the other case is completely symmetric.  So assume that $X_1 = W_1 = 1$.
+
+It should be intuitive that a walker at some state $s$ cannot go on forever without crossing one of either $s-r$ or $s+t$, but we will still prove this.  Let $k = \max \{r,t\}$.  One simple way for the walker to reach $s-r$ or $s+t$ is for the walk to take $k$ successive steps to the right in a row.  The probability of this happening in a given interval of $k$ steps is $\frac{1}{2^k}$.  Let us consider each non-overlapping sequence of $k$ successive steps in the random walk (after the first step) to be a single trial.  If those $k$ steps are in the same direction, we succeed; otherwise, we fail.  Therefore, the number $T$ of such trials until our first success has a geometric distribution with support $\N$, so this number of trials must be finite, thus giving the desired result.  Since these facts have not been derived in this course, I will clarify.  The distribution of $T$ is given by
+$$
+\p[T = t] =
+\begin{cases}
+\left( 1-\frac{1}{2^k} \right)^{t-1}\left( \frac{1}{2^k} \right) & t > 0
+\\
+0 & t \leq 0
+\end{cases}.
+$$
+This gives us
+\begin{align*}
+\p[\exists t\in\N : \ T = t] &= \sum_{t=1}^\infty \p[T=t]
+\\
+&= \sum_{t=1}^\infty \left( 1-\frac{1}{2^k} \right)^{t-1}\left( \frac{1}{2^k} \right)
+\\
+&= \left( \frac{1}{2^k} \right)\sum_{t=0}^\infty \left( 1-\frac{1}{2^k} \right)^{t}
+\\
+&= \left( \frac{1}{2^k} \right)\left(\frac{1}{1 - (1 - \frac{1}{2^k})}\right)
+\\
+&= 1
+\end{align*}
+which simply shows that the support of $T$'s distribution is the positive integers.  Therefore, the probability that the walker eventually takes $k$ successive steps to the right is $1$; so he must eventually reach either $s-r$ or $s+t$, whether by this method or another.
+
+If the walker is at some state $s$, then the probability of him reaching state $s+t$ before reaching $s-t$ is $\frac12$: by the previous paragraph, the probability of him reaching $s+t$ first plus the probability of him reaching $s-t$ first must be one, since it is impossible for neither to occur; thus, by symmetry, this probability must be $\frac12$.  Letting $E_k$ be the event that the walker reaches $2^k$ before he returns to $0$, we know that $\p[E_{k+1} \ | \ E_k] = \frac12$, since this is the situation where $s=t=2^k$.  We will show by induction that $p[E_k] = \frac{1}{2^k}$.  This is clear for $k=0$, since we have assumed the walker begins at state $1 = 2^0$.  Now, given that this is true for some $k$, we have $\p[E_{k+1}] = \p[E_{k+1} \ | \ E_k]\p[E_k] = \frac12 \cdot \frac{1}{2^k} = \frac{1}{2^{k+1}}$.
+
+The random walk goes on forever without returning to $0$ if and only if, for every $k$, it reaches $2^k$ before it reaches $0$.  Therefore,
+$$
+\p[E] = 1 - \p[\land_{k=1}^\infty E_k] \geq \p[E_k] = 1 - \frac{1}{2^k}
+$$
+for every $k$.  Since $\lim (1 - \frac{1}{2^k}) = 1$, we know $\p[E] = 1$.
+
+\begin{comment}
+This definition enables us to calculate the probability of eventually returning to 0:
+\begin{align}
+\p[E] &= \p[X_n = 0 \text{ for some } n] = 1 - \p[\land_{k=1}^\infty \left( \forall n \leq k \ X_n \neq 0 \right)]
+\\
+& \geq 1 - \p[\land_{k=1}^\infty \left(\text{either } X_n = k \text{ before } X_n = 0 \text{, or } X_n \text{ never reaches } 0 \text{ or } k \text{ after } n=0 \right)]
+\\
+&= 1 - \p[\land_{k=1}^\infty \left( X_n = k \text{ before } X_n = 0 \right)]
+\\
+%& \geq 1 - \lim_{k \rightarrow \infty} \p[X_n = %k \text{ before } X_n = 0]
+%\\
+&= 1 - 0 = 1.
+\end{align}
+I will justify the steps given above.  The first two steps should be clear, but to express them more formally, ``$X_n = k$ before $X_n = 0$" means that, if $a = \min\{n > 0: X_n = k\}$ and $b = \min\{n >0 : X_n = 0 \}$, then $a < b$.
+
+The third step follows from the fact that $\p[X_n \text{ never reaches } 0 \text{ or } k \text{ after } n=0] = 0$.  This we can show as follows.  One simple way for $X_n$ to reach $0$ or $k$ after time $n=0$ is for the walk to take $k$ successive steps to the right in a row.  The probability of this happening, in a fixed interval of $k$ steps, is $\frac{1}{2^k}$.  Let us consider each non-overlapping sequence of $k$ successive steps in the random walk to be a single trial.  If those $k$ steps are in the same direction, then we succeed; otherwise, we fail.  Therefore, the number of such trials $T$ until our first success has a geometric distribution, i.e.
+$$
+\p[T = t] = \left( 1-\frac{1}{2^k} \right)^{t-1}\left( \frac{1}{2^k} \right).
+$$
+This gives us
+\begin{align*}
+\p[\exists t\in\N : \ T = t] &= \sum_{t=1}^\infty \p[T=t]
+\\
+&= \sum_{t=1}^\infty \left( 1-\frac{1}{2^k} \right)^{t-1}\left( \frac{1}{2^k} \right)
+\\
+&= \left( \frac{1}{2^k} \right)\sum_{t=0}^\infty \left( 1-\frac{1}{2^k} \right)^{t}
+\\
+&= \left( \frac{1}{2^k} \right)\left(\frac{1}{1 - (1 - \frac{1}{2^k})}\right)
+\\
+&= 1.
+\end{align*}
+Therefore, the probability that the walker eventually takes $k$ successive steps to the right is $1$; so he must eventually reach either $0$ or $k$, whether by this method or another.
+
+Lastly, we need to argue that $\p[\land_{k=1}^\infty \left( X_n = k \text{ before } X_n = 0 \right)] = 0$.  We know that $$\p[\land_{k=1}^\infty \left( X_n = k \text{ before } X_n = 0 \right)] \leq \p[ X_n = k \text{ before } X_n = 0]$$ for all $k$.  All we need to show is that $\lim\limits_{k \rightarrow \infty} \p[ X_n = k \text{ before } X_n = 0] = 0$.  This is intuitively true, so I will not go through the details of showing it.  Therefore, the walker eventually returns home with probability 1.
+\end{comment}
+\end{proof}
+
+\item In Atlanta they do things slightly differently from New York. Every club has an even number of people and every two clubs must share an odd number of people. What can we say about the relationship between $n$ (the number of people) and $m$ (the number of clubs)?
+
+\noindent
+$$
+n \geq
+\begin{cases}
+m & \text{if } m \text{ is odd} \\
+m-1 & \text{if } m \text { is even}
+\end{cases}.
+$$
+
+\begin{proof}
+\ Let $v_{i,j} \in \mathbb{F}_2^n$ be 1 if the $j$th person is a member of the $i$th club and 0 otherwise.  Let $v_i$ denote the vector $(v_{i,1}, \dots , v_{i,n})$.  We know that
+$$
+\langle v_i , v_j \rangle =
+\begin{cases}
+0 & i = j \\
+1 & i \neq j
+\end{cases}.
+$$
+Now, let $A$ be the $m \times n$ matrix whose $i$th row is $v_i$.  Then $AA^T$ is an $m \times m$ matrix with zeros on the diagonal and ones everywhere else.
+
+We want to calculate the rank of $AA^T$.  First, suppose $m$ is even.  Then the sum of the rows of $AA^T$ is the length $m$ vector of all ones.  But the sum of this vector and the $i$th row of $AA^T$ is the $i$th standard basis vector (which has a one in the $i$th component and $0$s elsewhere).  Therefore, the rowspace of $AA^T$ contains a basis for $\mathbb{F}_2^m$, so it has rank $m$.  
+
+Next, suppose that $m$ is odd.  In this case, the sum of the rows is the $0$ vector, thus $AA^T$ cannot have full rank.  However, the submatrix obtained by deleting the last row and last column is of the form discussed in the previous paragraph, thus this submatrix has full rank $m-1$.  This means $m-1 \leq \rank(AA^T) < m$, so $\rank(AA^T) = m-1$.%  In general, $\rank(AA^T)$ is the greatest odd integer not exceeding $m$.
+
+We always have that $\rank(XY) \leq \rank(X)$, thus $\rank(AA^T) \leq \rank(A)$.  Also, the rank of an $n \times m$ matrix can exceed neither $m$ nor $n$.  Therefore,
+$$
+n \geq \rank(A) \geq \rank(AA^T) =
+\begin{cases}
+m & \text{if } m \text{ is odd} \\
+m-1 & \text{if } m \text { is even}
+\end{cases}.
+$$
+\end{proof}
+
+\item Let $G$ be a graph with $n$ vertices where each vertex has degree at least $n/2$.  Show that $G$ is connected.
+
+\begin{proof}
+\ Let $x,y \in G$, and let $V_x$ and $V_y$ be the sets of vertices adjacent to $x$ and $y$, respectively.  We know that $|V_x| \geq n/2$ and $|V_y| \geq n/2$.  If some vertex $z$ is in the intersection of these two sets, then there is a path $(x,z,y)$ from $x$ to $y$.  If no such vertex exists, then these sets are disjoint, thus their union has size $n$.  We are assuming the graph has no loops, so this requires $x \in V_y$ and $y \in V_x$, thus $x$ and $y$ are adjacent (otherwise, the graph would have at least $n+2$ vertices).  So the graph is connected.
+\end{proof}
+
+\item If the edges of a complete graph $K_n$ can be partitioned into $m$ sets, each of which is the edges of some complete bipartite subgraph, show that $m \geq n-1$.  (for a dumb example, a single edge is the edge set of a $K_{1,1}$, so one possible $m$ is just the number of edges, which is $\binom{n}{2}$, which happens to be at least $(n-1)!$)  (Hint: the rank of the sum of two matrices is never more than the sum of their ranks.)
+
+\noindent Note: The following proof of the Graham-Pollak Theorem is based a paper by Michael Tait.
+
+\begin{proof}
+
+\ The adjacency matrix for $K_n$ is $J - I$, where $J$ is the $n \times n$ matrix of all ones and $I$ is the $n \times n$ identity matrix.  The nullity of $J$ is $n-1$, therefore it has an eigenvalue of $0$ with multiplicity $n-1$.  So $u \in$ $\Null(J)$ if and only if $(J-I)u = 0 - u = (-1)u$, meaning that the adjacency matrix of $K_n$ has an eigenvalue of $-1$ with multiplicity $n-1$.
+
+Now, suppose we have partitioned the edges of $K_n$ into $m$ sets, each of which is the edge-set of some complete bipartite subgraph, and let the left and right partition sets of the $k$th complete bipartite graph be $A_k$ and $B_k$.  Let $a_k$ be a vector whose $i$th component is 1 if the $i$th vertex of $K_n$ is in $A$, and 0 otherwise.  Define $b_k$ similarly for $B_k$.  This means that $a_k b_k^T$ is an $n \times n$ matrix whose $ij$th component is 1 if the $i$th vertex is in $A_k$ and the $j$th vertex is in $B_k$, and $0$ otherwise.  Since the subgraph formed by $A_k$ and $B_k$ is bipartite, this means that its adjacency matrix is precicely $a_kb_k^T + b_ka_k^T$, since a bipartite graph contains an edge between any two vertices from different sets.  This means that the adjacency matrix for $K_n$ is
+$$
+J-I = 
+\sum\limits_{k=1}^m a_kb_k^T + b_ka_k^T.
+$$
+
+Now, recall that $\Null(J)$ is the eigenspace for $J-I$ associated with the eigenvalue $-1$.  Define $V$ to be the span of $\{a_1, \dots , a_m \}$.  If $\{a_1, \dots , a_m \}$ is linearly independent, then $V$ has dimension $m$.  Otherwise, it has dimension less than $m$.  So $\dim (V) \leq m$, and equivalently $\dim(V^{\perp}) \geq n-m$.
+
+Now, assume that $u \in \Null(J) \cap V^{\perp}$.  Then either $u$ is the zero vector, or $u$ is an eigenvector of $J-I$ with eigenvalue $-1$ which is also orthogonal to each $a_k$.  Therefore,
+\begin{align*}
+-||u||^2 &= u^T(-u) = u^T(J-I)u = u^T \left( \sum\limits_{k=1}^m a_kb_k^T + b_ka_k^T \right) u
+\\
+&= \sum\limits_{k=1}^m (a_k^T u)^T (b_k^T u) + (u^T b_k) (a_k^Tu) = \sum\limits_{k=1}^m (0)^T (b_k^T) u + (u^T b_k) (0) = 0
+\end{align*}
+so $u$ must be the zero vector.  Therefore, $\Null (J)$ and $V^{\perp}$ have trivial intersection.  This means that
+\begin{align*}
+n \geq \dim(\Null(J) + V^{\perp}) &= \dim(\Null(J)) + \dim(V^{\perp}) - \dim(\Null(J) \cap V^{\perp})
+\\
+&= \dim(\Null(J)) + \dim(V^{\perp}) - 0
+\\
+&\geq (n-1) + (n - m).
+\end{align*}
+Adding $m-n$ to both sides of this resulting inequality gives the desired result: $m \geq n-1$.
+\end{proof}
+
+
+
+
+
+\begin{comment}
+\begin{proof}
+\ We can actually show this inductively without using linear algebra.  It is clear that this bound holds for $n = 1$, since the edges of $K_1$ can be partitioned into $0$ sets that are vacuously the edge sets of a complete bipartite subgraph.
+
+For $n > 1$, suppose the bound holds for all $k < n$, so that if the edges of $K_k$ are partitioned into $m$ sets, each of which forms the edge set of a complete bipartite subgraph, then $m \geq k-1$.  If we are to partition the edges of $K_n$ into such subsets, then one will be the edge set of some complete bipartite subgraph $K_{r,s}$, where $r + s \leq n$, $0 < r,s < n$, and $R$ and $S$ are the two disjoint sets of vertices that make up the graph.
+
+The only edges that have been used are those that go between $R$ and $S$.  Thus, the set of edges that remain is the disjoint union of the edgesets of the complete graphs on $K_n \setminus R$ and on $K_n \setminus S$, which are isomorphic to $K_{n-r}$ and $K_{n-s}$.  So the way to minimize $m$, once having fixed a choice of $R$ and $S$, is to minimize $m_{n-r}$ and $m_{n-s}$, which are the number of sets we partition the eges of $K_n \setminus R$ and $K_n \setminus S$ into.  By the inductive hypothesis, we know that $m_{n-r} \geq n-r-1$ and $m_{n-s} \geq n-s-1$.  Therefore,
+$$
+m = 1 + m_{n-r} + m_{n-s} \geq 1 + (n-r-1) + (n-s-1) = n + (n-r-s) - 1 \geq n-1
+$$
+since $n - r - s \geq 0$.
+\end{proof}
+\end{comment}
+
+
+\item $2n$ points are given on a circle. With uniform probability we split them into $n$ pairs
+and join each pair with a segment. Find the probability that that no two of these
+segments intersect.
+
+\begin{proof}
+\ Label the vertices $1, \dots , 2n$.  The total number of ways to pair up the vertices is $$\frac{(2n)!}{2^n n!}.$$  To see this, first pick a permutation of the $2n$ vertices, then pair up 1 with 2, 3 with 4, etc.  However, any combination of swapping the two vertices in any of the $n$ pairs (which gives $2^n$ choices) and rearranging the pairs ($n!$ choices) actually leads to the same pairing on the graph.
+
+Let $s_n$ be the number of pairings, without intersections, on such a graph with $2n$ vertices labeled $1, \dots , 2n$ (note that there are $0$ pairings on a graph with an odd number of vertices).  Let $t_{n,k}$ be the number of such pairings in which vertex 1 is joined with vertex $2k$ (if vertex 1 were joined with an odd-labeled vertex, then there would be no way to pair the remaining vertices without intersecting the edge from 1 to that vertex).  So $s_n = \sum_{k=1}^{n} t_{n,k}$.  Also, $t_{n,k}$ satisfies the recurrence
+$$
+t_{n,k} = s_{k-1} s_{n-k}
+$$.
+
+\begin{figure}[h]
+\begin{center}
+\begin{tikzpicture}[rotate = 90]
+\GraphInit[vstyle=Normal]
+%\SetUpEdge[color=black,lw=1pt]
+%\tikzset{EdgeStyle/.style =
+%{thick,
+%double = blue,
+%double distance = 1pt}}
+\SetGraphUnit{3}
+\Vertices{circle}{1,8,7,6,5,4,3,2}
+\Edges(1,6)
+\end{tikzpicture}
+\end{center}
+\end{figure}
+
+To see this, look at the example of the graph on $8$ vertices.  After pairing 1 with $2k=6$ in this example, we are left with a circle of $2(k-1) = 4$ vertices on the right and a circle of $2(n-k) = 2$ vertices on the left.  The number of ways to complete this pairing is the product of the numbers of ways to successfully pair those two circles.  This also shows why $1$ must be paired with an even-labeled vertex, since otherwise each of the two smaller circles would have an odd number of vertices, meaning that the number of ways to pair it would be $0$.  Therefore,
+$$
+s_{n} = \sum_{k=1}^{n} t_{n,k} = \sum_{k=1}^{n} s_{k-1} s_{n-k}
+$$
+$$
+\implies
+s_{n+1} = \sum_{k=0}^{n} s_{k} s_{n-k}.
+$$
+So $s_n$ satisfies the same recurrence as the Catalan numbers.  Since there is $1$ successful way to pair a graph with no vertices, $s_0 = 1$.  Therefore, $s_n$ must be the Catalan numbers, so the probability of a successful pairing is
+\begin{align*}
+\dfrac{\dfrac{1}{n+1}\dbinom{2n}{n}}{\dfrac{(2n)!}{2^n n!}}
+&=
+\dfrac{(2n)!n!2^n}{(2n)!(n+1)n!^2} = \dfrac{2^n}{(n+1)!}.
+\end{align*}
+
+\end{proof}
+
+\item How much time did you spend on this problem set?  What comments do you have on the problems? (difficulty, type, enjoyment, fairness, etc.)
+
+I spent a lot of time on this problem set, but I always spend a lot of time on these problem sets.  On problem 4, I believe there is a slightly tighter bound (equality cannot hold), but I didn't prove it.
+
+I could not find a generating function solution for problem 1, and I would not have thought of a solution to 6 on my own.  I did problem 7 by looking at small cases first and recognizing the Catalan numbers.  Problem 5 was easy, and problem 3 was easy except annoying to formalize.  On problem 2, I just tried to think of identities that would relate the numerator to the denominator.  This was a fun problem set, overall.
+
+\end{enumerate}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

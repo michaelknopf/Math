@@ -1,0 +1,399 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+%\addtolength{\oddsidemargin}{-.1in} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{lipsum}
+\usepackage[]{units}
+\usepackage{relsize}
+\usepackage{verbatim}
+\usepackage{bbm}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{caption}
+\usepackage{mathtools}
+
+\makeatletter
+\def\BState{\State\hskip-\ALG@thistlm}
+\makeatother
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{graphicx}
+\usepackage{xfrac}
+\usepackage{collectbox}
+\usepackage{amsthm}
+
+\setenumerate{listparindent=\parindent}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\p}{\mathbb{P}}
+\newtheorem*{Def}{Definition}
+\newtheorem*{lem}{Lemma}
+
+\newcommand{\algorithmicbreak}{\textbf{break}}
+
+
+\makeatletter
+\newcommand{\sqbox}{%
+    \collectbox{%
+        \@tempdima=\dimexpr\width-\totalheight\relax
+        \ifdim\@tempdima<\z@
+            \fbox{\hbox{\hspace{-.5\@tempdima}\BOXCONTENT\hspace{-.5\@tempdima}}}%
+        \else
+            \ht\collectedbox=\dimexpr\ht\collectedbox+.5\@tempdima\relax
+            \dp\collectedbox=\dimexpr\dp\collectedbox+.5\@tempdima\relax
+            \fbox{\BOXCONTENT}%
+        \fi
+    }%
+}
+\makeatother
+
+\newcommand\simiid{\stackrel{\mathclap{\normalfont\mbox{{\scriptsize iid}}}}{\sim}}
+
+
+\DeclareMathOperator*{\dom}{dom}
+\renewcommand{\bar}{\overline}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Stat 155 (HW5)}
+\chead{Michael Knopf (24457981)}
+\rhead{August $5^\text{th}$, 2015}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+\renewcommand\headrulewidth{0.4pt}
+
+\begin{document}
+
+\begin{enumerate}
+\item In this problem, we will explore some properties of the Big-Oh notation that we used to prove the termination of the Gale-Shapley algorithm.
+\begin{Def}
+Let $f,g: \Z^+ \rightarrow \Z^+$.  We say $f \in O(g)$ if there exists some $M \in \R^+$ and some $N \in \Z^+$ such that for all $n \geq N$, $|f(n)| \leq M|g(n)|$.
+\end{Def}
+
+\noindent In all parts that follow, $f,g,h,f_1,f_2,g_1,$ and $g_2$ are all appropriately defined functions.
+\begin{enumerate}
+\item Show that if $f \in O(cg)$ and $c \neq 0$, then $f \in O(g)$.
+
+\begin{proof}
+Suppose $c \neq 0$ and $f \in O(cg)$.  Then there exist $M \in \R^+$ and $N \in \Z^+$ such that $|f(n)| \leq M|cg(n)| = M|c||g(n)|$ for all $n \geq N$.  Letting $M' = M |c|$, we know $M' \in \R^+$ because $c \neq 0$, and the pair $(N, M')$ satisfies the conditions for $f \in O(g)$.
+\end{proof}
+
+\item Show that if $f_1 \in O(g_1)$ and $f_2 \in O(g_2)$, then $f_1f_2 \in O(g_1g_2)$.
+
+\begin{proof}
+Suppose $f_1 \in O(g_1)$ and $f_2 \in O(g_2)$.  Then there exist $M_1, M_2 \in \R^+$ and $N_1, N_2 \in \Z^+$ such that $|f_1(n)| \leq M_1 |g_1(n)|$ for all $n \geq N_1$, and $|f_2(n)| \leq M_2 |g_2(n)|$ for all $n \geq N_2$.
+
+Therefore, for all $n \geq N = \max (N_1, N_2)$, we have $|f_1(n)f_2(n)| \leq M_1M_2 |g_1(n)g_2(n)|$, so the pair $(N,M_1M_2)$ satisfies the necessary conditions for $f_1 f_2 \in O(g_1 g_2)$.
+\end{proof}
+
+\item Show that if $f_1 \in O(g)$ and $f_2 \in O(g)$, then $f_1 + f_2 \in O(g)$.
+
+\begin{proof}
+There exist $M_1,M_2 \in \R^+$ and $N_1,N_2 \in \Z^+$ such that $|f_1(n)| \leq M|g(n)|$ whenever $n \geq N_1$ and $|f_2(n)| \leq M|g(n)|$ whenever $n \geq N_2$.  Thus, whenever $n \geq N = \max(N_1,N_2)$, the triangle inequality gives
+$$
+|f_1(n) + f_2(n)| \leq |f_1(n)| + |f_2(n)| \leq M_1|g(n)| + M_2|g(n)| = (M_1 + M_2)|g(n)|.
+$$
+Therefore, the pair $(N, M_1 + M_2)$ satisfies the conditions for $f_1 + f_2 \in O(g)$.
+\end{proof}
+\end{enumerate}
+
+\item Using the Gale-Shapley algorithm with the following preference list, find the outputted stable matching assuming (a) men propose to women, and then (b) women propose to men.
+
+\vspace{.1cm}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline 
+\textbf{Men} & \textbf{Preference} & \textbf{Women} & \textbf{Preference} \\ 
+\hline 
+1 & $2 > 3 > 1$ & 1 & $1 > 2 > 3$ \\ 
+\hline 
+2 & $3>1>2$ & 2 & $2>3>1$ \\ 
+\hline 
+3 & $2>1>3$ & 3 & $1>3>2$ \\ 
+\hline 
+\end{tabular}
+\end{center}
+
+\begin{proof}
+In part (a), when I say ``$x$ proposes to $y$", I mean that man $x$ proposes to woman $y$.  In part (b), this should be interpreted as ``woman $x$ proposes to man $y$".  At the end of each iteration, I will give the current matching.  The first coordinate always represents the man, and the second always represents the woman, in both parts (a) and (b).
+
+First, we compute the result when men propose to women.  In the first iteration, 1 proposes to 2, 2 proposes to 3, and 3 proposes to 2.  Since 3 only received one proposal, she accepts.  However, 2 must choose between 1 and 3, of which she chooses 3.  So the current matching is $\{ (2,3),(3,2)\}$.  Since the matching is incomplete, we continue.
+
+In the next iteration, 1 is free so he proposes to 3, since he has already attempted at 2.  3 is matched with 2, but she prefers 1 over 2.  So she breaks 2's heart and leaves him for 1.  The matching is now $\{(1,3),(3,2)\}$.
+
+Now, 2 is free - and desperate.  He proposes to the next on his list: 1.  1 is free, and also desperate, so they get hitched by default.  Somehow, I still feel their marriage will end up happier than the others.  The final matching is thus $\{(1,3),(2,1),(3,2)\}$.
+
+Next, we compute the result when women propose to men.  In the first iteration, 1 proposes to 1, 2 proposes to 2, and 3 proposes to 1.  2 accepts his proposal from 2, since no one else has proposed to him.  1 rejects the proposal from 1 in favor of 3.  The current matching is thus $\{(1,3),(2,2)\}$.
+
+Since woman 1 is still free, we continue.  She proposes to the next on her list, which is 2.  2 prefers 1 to his current match, which is 2, thus he accepts and woman 2 becomes free.  The matching is now $\{(1,3),(2,1)\}$.
+
+In the final iteration, 2 proposes to 3.  3 is free, so he accepts.  Thus, the final matching is $\{(1,3),(2,1),(3,2)\}$.
+\end{proof}
+
+\item In class, we proved the Gale-Shapley  algorithm produces a stable matching with $O(n^2)$.  Below is pseudocode for a stability checking algorithm.  That is, this algorithm takes a matching $M(\mu, \omega)$ as input and returns whether or not the matching is stable.
+
+
+\renewcommand{\thealgorithm}{}
+\begin{algorithm}
+\caption{Stability Checking}
+\begin{algorithmic}
+\Function{stability checking}{$M(\mu, \omega)$}
+	\For{$x$ in $1$ to $n$}
+		\For{$y$ such that $x$ prefers $y$ to $P_M(x)$}
+		\If{$y$ prefers $x$ to $P_M(y)$}
+			\Return{``Matching Unstable"}
+			\algorithmicbreak
+		\EndIf
+		\EndFor
+	\EndFor
+	\Return{``Matching Stable"}
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\begin{enumerate}
+\item Explain what this algorithm is doing.
+
+The algorithm takes in a matching $M$.  It iterates over one of the two sets in the matching, either women or men (it does not matter which).  For each $x$ in WLOG the set of men, it iterates through the women $y$ whom $x$ would rather be with than his current partner $P_M(x)$.  It checks if $y$ prefers $x$ to her current match $P_M(y)$.  If she does, then $(x,y)$ is a blocking pair, so the algorithm may terminate and return ``Matching Unstable".
+
+If, after iterating through all men, the algorithm has found no blocking pair, then no blocking pair exists.  So it terminates by returning ``Matching Stable".
+
+\item Prove this algorithm terminates [Hint: show the runtime is worst-case $O(f(n))$ for some function $f(n)$].
+
+\begin{proof}
+I mean, there's really no need to prove that the algorithm terminates using this method.  It contains no while loops, only for loops, and all for loops terminate.  But okay, I'll do it.
+
+The outer for loop will have $n$ iterations, no matter what.  Each inner for loop will have $k$ iterations, where $k$ is the number of women that $x$ prefers to his current match.  The highest possible value $k$ can take is $n-1$, which occurs in the case that $x$ is paired with his least favorite woman.  So the worst case runtime is $O(n(n-1))$, thus the algorithm terminates.
+\end{proof}
+
+\item Show that the algorithm is well-behaved.  That is, show that all possible executions of the algorithm yield the same output.
+
+\begin{proof}
+Suppose there are $n$ men $x_1, \dots , x_n$ and $n$ women $y_1, \dots , y_n$, and let $A(x)$ be the set of women that $x$ prefers to $P_M(x)$, and let $B(y)$ be the set of men that $y$ prefers to $P_M(y)$.  For each $i$, let $j_i = |A(x_i)|$ and $k_i = |B_(y_i)|$.  Then the total number of possible different executions of this algorithm is $$n!\prod_{i = 1}^n j_i! + n!\prod_{i = 1}^n k_i!$$
+where the first term counts the number of ways we can iterate through the men and, during each iteration, iterate through the women he prefers to his current match, and the second term counts this in the case that we iterate through the women first instead.
+
+If the algorithm yielded different outputs on different executions, this would mean that in some execution it found a blocking pair $(x,y)$ that it did not find in the other.  Assume, WLOG, that the algorithm's outer for loop iterated over men.  Then, for some permutation $\pi$ of the men and some sequence $\sigma_i$ of permutations, where the $i$th element of the sequence is a permuation of $A(x_i)$, there was some pair $(i,j)$ such that $(\pi(i), \sigma(j))$ was a blocking pair.  This means that $\pi(i)$ preferred $\sigma_i(j)$ to $P_M(\pi(i))$ and $\sigma_i(j)$ preferred $\pi(i)$ to $P_M(\sigma_i(j))$.
+
+Let $\pi'$ and $\sigma_i'$ be the permutations used in the iteration that allegedly did not find this blocking pair.  Since $\pi'$ is a permutation, it is surjective, so there is some $i'$ such that $\pi'(i') = \pi(i)$.  Similarly, there is some $j'$ such that $\sigma_{i'}(j') = \sigma_i(j)$.  But then $(\pi'(i'),\sigma_{i'}(j')) = (\pi(i),\sigma_i(j))$ must be a blocking pair, a contradiction.
+
+The proof for when the outer loop is over the women rather than the men is identical.
+\end{proof}
+
+\end{enumerate}
+
+\item Consider the Stable Marriage Problem with a new twist. Suppose that in addition to the orderings the men and women have, they prefer being alone to being with some of the lower-ranked individuals (in their own preference list). Surprisingly, the Gale-Shapley algorithm can still be used to produce a stable matching, provided we expand the traditional framework. Explain how to adjust the Stable Marriage problem we developed in lecture to solve this new twist.  Prove the Gale-Shapley algorithm still works in spite of your new changes.
+
+\begin{proof}
+We can model the problem by inserting into each person's preference list a \emph{single} option, in the appropriate place.  For instance, if a man's preference list is $4>1>2>3$, but he would rather be single than be with $2$ or $3$, we can express this as $4>1>$\emph{single}$>2>3$.  We do the same for women.
+
+Since men and women are interchangeable, we will assume that men propose to women.
+Allow the algorithm to proceed as usual, except modify it in two ways: if a man proposes to \emph{single}, ``she" always accepts; if a woman is proposed to by someone below \emph{single}, she always rejects, and at the end of the algorithm, any women who are still free are automatically matched with \emph{single}.
+
+We will now show that the modified algorithm still produces a stable matching.  Suppose there is a blocking pair $(x,y)$.  Then $x$ prefers $y$ to $P_M(x)$ and $y$ prefers $x$ to $P_M(y)$.  If $x$ is a real person, then clearly $y$ is not \emph{single}, or else $x$ would never have proposed to $P_M(x)$ - he would have become single before this occured.  Similarly, if $y$ is a real person, then $x$ must be as well, since if $x$ were \emph{single}, then $y$ would have rejected $P_M(y)$.  Since at least one of $x$ and $y$ is a real person (\emph{single} cannot be matched with \emph{single}), we conclude that they must both be real people.
+
+Since $x$ prefers $y$ to $P_M(x)$, he must have, at some point, proposed to $y$.  If $y$ did not reject $x$ at this point, then some other man $z$ later proposed to $y$ whom $y$ preferred to $x$.  Since the preference relation is transitive, the man$P_M(y)$ whom $y$ ended up with, she preferred to $z$, whom she preferred to $x$.  This is a contradiction, since it implies that $y$ prefers $P_M(y)$ to $x$.  Hence, $(x,y)$ could not have been a blocking pair.
+
+In this problem, it is possible for a woman to have \emph{single} at the very bottom of her list, yet still end up single.  This is strange, because it is not her fault at all that she is not getting matched (as it is for someone who truly refuses to be with certain men), but I guess that's just the way it goes sometimes.
+\end{proof}
+
+\item In class we quickly proved that a male-optimal stable matching is female-pessimal.  Using the proof from class, fill in all the details that were omitted to reach the contradiction.
+
+\begin{proof}
+Let $X$ and $Y$ be the sets of men and women, respectively.  Let $M$ be a stable, male-optimal matching.  That is, for all other stable matchings $M'$, for all $x \in X$, $x$ prefers $P_M(x)$ to $P_{M'}(x)$.  We will show that $M$ is female-pessimal.  Let $N$ be any other stable matching, and suppose for a contradiction that there is some $y \in Y$ such that $y$ prefers $P_M(y)$ to $P_{N}(y)$.
+
+Let $x = P_M(y)$.  Since $M$ is male-optimal, we know that $x$ prefers $y$ to $P_{M'}(x)$.  However, this means that $(x,y)$ is a blocking pair in $M'$, since $x$ prefers $y$ to $P_{M'}(x)$ and $y$ prefers $x$ to $P_{M'}(y)$.  This contradicts that $M'$ is stable, so $M$ must be female-pessimal.
+\end{proof}
+
+\item In this problem, we will prove Jensen's inequality with parts (b) and (c).  But first, we need a lemma, namely (a).
+\begin{enumerate}
+\item Suppose $g(x) \geq h(x)$.  Show that $\mathbb{E}[g(X)] \geq \mathbb{E}[h(X)]$.
+
+\begin{proof}
+It is clear that the expected value of a random variable with nonnegative support is nonnegative:  Let $X$ and $Y$ be continuous and discrete random variables, respectively, both with nonnegative support.  We know that $f_X(x) \geq 0$ and $\mathbb{P}(X = x) \geq 0$, since $f_X(x)$ is a PDF and $\mathbb{P}(X = x)$ is a PMF.  Thus,
+$$
+\E[X] = \int_{0}^\infty x f_X(x) dx \geq 0
+\hspace{1cm} \text{  and  } \hspace{1cm}
+\E[Y] = \sum_{y = 0}^\infty y \mathbb{P}(Y = y) \geq 0
+$$
+Therefore, $\E[g(X)] - \E[h(X)] = \E[g(X) - h(X)] \geq 0$ because $g(X) - h(X)$ is a random variable with nonnegative support.
+\end{proof}
+
+\begin{lem}
+$f:\R \rightarrow \R$ is a convex function if and only if for any $x_1, \dots, x_n \in \R$ and $\lambda_1, \dots, \lambda_n \in [0,1]$ such that $\sum_{k=1}^n \lambda_k = 1$, we have $f(\sum_{k=1}^n \lambda_k x_k) \leq \sum_{k=1}^n \lambda_k f(x_k)$.  Similarly, $f$ is a concave function if and only if the same conditions hold, except the $\leq$ is replaced with a $\geq$.
+\end{lem}
+\begin{proof}
+The reverse direction is clear, since we may set $\lambda_k = 0$ for all $k \geq 3$ to retrieve the standard definition of a convex function.  Now, assume that $f$ is convex, so that for any $\lambda \in [0,1]$ we have $f(\lambda x_1 + (1-\lambda)x_2) \leq \lambda f(x_1) + (1-\lambda) f(x_2)$ for any $x_1, x_2 \in \R$.  Setting $\lambda = 1$ gives the result when $n = 1$, and the $n=2$ case holds simply by definition.
+
+Now, suppose we have shown this for some $n$.  Let $\lambda_1, \dots, \lambda_{n+1} \in [0,1]$ such that $\sum_{k=1}^{n+1} \lambda_k = 1$ and $x_1, \dots, x_{n+1} \in \R$.  Then
+\begin{align*}
+f( \sum_{k=1}^{n+1} \lambda_k x_k )
+&= f( \sum_{k=1}^{n} \lambda_k x_k + \lambda_{n+1}x_{n+1})
+\\
+&= f( (1 - \lambda_{n+1})\sum_{k=1}^{n} \frac{\lambda_k}{1-\lambda_{n+1}} x_k + \lambda_{n+1}x_{n+1})
+\\
+&\leq (1 - \lambda_{n+1})f( \sum_{k=1}^{n} \frac{\lambda_k}{1-\lambda_{n+1}} x_k) + \lambda_{n+1} f(x_{n+1}) \hspace{1cm} \text{by convexity}
+\\
+&\leq (1 - \lambda_{n+1})\sum_{k=1}^{n} \frac{\lambda_k}{1-\lambda_{n+1}} f(x_k) + \lambda_{n+1} f(x_{n+1}) \hspace{1cm} \text{by IH}
+\\
+&= \sum_{k=1}^{n+1} f(\lambda_k x_k ).
+\end{align*}
+The proof for the latter statement, regarding concave functions, is the same except we switch all instances of $\leq$ with $\geq$.
+\end{proof}
+
+\item Prove that if $f$ is a convex function, then $\mathbb{E}[f(X)] \geq f(\mathbb{E}[X])$.
+
+\begin{proof}
+\begin{comment}
+The finite case follows easily from the lemma.  Let the support of $X$ be enumerated as $x_1, \dots , x_n$.  Then
+$$
+f(\E[X]) = f(\sum_{k=1}^n \p(X = x_k)x_k) \leq \sum_{k=1}^n \p(X = x_k) f(x_k) = \E[f(X)]
+$$
+because $\sum_{k=1}^n \p(X = x_k) = 1$.
+
+Next, suppose $X$ has countably infinite support $S$, and again let $s_n$ be an enumeration of $S$.  Define $R_n$ and $T_n$ as
+$$
+R_n =f( \sum_{k=1}^{n-1} s_k\p(X = s_k) + s_n\p(X \geq n))
+$$
+$$
+T_n = \sum_{k=1}^{n-1} f(s_k)\p(X = s_k) + f(s_n)\p(X \geq n)
+$$
+By the lemma, $R_n \leq T_n$ for all $n$.  Since $f$ is convex on all of $\R$, $f$ is continuous.  Thus, $\lim\limits_{n \rightarrow \infty} R_n = f(\E[X])$ and $\lim\limits_{n \rightarrow \infty} T_n = \E[f(X)]$.  Therefore, $f(\E[X]) \leq \E[f(X)]$.
+
+
+Unfortunately, this method cannot be extended beyond the situation of countable support.  In order to prove the inequality in the more general setting of continuous distributions, measure theory is necessary.  I have never taken a class on measure theory.  I have been reading up on it, hoping to put a proof together, but I don't think I'll be able to do it justice.  I know that there's probably only one or two people in this class who have the background to understand the proof of the continuous case, so I assume we were not intended to consider it.
+\end{comment}
+
+Since $f$ is convex, the supporting hyperplane theorem says that, for any $x_0 \in \R$, there is a halfplane $H = \{(x,y) \in \R^2 : y \geq ax + b\}$ (for some $a,b \in \R$) such that the graph of $f$ is completely contained within $H$, and $f(x_0) = ax_0+b$.  This means that the line $ax+b$ lies completely below the graph of $f$.  So, let $x_0 = \E[X]$ and let $g(x) = ax+b$ be the corresponding line that borders this halfplane.  This means that $g(\E[X]) = f(\E[X])$ and $g(x) \leq f(x)$ for all $x \in \R$.
+
+Since $g$ is simply a line, we know that $\E[g(X)] = \E[a+bX] = a + b\E[X] = g(\E[X])$.  Since $f(x) \geq g(x)$ for all $x \in \R$, we must have $\E[f(X)] \geq \E[g(X)]$, by part (a).  Putting these together gives $$f(\E[X]) = g(\E[X]) = \E[g(X)] \leq \E[f(X)].$$
+
+\end{proof}
+
+\item Alternatively, show that if  $f$ is a concave function, then $\mathbb{E}[f(X)] \leq f(\mathbb{E}[X])$.
+
+\begin{proof}
+Suppose $f$ is concave.  Then $-f$ is convex, thus by part (b) we have $-\mathbb{E}[f(X)] = \E[-f(x)] \geq -f(\E[x])$.  Multiplying both sides by $-1$ flips the inequality, giving the desired result $\mathbb{E}[f(X)] \leq f(\mathbb{E}[X]$.
+\end{proof}
+
+\end{enumerate}
+
+\item Consider a sealed-bid first price auction with $n$ bidders such that $V_j \simiid$ Unif$(0,1)$ for all $j \in \{1,\dots , n\}$.  Suppose the auctioneer is not interested in $\max (\{\beta_i (v_i)\}_{i=1}^n)$, but rather $\log(\max (\{\beta_i (v_i)\}_{i=1}^n))$.
+\begin{enumerate}
+\item Deduce that $\E[\log(\max (\{\beta_i (v_i)\}_{i=1}^n))] \leq 0$.
+
+\begin{proof}
+Since $\log$ is concave, we can apply Jensen's inequality:
+$$
+\E[\log(\max (\{\beta_i (v_i)\}_{i=1}^n))] \leq \log(\E[\max (\{\beta_i (v_i)\}_{i=1}^n)]) = \log(\frac{n}{n+1}) < \log(1) = 0.
+$$
+\end{proof}
+
+\item Suppose instead that the auctioneer is now interested in $\exp(\max (\{\beta_i (v_i)\}_{i=1}^n))$.  Deduce that $\E[ \exp(\max (\{\beta_i (v_i)\}_{i=1}^n))] \geq 0.$
+
+\begin{proof}
+Since $\exp$ is convex, we can apply Jensen's inequality:
+$$
+\E[ \exp(\max (\{\beta_i (v_i)\}_{i=1}^n))] \geq \exp(\E[\max (\{\beta_i (v_i)\}_{i=1}^n)]) = \exp(\frac{n}{n+1}) > 0.
+$$
+\end{proof}
+
+\item How would your answer to (a) and (b) change if the auctioneer was interested in $\log(\bar{V})$ and $\exp(\bar{V})$ instead?
+
+\begin{proof}
+Again, we can apply the proper version Jensen's inequality, since $\log$ is concave and $\exp$ is convex:
+$$
+\E[\exp(\bar{V})] \geq \exp(\E[\bar{V}]) = \exp(1/2)
+$$
+$$
+\E[\log(\bar{V})] \leq \log(\E[\bar{V}]) = \log(1/2)
+$$
+\end{proof}
+\end{enumerate}
+
+\item Show the Symmetric Bayesian Nash Equilibrium in a sealed-bid first price auction with $n$ bidders who each have their value chosen $iid$ from $\exp(\lambda)$ is
+$$
+\beta(v) = v - \lambda^{-1}(1-e^{\lambda v})^{1-n}
+\sum_{k=0}^{n-1} \frac{(-1)^{n-k-1} \binom{n-1}{k} (1 - e^{-\lambda(n-k-1)v})}{n-k-1}.
+$$
+
+\begin{proof}
+This expression rests on the assumption that $\beta$ is increasing.  Under this assumption, we know that
+$$
+\beta(v) = \int_{0}^v 1 - \left(\frac{F(w)}{F(v)} \right)^{n-1} dw
+$$
+where $F$ is the CDF of the $\exp(\lambda)$ distribution.  Simplifying the righthand side gives
+
+\begin{align*}
+\beta(v) &= \int_{0}^v 1 - \left(\frac{F(w)}{F(v)} \right)^{n-1} dw
+\\
+&= v - \int_0^v \frac{(1-e^{-\lambda w})^{n-1}}{(1-e^{-\lambda v})^{n-1}} dw
+\\
+&= v - (1-e^{-\lambda v})^{1-n}\int_0^v (1-e^{-\lambda w})^{n-1} dw
+\\
+&= v - (1-e^{-\lambda v})^{1-n}\int_0^v \sum_{k=1}^{n-1}\binom{n-1}{k}1^k (-1)^{-(n-k-1)}e^{-\lambda w (n-k-1)} dw
+\\
+&= v - (1-e^{-\lambda v})^{1-n}\sum_{k=1}^{n-1}\binom{n-1}{k} (-1)^{-(n-k-1)} \int_0^v e^{-\lambda w (n-k-1)} dw
+\\
+&= v - (1-e^{-\lambda v})^{1-n} \left[ \sum_{k=1}^{n-2}\binom{n-1}{k} (-1)^{-(n-k-1)} \frac{e^{-\lambda v (n-k-1)} - e^{-\lambda(0)(n-k-1)}}{-\lambda(n-k-1)} + v \right]
+\\
+&= v - (1-e^{-\lambda v})^{1-n}\left[\sum_{k=1}^{n-2}\binom{n-1}{k} (-1)^{-(n-k-1)} \frac{1 - e^{-\lambda v (n-k-1)}}{\lambda(n-k-1)} + v \right]
+\\
+&= v - (1-e^{\lambda v})^{1-n}
+\lambda^{-1} \left[ \sum_{k=0}^{n-2} \frac{(-1)^{n-k-1} \binom{n-1}{k} (1 - e^{-\lambda(n-k-1)v})}{n-k-1} + v \right].
+\end{align*}
+\end{proof}
+
+\item Suppose we have $N \sim \text{Poisson}(\mu)$ bidders in a sealed-bid first price auction.  Each bidder's valuation is chosen iid from the Unif$(0,1)$ distribution.  Show that
+$$
+\E [ \max (\{\beta_i (v_i)\}_{i=1}^N) ] = 1 - 2 \left( \frac{1-e^{-\mu}}{\mu} \right).
+$$
+\begin{proof}
+Given $N$, we know that the expected value of the maximum of the $\beta_i$s is precisely the payment that the auctioneer expects to receive, which is $\frac{N-1}{N+1}$ (we derived this in lecture).
+So
+\begin{align*}
+\E [ \max (\{\beta_i (v_i)\}_{i=1}^N) ] &=
+\E[\E [ \max (\{\beta_i (v_i)\}_{i=1}^N) |N]]
+= \E\left[\frac{N-1}{N+1}\right]
+= \sum_{n=0}^\infty \frac{n-1}{n+1}e^{-\mu}\frac{\mu^n}{n!}
+\\
+&= \mu^{-1} \sum_{n=0}^\infty (n-1)e^{-\mu}\frac{\mu^{n+1}}{(n+1)!}
+= \mu^{-1} \sum_{n=1}^\infty (n-2)e^{-\mu}\frac{\mu^{n}}{n!}
+\\
+&= \mu^{-1} \sum_{n=0}^\infty (n-2)e^{-\mu}\frac{\mu^{n}}{n!} - \mu^{-1}(-2)
+= \mu^{-1} \E[N-2] + 2\mu^{-1}e^{-\mu}
+\\
+&= \mu^{-1}(\mu - 2) + 2\mu^{-1}e^{-\mu}
+\\
+&= 1 - 2 \left( \frac{1-e^{-\mu}}{\mu} \right)
+\end{align*}
+\end{proof}
+\end{enumerate}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

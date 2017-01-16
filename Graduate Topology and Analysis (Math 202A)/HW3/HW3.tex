@@ -1,0 +1,232 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+%\addtolength{\oddsidemargin}{-.1in} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{lipsum}
+\usepackage[]{units}
+\usepackage{relsize}
+\usepackage{verbatim}
+\usepackage{bbm}
+\usepackage{mathtools}
+\usepackage{eufrak}
+\usepackage[mathscr]{euscript}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{graphicx}
+\usepackage{xfrac}
+
+\setenumerate{listparindent=\parindent}
+
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Int}{{\displaystyle \int}}
+\newcommand{\M}{\mathcal{M}}
+
+\DeclareMathOperator*{\dom}{dom}
+\DeclareMathOperator*{\Aut}{Aut}
+\DeclareMathOperator*{\Ann}{Ann}
+\DeclareMathOperator*{\Tor}{Tor}
+\DeclareMathOperator*{\Gal}{Gal}
+\DeclareMathOperator*{\Hom}{Hom}
+\DeclareMathOperator*{\End}{End}
+\DeclareMathOperator*{\im}{Im}
+\DeclareMathOperator*{\card}{card}
+
+\renewcommand{\bar}{\overline}
+\renewcommand{\P}{\mathcal{P}}
+
+\usepackage{fancyhdr} % Required for custom headers 
+%\usepackage{lastpage} % Required to determine the last page for the footer
+
+\pagestyle{fancy}
+\lhead{Math 202A (HW 3)}
+\chead{Michael Knopf (24457981)}
+\rhead{September $24^\text{th}$, 2015}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+%\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}
+\renewcommand\headrulewidth{0.4pt}
+%\renewcommand\footrulewidth{0.4pt}
+
+\begin{document}
+
+\begin{enumerate}
+\item Let $\mu^*$ denote the outer measure on the power-set of the real numbers arising from the length function defined on the set of open intervals.  Give an example to show that it is not the case that, for all $E \subset \R$,
+$$
+\mu^*(E) = \sup_{U \subset E, \ U \text{ open}} \mu^*(U)
+$$
+
+\begin{proof}
+Let $I$ be the set of irrationals.  We know $\Q$ has outer measure $0$, so
+$$
+\mu^*(E) = \mu^*(E \cap \Q) + \mu^*(E \cap \Q^c) = \mu^*(E \cap \Q^c) \leq \mu^* (E)
+$$ for any set $E \subset \R$.  Thus the inequality is an equality, so $\Q$ is $\mu^*$-measurable.  Since $\mu^*$ gives a measure on the set of all $\mu^*$-measurable sets, we must have $\mu^*(I) = \mu^*(\R) - \mu^*(\Q) = \infty$.  However, the rationals are dense in $\R$, thus $\{U \subset I : U \text{ open}\} = \{ \emptyset \}$.  So $\mu^*(I) = \infty \neq 0 = \mu^*(\emptyset) = \sup\limits_{U \subset E, \ U \text{ open}} \mu^*(U)$.
+\end{proof}
+
+\item (F 1.4, exercise 17) If $\mu^*$ is an outer measure on $X$ and $\{A_j\}$ is a sequence of disjoint $\mu^*$-measurable sets, then \\$\mu^*(E \cap ( \bigcup_1^\infty A_j)) = \sum_1^\infty \mu^*(E \cap A_j)$ for any $E \subset X$.
+
+\begin{proof}
+The inequality $\mu^*(E \cap ( \bigcup_1^\infty A_j)) \leq \sum_1^\infty \mu^*(E \cap A_j)$ follows immediately from the definition of an outer measure; thus, if $\mu^*(E \cap ( \bigcup_1^\infty A_j)) = \infty$, then we obviously have equality.  So we may assume $\mu^*(E \cap ( \bigcup_1^\infty A_j))$ is finite.
+
+First, we will show by induction on $n$ that
+$$
+\mu^*(E \cap \bigcup_1^\infty A_i) = \sum_1^n \mu^*(E \cap A_i) + \mu^*(E \cap \bigcup_{n+1}^\infty A_i).
+$$
+This is an identity for $n = 0$.  Now, suppose it holds for some $n$.  Since $A_{n+1}$ is measurable,
+\begin{align*}
+\mu^*(E \cap \bigcup_1^\infty A_i)
+&=
+\sum_1^n \mu^*(E \cap A_i) + \mu^*(E \cap \bigcup_{n+1}^\infty A_i) \\
+&=
+\sum_1^n \mu^*(E \cap A_i) + \mu^*(( E \cap \bigcup_{n+1}^\infty A_i) \cap A_{n+1}) + \mu^*(( E \cap \bigcup_{n+1}^\infty A_i) \cap A_{n+1}^c)
+\\
+&= \sum_1^n \mu^*(E \cap A_i) + \mu^*( E \cap A_{n+1}) + \mu^*(E \cap \bigcup_{n+2}^\infty A_i)
+\\
+&= \sum_1^{n+1} \mu^*(E \cap A_i) + \mu^*(E \cap \bigcup_{n+1}^\infty A_i)
+\end{align*}
+as desired.
+
+Now, $0 \leq \mu^*(E \cap \bigcup_{n+1}^\infty A_i) \leq \sum_{n+1}^\infty \mu^*(E \cap A_i)$, and $\lim\limits_{n \rightarrow \infty} \sum_{n+1}^\infty \mu^*(E \cap A_i) = 0$, so we must have $\lim\limits_{n \rightarrow \infty} \mu^*(E \cap \bigcup_{n+1}^\infty A_i) = 0$.  Also, $\sum_1^{n+1} \mu^*(E \cap A_i)$ is an increasing sequence, hence its limit must exist.  Therefore,
+$$
+\mu^*(E \cap \bigcup_1^\infty A_i) = \lim_{n \rightarrow \infty} \mu^*(E \cap \bigcup_1^\infty A_i) = \lim_{n \rightarrow \infty} \left[ \sum_1^{n+1} \mu^*(E \cap A_i) + \mu^*(E \cap \bigcup_{n+1}^\infty A_i) \right] = \sum_1^\infty \mu^*(E \cap A_i).
+$$
+\end{proof}
+
+\newcommand{\A}{\mathcal{A}}
+
+\item (F 1.4, exercise 18) Let $\A \subset \P(X)$ be an algebra, $\A_\sigma$ the collection of countable unions of sets in $\A$, and $\A_{\sigma \delta}$ the collection of countable intersections of sets in $\A_\sigma$.  Let $\mu_0$ be a premeasure on $\A$ and $\mu^*$ the induced outer measure.
+\begin{enumerate}
+\item For any $E \subset X$ and $\epsilon > 0$ there exists $A \in \A_\sigma$ with $E \subset A$ and $\mu^*(A) \leq \mu^*(E) + \epsilon$.
+
+\begin{proof}
+By Theorem 1.14, $\mu^*$ is given by
+$$
+\mu^*(E) = \inf \left\{ \sum_1^\infty \mu_0(A_j) : A_j \in \A, E \subset \bigcup_1^\infty A_j \right\}
+$$
+Therefore, for every $\epsilon > 0$ there is a collection $A_j \in \A$ for which $E \subset \bigcup_1^\infty A_j$ and $\sum_1^\infty \mu_0(A_j) \leq \mu^*(E) + \epsilon$.
+
+Let $A = \bigcup_1^\infty A_j$.  Each $A_j$ is $\mu^*$-measurable, and so $\mu^*$ yields a measure on the $\sigma$-algebra they generate.  Thus, $\mu^*(A) = \sum_1^\infty \mu^*(A_j) = \sum_1^\infty \mu_0(A_j) \leq \mu^*(E) + \epsilon$, as desired.
+\end{proof}
+
+\item If $\mu^*(E) < \infty$, then $E$ is $\mu^*$-measurable iff there exists $B \in \A_{\sigma \delta}$ with $E \subset B$ and $\mu^*(B \setminus E) = 0$.
+
+\begin{proof}
+Assume $\mu^*(E) < \infty$.  By part (a), we know that for each $i \in \N$ there is some $A_i \in \A_{\sigma}$ such that $E \subset A_i$ and $\mu^*(A_i) \leq \mu^*(E) + \frac1i$.  Let $B = \bigcap_1^\infty A_i$.  Then $E \subset B$ and, for each $i$, $\mu^*(B) \leq \mu^*(A_i) \leq \mu^*(E) + \frac{1}{i}$.  Therefore, we must have $\mu^*(B) \leq \mu^*(E)$.  Since $E \subset B$, this gives $\mu^*(B) = \mu^*(E)$.  Also, $B$ is $\mu^*$-measurable because it is in the $\sigma$-algebra generated by $\A$.
+
+Now, suppose $E$ is $\mu^*$-measurable.  Then $\mu^*(B) = \mu^*(B \cap E) + \mu^*(B \cap E^c) = \mu^*(E) + \mu^*(B \setminus E)$.  Since $\mu^*(E) < \infty$, this gives $\mu^*(B \setminus E) = \mu^*(B) - \mu^*(E) = 0$.
+
+For the reverse direction, suppose there is some $B \in \A_{\sigma \delta}$ such that $E \subset B$ and $\mu^*(B \setminus E) = 0$.  Then for any $F \subset X$,
+$$
+\mu^*(F) \leq \mu^*((B \setminus E) \cap F) + \mu^*((B \setminus E) \cap F^c) \leq \mu^*(B \setminus E) + \mu^*(B \setminus E) = 0
+$$
+so all inequalities are equalities, hence $B \setminus E$ is $\mu^*$-measurable.  We already know that $B$ is $\mu^*$-measurable, since it is in the $\sigma$-algebra generated by $\A$.  Therefore, $E = B \setminus (B \setminus E)$ is $\mu^*$-measurable.
+\end{proof}
+
+\item If $\mu_0$ is $\sigma$-finite, the restriction $\mu^*(E) < \infty$ in (b) is superfluous.
+
+\begin{proof}
+Suppose $\mu_0$ is $\sigma$-finite.  Then there is a sequence $X_i$ such that $\mu_0(X_i) < \infty$ for each $i$ and $X = \bigcup_i^\infty X_i$.  Define $\A_i = \{F \in \A : F \subset X_i\}$.  This set is clearly closed under finite unions and contains the empty set, and the complement of $F$ in $X_i$ is $F^c \cap X_i$, which is in $\A$; thus, $\A_i$ is an algebra on $X_i$.
+
+Let $E \subset X$, and let $E_i = E \cap X_i$ for each $i$.  Since $E_i \subset X_i$, we have $\mu^*(E_i) \leq \mu^*(X_i) < \infty$.  By the same construction as in (b), we can construct a set $B_i \in (\A_i)_{\sigma \delta}$ such that $E_i \subset B_i$ and $\mu^*(E_i) = \mu^*(B_i)$.  Again, $B_i$ is $\mu^*$-measurable because it is generated by $\A_i$, which consists of measurable sets.
+
+Now, suppose $E$ is $\mu^*$-measurable.  Then by closure, $E_i = E \cap X_i$ is $\mu^*$-measurable.  Since $\mu^*(E_i) < \infty$, we have $\mu(B_i \setminus E_i) = 0$, just as in part (b).  Also, $B_i \setminus E_i$ is generated by measurable sets and is hence measurable.  Next, define $B = \bigcup_1^\infty B_i$.  Then $E \subset B$, and
+\begin{align*}
+\mu^*(B \setminus E) &= \mu^*( \bigcup_{i=1}^\infty B_i \cap (\bigcup_{j = 1}^\infty E_i)^c) \\
+&=\mu^*( \bigcup_{i=1}^\infty B_i \cap \bigcap_{j = 1}^\infty E_i^c) \\
+&= \mu^*(\bigcup_{i = 1}^\infty \bigcap_{j = 1}^\infty B_j \cap E_i^c) \\
+&= \mu^*(\bigcup_{i = 1}^\infty \bigcap_{j = 1}^\infty B_j \setminus E_i) \\
+&= \mu^*(\bigcup_{i = 1}^\infty B_i \setminus E_i)  \text{ since } E_i \subset B_j \text{ iff } i = j \\
+&= \sum_1^\infty \mu^*(B_i \setminus E_i) \\
+&= 0.
+\end{align*}
+The other direction of the proof did not require that $\mu^*(E) < \infty$, therefore (b) holds without this restriction as long as $\mu_0$ is $\sigma$-finite.
+\end{proof}
+
+\end{enumerate}
+
+\item (F 1.4, exercise 19) Let $\mu^*$ be an outer measure on $X$ induced from a finite premeasure $\mu_0$.  If $E \subset X$, define the inner measure of $E$ to be $\mu_*(E) = \mu_0(X) - \mu^*(E^c)$.  Then $E$ is $\mu^*$-measurable iff $\mu^*(E) = \mu_*(E)$.
+
+\begin{proof}
+If $E$ is $\mu^*$ measurable, then
+$$
+\mu_0(X) = \mu^*(X) = \mu^*(X \cap E) + \mu^*(X \cap E^c) = \mu^*(E) + \mu^*(E^c)
+$$
+so clearly $\mu_*(E) = \mu^*(E)$.
+
+Now, suppose $\mu_*(E) = \mu_0(X) - \mu^*(E^c) = \mu^*(E)$.  We may construct, as we did in part (b) of the previous exercise, a set $B \in \A_{\sigma \delta}$ such that $E \subset B$ and $\mu^*(B) = \mu^*(E)$.  Since $B$ is $\mu^*$-measurable, we have
+$$
+\mu^*(E^c) = \mu^*(E^c \cap B) + \mu^*(E^c \cap B^c) = \mu^*(B \setminus E) + \mu^*(B^c)
+$$
+Since the inner measure equals the outer measure, this gives
+$$
+\mu_0(X) - \mu^*(E) = \mu^*(E^c) = \mu^*(B \setminus E) + \mu^*(B^c).
+$$
+Now, using the fact that $\mu^*(B) = \mu^*(E)$ and that $\mu_0$ is finite, we finally have
+$$
+\mu^*(B \setminus E) = \mu_0(X) - \mu^*(E) - \mu^*(B^c) = \mu_0(X) - \mu^*(B) - \mu^*(B^c) = \mu_0(X) - \mu_0(X) = 0.
+$$
+Therefore, $\mu^*(B \setminus E) = 0$, so $E$ is $\mu^*$-measurable.
+\end{proof}
+
+\item (F 1.4, exercise 23) Let $\A$ be the collection of finite unions of sets of the form $(a,b] \cap \Q$ where $- \infty \leq a < b \leq \infty$.
+\begin{enumerate}
+\item $\A$ is an algebra on $\Q$.
+
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\E}{\mathcal{E}}
+
+\begin{proof}
+Let $\B = \{(a,b] \cap \Q : - \infty \leq a < b \leq \infty \}$, and let $\E = \B \cup \{\emptyset \}$.  First, we will show that $\E$ is an elementary family.
+
+By construction, $\emptyset \in \E$.  Now, let $E, F \in \E$.  If either of $E$ or $F$ is empty, then $E \cap F \in \E$.  So assume $E = (a,b] \cap \Q$ and $F = (c,d] \cap \Q$ where $-\infty \leq a < b \leq \infty, -\infty \leq c < d \leq \infty$.  We may assume, without loss of generality, that $a \leq c$, since otherwise we could switch the labels of $E$ and $F$.  If $a < b \leq c < d$, then $E \cap F = \emptyset \in \E$.  If $a < c \leq b < d$, then $E \cap F = (c,b] \cap \Q \in \E$.  The only remaining possibility is $a \leq c < d \leq b$, in which case $E \cap F = (c,d] \cap \Q \in \E$.  Finally, $E^c = ((-\infty,a] \cup (b, \infty)) \cap \Q = ((-\infty,a] \cap \Q) \cup ((b, \infty] \cap \Q)$ is a finite disjoint union of sets in $\E$.  Therefore, $\E$ is an elementary family.
+
+Now, $\E$ generates an algebra by Proposition 1.7.  All we need to show is that this algebra equals $\A$.  Firstly, the $\emptyset$ is the empty union of sets from $\B$, so $\emptyset \in \A$.  A finite disjoint union is a union, so the collection of finite disjoint unions from $\E$ is contained in $\A$.  Now, let $A = A_1 \cup \cdots \cup A_n$ for $A_i \in \B$.  We will induct on on $n$ to show that $A$ is a disjoint union of sets from $\E$.
+
+Clearly, if $n = 1$ this holds.  Now, consider the set $A_n \setminus (A_1 \cup \cdots \cup A_{n-1}) = A_1^c \cap \cdots \cap A_{n-1}^c \cap A_n$.  For each $i$, $A_i^c$ is in the algebra of finite disjoint unions from $\E$ (we have already shown this).  Also, $A_n$ is clearly in this algebra.  So by closure under finite intersections, we must have that $A_n \setminus (A_1 \cup \cdots \cup A_{n-1})$ is in this algebra, and hence is a finite disjoint union of sets from $\E$.  Also, it is disjoint from $A_1 \cup \cdots \cup A_{n-1}$, which by induction is a finite disjoint union of sets from $\E$.  Therefore, $A$ is a finite disjoint union of sets from $\E$, and $\A$ is contained in this algebra.
+
+We have shown both inclusions, therefore $\A$ equals the algebra of finite disjoint unions from $\E$, and is thus an algebra.
+
+\begin{comment}
+It suffices to show that $\B$ is an elementary family.  This will mean that the collection of finite \emph{disjoint} unions of sets from $\B$ is an algebra.  But any finite union $A_1 \cup \cdots \cup A_n$ of sets from $\B$  is equal to the finite disjoint union $(A_1 \setminus \bigcup_{i \neq 1} A_i) \cup \cdots \cup (A_n \setminus \bigcup_{i \neq n} A_i)$.  Now, if we assume the inductive hypothesis that any union of $n-1$ sets from $\B$ equals some disjoint unions of sets from $\B$, then we know for each $j \in \{1, \dots , n\}$ that $\bigcup_{i \neq j} A_i$ is in the algebra generated by $\B$, and thus so is $A_j \setminus \bigcup_{i \neq j} A_i$.  The base case clearly holds, since the empty union is a disjoint union.
+\end{comment}
+
+\end{proof}
+
+\item The $\sigma$-algebra generated by $\A$ is $\P(\Q)$.
+
+\begin{proof}
+
+Let $x \in \Q$.  For each $i$, define $E_i = (x - \frac1i, x] \cap \Q$.  Then $\cap_1^\infty E_i = \{x\}$, so the $\sigma$-algebra generated by $\A$ contains all singletons from $\Q$.  $\Q$ is countable, so every subset of $\Q$ is a countable union of singletons, thus $\P(\Q) = \A$ (because the reverse inclusion is trivial).
+
+\end{proof}
+
+\item Define $\mu_0$ on $\A$ by $\mu_0(\emptyset) = 0$ and $\mu_0(A) = \infty$ for $A \neq \emptyset$.  Then $\mu_0$ is a premeasure on $\A$, and there is more than one measure on $\P(\Q)$ whose restriction to $\A$ is $\mu_0$.
+
+\begin{proof}
+First, we will show that $\mu_0$ is a premeasure on $\A$.  By definition, $\mu_0(\emptyset) = 0$.  Also, if $A_i$ is a sequence of disjoint sets in $\A$, then $\mu_0(\bigcup_1^\infty A_i)$ is $0$ if all the $A_i$s are empty and $\infty$ otherwise.  Similiary, $\sum_1^\infty \mu_0(A_i)$ is $0$ if all the $A_i$s are empty and $\infty$ otherwise.  So $\mu_0(\bigcup_1^\infty A_i) \leq \sum_1^\infty \mu_0(A_i)$.
+
+The outer measure which $\mu_0$ induces on $\Q$ is simply $\mu^*(A) = 0$ if $A = \emptyset$ and $\mu(A) = \infty$ otherwise.  This is because every nonempty subset of $\Q$ is contained in $(-\infty, \infty] \cap \Q$, which has premeasure $\infty$, and is not contained in the empty set, hence $\infty$ is the infinum given in (1.12).
+
+Now, define $\mu$ to be the counting measure, i.e. $\mu_(A) = \card(A)$ (taken to by $\infty$ if $A$ is infinite).  $\mu$ is a premeasure because $\mu(\emptyset) = 0$ and, if $A_i$ is a sequence of disjoint sets in $\A$ such that $\bigcup_1^\infty A_i \in \A$, then $\mu(\bigcup_1^\infty A_i) = \card(\bigcup_1^\infty A_i) = \sum_1^\infty \card(A_i) = \sum_1^\infty \mu(A_i)$.
+
+Now, let $A \in \A$.  If $A = \emptyset$, then $\mu(A) = 0 = \mu_0(A)$.  So assume $A$ is nonempty.  Note that, for any $a < b$, $(a,b] \cap \Q$ is infinite by the denseness of the rationals.  Since $A$ is a union of sets of this form, $A$ must be infinite, thus $\mu(A) = \infty$.  So the restriction of $\mu$ to $\A$ is $\mu_0$, although $\mu \neq \mu_0$ on all of $\P(\Q)$ - for instance, $\mu(\{0\}) = 1 \neq \infty = \mu_0(\{0\}$.
+\end{proof}
+
+\end{enumerate}
+
+\end{enumerate}
+\end{document}
+
+
+
+
+
+
+

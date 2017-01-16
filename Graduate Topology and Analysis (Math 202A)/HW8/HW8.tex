@@ -1,0 +1,272 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+%\addtolength{\oddsidemargin}{-.1in} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{lipsum}
+\usepackage[]{units}
+\usepackage{relsize}
+\usepackage{verbatim}
+\usepackage{bbm}
+\usepackage{mathtools}
+\usepackage{eufrak}
+\usepackage[mathscr]{euscript}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{graphicx}
+\usepackage{xfrac}
+
+\setenumerate{listparindent=\parindent}
+
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Int}{{\displaystyle \int}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\U}{\mathcal{U}}
+\renewcommand{\L}{\mathcal{L}}
+
+\newcommand{\sd}{\Delta}
+
+\DeclareMathOperator*{\dom}{dom}
+\DeclareMathOperator*{\Aut}{Aut}
+\DeclareMathOperator*{\Ann}{Ann}
+\DeclareMathOperator*{\Tor}{Tor}
+\DeclareMathOperator*{\Gal}{Gal}
+\DeclareMathOperator*{\Hom}{Hom}
+\DeclareMathOperator*{\End}{End}
+\DeclareMathOperator*{\im}{Im}
+\DeclareMathOperator*{\card}{card}
+
+\renewcommand{\bar}{\overline}
+\renewcommand{\P}{\mathcal{P}}
+
+\usepackage{fancyhdr} % Required for custom headers 
+%\usepackage{lastpage} % Required to determine the last page for the footer
+
+\pagestyle{fancy}
+\lhead{Math 202A (HW 8)}
+\chead{Michael Knopf (24457981)}
+\rhead{November $5^\text{th}$, 2015}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+%\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}
+\renewcommand\headrulewidth{0.4pt}
+%\renewcommand\footrulewidth{0.4pt}
+
+\begin{document}
+
+\begin{enumerate}
+\item[F 2.4.35] $f_n \rightarrow f$ in measure iff for every $\epsilon > 0$ there exists $N \in \N$ such that $\mu(\{x : |f_n(x) - f(x)| \geq \epsilon\}) < \epsilon$ for $n \geq N$.
+
+\begin{proof}
+The definition of $f_n \rightarrow f$ in measure is as follows: for every $\epsilon > 0$, for every $\delta > 0$, there exists some $N_\delta$ such that whenever $n > N_\delta$ we have
+$$
+\mu(\{x : |f_n(x) - f(x)| \geq \epsilon \}) < \delta.
+$$
+If $f_n \rightarrow f$ in measure, then simply taking $\delta = \epsilon$ transforms this statement into exactly what we are trying to prove, so the forward direction is trivial.
+
+For convenience, denote $\{x : |f_n(x) - f(x)| \geq t\}$ by $S_t$.  Suppose now that for every $t > 0$ there exists $N_t \in \N$ such that $\mu(S_t) < t$ for $n \geq N_t$, and let $\delta, \epsilon > 0$.  If $\epsilon \leq \delta$, then choosing $N = N_\epsilon$ gives $\mu(S_\epsilon) < \epsilon \leq \delta$ when $n > N$, as desired.  If $\delta < \epsilon$, then $S_\epsilon \subseteq S_\delta$, thus taking $N = N_\delta$ gives $\mu(S_\epsilon) \leq \mu(S_\delta) < \delta$ when $n > N$.
+\end{proof}
+
+\item[F 2.4.38] Suppose $f_n \rightarrow f$ in measure and $g_n \rightarrow g$ in measure.
+\begin{enumerate}
+\item $f_n + g_n \rightarrow f + g$.
+
+\begin{proof}
+Let $\epsilon > 0$ and let $N_f,N_g$ be such that $\mu(\{x : |f_n(x) - f(x)| \geq \frac{\epsilon}{2} \}) < \frac{\epsilon}{2}$ if $n > N_f$ and $\mu(\{x : |g_n(x) - g(x)| \geq \frac{\epsilon}{2} \}) < \frac{\epsilon}{2}$ if $n > N_g$, then take $N = \max(N_f,N_g)$.  Suppose that that $|(f_n+g_n) - (f+g)| \geq \epsilon$.  Then $|f_n -f| + |g_n - g| \geq \epsilon$, and so either $|f_n - f| \geq \frac{\epsilon}{2}$ or $|f_n - f| \geq \frac{\epsilon}{2}$.  This means
+$$
+\{x : |(f_n(x) - g_n(x)) - (f(x) - g(x))| \geq \epsilon \} \subseteq \{x : |f_n(x) - f(x)| \geq \frac{\epsilon}{2} \} \cup \{x : |g_n(x) - g(x)| \geq \frac{\epsilon}{2} \}
+$$
+and thus
+$$
+\mu(\{x : |(f_n(x) - g_n(x)) - (f(x) - g(x))| \geq \epsilon \})
+$$
+$$
+\leq \mu(\{x : |f_n(x) - f(x)| \geq \frac{\epsilon}{2} \}) + \mu(\{x : |g_n(x) - g(x)| \geq \frac{\epsilon}{2} \}) < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon
+$$
+whenever $n > N$, satisfying the definition from the previous exercise.
+\end{proof}
+
+\item $f_ng_n \rightarrow fg$ in measure if $\mu(X) < \infty$, but not necessarily if $\mu(X) = \infty$.
+
+\begin{proof}
+
+Suppose $\mu(X) < \infty$.  For any function $h$ and any $\epsilon > 0$, there is some $M \in \N$ such that $\mu(\{x : |h(x)| > M\}) < \epsilon$.  If this were false, we would have $\mu(\{x : |h(x)| > M\}) \geq \epsilon$ for all $M$, and so
+$$
+\mu(\{x : |h(x)| \leq M\}) \leq \mu(X) - \epsilon
+$$
+for all $M$.  By continuity from below, we can take limits to produce $\mu(X) = \mu(\{x: |h(x)| \leq \infty\}) \leq \mu(X) - \epsilon$, a contradiction.
+
+Furthermore, suppose that $h_n \rightarrow h$ in measure.  Then, using the $M$ from the previous paragraph which satisfies $\frac{\epsilon}{2}$, there is also some $N$ such that $n > N$ implies $\mu(\{x : |h(x) - h_n(x)| > M\}) < \frac{\epsilon}{2}$.  If $|h_n(x)| > 2M$, then $|h(x)| + |h(x) - h_n(x)| > 2M$ and so either $|h(x)| > M$ or $|h(x) - h_n(x)| > M$.  Thus, we have
+\begin{align*}
+\mu(\{x : |h_n(x)| > 2M\}) &\leq \mu(\{x:|h(x)| > M\}) + \mu(\{x:|h(x) - h_n(x)| > M\}) < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon.
+\end{align*}
+So, for all $\epsilon > 0$, there exists some $N$ and some $M'$ (namely the value $2M$ which we found) for which $\mu(\{x : |h_n(x)| > 2M\}) < \epsilon$ whenever $n > N$.
+
+Therefore, we can find some $c_g$ such that $\mu(\{x : |g(x)| > c_g\}) < \frac{\epsilon}{4}$, and we can also find some $c_f$ and some $N_0$ such that $\mu(\{x : |f_n(x)| > c_f\}) < \frac{\epsilon}{4}$ whenever $n > N_0$.  We can then find some $N_1$ so that $\{x : |g_n(x) - g(x)| > \frac{\epsilon}{2c_f}\}) < \frac{\epsilon}{4}$ whenever $n > N_1$ and some $N_2$ so that $\{x : |f_n(x) - f(x)| > \frac{\epsilon}{2c_g}\}) < \frac{\epsilon}{4}$ whenever $n \geq N_2$.  Let $N = \max(N_0,N_1,N_2)$.  Then for $n > N$ we have
+\begin{align*}
+&\mu(\{x : |f_n(x)||g_n(x) - g(x)| > \frac{\epsilon}{2}\})
+\\
+\leq \ &\mu(\{x : |f_n(x)| \leq c_f\} \cap \{x : |g_n(x) - g(x)| > \frac{\epsilon}{2c_f}\}) + \mu(\{x : |f_n(x)| \geq c_f\})
+\\
+< \ & \frac{\epsilon}{4} + \frac{\epsilon}{4} = \frac{\epsilon}{2}.
+\end{align*}
+and
+\begin{align*}
+&\mu(\{x : |g(x)||f_n(x) - f(x)| > \frac{\epsilon}{2}\})
+\\
+\leq \ &\mu(\{x : |f_g(x)| \leq c_g\} \cap \{x : |f_n(x) - f(x)| > \frac{\epsilon}{2c_g}\}) + \mu(\{x : |g(x)| \geq c_f\})
+\\
+< \ & \frac{\epsilon}{4} + \frac{\epsilon}{4} = \frac{\epsilon}{2}.
+\end{align*}
+
+Since $|f_ng_n - fg| = |f_ng_n +f_ng - f_ng - fg| \leq |f_n||g_n-g| + |g||f_n-f|$, we know $|f_ng_n - fg| > \epsilon$ implies that $|f_n(x)||g_n(x)-g(x)| > \frac{\epsilon}{2}$ or $|g(x)||f_n(x)-f(x)| > \frac{\epsilon}{2}$.  Thus,
+
+\begin{align*}
+&\mu(\{x : |f_n(x)g_n(x) - f(x)g(x)| > \epsilon)
+\\
+\leq \ &\mu(\{x : |f_n(x)||g_n(x) - g(x)| > \frac{\epsilon}{2}\}) + \mu(\{x : |g(x)||f_n(x) - f(x)| > \frac{\epsilon}{2}\})
+\\
+< \ & \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon.
+\end{align*}
+So our chosen $N$ satisfies the definition.
+
+To see that the requirement $\mu(X) < \infty$ is necessary, consider the sequences $f_n(x) = \frac{1}{n} \chi_{[0,n)}$ and $g_n(x) = \sum\limits_{k=1}^n k \cdot \chi_{[k-1,k)}$.  Then $f_n \rightarrow 0 = f$ in measure and $g_n \rightarrow \sum\limits_{k=1}^\infty k \cdot \chi_{[k-1,k)} = g$, which is finite for all $x$.  So $fg = 0$.  However, $f_ng_n = \sum\limits_{k=1}^n \frac{k}{n} \cdot \chi_{[k-1,k)}$ does not converge to $0$ in measure.  For all $n$, the set $\{x: |f_n(x)g_n(x) - 0| > \frac{1}{2}\}$ contains $[n-1,n)$, which has measure 1.
+\end{proof}
+
+\end{enumerate}
+
+\item[F 2.4.43] Suppose that $\mu(X) < \infty$ and $f: X \times [0,1] \rightarrow \C$ is a function such that $f(\cdot , y)$ is measurable for each $y \in [0,1]$ and $f(x, \cdot)$ is continuous for each $x \in X$.
+\begin{enumerate}
+\item If $0 < \epsilon, \delta < 1$ then $E_{\epsilon, \delta} = \{x : |f(x,y) - f(x,0)| \leq \epsilon \text{ for all } y < \delta \}$ is measurable.
+
+\begin{proof}
+
+For each $y \in [0,1]$, define $g_y(x) = |f(x,y) - f(x,0)|$.  $g_y$ is the absolute value of a difference of measurable functions, thus $g_y$ is measurable.  So we can express $E_{\epsilon, \delta}$ as
+$$
+\bigcap_{y \in [0,\delta)} g_y^{-1}([0,\epsilon]).
+$$
+We will show that this set equals
+$$
+\bigcap_{y \in [0,\delta) \cap \Q} g_y^{-1}([0,\epsilon]),
+$$
+which is a countable intersection of measurable sets (since $[0,\epsilon] \in \B_\R$ and $g_y$ is measurable for all $y$), hence measurable.
+
+The forward inclusion is obvious, because $[0,\delta) \cap \Q \subset [0,\delta)$.  For the reverse inclusion, suppose that $x \in g_y^{-1}([0,\epsilon])$ for all $y \in [0,\delta) \cap \Q$.  For a given $y \in [0,\delta)$, take a sequence $y_n$ in $[0,\delta) \cap \Q$ converging to $y$.  By assumption, we have $g_{y_n}(x) \leq \epsilon$ for all $y_n$.  Since $g_y(x)$ is the absolute value of a difference of functions that are continuous in $y$, it is continuous in $y$ as well.  So taking limits gives $g_y(x) = \lim\limits_{n \rightarrow \infty} g_{y_n}(x) \leq \epsilon$, hence $x \in g_y^{-1}([0,\epsilon])$.  Because $y$ was arbitrary, the reverse inclusion is established.
+\end{proof}
+
+\item For any $\epsilon > 0$ there is a set $E \subset X$ such that $\mu(E) < \epsilon$ and $f(\cdot , y) \rightarrow f( \cdot , 0)$ uniformly on $E^c$ as $y \rightarrow 0$.
+
+\begin{proof}
+Since $f(x,y)$ is continuous in $y$ for all $x \in X$, we know $\lim\limits_{y \rightarrow 0} f(x,y) = f(x,0)$.  Any sequence $y_n \rightarrow 0$ gives a sequence $f_n(x) = f(x,y_n)$ which then converges to $f(x,0)$.  So by Egoroff's theorem, there is such a set $E$ for which $f_n \rightarrow f$ uniformly on $E^c$.  This holds for all sequences $y_n$ converging to $0$, thus $f(\cdot,y) \rightarrow f(\cdot,0)$ uniformly on $E^c$ as $y \rightarrow 0$.
+\end{proof}
+\end{enumerate}
+
+\item[B 12.1] Suppose $\mu$ is a signed measure.  Prove that $A$ is a null set with respect to $\mu$ if and only if $|\mu|(A) = 0$.
+
+\begin{proof}
+Decompose $X$ into a disjoint union $E \cup F$, where $\mu = \mu^+ - \mu^-$ for some positive measures with $\mu^+(F) = 0 = \mu^-(E)$.  First, suppose that $A$ is a null set.  We know $0 = \mu(A \cap E) = \mu^+(A \cap E) - \mu^-(A \cap E) = \mu^+(A \cap E)$ and similarly $0 = \mu(A \cap F) = - \mu^- (A \cap F)$, since these are subsets of $A$.  Therefore,
+\begin{align*}
+|\mu|(A) &= \mu^+(A) + \mu^-(A) \\
+&= \mu^+(A \cap E) + \mu^-(A \cap E) + \mu^+(A \cap F) + \mu^-(A \cap F) \\
+&= 0.
+\end{align*}
+
+Now, assume that $|\mu|(A) = 0$ and let $B \subset A$.  $B$ decomposes as $(B\cap E) \cup (B \cap F)$ with $B \cap E \subset A \cap E$ and $B \cap F \subset A \cap F$.  Since $|\mu|(A) = 0$ we know that $\mu^+(A \cap E) + \mu^-(A \cap F) = 0$.  Since both of these are positive measures, we must have $\mu^+(A \cap E) = 0 = \mu^-(A \cap F)$.  Again, because they are positive measures, we then have $\mu^+(B \cap E) \leq \mu^-(A \cap E) = 0$ and $\mu^-(B \cap F) \leq \mu^-(A \cap F) = 0$, so $\mu(B) = \mu^+(B \cap E) - \mu^-(B \cap F) = 0 - 0 = 0$.
+\end{proof}
+
+\item[B 12.2] Let $\mu$ be a signed measure.  Define
+$$
+\Int f d\mu = \Int f d\mu^+ - \Int f d\mu^-.
+$$
+Prove that
+$$
+\left| \Int f d\mu \right| \leq \Int |f| d|\mu|.
+$$
+
+\begin{proof}
+First note that, for any two positive measures $\mu_1$ and $\mu_2$, we have the property
+$$
+\Int f d(\mu_1 + \mu_2) = \Int f d\mu_1 + \Int d\mu_2
+$$
+which we will now prove.  This is obvious for simple functions, since
+$$
+\Int s d(\mu_1 + \mu_2) = \sum_1^n a_i (\mu_1 + \mu_2)(E_i) = \sum_1^n a_i \mu_1(E_i) + \sum_1^n a_i \mu_2(E_i) = \Int s d\mu_1 + \Int s d\mu_2.
+$$
+For an arbitrary nonnegative function $f$, one inequality is now straightforward:
+\begin{align*}
+\Int f d(\mu_1 + \mu_2) &= \sup\left\{ \Int s d(\mu_1 + \mu_2) : 0 \leq s \leq f, s \text{ simple} \right\}
+\\
+&= \sup\left\{ \Int s d\mu_1 + \Int s d\mu_2 : 0 \leq s \leq f, s \text{ simple} \right\}
+\\
+&\leq \sup\left\{ \Int s d\mu_1 : 0 \leq s \leq f, s \text{ simple} \right\} + \sup\left\{ \Int s d\mu_2 : 0 \leq s \leq f, s \text{ simple} \right\}
+\\
+&= \Int f d\mu_1 + \Int f d\mu_2.
+\end{align*}
+
+For the other inequality, we know that for every $\epsilon$ there exists a simple function $s_i \leq f$ such that $\Int f d\mu_i - \dfrac{\epsilon}{2} \leq \Int s_i d\mu_i$ (for $i = 1,2$).  Taking $s = \max(s_1, s_2)$, it is clear that $s$ is a simple function (if $\{E_i\}$ and $\{F_i\}$ are the partitions used for $s_1$ and $s_2$, respectively, then $s$ uses the partition $\{E_i \cap F_j\}$, and value of $s$ on some $E_i \cap F_j$ is the max of the values of $s_1$ and $s_2$ on this set, which is constant), and that $\Int f d\mu_i - \dfrac{\epsilon}{2} \leq \Int s d\mu_i$ (for $i = 1,2$).  The inequality follows from $\Int s_i d\mu_i \leq \Int s d\mu_i$, since $s_i \leq s$.  So
+$$\Int f d\mu_1 + \Int f d\mu_2 - \epsilon \leq \Int s d\mu_1 + \Int s d\mu_2 = \Int s d(\mu_1 + \mu_2).
+$$
+Since this holds for an arbitrary $\epsilon$, we have $$\Int f d(\mu_1 + \mu_2) = \sup\left\{\Int s d(\mu_1 + \mu_2) : 0 \leq s \leq f \right\} \geq \Int f d\mu_1 + \Int f d\mu_2$$
+as desired.  The proof for an arbitrary $f$ (not necessarily positive) follows immediately, but we will not even be needing this case, since the function we will be applying this fact to is $|f|$.
+
+Finally, we have
+\begin{align*}
+\left| \Int f d\mu \right| &=
+\left|\Int f d\mu^+ - \Int f d\mu^- \right|
+\\
+&\leq \left| \sup\left\{ \sum_1^n a_i \mu^+(E_i) : 0 \leq \sum_1^n a_i \chi_{E_i} \leq f \right\} - \sup\left\{\sum_1^n a_i \mu^-(E_i) : 0 \leq \sum_1^n a_i \chi_{E_i} \leq f \right\} \right|
+\\
+&= \left| \Int f d\mu^+ - \Int f d\mu^- \right|
+\\
+&\leq \Int |f| d\mu^+ + \Int |f| d\mu^-
+\\
+&= \Int |f| d(\mu^+ + \mu^-)
+\\
+&= \Int |f| d|\mu|.
+\end{align*}
+
+
+
+
+
+
+\begin{comment}
+\begin{align*}
+\left| \Int f d\mu \right| &= \left| \sup\left\{ \sum_1^n a_i \mu(E_i) : 0 \leq \sum_1^n a_i \chi_{E_i} \leq f \right\} \right|
+\\
+&= \left| \sup\left\{ \sum_1^n a_i \mu^+(E_i) - \sum_1^n a_i \mu^-(E_i) : 0 \leq \sum_1^n a_i \chi_{E_i} \leq f \right\} \right|
+\\
+&\leq \left| \sup\left\{ \left|\sum_1^n a_i \mu^+(E_i)\right| + \left|\sum_1^n a_i \mu^-(E_i)\right| : 0 \leq \sum_1^n a_i \chi_{E_i} \leq f \right\} \right|
+\\
+&\leq \left| \sup\left\{ \left|\sum_1^n a_i \mu^+(E_i)\right| : 0 \leq \sum_1^n a_i \chi_{E_i} \leq f \right\} + \sup\left\{\left|\sum_1^n a_i \mu^-(E_i)\right| : 0 \leq \sum_1^n a_i \chi_{E_i} \leq f \right\} \right|
+\\
+&= \left| \Int |f| d\mu^+ + \Int |f| d\mu^- \right|
+\\
+&= \Int |f| d\mu^+ + \Int |f| d\mu^-
+\\
+&= \Int |f| d(\mu^+ + \mu^-)
+\\
+&= \Int |f| d|\mu|
+\end{align*}
+\end{comment}
+\end{proof}
+
+\end{enumerate}
+\end{document}
+
+
+
+
+
+
+

@@ -1,0 +1,202 @@
+\documentclass[10pt]{article}
+\usepackage[margin=.75in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{lipsum}
+\usepackage[]{units}
+\usepackage{relsize}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{graphicx}
+\usepackage{xfrac}
+
+\setenumerate{listparindent=\parindent}
+
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\DeclareMathOperator*{\dom}{dom}
+\DeclareMathOperator*{\Aut}{Aut}
+\DeclareMathOperator*{\Gal}{Gal}
+
+
+\begin{document}
+
+\begin{center}
+\large Math 114 Homework 5
+
+\normalsize (due Thursday, 6 March)
+
+Michael Knopf
+\end{center}
+
+\begin{enumerate}
+
+\item (Exercise 13 in DF \S 14.2.) Let $f(X) \in \mathbf{Q}[X]$ be a cubic, and let $K$ be a splitting field for $f(X)$ over $\mathbf{Q}$.  Prove that if $\Aut K/\mathbf{Q}$ is a cyclic group of order $3$, then all the roots of $f(X)$ (in $\mathbf{C}$) are real.
+
+\begin{proof}
+
+We may assume that $K \subseteq \mathbb{C}$, since otherwise we could just take an embedding of $K$ in $\mathbb{C}$.  Suppose $\Aut(K/\Q)$ is a cyclic group of order $3$, and assume for a contradiction that $f(x)$ has a root $\alpha \in K$ that is not real.  Since the automorphism of complex conjugation on $\mathbb{C}$ fixes the subfield $\mathbb{Q}$, we know that $\overline{\alpha}$ is another distinct root.  Since $\Aut (K/\Q) \cong \Z_3$, all of its nontrivial elements must have order $3$.  However, $K \supset \mathbb{R}$ contains non-real elements, so complex conjugation is a nontrivial automorphism of $K$ fixing $\Q$ with order $2$, a contradiction.
+
+%Let $\beta \in K$ be the third root of $f(x)$.  If $\beta = \alpha$, then $\alpha$ is a double root of $f(x)$.  Thus it is also a root of $D_xf(x)$.  So $\overline{\alpha}$ must be a root of $D_x f(x)$ as well, by the same logic as before.  Thus $\overline{\alpha}$ is a double root of $f(x)$, a contradiction because this would imply that $f(x)$ has degree at least 4.  The same reasoning shows that $\beta \neq \overline{\alpha}$.  So $\beta$ must be distinct from the other roots.  If $\beta$ were not real, then its conjugate $\overline{\beta} \neq \beta$ would also be a root, again implying that $f(x)$ has degree at least 4, a contradiction.  Therefore $\beta$ must be real.
+
+\end{proof}
+
+\item (Adapted from Exercise 18 in DF \S 14.2.) Let $K/F$ be a (finite) Galois extension with $[K:F]=n$.  For each $\alpha \in K$, define the \emph{trace} of $\alpha$ to be 
+\[
+Tr_{K/F}(\alpha) = \sum_{\sigma \in \Gal (K/F)} \sigma(\alpha) \text{.}
+\]
+
+(a) Prove that $Tr_{K/F}(\alpha) \in F$ for any $\alpha \in K$.
+
+\begin{proof}
+Let $\tau \in \Gal(K/F)$.  Then $$\tau(Tr_{K/F}(\alpha)) = \tau \left( \sum_{\sigma \in \Gal (K/F)} \sigma(\alpha) \right) = \sum_{\sigma \in \Gal (K/F)} \tau \circ\sigma(\alpha) = \sum_{\sigma \in \Gal (K/F)} \sigma(\alpha) = Tr_{K/F}(\alpha)$$
+because $\tau$ acts as an permutation on $\Gal(K/F)$, so $\{\tau\circ\sigma : \sigma \in \Gal(K/F)\}= \Gal(K/F)$.  Since $Tr_{K/F}(\alpha)$ is in the fixed field of an arbitrary $\tau \in \Gal(K/F)$, and we know the fixed field is $F$, $Tr_{K/F}(\alpha) \in F$.
+\end{proof}
+
+(b) Prove that $Tr_{K/F}(\alpha + \beta) = Tr_{K/F}(\alpha) + Tr_{K/F}(\beta)$ for any $\alpha,\beta \in K$.
+
+\begin{proof}
+\begin{align*}
+Tr_{K/F}(\alpha + \beta) &= \sum_{\sigma \in \Gal (K/F)} \sigma(\alpha + \beta) = \sum_{\sigma \in \Gal (K/F)} \sigma(\alpha) + \sigma(\beta)
+\\
+&= \sum_{\sigma \in \Gal (K/F)} \sigma(\alpha) + \sum_{\sigma \in \Gal (K/F)}\sigma(\beta)
+= Tr_{K/F}(\alpha) + Tr_{K/F}(\beta)
+\end{align*}
+\end{proof}
+
+(c) Suppose $K = F(\gamma)$ for some $\gamma \in K$ such that $\gamma^2 \in F$ and $\gamma \notin F$.  Show that for any $a,b \in F$, $Tr_{K/F}(a+b\gamma) = 2a$.
+
+\begin{proof}
+$K$ is the splitting field for the irreducible polynomial $x^2 - \gamma^2$, since it splits as $(x+\gamma)(x-\gamma)$ over $K$.  Thus it is a Galois extension with Galois group $\{id, \sigma\}$, where $\sigma$ is defined by $\gamma \mapsto -\gamma$.  We know this is the full group because $\Gal(K/F)$ must have order $[K:F] = 2$, and $\sigma$ is the only possible nontrivial automorphism.  So
+
+$$
+Tr_{K/F}(a+b\gamma) = id(a+b\gamma) + \sigma(a+b\gamma) = a+b\gamma + a-b\gamma = 2a
+$$
+\end{proof}
+
+(d) Given $\alpha \in K$, let $m_\alpha (X) = X^d + a_{d-1}X^{d-1} + \ldots + a_1 X + a_0 \in F[X]$ be the minimal polynomial for $\alpha$ over $F$.  Prove that $Tr_{K/F}(\alpha) = -\frac{n}{d} a_{d-1}$.
+
+\begin{proof}
+Since $K$ is Galois and $m_{\alpha}(x)$ is irreducible, $m_{\alpha}$ must be separable with $d$ distinct roots $\alpha = \alpha_1, \dots , \alpha_d$ in $K$.  Let $E$ be the splitting field for $m_{\alpha}(x)$ over $F$, so that $F \subset E \subset K$.  Then $E$ is also a Galois extension with Galois group $H$ of order $d$, which is isomorphic to the quotient $\Gal(K/F) / \Gal(K / H)$.  Thus the cosets of $\Gal(K/H)$ in $\Gal(K/F)$ each have size $n/d$, and two automorphisms from $\Gal(K/F)$ have the same action on $E$ if and only if they are in the same coset of $\Gal(K/H)$.  Thus, for each root $\alpha_i$, there are exactly $n/d$ automorphisms in $\Gal(K/F)$ which map $\alpha$ to $\alpha_i$.  Therefore,
+$$
+Tr_{K/F}(\alpha) = \frac{n}{d}(\alpha_1 + \cdots + \alpha_d).
+$$
+Now, we know that $m_{\alpha}(x) = (x-\alpha_1) \cdots (x-\alpha_d)$.  The ways to make terms containing a factor of degree $d-1$ are to take $-\alpha_i$ from one factor, and take $x$ from every other factor when distributing.  Thus $a_{d-1} = -\alpha_1 - \cdots - \alpha_d = -(\alpha_1 + \cdots + \alpha_d)$.  So $Tr_{K/F}(\alpha) = -\frac{n}{d}a_{d-1}$.
+\end{proof}
+
+\item (Exercises 21 and 22 in DF \S 14.2.) Let $K/F$ be a (finite) Galois extension, and let $\sigma \in \Aut K/F$ be any automorphism.
+
+(a) Use the linear independence of characters to show that there is an element $\alpha \in K$ with $Tr_{K/F}(\alpha) \neq 0$.
+
+\begin{proof}
+Suppose, for all $\alpha \in K$, that
+$$
+Tr_{K/F}(\alpha) = \sigma_1(\alpha) + \cdots + \sigma_n(\alpha) = 0.
+$$
+Then $\sigma_1, \dots , \sigma_n$ are linearly dependent as functions, since this nontrivial linear combination of them is identically zero.  This contradicts the linear independence of characters.
+\end{proof}
+
+(b) Suppose that $\alpha \in K$ is of the form $\alpha = \frac{\beta}{\sigma(\beta)}$ for some nonzero $\beta \in K$.  Prove that $N_{K/F}(\alpha)=1$.
+
+\begin{proof}
+Again, $\sigma$ acts on $\Aut K/F$ as a permutation.  So
+$$N_{K/F}(\sigma(\beta)) = \prod_{\tau \in \Gal K/F} \tau \circ \sigma(\beta) = \prod_{\tau \in \Gal K/F} \tau (\beta) = N_{K/F}(\beta).$$
+Thus, $N_{K/F}(\alpha) = \dfrac{N_{K/F}(\beta)}{N_{K/F}(\sigma(\beta))} = \dfrac{N_{K/F}(\beta)}{N_{K/F}(\beta)} = 1$, since we have shown the norm is multiplicative.
+\end{proof}
+
+(c) Suppose that $\alpha \in K$ is of the form $\alpha = \beta - \sigma(\beta)$ for some $\beta \in K$.  Prove that $Tr_{K/F}(\alpha)=0$.
+
+\begin{proof}
+Again, $\sigma$ acts on $\Aut K/F$ as a permutation.  So
+$$Tr_{K/F}(\sigma(\beta)) = \sum_{\tau \in \Gal K/F} \tau \circ \sigma(\beta) = \sum_{\tau \in \Gal K/F} \tau (\beta) = Tr_{K/F}(\beta).$$
+Thus, $Tr_{K/F}(\alpha) = Tr_{K/F}(\beta - \sigma(\beta)) = Tr_{K/F}(\beta) - Tr_{K/F}(\sigma(\beta)) = Tr_{K/F}(\beta) - Tr_{K/F}(\beta) = 0$, since the trace is additive.
+\end{proof}
+
+\item (Exercise 23 in DF \S 14.2.) Let $K/F$ be a Galois extension with cyclic Galois group of order $n$ generated by an automorphism $\sigma$.  Suppose $\alpha \in K$ has $N_{K/F}(\alpha)=1$.  Prove that $\alpha$ is of the form $\alpha = \frac{\beta}{\sigma(\beta)}$ for some nonzero $\beta \in K$.
+
+[Hint: By the linear independence of characters show there exists some $\theta \in K$ such that the element 
+\[
+\beta = \theta + \alpha \sigma(\theta) + \alpha \sigma(\alpha) \sigma^2(\theta) + \ldots + \alpha \sigma(\alpha) \ldots \sigma^{n-2}(\alpha) \sigma^{n-1}(\theta)
+\]
+is nonzero.  Compute $\frac{\beta}{\sigma(\beta)}$ using the fact that $N_{K/F}(\alpha)=1$.]
+
+\begin{proof}
+Since $\Gal K/F = \{\sigma^i : 0 \leq i < n \}$, linear independence of characters implies that there is some nonzero $\theta$ for which $\beta = \sigma^0(\theta) + \alpha \sigma(\theta) + \alpha \sigma(\alpha) \sigma^2(\theta) + \cdots + \alpha \sigma(\alpha) \cdots \sigma^{n-2}(\alpha) \sigma^{n-1}(\theta) \neq 0$, since the coefficients of each $\sigma^i(\theta)$ in this linear combination are scalars from the field $K$ on which these characters take their values, and it cannot be $\theta = 0$, since otherwise this expression is $0$.
+
+Now, we have
+\begin{align*}
+\alpha \sigma(\beta) &= \alpha \sigma(\theta) + \alpha \sigma(\alpha) \sigma^2(\theta) + \alpha \sigma(\alpha) \sigma^2(\alpha) \sigma^3(\theta) + \cdots + \alpha \sigma(\alpha) \cdots \sigma^{n-1}(\alpha) \sigma^{n}(\theta)
+\\
+&= \alpha \sigma(\theta) + \alpha \sigma(\alpha) \sigma^2(\theta) + \alpha \sigma(\alpha) \sigma^2(\alpha) \sigma^3(\theta) + \cdots + \theta
+\\
+&= \beta
+\end{align*}
+because $N_{K/F}(\alpha) = \alpha \sigma(\alpha) \cdots \sigma^{n-1}(\alpha) = 1$ and $\sigma^n(\theta) = \theta$, because $\sigma$ has order $n$.  Since $\beta$ is nonzero, $\alpha = \dfrac{\beta}{\sigma(\beta)}$.
+\end{proof}
+
+\item (Exercise 25 in DF \S 14.2.) Let $D \in \mathbf{N}$ be a positive integer that is not the square of any integer.  Determine all solutions $(a,b) \in \mathbf{Q}^2$ of the equation $a^2+Db^2=1$.
+
+[Hint: see the hint to Exercise 24 in DF \S 14.2; use Exercise 17(c) (from HW04) together with Exercise 23 (above).]
+
+\begin{proof}
+Notice that $(a,b) \in \Q^2$ is a solution to the equation $a^2 + Db^2 = 1$ if and only if $N_{\Q(\sqrt{-D})/\Q}(a+b\sqrt{-D}) = a^2 + Db^2 = 1$.
+
+$\Q(\sqrt{-D})$ is a Galois extension of degree 2, since the minimal polynomial of $\sqrt{-D}$ over $\Q$ is $x^2 + D$, which is separable and has both roots in this extension, thus $\Q(\sqrt{-D})$ is the splitting field for $x^2 + D$.  So the Galois group of $\Q(\sqrt{-D}) / Q$ is a cyclic group of order 2.  The only possible nontrivial automorphism fixing $\Q$ is that determined by $\sqrt{-D} \mapsto - \sqrt{-D}$, since these are both roots of $x^2 + D$.  This map is complex conjugation.  So the Galois group consists just of the identity and complex conjugation.
+
+By the previous exercise, all elements of norm 1 in $\Q(\sqrt{-D})$ are of the form $\dfrac{\beta}{\sigma(\beta)}$ for some $\sigma \in \Gal(\Q(\sqrt{-D}) / \Q)$ and some nonzero $\beta \in \Q(\sqrt{-D})$.  If $\sigma$ is the identity, then this expression simply reduces to 1.  So the only other elements of norm 1 are found when $\sigma$ is complex conjugation.  However, $1$ can also be obtained by using complex conjugation if we just let $\beta = 1$, for instance.  Therefore, \emph{all} elements of norm 1 are of the form $\beta / \overline{\beta}$ for some $\beta \neq 0$.
+
+Any nonzero $\beta \in \Q(\sqrt{-D})$ is of the form $\beta = s + t\sqrt{-D}$ for some $s,t \in \Q$, not both zero.  So all elements of norm 1 are of the form
+$$
+\dfrac{\beta}{\overline{\beta}} = \dfrac{\beta}{\overline{\beta}} \cdot \dfrac{\beta}{\beta} = \dfrac{\beta^2}{N(\beta)} = \dfrac{s^2 - t^2 + 2st\sqrt{-D}}{s^2 + Dt^2} = \dfrac{s^2 - t^2}{s^2 + Dt^2} + \dfrac{2st}{s^2 + Dt^2}\sqrt{-D}.
+$$
+Therefore, all rational solutions to $a^2 + Db^2 = 1$ are of the form $(a,b) = \left(\dfrac{s^2 - t^2}{s^2 + Dt^2}, \dfrac{2st}{s^2 + Dt^2} \right)$.
+\end{proof}
+
+\item (Exercise 28 in DF \S 14.2.) Let $F$ be a field, $f(X) \in F[X]$ an irreducible polynomial of degree $n$ over $F$, $L$ a splitting field of $f(X)$ over $F$, and $\alpha \in L$ a root of $f(X)$.  If $K$ is any Galois extension of $F$ contained in $L$, show that the polynomial $f(X)$ splits into a product of $m$ irreducible polynomials each of degree $d$ over $K$, where $m = [F(\alpha) \cap K: F]$ and $d = [K(\alpha):K]$.
+
+[Hint: If $H$ is the subgroup of the Galois group of $L$ over $F$ corresponding to $K$, then the factors of $f(X)$ over $K$ correspond to the orbits of $H$ on the roots of $f(X)$.  Then use Exercise 9 of DF \S 4.1 (which you may cite without proof).]
+
+\begin{proof}
+
+Let $A$ be the set of roots of $f(x)$ in $L$, and consider the irreducible factors of $f(x)$ over $K$.  Each of these has a corresponding set of roots, which is a subset of $A$.  So let $\mathcal{O}_i$ be the set of roots of the $i$th irreducible factor of $f(x)$ over $K$.
+
+Let $H = \Gal(L/K) \subseteq \Gal(L/F)$.  $\Gal(L/F)$ acts transitively on $A$, since it must permute the roots of $f(x)$.  However, $H$ fixes the coefficients of each irreducible factor of $f(x)$ over $K$, thus it must permute the set $\mathcal{O}_i$ of roots of the $i$th factor, for each $i$.  We know that the action of $H$ on $\mathcal{O}_i$ is transitive, since a map that sends one root of this irreducible factor to another can always be extended to an automorphism on all of $L$.  Thus the $\mathcal{O}_i$ are the orbits of $H$ on $A$.
+
+One of these factors has $\alpha$ as a root, and thus has degree $d$, since the degree $d$ of $K(\alpha)$ over $K$ is that of an irreducible polynomial over $K$ with $\alpha$ as a root.  So the orbit corresponding to this factor has $d$ elements, which are the roots of this factor.  $L/K$ is a Galois extesions, so $H$ is a normal subgroup of $G$.  Thus, by exercise 9 in section 4.1, the orbits must all have the same number of elements.  So each orbit contains $d$ elements, meaning that each irreducible factor of $f(x)$ over $K$ has degree $d$.
+
+\begin{figure}[h!]
+\begin{center}
+\begin{tikzpicture}[node distance=2cm]
+\node(1) {$L$};
+\node(2)			[below left = 1cm and 2cm of 1]
+{$K(\alpha)$};
+\node(3)			[below right = 2.4cm and 2cm of 1]
+{$F(\alpha)$};
+\node(4)			[below = 2cm of 2]
+{$K$};
+\node(5)			[below = 5cm of 1]
+{$F(\alpha) \cap K$};
+\node(6)			[below = 1.5cm of 5]
+{$F$};
+
+\draw(1)   -- (2);
+\draw(1)   -- (3);
+\draw(2)   -- (4) node [midway, fill=white] {$d$};
+\draw(4)   -- (5);
+\draw(5)   -- (6) node [midway, fill=white] {$m$};;
+\draw(3)   -- (5);
+\end{tikzpicture}
+\end{center}
+\end{figure}
+
+The Galois group of $L / F(\alpha)$ is the subgroup of automorphisms from $G = \Gal(L/F)$ which fix $F(\alpha)$, meaning that they stabilize $\alpha$.  Thus $\Gal(L/F(\alpha)) = G_{\alpha}$.  By part 5 of the Galois correspondence theorem, the Galois group of $F(\alpha) \cap K$ is $<G_{\alpha}, H> = HG_{\alpha}$.  Therefore, $m = [F(\alpha)\cap K : F] = |G : HG_{\alpha}|$, which by exercise 9 is the number of orbits of $H$ on $A$.  Since each orbit corresponds to a distinct irreducible factor of $f(x)$ over $K$, there must be exactly $m$ such factors.
+
+%Now, let $k$ be the minimum positive number such that $\alpha^k \in K$.  It is not hard to see that $k | n$, since if $k$ were relatively prime to $n$ then some power of $\alpha^{k \pmod{n}}$ would be 1, contradicting the minimality of $k$.  In fact, $k = gcd \{j > 0 : \alpha^j \in K\}$.  It must be that $F(\alpha) \cap K = F(\alpha^k)$.  Since $\frac{n}{k}$ is the degree of $F(\alpha^k)$ over $F$, this means that $k = \frac{n}{m}$.
+
+\end{proof}
+
+\end{enumerate}
+\end{document}

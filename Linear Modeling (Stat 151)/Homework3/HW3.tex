@@ -1,0 +1,135 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=.75in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{color}
+\usepackage{graphicx}
+\setenumerate{listparindent=\parindent}
+\definecolor{gray}{gray}{0.6}
+
+\setenumerate{listparindent=\parindent}
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\E}{\mathbb{E}}
+\DeclareMathOperator*{\Cov}{Cov}
+\DeclareMathOperator*{\Col}{Col}
+ 
+\usepackage{listings}
+\lstset{
+language=R,
+basicstyle=\scriptsize\ttfamily,
+commentstyle=\ttfamily\color{gray},
+%numbers=left,
+numberstyle=\ttfamily\color{gray}\footnotesize,
+stepnumber=1,
+numbersep=5pt,
+backgroundcolor=\color{white},
+showspaces=false,
+showstringspaces=false,
+showtabs=false,
+%frame=single,
+tabsize=2,
+captionpos=b,
+breaklines=true,
+breakatwhitespace=false,
+%title=\lstname,
+escapeinside={},
+keywordstyle={},
+morekeywords={}
+} 
+
+\usepackage{fancyhdr} % Required for custom headers 
+%\usepackage{lastpage} % Required to determine the last page for the footer
+
+\pagestyle{fancy}
+\lhead{Stat 151A (HW3)}
+\chead{Michael Knopf (24457981)}
+\rhead{March $16^\text{th}$, 2015}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+%\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}
+\renewcommand\headrulewidth{0.4pt}
+%\renewcommand\footrulewidth{0.4pt}
+
+
+\begin{document}
+
+\begin{enumerate}[leftmargin=0cm,itemindent=.5cm,labelwidth=\itemindent,labelsep=0cm,align=left]
+
+\item Consider the bodyfat dataset and consider fitting a linear model for the response variable BODYFAT in terms of the explanatory variables AGE, WEIGHT, HEIGHT, ADIPOSITY, NECK, CHEST, ABDOMEN, HIP, THIGH, KNEE, ANKLE, BICEPS, FOREARM, and WRIST.
+\begin{enumerate}
+\item \ Using each of the following methods, perform variable selection to select a subset of the explanatory variables for modeling the response:
+\begin{enumerate}
+\item \ Backward elimination using the individual $p$-values
+\item \ Forward selection using $p$-values
+\item \ Adjusted $R^2$
+\item \ AIC
+\item \ BIC
+\item \ Mallow's $C_p$
+\end{enumerate}
+\end{enumerate}
+
+
+
+
+
+\begin{proof}[Solution]
+
+
+
+\end{proof}
+
+
+
+
+
+
+
+\begin{enumerate}
+\setcounter{enumii}{1}
+\item \ Let $M_1, \dots , M_6$ denote the six models selected by each of the six variable selection methods of the previous part.  Select one of these models by cross-validation.
+\end{enumerate}
+
+
+\begin{proof}[Solution]
+
+\end{proof}
+
+
+
+\begin{enumerate}
+\setcounter{enumii}{2}
+\item \ Let $M$ be the model selected in the previous part.  Fit the model to the data.  Perform regression diagnostics.  Comment on the validity of the assumptions of the linear model.  Identify influential observations and outliers.  Delete them if necessary and re-fit the model.
+\end{enumerate}
+
+
+
+\begin{proof}[Solution]
+
+\end{proof}
+
+
+
+\end{enumerate}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

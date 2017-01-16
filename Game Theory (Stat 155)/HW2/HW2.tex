@@ -1,0 +1,284 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+%\addtolength{\oddsidemargin}{-.1in} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{lipsum}
+\usepackage[]{units}
+\usepackage{relsize}
+\usepackage{verbatim}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{graphicx}
+\usepackage{xfrac}
+\usepackage{collectbox}
+
+\setenumerate{listparindent=\parindent}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+
+
+
+\makeatletter
+\newcommand{\sqbox}{%
+    \collectbox{%
+        \@tempdima=\dimexpr\width-\totalheight\relax
+        \ifdim\@tempdima<\z@
+            \fbox{\hbox{\hspace{-.5\@tempdima}\BOXCONTENT\hspace{-.5\@tempdima}}}%
+        \else
+            \ht\collectedbox=\dimexpr\ht\collectedbox+.5\@tempdima\relax
+            \dp\collectedbox=\dimexpr\dp\collectedbox+.5\@tempdima\relax
+            \fbox{\BOXCONTENT}%
+        \fi
+    }%
+}
+\makeatother
+
+\DeclareMathOperator*{\dom}{dom}
+\renewcommand{\bar}{\overline}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Stat 155 (HW2)}
+\chead{Michael Knopf (24457981)}
+\rhead{July $8^\text{th}$, 2015}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+\renewcommand\headrulewidth{0.4pt}
+
+\begin{document}
+
+\begin{enumerate}
+
+%%%%%%%%%%%%%%% 1 %%%%%%%%%%%%%%%%%
+
+\item Consider the subtraction game with subtraction set $\{1,2,4\}$.  For $x \in \{0, \dots , 10 \}$, determine whether $x$ is an $N$ position or $P$ position if we are playing under normal play and Mis\`ere play.  Does it follow that the $N$ and $P$ positions are reversed for Normal play and Mis\`ere play?
+
+\noindent \emph{Under normal play, $x$ is a $P$ position if and only if $x$ is divisible by $3$.  Under Mis\`ere play, $x$ is a $P$ position if and only if $x \equiv 1 \pmod{3}$.}
+
+\begin{proof}
+Under normal play, $0$ is a $P$ position because it is terminal.  Clearly, 1 and 2 are $N$ positions because the player can take the whole pile.  Now, suppose, for some $n > 0$, that $x$ is a $P$ position if and only if 3 divides $x$ whenever $x < 3n$.
+
+If $x = 3n$, then none of $x-1$, $x-2$, and $x-4$ are divisible by $3$, hence $3n$ is a $P$ position by the inductive hypothesis.  If $x = 3n + 1$ or $x = 3n+2$, the player may take 1 or 2 chips, respectively, to leave a pile of $3n$ chips, which is a $P$ position.  Therefore, the proposition holds for all $x < 3(n+1)$ as well, so it holds in general.
+
+Under Mis\`ere play, $x=0$ is terminal and so is an $N$ position.  From $x = 1$, the only choice is to remove the whole pile, thus this is a $P$ position.  If $x=2$, removing 1 chip puts the game in the $P$ position $x=1$.
+
+Now, suppose, for some $n>0$, that $x$ is a $P$ position if and only if $x \equiv 1 \pmod{3}$ whenever $x < 3n$.  If $x = 3n$, then taking 2 chips leaves $x-2 \equiv 1 \pmod{3}$, and so $x$ is an $N$ position.  If $x = 3n+1$, then $x-1 \equiv 0 \pmod{3}$, $x-2 \equiv 2 \pmod{3}$,  and $x-4 \equiv 0 \pmod{3}$.  Thus $x$ is a $P$ position.  If $x = 3n+2$, then taking 1 chip puts the game into a $P$ position, thus this $x$ is an $N$ position.  Therefore, the proposition holds for all $x < 3(n+1)$ as well, so it holds in general.
+
+It is clear from this example that the $N$ and $P$ positions are not reversed for Normal play and Mis\`ere play.
+\end{proof}
+
+%%%%%%%%%%%%%%% 2 %%%%%%%%%%%%%%%%%
+
+\item \textbf{The} \emph{SOS} \textbf{Game.} The board consists of a row of $n$ squares, initially empty.  Players take turns selecting an empty square and writing either an $S$ or an $O$ in it.  The player who first succeeds in completing \emph{SOS} in consecutive squares wins the game.  If the whole board gets filled up without an \emph{SOS} appearing consecutively anywhere, the game is a draw.
+\begin{enumerate}
+
+%%%%%%%%%%%%%%% a %%%%%%%%%%%%%%%%%
+
+\item Suppose $n=4$ and the first player puts an $S$ in the first square.  Show the second player can win.
+\begin{proof}
+$P2$ can play an $S$ in the 4th square.  From here, if $P1$ plays an $S$ in either of the remaining squares then $P2$ can play an $O$ in the final square to win.  Otherwise, he can play an $S$ in the remaining square to win.
+\end{proof}
+
+%%%%%%%%%%%%%%% b %%%%%%%%%%%%%%%%%
+
+\item Show that if $n=7$, the first player can win the game.
+\begin{proof}
+$P1$ can begin by playing an $S$ in the 4th (middle) square.  This divides the board into a left and right side of 3 empty squares.  Without loss of generality, assume $P2$ plays on the left side.  If he plays an $S$ in the second square, $P1$ can win by playing an $O$ in the 3rd; if he plays an $O$ in the 3rd square, $P1$ can win by playing an $S$ in the 2nd square.  Otherwise, there are no winning moves on the left side of the board on the next turn.  So $P1$ should then play an $S$ in the 7th square.  The resulting board is now
+$$
+\sqbox{?} \sqbox{?} \sqbox{?} \sqbox{S} \sqbox{\phantom{S}} \sqbox{\phantom{S}} \sqbox{S}
+$$
+where the only information we know about the $?$s is that the second square is not an $S$ and the third square is not an $O$.
+
+Notice that $P1$ can either win or draw in any subgame played only on the left 4 squares.  If the left side is
+$$
+\sqbox{S} \sqbox{\phantom{S}} \sqbox{\phantom{S}} \sqbox{S}
+$$
+then we have already shown in part (a) that $P1$ can win, since it is $P2$'s turn.  The only remaining options are
+$$
+\sqbox{\phantom{S}} \sqbox{O} \sqbox{\phantom{S}} \sqbox{S}
+\hspace{1cm} \text{ and } \hspace{1cm}
+\sqbox{\phantom{S}} \sqbox{\phantom{S}} \sqbox{S} \sqbox{S}
+\hspace{1cm} \text{ and } \hspace{1cm}
+\sqbox{O} \sqbox{\phantom{S}} \sqbox{\phantom{S}} \sqbox{S}
+$$
+In the 1st case, $P1$ can win by playing an $S$ in the remaining square if $P2$ plays an $S$ anywhere; if he plays an $O$, the game is a draw.  In the 2nd case, $P1$ can win if $P2$ plays an $S$ in the first square or an $O$ in the second; otherwise, the game is a draw.  In the third case, $P1$ can win by playing an $O$ in the 3rd square if $P2$ plays an $S$ in the 2nd; otherwise, the game is a draw.
+
+Therefore, we can ignore any moves played on the left side of the board, and consider only the subgame played on the right 4 squares.  However, we have shown in part (a) that $P1$ can win this game.  Thus $P1$ can force a win when $n = 7$.
+\end{proof}
+
+%%%%%%%%%%%%%%% c %%%%%%%%%%%%%%%%%
+
+\item Show that if $n=2000$, the second player can win the game.
+\begin{proof}
+Call a square a \emph{winning square} if the game can be won immediately by making a move in that square.  Call a square a \emph{losing square} if any move using that square creates a winning square somewhere on the board \emph{and there are currently no winning squares available}.  Clearly, a square cannot be both a winning and losing square.  Also, if there is an $S$ in the $k$th square, we will write $k = S$; and similarly if there is an $O$ there then we write $k=0$.
+
+If a square is a losing square, then it must be part of the $SOS$ that is created by the winning move that follows.  Otherwise, the winning square would have already existed, contradicting that the losing square was a losing square to begin with.
+
+Suppose that the $k$th square is a losing square.  Playing an $S$ there creates a winning square, and thus we must have $k+1=O$ and $k+2$ empty, $k-1=O$ and $k-2$ empty, $k+2=S$ and $k+1$ empty, or $k-2=S$ and $k-1$ empty.  However, if $k+1 = O$ or $k-1 = O$, then playing an $O$ in the $k$th square would not create a winning move, thus these cases are impossible.  So the only possibilities are $k+2=S$ and $k+1$ empty, or $k-2=S$ and $k-1$ empty.
+
+Suppose $k+2 = S$ and $k+1$ is empty.  Since $k$ is a losing square, playing an $O$ there should create a winning square as well.  Thus it must be the case that $k-1 = S$.  Similarly, if $k-2 = S$ and $k-1$ is empty, then we must have $k+1 = S$.  Therefore, this segment of the board looks like
+$$
+\sqbox{S} \sqbox{\phantom{S}} \sqbox{\phantom{S}} \sqbox{S}
+$$
+where the $k$th square might be either of the two empty squares.  Therefore, if the only squares left on the board at some turn are all losing squares, then every empty square is part of some sequence of four squares that looks exactly like the above pattern.
+
+Suppose now that one of the two players can win.  Then they can force the game into a state where every position is a losing square.  However, by our above observation, losing squares come in pairs, and so there must at this point be an even number of squares remaining.  If $n$ is even, then this means an even number of moves have been made, and so it will at this point be $P1$'s turn.  So $P2$ will \emph{never} find himself in a position where there are only losing moves, hence he can at any point prevent $P1$ from winning on the next turn.
+
+All that remains to show is that $P2$ can ensure that a draw does not occur, while still not creating any winning moves for $P1$.  Here, we make a key observation: if a sequence of the form $\sqbox{S} \sqbox{\phantom{S}} \sqbox{\phantom{S}} \sqbox{S}$ ever appears on the board, then $P2$ can eventually win unless it is $P1$'s turn at that moment and there is a winning square available.  This is not difficult to see.  We have shown that $P2$ will never have only losing squares available to him.  At some point, either the board will be filled or only losing squares will remain - however, we know that at least two will remain, because otherwise it means that someone played on one of these two, which no one in the right mind would do.  At this point, it must be $P1$'s turn, since we have shown that $P2$ could never find himself in such a situation.  So if $P2$ can ensure that such a pattern is created, he will win.
+
+After $P1$'s first turn, on one of the sides of his move there will be at least $1000$ open squares in a row.  $P2$ should place an $S$ in the $500$th of these open squares.  If $P1$ plays on the left of this $S$, then $P2$ can create such a pattern on the right on his next move.  Otherwise, he can create one on the left.  Therefore, $P2$ can win.
+\end{proof}
+
+%%%%%%%%%%%%%%% d %%%%%%%%%%%%%%%%%
+
+\item Who, if anyone, wins the game if $n=14$?
+\begin{proof}
+Much of the same analysis as in part (c) still holds.  The only losing squares are still those which occur in patterns of the form $\sqbox{S} \sqbox{\phantom{S}} \sqbox{\phantom{S}} \sqbox{S}$.  Also, since $n$ is even, $P1$ cannot win.  So the only consideration is whether $P1$ can force a draw.
+
+$P1$ should first play an $O$ on the 7th square.  This divides the board into a left side of 6 empty squares and a right side of 7.  Still, the only way for $P2$ to ensure a win is to create some instance of $\sqbox{S} \sqbox{\phantom{S}} \sqbox{\phantom{S}} \sqbox{S}$ somewhere on the board.  If he tries to play it on the left side by placing an $S$ in the $k$th square, then his only hope is to later play an $S$ on the $k-3$th square if $k>3$ or on the $k+3$th square if $k \leq 2$; he cannot achieve it by playing an $S$ on the $3$rd square, because then playing an $S$ on the $6$th will create a winning move for $P1$ in square 8.  However, $P1$ can block either of these attempts with his next move by placing an $O$ where $P2$ would need to place his second $S$.
+
+If $P2$ attempts to accomplish this on the right side, $P1$ can again block it no matter what, since there will always be a single, unique square where $P2$ will have to place his second $S$.  Thus, $P1$ can force a draw, and this is the best outcome $P1$ can accomplish.
+\end{proof}
+\end{enumerate}
+
+%%%%%%%%%%%%%%% 3 %%%%%%%%%%%%%%%%%
+
+\item For each of the payoff matrices below, find the value of the game.
+\begin{enumerate}
+\item $\begin{pmatrix}
+6 & 10 & 12 & 12 \\
+5 & 0 & 14 & 17 \\
+2 & 4 & 3 & 3
+\end{pmatrix}$
+\hspace{1cm} \textbf{6}
+\\
+\\
+\noindent The value is $6$ because it is the min of the first row and the max of the first column.
+\\
+\item $\begin{pmatrix}
+2 & 2 & -1 \\
+12 & 0 & -3 \\
+-7 & 1 & -10
+\end{pmatrix}$
+\hspace{1.3cm} \textbf{-1}
+\\
+\\
+\noindent Column 3 dominates the others because each value is the minimum of its row.  Therefore, the value is $-1$, since it is the maximum of that column.
+\\
+\item $\begin{pmatrix}
+12 & 9 & 12 \\
+3 & 33 & 6 \\
+6 & 12 & 6
+\end{pmatrix}$
+\hspace{1.4cm} $\mathbf{\frac{123}{11}}$
+\\
+\\
+\noindent Column $1$ dominates column $3$ because each value in column 1 is at most the corresponding value in column 3, so the value of this game is equivalent to that of the game with payoff matrix
+$\begin{pmatrix}
+12 & 9 \\
+3 & 33 \\
+6 & 12
+\end{pmatrix}$.  Next, note that the convex combination $\frac{2}{3}R_1 + \frac13 R_2 = \begin{pmatrix}
+9 & 17
+\end{pmatrix}$
+dominates row 3, since each value in this combination is greater than the coresponding value in row 3.  So we can again reduce the payoff matrix to
+$\begin{pmatrix}
+12 & 9 \\
+3 & 33 \\
+\end{pmatrix}$.
+Here, we can find the equalizing strategy by solving the equation
+$$
+12p + 3(1-p) = 9p + 33(1-p)
+$$
+where $p$ is the probability that $P1$ plays row 1.  The solution is $p = \frac{10}{11}$, and thus the value of the game is $12(\frac{10}{11}) + 3(\frac{1}{11}) = \frac{123}{11}$.
+\end{enumerate}
+
+%%%%%%%%%%%%%%% 4 %%%%%%%%%%%%%%%%%
+
+\item Consider the following payoff matrix for some real number $z>1$.
+$$
+A = \begin{pmatrix}
+2 & 1 \\
+-1 & z
+\end{pmatrix}
+$$
+Show that, for any $z>1$, there exists some $z_*$ such that Player I would rather play the game with $z_*$ instead of $z$.
+
+\begin{proof}
+First, note that if $z\leq 1$ then row 1 dominates row 2, so the value of the game does not depend on the value of $z$.  This is why we assume $z > 1$.  In this case, no domination occurs because $-1 < 2$ but $1 < z$, and $1 < 2$ but $-1 < z$.  So the optimal strategy is mixed.
+
+Let $p$ be the probability that $P1$ plays row 1 in his optimal strategy.  Then $p$ satisfies
+$$
+2p + (-1)(1-p) = p + (1-p)z
+$$
+and thus $p = \dfrac{z+1}{z+2}$.  The value of the game, as a function of $z$, is then
+$$
+V(z) = p + (1-p)z = \frac{2z+1}{z+2}.
+$$
+The derivative of this function is $V'(z) = \dfrac{3}{(z+2)^2}$, which is always positive when $z>1$.  Therefore, increasing $z$ always increases the value of the game.  So any $z_* > z$ results in a better situation for $P1$.
+\end{proof}
+
+%%%%%%%%%%%%%%% 5 %%%%%%%%%%%%%%%%%
+
+\item (A first glimpse into games of imperfect information) Consider two two-person zero sum games with payoff matrices $A_H$ and $A_T$, as shown below.  Players I and II will play the games as follows: if the outcome of a fair coin flip is heads, they will play with matrix $A_H$.  Otherwise, they will play with matrix $A_T$.  Both players don't know the outcome of the going toss before they start playing.
+$$
+A_H = \begin{pmatrix}
+8 & 2 \\
+6 & 0
+\end{pmatrix}
+\hspace{1cm}
+A_T = \begin{pmatrix}
+2 & 4 \\
+4 & 10
+\end{pmatrix}
+$$
+\begin{enumerate}
+\item Find the value of $A_H$ and $A_T$.
+\hspace{1cm} $\mathbf{V_H = 2}$ and $\mathbf{V_T = 4}$.
+\begin{proof}
+2 is a saddle point of $A_H$ and 4 is a saddle point of $A_T$.
+\end{proof}
+\item Since both players don't know the outcome of the coin toss in advance, one way to play this game is on the average of the payoff matrices $A_H$ and $A_T$. Thus, let's define $A$ to be the average of the payoff matrices. Find the value of $A$. Comment briefly on the relationship between the values found in part (a) and the value of $A$.
+$$\mathbf{V = 5}$$
+\begin{proof}
+The average of the game is $\frac{1}{2}(A_H + A_T) = 
+\begin{pmatrix}
+5 & 3 \\
+5 & 5
+\end{pmatrix}$.  Here, 5 is a saddle point.  So the value of the average is greater than the value of either individual game.
+\end{proof}
+\item Suppose we change the rules up a bit. We will allow Player I to know the outcome of the coin toss, but now the first player is forced to move first. Player I plays the following strategy: Player I will pick the row with the highest average payoff. Furthermore, suppose Player II is aware that this is how Player I is playing. Under these conditions, show that Player I's average payoff is less than the payoff that Player I would have gotten in part (b).
+\begin{proof}
+Since $P1$ moves first, $P2$ is aware of $P1$'s move.  Since he knows $P1$'s strategy, this reveals whether the coin was heads or tails, since $P1$ will choose row 1 if it is heads and row 2 if it is tails.  Thus, if $P1$ chooses row 1 then $P2$ should choose column 2, and the payoff will be 2; if $P1$ chooses row 2 then $P2$ should choose column 1, and the payoff will be 4.  Since these events both occur with probability $\frac12$, the average payoff for $P1$ is $3$, which is actually less than the payoff he receives in part (b).
+\end{proof}
+\end{enumerate}
+
+%%%%%%%%%%%%%%% 6 %%%%%%%%%%%%%%%%%
+
+\item Consider a \emph{single} player game with the following setup: imagine an infinite chessboard, and let $(1,1)$ be the bottom left corner of the board.  More generally, let $(i,j)$ denote the $i$th row and the $j$th column of the board, where $i$ and $j$ are positive integers.  Initially, the game begins with exactly one chip placed in the $(1,1)$, $(1,2)$, and $(2,1)$ positions.  We will refer to these $3$ squares on the chessboard as the ``L".  A move is defined as selecting a chip in position $(i,j)$, deleting it, and placing a chip on both the $(i+1,j)$ and the $(i,j+1)$ squares.  Furthermore, we add in the constraint that this type of move is allowed only if both the $(i+1,j)$ and the $(i,j+1)$ squares are empty prior to deleting the chip on $(i,j)$.  The game is won when the ``L" contains no chips.  Is it possible to win this game?
+\end{enumerate}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,191 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=.75in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\setenumerate{listparindent=\parindent}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{verbatim}
+\usepackage{gensymb}
+\usepackage{bm}
+
+\usepackage{tikz}
+\usepackage{tkz-berge}
+%\usepackage{graphics,graphicx}
+%\usepackage{pstricks,pst-node,pst-tree}
+\usepackage[colorinlistoftodos]{todonotes}
+\usetikzlibrary{arrows,shapes,positioning}
+%\usetikzlibrary{positioning,arrows}
+ 
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\p}{\mathcal{P}_2(T)}
+\newcommand{\Aut}{\textnormal{Aut}(P)}
+
+ 
+\begin{document}
+
+
+\title{Math 172 - HW 8}
+\author{Michael Knopf}
+ 
+\maketitle
+
+\noindent I worked with Sydney Wong on this assignment.
+
+\begin{enumerate}[leftmargin=0cm,itemindent=.5cm,labelwidth=\itemindent,labelsep=0cm,align=left]
+
+\item We are given 2 square sheets of paper of area 2015.  Each sheet is divided into 2015 areas of area 1 (the division lines may look really different) each.  Now we overlap the two sheets.  Show that we can put 2015 pins through the 2 sheets so that each of the 4030 polygons are pierced. (hint: how romantic!  They match up perfectly.)
+
+\begin{proof}
+
+\ Let $G$ be the bipartite graph constructed as follows: let $A$ contain a vertex for every region in the top piece and let $B$ contain a vertex for every region in the bottom piece; if a region from $A$ overlaps one from $B$, join them by an edge.
+
+For $S \subseteq A$, let $\Gamma_S$ be the set of all elements in $B$ that are adjacent to some element in $A$.  The regions in $\Gamma_S$ must form a cover of $S$, thus the sum of their areas must be greater than or equal to that of the regions in $S$.  We know the total area of $S$ is some integer $k$, since each region has area 1.  So the total area of $\Gamma_S$ is some integer $j \geq k$.  Thus, $\Gamma_S$ contains $j$ vertices, since each region has area 1.  By Hall's Marriage Theorem, there exists a complete matching $M$ from $A$ to $B$.  Because the cardinalities of $A$ and $B$ are equal, $M$ is a perfect matching.  For every edge $(a,b) \in M$, push a pin through $a$ and $b$ - we know this is possible since they overlap each other.
+
+\end{proof}
+
+\item Recall that a subtree $T$ of a connected graph $G$ is \emph{spanning} if the tree uses all the vertices of $G$.  How many spanning trees are in (a) $K_n$ (b) $C_n$ (c) $W_n$.  Can you conjecture a relationship between the chromatic polynomial of $G$ and the number of spanning trees of $G$?
+
+\begin{proof}
+\ (a) The spanning subtrees of $K_n$ are exactly the trees on $n$ vertices, of which there are $n^{n-2}$.
+\\
+(b) Removing one edge from $C_n$ always creates a spanning subtree.  However, if more than one edge is removed, the graph is no longer connected.  Thus there are $n$ spanning subtrees of $C_n$, one for each edge we can remove.
+\\
+(c) The number of spanning subtrees on the wheel $W_n$ is $L_{2n} - 2$, where $L_n$ is the $n$th Lucas number.
+
+First, notice that the Lucas number $L_n$ is the number of matchings $m_n$ on the cycle graph $C_n$. Take any matching on $C_n$.  Removing an isolated vertex (if one exists) results in a matching on $C_{n-1}$.  Removing an edge and the two vertices it joins (if an edge exists) results in a matching on $C_{n-2}$.  Furthermore, all matchings on $C_n$ can be created by adding an isolated vertex to a matching on $C_{n-1}$ or by adding two joined vertices, in between two vertices, to a matching on $C_{n-2}$.  Therefore, $m_n$ satisfies the recurrence $m_n = m_{n-1} + m_{n-2}$.  The number of matchings on $C_3$ and $C_4$ are 4 and 7, respectively: both have the empty matching, $C_3$ has 3 matchings with one edge, and $C_4$ has 4 matchings with one edge and 2 with two edges.  Therefore, $m_n = L_n$ for $n\geq 3$.
+
+There are exactly 2 perfect matchings on $C_{2n}$: labeleing the vertices, there is one containing edges $(1,2), (3,4), \dots , (2n-1, 2n)$, and one containing edges $(2,3), (4,5), \dots , (2n,1)$.  Therefore, there are $L_{2n} - 2$ imperfect matchings on $C_{2n}$.  Each of these imperfect matchings corresponds to exactly one subtree of $W_n$.
+
+Given an imperfect matching $M$ on $C_{2n}$, the following invertible algorithm yields a subtree on $W_n$.  Label the vertices of $C_{2n}$ with $[2n]$, and label those of $W_n$ with $w_1, \dots , w_n$.  Any subtree of $W_n$ is completely determined by the connected components of its outer cycle and the vertices at which those cycles are joined to the center vertex.  The outer cycle cannot be the full $C_n$ graph, but this will be guarunteed by the fact that we use only imperfect matchings.
+
+There must be an isolated vertex with an odd label.  We know there are at least two isolated vertices, since the matching is imperfect.  If one of these had even label, then there would be a sequence between it and another of edges tiled back-to-back like dominos, starting at an odd-labeled vertex immediately following the even-labeled one.  However, this sequence must use an even number of vertices, thus it ends at an even-labeled vertex.  So the isolated vertex that immediately follows the end of the sequence has an odd label.
+
+Let $2i-1$ be the label of this vertex.  Join the center of the wheel to $w_i$.  Next, we need to determine the rest of this outer connected component.  Going clockwise around $C_{2n}$, if $2i$ is joined to $2i+1$, then draw an edge from $w_i$ to $w_{i+1}$.  Continue in this fashion, connecting $w_j$ to $w_{j+1}$ if and only if $2j$ is joined with $2j+1$, until this does not happen, in which case we have reached the edge of one such component.  Next, walk counter-clockwise from $2i-1$.  If $2(i-1)$ is joined with $2(i-1) - 1$, join $w_i$ with $w_{i-1}$; if $2(i-2)$ is joined with $2(i-2) - 1$, join $w_{i-1}$ with $w_{i-2}$.  Continue in this fashion until this terminates, and we have finished drawing the entire connected component of the outer cycle.
+
+Next, assume that we have found another isolated vertex with odd label and repeated this process some number of times, creating connected components of the outer cycle and joining them to the wheel.  Suppose again that the isolated vertex from our last run was $2i-1$.  When our walks (both clockwise and counter-clockwise) were terminated, it was because some even vertex ahead of us was not joined with the odd vertex that followed it.  On the very first iteration, it is even possible that, for both directions of our walk, this odd vertex is $2i-1$, in which case there would be just one outer connected component.  However, this will not usually be the case.
+
+Suppose that some chain of vertices in $W_n$ (WLOG say they are $w_1, \dots , w_k$), have been left isolated.  Then none of our walks in $C_{2n}$ have touched the vertices $1, \dots , 2k$.  But then the matching, when restricted to these vertices, becomes an imperfect submatching on $C_{2k}$.  By induction, we may find another isolated vertex of odd degree in this set and continue as before.  Finally, every non-central vertex of $W_n$ is part of some outer connected component which is joined to the center at exactly one vertex.  This structure is a subtree.
+
+It should not be too difficult to see how this process can be reversed.  Each $w_i$ corresponds to 2 vertices in $C_{2n}$, namely those labeled by $2i-1$ and $2i$.  Given a subtree of $W_n$, we can determine the imperfect matching on $C_{2n}$ that it must have come from.  Start with a connected component and take the vertex $w_i$ that joins it to the center.  Then $2i-1$ is isolated in the matching on $C_{2n}$.  Proceed clockwise, then counter-clockwise, around the wheel from $w_i$ to create two sequences of edges eminating from $2i-1$.  These are of the form $(2i, 2i+1), (2(i+1), 2(i+1)+1), \dots , (2(i+j),2(i+j)+1)$ and $(2(i-1), 2(i-1)-1), (2(i-2), 2(i-2)-1), \dots , (2(i-k),2(i-k)-1)$, where $w_j$ and $w_k$ are the endpoints of the connected components of the outer cycle.
+
+Therefore, this process gives a bijection from the set of imperfect matchings on $C_{2n}$, of which there are $L_{2n} - 2$, to the set of subtrees of $W_n$.
+
+\end{proof}
+
+\item Prove the following analogue of the exponential formula: given a deck with generating function $D(x)$, the generating function for the number of ways to make a hand of size $n$ with exactly $k$ cards (here $n$ is the indexing variable of the generating function) is $D(x)^k / k!$.  Show how this implies the exponential formula as well.
+
+\begin{proof}
+\ Recall that $D(x) = \sum\limits_n d_n \frac{x^n}{n!}$, where $d_n$ is the number of standard cards (i.e. structures) of weight $n$.  Then
+\begin{align*}
+D(x)^k &= \sum\limits_n \sum\limits_{\{(a_1, \dots , a_k) : a_1 + \cdots + a_k = n \}} \dbinom{n}{a_1, \dots , a_k}d_{a_1} \cdots d_{a_k} \frac{x^n}{n!}
+\end{align*}
+This is the generating function for the sequence $\sum\limits_{\{(a_1, \dots , a_k) : a_1 + \cdots + a_k = n \}} \dbinom{n}{a_1, \dots , a_k} d_{a_1} \cdots d_{a_k}$.  The factor $d_{a_1} \cdots d_{a_k}$ counts the number of ways to choose $k$ cards to make a hand of size $n$, with order.   The multinomial factor counts the number of ways to label these cards with labeling sets of the correct size.  However, this process makes every hand in $k!$ different ways, since it counts different orderings of the cards as distinguishable.  So dividing by $k!$ gives the sequence which counts hands of size $n$ using $k$ cards, since different orderings of the cards in a hand are indistinguishable.
+
+Summing $\frac{D(x)^k}{k!}$ over all $k$ gives
+$$
+\sum\limits_{k=0}^\infty \frac{D(x)^k}{k!} = e^{D(x)}
+$$
+by the Taylor series expansion of $e^x$.  By the argument in the previous paragraph, this sum is the generating function for the number of hands of size $n$ using any number of cards.  Thus, this proves the exponential formula.
+\end{proof}
+
+\item What is the number of ``essentially different" (so this means rotations only) ways to paint (a) the faces (b) the edges (c) the vertices of a 3-dimensional cube in 3 colors?
+
+\begin{proof}
+\ Let $G$ be the group of $3$D rotations on the cube.  Now consider the action of $G$ on the faces of the cube.  Given a face $x$, the stabilizer of $x$ is the subgroup of the four rotations about the axis that runs through the center of the cube and pierces that face.  Also, the action is transitive since there is always some rotation that will take $x$ to any given face $y$.  So the orbit of $x$ has size 6.  By the orbit stabilizer theorem, $|G| = 4 \cdot 6 = 24$.  I can list 24 unique 3D rotations of the cube, therefore this must be the full group:
+\begin{enumerate}
+\item \ One trivial rotation
+\item \ Six $90^{\circ}$ rotations (about each of the 3 axis that pierce two opposite faces in their centers, we can rotate $90^{\circ}$ both clockwise or counterclockwise)
+\item \ Three $180^{\circ}$ rotations (one about each of the axes previously described)
+\item \ Eight $120^{\circ}$ rotations: draw an axis through opposing corners of the cube, and the rotations about these axes have period 3 (so there are 2 nontrivial rotations), and there are 4 such axes
+\item \ Six rotations are obtained by rotating the cube $90^{\circ}$ about one axis, then $180^{\circ}$ about a different axis
+\end{enumerate}
+
+Let $X$ be the set of cube features which we are coloring, and let $Y$ be the set of available colors.  The ``essentially different" colorings of the cube are, more formally, the orbits of $G$'s action on $Y^X$.  By the Polya Enumeration Theorem, the number of such orbits is
+$$|Y^X/G| = \frac{1}{|G|} \sum\limits_{g \in G} |Y|^{c(g)},$$ where $c(g)$ is the number of disjoint cycles in the cycle decomposition of $g$ as a permutation on $X$.
+
+For a given choice of $X$, each of the 5 types of rotations listed will have the same number of cycles.  The reader can verify that the following table gives $c(g)$ for each of these different types, depending on the set $X$:
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline 
+ & \# of Rotations & $c(g)$ (faces) & $c(g)$ (edges) & $c(g)$ (vertices) \\ 
+\hline 
+a & 1 & 6 & 12 & 8 \\ 
+\hline 
+b & 6 & 3 & 3 & 2 \\ 
+\hline 
+c & 3 & 4 & 6 & 4 \\ 
+\hline 
+d & 8 & 2 & 4 & 4 \\ 
+\hline 
+e & 6 & 3 & 7 & 4 \\ 
+\hline 
+\end{tabular} 
+\end{center}
+So the numbers of essentially different colorings in each case are
+\begin{align*}
+\text{Faces: }& 1 \cdot 3^{6 \ } + 6\cdot 3^3 + 3 \cdot 3^4 + 8 \cdot 3^2 + 6 \cdot 3^3 = 57
+\\
+\text{Edges: }& 1 \cdot 3^{12} + 6\cdot 3^3 + 3 \cdot 3^6 + 8 \cdot 3^4 + 6 \cdot 3^7 = 22815
+\\
+\text{Vertices: }& 1 \cdot 3^{8 \ } + 6\cdot 3^2 + 3 \cdot 3^4 + 8 \cdot 3^4 + 6 \cdot 3^4 = 333
+\end{align*}
+
+\end{proof}
+
+\item A spider has 8 different feet, 8 different shoes, and 8 diferent socks.  Find the number of ways in which the spider can put on the 8 socks and shoes (including the order he puts them on!!) such that each foot has exactly one sock and one shoe.  For each foot, you must put on a sock before putting on a shoe.
+
+\begin{proof}
+
+\ Consider a spider with $n$ legs.  Let $a_i$ be the event of putting a sock on the $i$th foot, and let $b_i$ be the event of putting a shoe on the $i$th foot.  There are $(2n)!$ ways to do this in some order, although in some of these we put a shoe on the $i$th leg before a sock.  How many of these ``bad" orderings have we counted?
+
+In any ordering, there are $2n$ steps.  Define an equivalence relation on the set of these orderings as follows: if, for all $i \in [n]$, we interact with the $i$th leg in the same two steps in one ordering as we do in the other, then those orderings are equivalent.  For instance, if in one ordering we put a sock on the $i$th leg in the 2nd step and a sock on it in the 5th, and in another ordering we put a sock on the $i$th leg in the 5th step and a shoe on it in the 2nd, then we have interacted with the $i$th leg in the same two steps.  If this is true for all $i$, then the orderings are equivalent.
+
+Under this relation, each equivalence class contains $2^n$ elements.  Given one ordering, the equivalent orderings are those obtained by swapping the order in which we put a sock and a shoe onto the $i$th leg.  This gives $2^n$ total binary choices, one for each leg.  Exactly one of these orderings is a ``good" ordering - the one in which the sock comes first for each leg.  Thus, the total number of good orderings is $\dfrac{(2n)!}{2^n}$.  So for a spider with 8 legs, there are $\dfrac{16!}{2^8}$.
+
+Once we have done this part, all we need to do is permute the socks and shoes.  This gives two factors of $8!$.  So the total count is
+$$
+\dfrac{16!8!8!}{2^8}.
+$$
+
+\end{proof}
+
+\item How much time did you spend on this problem set?  What comments do you have of the problems? (difficulty, type, enjoyment, fairness, etc.)
+
+This problem set was medium difficulty.  Problem 1 was easy.  I liked that problem 3 gave me incentive to look into the workings of exponential generating functions and understand for myself how their products behave combinatorially.  However, I do think the ``cards and hands" idea is a tacky approach compared to some clearer explanations I've read online.
+
+Problem 4 required some endurance, but it gave me an opportunity to look into why counting ``essentially different" colorings is equivalent to counting orbits, and why the Polya Enumeration Theorem follows from Burnside's Lemma.
+
+Problem 5 was fun.  I first solved it with a recurrence, but that lead me to this short formula which I then was able to justify by a counting argument.
+
+Parts (a) and (b) of problem 4 were very easy, but part (c) is only fair to ask if we are expected either to have the Lucas numbers ingrained in us, or to at some point use OEIS.  I was able to find the first few terms of the sequence using Kirchoff's Theorem (thanks for that, by the way), and OEIS gave me the full formula.  OEIS also mentioned that $L_n$ counts the number of matchings on $C_{2n}$.  Somewhere else, I found an idea for converting a matching on $C_{2n}$ to a subtree of $W_n$, but I tried to use my own method and did not read their proof.
+
+\end{enumerate}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

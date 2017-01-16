@@ -1,0 +1,1824 @@
+<?xml version="1.0"?>
+<kml>
+  <Document>
+    <name>Country Facts</name>
+    <Placemark id.CIA.Codes="AA">
+      <name>ARUBA</name>
+      <description>ARUBA
+ Population:     106113
+ Infant Mortality:  12.92</description>
+      <Point>
+        <coordinates> -69.9667, 12.5000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="AC">
+      <name>ANTIGUA AND BARBUDA</name>
+      <description>ANTIGUA AND BARBUDA
+ Population:      87884
+ Infant Mortality:  14.63</description>
+      <Point>
+        <coordinates> -61.8000, 17.0500,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="AE">
+      <name>UNITED ARAB EMIRATES</name>
+      <description>UNITED ARAB EMIRATES
+ Population:    5148664
+ Infant Mortality:  11.94</description>
+      <Point>
+        <coordinates>  54.0000, 24.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="AF">
+      <name>AFGHANISTAN</name>
+      <description>AFGHANISTAN
+ Population:   29835392
+ Infant Mortality: 149.20</description>
+      <Point>
+        <coordinates>  65.0000, 33.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="AG">
+      <name>ALGERIA</name>
+      <description>ALGERIA
+ Population:   34994937
+ Infant Mortality:  25.81</description>
+      <Point>
+        <coordinates>   3.0000, 28.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="AJ">
+      <name>AZERBAIJAN</name>
+      <description>AZERBAIJAN
+ Population:    8372373
+ Infant Mortality:  51.08</description>
+      <Point>
+        <coordinates>  47.5000, 40.5000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="AL">
+      <name>ALBANIA</name>
+      <description>ALBANIA
+ Population:    2994667
+ Infant Mortality:  14.61</description>
+      <Point>
+        <coordinates>  20.0000, 41.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="AM">
+      <name>ARMENIA</name>
+      <description>ARMENIA
+ Population:    2967975
+ Infant Mortality:  18.85</description>
+      <Point>
+        <coordinates>  45.0000, 40.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="AN">
+      <name>ANDORRA</name>
+      <description>ANDORRA
+ Population:      84825
+ Infant Mortality:   3.80</description>
+      <Point>
+        <coordinates>   1.5000, 42.5000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="AO">
+      <name>ANGOLA</name>
+      <description>ANGOLA
+ Population:   13338541
+ Infant Mortality: 175.90</description>
+      <Point>
+        <coordinates>  18.5000,-12.5000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="AQ">
+      <name>AMERICAN SAMOA</name>
+      <description>AMERICAN SAMOA
+ Population:      67242
+ Infant Mortality:   9.66</description>
+      <Point>
+        <coordinates>-170.0000,-14.3333,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="AR">
+      <name>ARGENTINA</name>
+      <description>ARGENTINA
+ Population:   41769726
+ Infant Mortality:  10.81</description>
+      <Point>
+        <coordinates> -64.0000,-34.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="AS">
+      <name>AUSTRALIA</name>
+      <description>AUSTRALIA
+ Population:   21766711
+ Infant Mortality:   4.61</description>
+      <Point>
+        <coordinates> 133.0000,-27.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="AU">
+      <name>AUSTRIA</name>
+      <description>AUSTRIA
+ Population:    8217280
+ Infant Mortality:   4.32</description>
+      <Point>
+        <coordinates>  13.3333, 47.3333,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="AV">
+      <name>ANGUILLA</name>
+      <description>ANGUILLA
+ Population:      15094
+ Infant Mortality:   3.47</description>
+      <Point>
+        <coordinates> -63.1667, 18.2500,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="BA">
+      <name>BAHRAIN</name>
+      <description>BAHRAIN
+ Population:    1214705
+ Infant Mortality:  10.43</description>
+      <Point>
+        <coordinates>  50.5500, 26.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="BB">
+      <name>BARBADOS</name>
+      <description>BARBADOS
+ Population:     286705
+ Infant Mortality:  11.86</description>
+      <Point>
+        <coordinates> -59.5333, 13.1667,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="BC">
+      <name>BOTSWANA</name>
+      <description>BOTSWANA
+ Population:    2065398
+ Infant Mortality:  11.14</description>
+      <Point>
+        <coordinates>  24.0000,-22.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="BD">
+      <name>BERMUDA</name>
+      <description>BERMUDA
+ Population:      68679
+ Infant Mortality:   2.47</description>
+      <Point>
+        <coordinates> -64.7500, 32.3333,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="BE">
+      <name>BELGIUM</name>
+      <description>BELGIUM
+ Population:   10431477
+ Infant Mortality:   4.33</description>
+      <Point>
+        <coordinates>   4.0000, 50.8333,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="BG">
+      <name>BANGLADESH</name>
+      <description>BANGLADESH
+ Population:  158570535
+ Infant Mortality:  50.73</description>
+      <Point>
+        <coordinates>  90.0000, 24.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="BH">
+      <name>BELIZE</name>
+      <description>BELIZE
+ Population:     321115
+ Infant Mortality:  21.95</description>
+      <Point>
+        <coordinates> -88.7500, 17.2500,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="BK">
+      <name>BOSNIA AND HERZEGOVINA</name>
+      <description>BOSNIA AND HERZEGOVINA
+ Population:    4622163
+ Infant Mortality:   8.67</description>
+      <Point>
+        <coordinates>  18.0000, 44.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="BL">
+      <name>BOLIVIA</name>
+      <description>BOLIVIA
+ Population:   10118683
+ Infant Mortality:  42.16</description>
+      <Point>
+        <coordinates> -65.0000,-17.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="BN">
+      <name>BENIN</name>
+      <description>BENIN
+ Population:    9325032
+ Infant Mortality:  61.56</description>
+      <Point>
+        <coordinates>   2.2500,  9.5000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="BO">
+      <name>BELARUS</name>
+      <description>BELARUS
+ Population:    9577552
+ Infant Mortality:   6.25</description>
+      <Point>
+        <coordinates>  28.0000, 53.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="BP">
+      <name>SOLOMON ISLANDS</name>
+      <description>SOLOMON ISLANDS
+ Population:     571890
+ Infant Mortality:  17.82</description>
+      <Point>
+        <coordinates> 159.0000, -8.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="BR">
+      <name>BRAZIL</name>
+      <description>BRAZIL
+ Population:  203429773
+ Infant Mortality:  21.17</description>
+      <Point>
+        <coordinates> -55.0000,-10.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="BT">
+      <name>BHUTAN</name>
+      <description>BHUTAN
+ Population:     708427
+ Infant Mortality:  44.48</description>
+      <Point>
+        <coordinates>  90.5000, 27.5000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="BU">
+      <name>BULGARIA</name>
+      <description>BULGARIA
+ Population:    7093635
+ Infant Mortality:  16.68</description>
+      <Point>
+        <coordinates>  25.0000, 43.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="BX">
+      <name>BRUNEI</name>
+      <description>BRUNEI
+ Population:     401890
+ Infant Mortality:  11.51</description>
+      <Point>
+        <coordinates> 114.6667,  4.5000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="BY">
+      <name>BURUNDI</name>
+      <description>BURUNDI
+ Population:   10216190
+ Infant Mortality:  61.82</description>
+      <Point>
+        <coordinates>  30.0000, -3.5000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="CA">
+      <name>CANADA</name>
+      <description>CANADA
+ Population:   34030589
+ Infant Mortality:   4.92</description>
+      <Point>
+        <coordinates> -95.0000, 60.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="CB">
+      <name>CAMBODIA</name>
+      <description>CAMBODIA
+ Population:   14701717
+ Infant Mortality:  55.49</description>
+      <Point>
+        <coordinates> 105.0000, 13.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="CD">
+      <name>CHAD</name>
+      <description>CHAD
+ Population:   10758945
+ Infant Mortality:  95.31</description>
+      <Point>
+        <coordinates>  19.0000, 15.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="CE">
+      <name>SRI LANKA</name>
+      <description>SRI LANKA
+ Population:   21283913
+ Infant Mortality:   9.70</description>
+      <Point>
+        <coordinates>  81.0000,  7.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="CH">
+      <name>CHINA</name>
+      <description>CHINA
+ Population: 1336718015
+ Infant Mortality:  16.06</description>
+      <Point>
+        <coordinates> 105.0000, 35.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="CI">
+      <name>CHILE</name>
+      <description>CHILE
+ Population:   16888760
+ Infant Mortality:   7.34</description>
+      <Point>
+        <coordinates> -71.0000,-30.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="CJ">
+      <name>CAYMAN ISLANDS</name>
+      <description>CAYMAN ISLANDS
+ Population:      51384
+ Infant Mortality:   6.63</description>
+      <Point>
+        <coordinates> -80.5000, 19.5000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="CM">
+      <name>CAMEROON</name>
+      <description>CAMEROON
+ Population:   19711291
+ Infant Mortality:  60.91</description>
+      <Point>
+        <coordinates>  12.0000,  6.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="CN">
+      <name>COMOROS</name>
+      <description>COMOROS
+ Population:     794683
+ Infant Mortality:  62.63</description>
+      <Point>
+        <coordinates>  44.2500,-12.1667,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="CO">
+      <name>COLOMBIA</name>
+      <description>COLOMBIA
+ Population:   44725543
+ Infant Mortality:  16.39</description>
+      <Point>
+        <coordinates> -72.0000,  4.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="CQ">
+      <name>NORTHERN MARIANA ISLANDS</name>
+      <description>NORTHERN MARIANA ISLANDS
+ Population:      46050
+ Infant Mortality:   5.79</description>
+      <Point>
+        <coordinates> 145.7500, 15.2000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="CS">
+      <name>COSTA RICA</name>
+      <description>COSTA RICA
+ Population:    4576562
+ Infant Mortality:   9.45</description>
+      <Point>
+        <coordinates> -84.0000, 10.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="CT">
+      <name>CENTRAL AFRICAN REPUBLIC</name>
+      <description>CENTRAL AFRICAN REPUBLIC
+ Population:    4950027
+ Infant Mortality:  99.38</description>
+      <Point>
+        <coordinates>  21.0000,  7.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="CU">
+      <name>CUBA</name>
+      <description>CUBA
+ Population:   11087330
+ Infant Mortality:   4.90</description>
+      <Point>
+        <coordinates> -80.0000, 21.5000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="CV">
+      <name>CAPE VERDE</name>
+      <description>CAPE VERDE
+ Population:     516100
+ Infant Mortality:  26.94</description>
+      <Point>
+        <coordinates> -24.0000, 16.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="CW">
+      <name>COOK ISLANDS</name>
+      <description>COOK ISLANDS
+ Population:      11124
+ Infant Mortality:  15.81</description>
+      <Point>
+        <coordinates>-159.7667,-21.2333,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="CY">
+      <name>CYPRUS</name>
+      <description>CYPRUS
+ Population:    1120489
+ Infant Mortality:   9.38</description>
+      <Point>
+        <coordinates>  33.0000, 35.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="DA">
+      <name>DENMARK</name>
+      <description>DENMARK
+ Population:    5529888
+ Infant Mortality:   4.24</description>
+      <Point>
+        <coordinates>  10.0000, 56.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="DJ">
+      <name>DJIBOUTI</name>
+      <description>DJIBOUTI
+ Population:     757074
+ Infant Mortality:  54.94</description>
+      <Point>
+        <coordinates>  43.0000, 11.5000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="DO">
+      <name>DOMINICA</name>
+      <description>DOMINICA
+ Population:      72969
+ Infant Mortality:  12.78</description>
+      <Point>
+        <coordinates> -61.3333, 15.4167,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="DR">
+      <name>DOMINICAN REPUBLIC</name>
+      <description>DOMINICAN REPUBLIC
+ Population:    9956648
+ Infant Mortality:  22.22</description>
+      <Point>
+        <coordinates> -70.6667, 19.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="EC">
+      <name>ECUADOR</name>
+      <description>ECUADOR
+ Population:   15007343
+ Infant Mortality:  19.65</description>
+      <Point>
+        <coordinates> -77.5000, -2.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="EG">
+      <name>EGYPT</name>
+      <description>EGYPT
+ Population:   82079636
+ Infant Mortality:  25.20</description>
+      <Point>
+        <coordinates>  30.0000, 27.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="EI">
+      <name>IRELAND</name>
+      <description>IRELAND
+ Population:    4670976
+ Infant Mortality:   3.85</description>
+      <Point>
+        <coordinates>  -8.0000, 53.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="EK">
+      <name>EQUATORIAL GUINEA</name>
+      <description>EQUATORIAL GUINEA
+ Population:     668225
+ Infant Mortality:  77.30</description>
+      <Point>
+        <coordinates>  10.0000,  2.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="EN">
+      <name>ESTONIA</name>
+      <description>ESTONIA
+ Population:    1282963
+ Infant Mortality:   7.06</description>
+      <Point>
+        <coordinates>  26.0000, 59.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="ER">
+      <name>ERITREA</name>
+      <description>ERITREA
+ Population:    5939484
+ Infant Mortality:  41.33</description>
+      <Point>
+        <coordinates>  39.0000, 15.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="ES">
+      <name>EL SALVADOR</name>
+      <description>EL SALVADOR
+ Population:    6071774
+ Infant Mortality:  20.30</description>
+      <Point>
+        <coordinates> -88.9167, 13.8333,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="ET">
+      <name>ETHIOPIA</name>
+      <description>ETHIOPIA
+ Population:   90873739
+ Infant Mortality:  77.12</description>
+      <Point>
+        <coordinates>  38.0000,  8.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="EZ">
+      <name>CZECH REPUBLIC</name>
+      <description>CZECH REPUBLIC
+ Population:   10190213
+ Infant Mortality:   3.73</description>
+      <Point>
+        <coordinates>  15.5000, 49.7500,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="FI">
+      <name>FINLAND</name>
+      <description>FINLAND
+ Population:    5259250
+ Infant Mortality:   3.43</description>
+      <Point>
+        <coordinates>  26.0000, 64.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="FJ">
+      <name>FIJI</name>
+      <description>FIJI
+ Population:     883125
+ Infant Mortality:  11.00</description>
+      <Point>
+        <coordinates> 175.0000,-18.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="FO">
+      <name>FAROE ISLANDS</name>
+      <description>FAROE ISLANDS
+ Population:      49267
+ Infant Mortality:   6.06</description>
+      <Point>
+        <coordinates>  -7.0000, 62.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="FP">
+      <name>FRENCH POLYNESIA</name>
+      <description>FRENCH POLYNESIA
+ Population:     294935
+ Infant Mortality:   7.27</description>
+      <Point>
+        <coordinates>-140.0000,-15.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="FR">
+      <name>FRANCE</name>
+      <description>FRANCE
+ Population:   65312249
+ Infant Mortality:   3.29</description>
+      <Point>
+        <coordinates>   2.0000, 46.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="GB">
+      <name>GABON</name>
+      <description>GABON
+ Population:    1576665
+ Infant Mortality:  49.95</description>
+      <Point>
+        <coordinates>  11.7500, -1.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="GG">
+      <name>GEORGIA</name>
+      <description>GEORGIA
+ Population:    4585874
+ Infant Mortality:  15.17</description>
+      <Point>
+        <coordinates>  43.5000, 42.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="GH">
+      <name>GHANA</name>
+      <description>GHANA
+ Population:   24791073
+ Infant Mortality:  48.55</description>
+      <Point>
+        <coordinates>  -2.0000,  8.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="GI">
+      <name>GIBRALTAR</name>
+      <description>GIBRALTAR
+ Population:      28956
+ Infant Mortality:   6.69</description>
+      <Point>
+        <coordinates>  -5.3667, 36.1833,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="GJ">
+      <name>GRENADA</name>
+      <description>GRENADA
+ Population:     108419
+ Infant Mortality:  11.43</description>
+      <Point>
+        <coordinates> -61.6667, 12.1167,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="GL">
+      <name>GREENLAND</name>
+      <description>GREENLAND
+ Population:      57670
+ Infant Mortality:  10.05</description>
+      <Point>
+        <coordinates> -40.0000, 72.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="GM">
+      <name>GERMANY</name>
+      <description>GERMANY
+ Population:   81471834
+ Infant Mortality:   3.54</description>
+      <Point>
+        <coordinates>   9.0000, 51.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="GR">
+      <name>GREECE</name>
+      <description>GREECE
+ Population:   10760136
+ Infant Mortality:   5.00</description>
+      <Point>
+        <coordinates>  22.0000, 39.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="GT">
+      <name>GUATEMALA</name>
+      <description>GUATEMALA
+ Population:   13824463
+ Infant Mortality:  26.02</description>
+      <Point>
+        <coordinates> -90.2500, 15.5000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="GV">
+      <name>GUINEA</name>
+      <description>GUINEA
+ Population:   10601009
+ Infant Mortality:  61.03</description>
+      <Point>
+        <coordinates> -10.0000, 11.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="GY">
+      <name>GUYANA</name>
+      <description>GUYANA
+ Population:     744768
+ Infant Mortality:  36.76</description>
+      <Point>
+        <coordinates> -59.0000,  5.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="HA">
+      <name>HAITI</name>
+      <description>HAITI
+ Population:    9719932
+ Infant Mortality:  54.02</description>
+      <Point>
+        <coordinates> -72.4167, 19.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="HK">
+      <name>HONG KONG</name>
+      <description>HONG KONG
+ Population:    7122508
+ Infant Mortality:   2.90</description>
+      <Point>
+        <coordinates> 114.1667, 22.2500,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="HO">
+      <name>HONDURAS</name>
+      <description>HONDURAS
+ Population:    8143564
+ Infant Mortality:  20.44</description>
+      <Point>
+        <coordinates> -86.5000, 15.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="HR">
+      <name>CROATIA</name>
+      <description>CROATIA
+ Population:    4483804
+ Infant Mortality:   6.16</description>
+      <Point>
+        <coordinates>  15.5000, 45.1667,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="HU">
+      <name>HUNGARY</name>
+      <description>HUNGARY
+ Population:    9976062
+ Infant Mortality:   5.31</description>
+      <Point>
+        <coordinates>  20.0000, 47.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="IC">
+      <name>ICELAND</name>
+      <description>ICELAND
+ Population:     311058
+ Infant Mortality:   3.20</description>
+      <Point>
+        <coordinates> -18.0000, 65.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="ID">
+      <name>INDONESIA</name>
+      <description>INDONESIA
+ Population:  245613043
+ Infant Mortality:  27.95</description>
+      <Point>
+        <coordinates> 120.0000, -5.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="IN">
+      <name>INDIA</name>
+      <description>INDIA
+ Population: 1189172906
+ Infant Mortality:  47.57</description>
+      <Point>
+        <coordinates>  77.0000, 20.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="IR">
+      <name>IRAN</name>
+      <description>IRAN
+ Population:   77891220
+ Infant Mortality:  42.26</description>
+      <Point>
+        <coordinates>  53.0000, 32.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="IS">
+      <name>ISRAEL</name>
+      <description>ISRAEL
+ Population:    7473052
+ Infant Mortality:   4.12</description>
+      <Point>
+        <coordinates>  34.7500, 31.5000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="IT">
+      <name>ITALY</name>
+      <description>ITALY
+ Population:   61016804
+ Infant Mortality:   3.38</description>
+      <Point>
+        <coordinates>  12.8333, 42.8333,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="IV">
+      <name>COTE D'IVOIRE</name>
+      <description>COTE D'IVOIRE
+ Population:   21504162
+ Infant Mortality:  64.78</description>
+      <Point>
+        <coordinates>  -5.0000,  8.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="IZ">
+      <name>IRAQ</name>
+      <description>IRAQ
+ Population:   30399572
+ Infant Mortality:  41.68</description>
+      <Point>
+        <coordinates>  44.0000, 33.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="JA">
+      <name>JAPAN</name>
+      <description>JAPAN
+ Population:  126475664
+ Infant Mortality:   2.78</description>
+      <Point>
+        <coordinates> 138.0000, 36.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="JM">
+      <name>JAMAICA</name>
+      <description>JAMAICA
+ Population:    2868380
+ Infant Mortality:  14.60</description>
+      <Point>
+        <coordinates> -77.5000, 18.2500,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="JO">
+      <name>JORDAN</name>
+      <description>JORDAN
+ Population:    6508271
+ Infant Mortality:  16.42</description>
+      <Point>
+        <coordinates>  36.0000, 31.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="KE">
+      <name>KENYA</name>
+      <description>KENYA
+ Population:   41070934
+ Infant Mortality:  52.29</description>
+      <Point>
+        <coordinates>  38.0000,  1.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="KG">
+      <name>KYRGYZSTAN</name>
+      <description>KYRGYZSTAN
+ Population:    5587443
+ Infant Mortality:  29.27</description>
+      <Point>
+        <coordinates>  75.0000, 41.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="KR">
+      <name>KIRIBATI</name>
+      <description>KIRIBATI
+ Population:     100743
+ Infant Mortality:  38.89</description>
+      <Point>
+        <coordinates> 173.0000,  1.4167,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="KU">
+      <name>KUWAIT</name>
+      <description>KUWAIT
+ Population:    2595628
+ Infant Mortality:   8.07</description>
+      <Point>
+        <coordinates>  47.6581, 29.3375,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="KZ">
+      <name>KAZAKHSTAN</name>
+      <description>KAZAKHSTAN
+ Population:   15522373
+ Infant Mortality:  24.15</description>
+      <Point>
+        <coordinates>  68.0000, 48.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="LA">
+      <name>LAOS</name>
+      <description>LAOS
+ Population:    6477211
+ Infant Mortality:  59.46</description>
+      <Point>
+        <coordinates> 105.0000, 18.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="LE">
+      <name>LEBANON</name>
+      <description>LEBANON
+ Population:    4143101
+ Infant Mortality:  15.85</description>
+      <Point>
+        <coordinates>  35.8333, 33.8333,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="LG">
+      <name>LATVIA</name>
+      <description>LATVIA
+ Population:    2204708
+ Infant Mortality:   8.42</description>
+      <Point>
+        <coordinates>  25.0000, 57.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="LH">
+      <name>LITHUANIA</name>
+      <description>LITHUANIA
+ Population:    3535547
+ Infant Mortality:   6.27</description>
+      <Point>
+        <coordinates>  24.0000, 56.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="LI">
+      <name>LIBERIA</name>
+      <description>LIBERIA
+ Population:    3786764
+ Infant Mortality:  74.52</description>
+      <Point>
+        <coordinates>  -9.5000,  6.5000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="LO">
+      <name>SLOVAKIA</name>
+      <description>SLOVAKIA
+ Population:    5477038
+ Infant Mortality:   6.59</description>
+      <Point>
+        <coordinates>  19.5000, 48.6667,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="LS">
+      <name>LIECHTENSTEIN</name>
+      <description>LIECHTENSTEIN
+ Population:      35236
+ Infant Mortality:   4.15</description>
+      <Point>
+        <coordinates>   9.5333, 47.1667,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="LT">
+      <name>LESOTHO</name>
+      <description>LESOTHO
+ Population:    1924886
+ Infant Mortality:  55.04</description>
+      <Point>
+        <coordinates>  28.5000,-29.5000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="LU">
+      <name>LUXEMBOURG</name>
+      <description>LUXEMBOURG
+ Population:     503302
+ Infant Mortality:   4.44</description>
+      <Point>
+        <coordinates>   6.1667, 49.7500,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="LY">
+      <name>LIBYA</name>
+      <description>LIBYA
+ Population:    6597960
+ Infant Mortality:  20.09</description>
+      <Point>
+        <coordinates>  17.0000, 25.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="MA">
+      <name>MADAGASCAR</name>
+      <description>MADAGASCAR
+ Population:   21926221
+ Infant Mortality:  51.45</description>
+      <Point>
+        <coordinates>  47.0000,-20.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="MD">
+      <name>MOLDOVA</name>
+      <description>MOLDOVA
+ Population:    4314377
+ Infant Mortality:  12.43</description>
+      <Point>
+        <coordinates>  29.0000, 47.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="MG">
+      <name>MONGOLIA</name>
+      <description>MONGOLIA
+ Population:    3133318
+ Infant Mortality:  37.26</description>
+      <Point>
+        <coordinates> 105.0000, 46.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="MH">
+      <name>MONTSERRAT</name>
+      <description>MONTSERRAT
+ Population:       5140
+ Infant Mortality:  15.23</description>
+      <Point>
+        <coordinates> -62.2000, 16.7500,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="MI">
+      <name>MALAWI</name>
+      <description>MALAWI
+ Population:   15879252
+ Infant Mortality:  81.04</description>
+      <Point>
+        <coordinates>  34.0000,-13.5000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="MK">
+      <name>MACEDONIA</name>
+      <description>MACEDONIA
+ Population:    2077328
+ Infant Mortality:   8.54</description>
+      <Point>
+        <coordinates>  22.0000, 41.8333,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="ML">
+      <name>MALI</name>
+      <description>MALI
+ Population:   14159904
+ Infant Mortality: 111.35</description>
+      <Point>
+        <coordinates>  -4.0000, 17.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="MN">
+      <name>MONACO</name>
+      <description>MONACO
+ Population:      30539
+ Infant Mortality:   1.79</description>
+      <Point>
+        <coordinates>   7.4000, 43.7333,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="MO">
+      <name>MOROCCO</name>
+      <description>MOROCCO
+ Population:   31968361
+ Infant Mortality:  27.53</description>
+      <Point>
+        <coordinates>  -5.0000, 32.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="MP">
+      <name>MAURITIUS</name>
+      <description>MAURITIUS
+ Population:    1303717
+ Infant Mortality:  11.52</description>
+      <Point>
+        <coordinates>  57.5500,-20.2833,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="MR">
+      <name>MAURITANIA</name>
+      <description>MAURITANIA
+ Population:    3281634
+ Infant Mortality:  60.42</description>
+      <Point>
+        <coordinates> -12.0000, 20.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="MT">
+      <name>MALTA</name>
+      <description>MALTA
+ Population:     408333
+ Infant Mortality:   3.69</description>
+      <Point>
+        <coordinates>  14.5833, 35.8333,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="MU">
+      <name>OMAN</name>
+      <description>OMAN
+ Population:    3027959
+ Infant Mortality:  15.47</description>
+      <Point>
+        <coordinates>  57.0000, 21.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="MV">
+      <name>MALDIVES</name>
+      <description>MALDIVES
+ Population:     394999
+ Infant Mortality:  27.45</description>
+      <Point>
+        <coordinates>  73.0000,  3.2500,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="MX">
+      <name>MEXICO</name>
+      <description>MEXICO
+ Population:  113724226
+ Infant Mortality:  17.29</description>
+      <Point>
+        <coordinates>-102.0000, 23.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="MY">
+      <name>MALAYSIA</name>
+      <description>MALAYSIA
+ Population:   28728607
+ Infant Mortality:  15.02</description>
+      <Point>
+        <coordinates> 112.5000,  2.5000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="MZ">
+      <name>MOZAMBIQUE</name>
+      <description>MOZAMBIQUE
+ Population:   22948858
+ Infant Mortality:  78.95</description>
+      <Point>
+        <coordinates>  35.0000,-18.2500,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="NC">
+      <name>NEW CALEDONIA</name>
+      <description>NEW CALEDONIA
+ Population:     256275
+ Infant Mortality:   5.71</description>
+      <Point>
+        <coordinates> 165.5000,-21.5000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="NG">
+      <name>NIGER</name>
+      <description>NIGER
+ Population:   16468886
+ Infant Mortality: 112.22</description>
+      <Point>
+        <coordinates>   8.0000, 16.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="NH">
+      <name>VANUATU</name>
+      <description>VANUATU
+ Population:     224564
+ Infant Mortality:  46.85</description>
+      <Point>
+        <coordinates> 167.0000,-16.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="NI">
+      <name>NIGERIA</name>
+      <description>NIGERIA
+ Population:  155215573
+ Infant Mortality:  91.54</description>
+      <Point>
+        <coordinates>   8.0000, 10.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="NL">
+      <name>NETHERLANDS</name>
+      <description>NETHERLANDS
+ Population:   16847007
+ Infant Mortality:   4.59</description>
+      <Point>
+        <coordinates>   5.7500, 52.5000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="NO">
+      <name>NORWAY</name>
+      <description>NORWAY
+ Population:    4691849
+ Infant Mortality:   3.52</description>
+      <Point>
+        <coordinates>  10.0000, 62.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="NP">
+      <name>NEPAL</name>
+      <description>NEPAL
+ Population:   29391883
+ Infant Mortality:  44.54</description>
+      <Point>
+        <coordinates>  84.0000, 28.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="NR">
+      <name>NAURU</name>
+      <description>NAURU
+ Population:       9322
+ Infant Mortality:   8.66</description>
+      <Point>
+        <coordinates> 166.9167, -0.5333,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="NS">
+      <name>SURINAME</name>
+      <description>SURINAME
+ Population:     491989
+ Infant Mortality:  17.61</description>
+      <Point>
+        <coordinates> -56.0000,  4.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="NU">
+      <name>NICARAGUA</name>
+      <description>NICARAGUA
+ Population:    5666301
+ Infant Mortality:  22.64</description>
+      <Point>
+        <coordinates> -85.0000, 13.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="NZ">
+      <name>NEW ZEALAND</name>
+      <description>NEW ZEALAND
+ Population:    4290347
+ Infant Mortality:   4.78</description>
+      <Point>
+        <coordinates> 174.0000,-41.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="PA">
+      <name>PARAGUAY</name>
+      <description>PARAGUAY
+ Population:    6459058
+ Infant Mortality:  23.02</description>
+      <Point>
+        <coordinates> -58.0000,-23.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="PE">
+      <name>PERU</name>
+      <description>PERU
+ Population:   29248943
+ Infant Mortality:  22.18</description>
+      <Point>
+        <coordinates> -76.0000,-10.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="PK">
+      <name>PAKISTAN</name>
+      <description>PAKISTAN
+ Population:  187342721
+ Infant Mortality:  63.26</description>
+      <Point>
+        <coordinates>  70.0000, 30.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="PL">
+      <name>POLAND</name>
+      <description>POLAND
+ Population:   38441588
+ Infant Mortality:   6.54</description>
+      <Point>
+        <coordinates>  20.0000, 52.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="PM">
+      <name>PANAMA</name>
+      <description>PANAMA
+ Population:    3460462
+ Infant Mortality:  11.64</description>
+      <Point>
+        <coordinates> -80.0000,  9.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="PO">
+      <name>PORTUGAL</name>
+      <description>PORTUGAL
+ Population:   10760305
+ Infant Mortality:   4.66</description>
+      <Point>
+        <coordinates>  -8.0000, 39.5000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="PP">
+      <name>PAPUA NEW GUINEA</name>
+      <description>PAPUA NEW GUINEA
+ Population:    6187591
+ Infant Mortality:  43.29</description>
+      <Point>
+        <coordinates> 147.0000, -6.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="PS">
+      <name>PALAU</name>
+      <description>PALAU
+ Population:      20956
+ Infant Mortality:  12.43</description>
+      <Point>
+        <coordinates> 134.5000,  7.5000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="PU">
+      <name>GUINEA-BISSAU</name>
+      <description>GUINEA-BISSAU
+ Population:    1596677
+ Infant Mortality:  96.23</description>
+      <Point>
+        <coordinates> -15.0000, 12.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="QA">
+      <name>QATAR</name>
+      <description>QATAR
+ Population:     848016
+ Infant Mortality:  12.05</description>
+      <Point>
+        <coordinates>  51.2500, 25.5000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="RI">
+      <name>SERBIA</name>
+      <description>SERBIA
+ Population:    7310555
+ Infant Mortality:   6.52</description>
+      <Point>
+        <coordinates>  21.0000, 44.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="RM">
+      <name>MARSHALL ISLANDS</name>
+      <description>MARSHALL ISLANDS
+ Population:      67182
+ Infant Mortality:  23.74</description>
+      <Point>
+        <coordinates> 168.0000,  9.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="RO">
+      <name>ROMANIA</name>
+      <description>ROMANIA
+ Population:   21904551
+ Infant Mortality:  11.02</description>
+      <Point>
+        <coordinates>  25.0000, 46.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="RP">
+      <name>PHILIPPINES</name>
+      <description>PHILIPPINES
+ Population:  101833938
+ Infant Mortality:  19.34</description>
+      <Point>
+        <coordinates> 122.0000, 13.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="RQ">
+      <name>PUERTO RICO</name>
+      <description>PUERTO RICO
+ Population:    3989133
+ Infant Mortality:   8.07</description>
+      <Point>
+        <coordinates> -66.5000, 18.2500,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="RS">
+      <name>RUSSIA</name>
+      <description>RUSSIA
+ Population:  138739892
+ Infant Mortality:  10.08</description>
+      <Point>
+        <coordinates> 100.0000, 60.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="RW">
+      <name>RWANDA</name>
+      <description>RWANDA
+ Population:   11370425
+ Infant Mortality:  64.04</description>
+      <Point>
+        <coordinates>  30.0000, -2.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="SA">
+      <name>SAUDI ARABIA</name>
+      <description>SAUDI ARABIA
+ Population:   26131703
+ Infant Mortality:  16.16</description>
+      <Point>
+        <coordinates>  45.0000, 25.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="SB">
+      <name>SAINT PIERRE AND MIQUELON</name>
+      <description>SAINT PIERRE AND MIQUELON
+ Population:       5888
+ Infant Mortality:   7.47</description>
+      <Point>
+        <coordinates> -56.3333, 46.8333,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="SC">
+      <name>SAINT KITTS AND NEVIS</name>
+      <description>SAINT KITTS AND NEVIS
+ Population:      50314
+ Infant Mortality:   9.66</description>
+      <Point>
+        <coordinates> -62.7500, 17.3333,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="SE">
+      <name>SEYCHELLES</name>
+      <description>SEYCHELLES
+ Population:      89188
+ Infant Mortality:  11.66</description>
+      <Point>
+        <coordinates>  55.6667, -4.5833,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="SF">
+      <name>SOUTH AFRICA</name>
+      <description>SOUTH AFRICA
+ Population:   49004031
+ Infant Mortality:  43.20</description>
+      <Point>
+        <coordinates>  24.0000,-29.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="SG">
+      <name>SENEGAL</name>
+      <description>SENEGAL
+ Population:   12643799
+ Infant Mortality:  56.42</description>
+      <Point>
+        <coordinates> -14.0000, 14.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="SI">
+      <name>SLOVENIA</name>
+      <description>SLOVENIA
+ Population:    2000092
+ Infant Mortality:   4.17</description>
+      <Point>
+        <coordinates>  15.0000, 46.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="SL">
+      <name>SIERRA LEONE</name>
+      <description>SIERRA LEONE
+ Population:    5363669
+ Infant Mortality:  78.38</description>
+      <Point>
+        <coordinates> -11.5000,  8.5000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="SM">
+      <name>SAN MARINO</name>
+      <description>SAN MARINO
+ Population:      31817
+ Infant Mortality:   4.72</description>
+      <Point>
+        <coordinates>  12.4167, 43.7667,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="SN">
+      <name>SINGAPORE</name>
+      <description>SINGAPORE
+ Population:    4740737
+ Infant Mortality:   2.32</description>
+      <Point>
+        <coordinates> 103.8000,  1.3667,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="SO">
+      <name>SOMALIA</name>
+      <description>SOMALIA
+ Population:    9925640
+ Infant Mortality: 105.56</description>
+      <Point>
+        <coordinates>  49.0000, 10.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="SP">
+      <name>SPAIN</name>
+      <description>SPAIN
+ Population:   46754784
+ Infant Mortality:   3.39</description>
+      <Point>
+        <coordinates>  -4.0000, 40.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="ST">
+      <name>SAINT LUCIA</name>
+      <description>SAINT LUCIA
+ Population:     161557
+ Infant Mortality:  12.72</description>
+      <Point>
+        <coordinates> -61.1333, 13.8833,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="SU">
+      <name>SUDAN</name>
+      <description>SUDAN
+ Population:   45047502
+ Infant Mortality:  68.07</description>
+      <Point>
+        <coordinates>  30.0000, 15.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="SW">
+      <name>SWEDEN</name>
+      <description>SWEDEN
+ Population:    9088728
+ Infant Mortality:   2.74</description>
+      <Point>
+        <coordinates>  15.0000, 62.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="SY">
+      <name>SYRIA</name>
+      <description>SYRIA
+ Population:   22517750
+ Infant Mortality:  15.62</description>
+      <Point>
+        <coordinates>  38.0000, 35.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="SZ">
+      <name>SWITZERLAND</name>
+      <description>SWITZERLAND
+ Population:    7639961
+ Infant Mortality:   4.08</description>
+      <Point>
+        <coordinates>   8.0000, 47.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="TD">
+      <name>TRINIDAD AND TOBAGO</name>
+      <description>TRINIDAD AND TOBAGO
+ Population:    1227505
+ Infant Mortality:  27.69</description>
+      <Point>
+        <coordinates> -61.0000, 11.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="TH">
+      <name>THAILAND</name>
+      <description>THAILAND
+ Population:   66720153
+ Infant Mortality:  16.39</description>
+      <Point>
+        <coordinates> 100.0000, 15.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="TI">
+      <name>TAJIKISTAN</name>
+      <description>TAJIKISTAN
+ Population:    7627200
+ Infant Mortality:  38.54</description>
+      <Point>
+        <coordinates>  71.0000, 39.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="TK">
+      <name>TURKS AND CAICOS ISLANDS</name>
+      <description>TURKS AND CAICOS ISLANDS
+ Population:      44819
+ Infant Mortality:  11.97</description>
+      <Point>
+        <coordinates> -71.5833, 21.7500,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="TN">
+      <name>TONGA</name>
+      <description>TONGA
+ Population:     105916
+ Infant Mortality:  13.65</description>
+      <Point>
+        <coordinates>-175.0000,-20.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="TO">
+      <name>TOGO</name>
+      <description>TOGO
+ Population:    6771993
+ Infant Mortality:  51.48</description>
+      <Point>
+        <coordinates>   1.1667,  8.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="TP">
+      <name>SAO TOME AND PRINCIPE</name>
+      <description>SAO TOME AND PRINCIPE
+ Population:     179506
+ Infant Mortality:  53.21</description>
+      <Point>
+        <coordinates>   7.0000,  1.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="TS">
+      <name>TUNISIA</name>
+      <description>TUNISIA
+ Population:   10629186
+ Infant Mortality:  25.92</description>
+      <Point>
+        <coordinates>   9.0000, 34.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="TU">
+      <name>TURKEY</name>
+      <description>TURKEY
+ Population:   78785548
+ Infant Mortality:  23.94</description>
+      <Point>
+        <coordinates>  35.0000, 39.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="TV">
+      <name>TUVALU</name>
+      <description>TUVALU
+ Population:      10544
+ Infant Mortality:  34.52</description>
+      <Point>
+        <coordinates> 178.0000, -8.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="TX">
+      <name>TURKMENISTAN</name>
+      <description>TURKMENISTAN
+ Population:    4997503
+ Infant Mortality:  42.34</description>
+      <Point>
+        <coordinates>  60.0000, 40.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="TZ">
+      <name>TANZANIA</name>
+      <description>TANZANIA
+ Population:   42746620
+ Infant Mortality:  66.93</description>
+      <Point>
+        <coordinates>  35.0000, -6.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="UG">
+      <name>UGANDA</name>
+      <description>UGANDA
+ Population:   34612250
+ Infant Mortality:  62.47</description>
+      <Point>
+        <coordinates>  32.0000,  1.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="UK">
+      <name>UNITED KINGDOM</name>
+      <description>UNITED KINGDOM
+ Population:   62698362
+ Infant Mortality:   4.62</description>
+      <Point>
+        <coordinates>  -2.0000, 54.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="UP">
+      <name>UKRAINE</name>
+      <description>UKRAINE
+ Population:   45134707
+ Infant Mortality:   8.54</description>
+      <Point>
+        <coordinates>  32.0000, 49.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="US">
+      <name>UNITED STATES</name>
+      <description>UNITED STATES
+ Population:  313232044
+ Infant Mortality:   6.06</description>
+      <Point>
+        <coordinates> -97.0000, 38.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="UV">
+      <name>BURKINA FASO</name>
+      <description>BURKINA FASO
+ Population:   16751455
+ Infant Mortality:  81.40</description>
+      <Point>
+        <coordinates>  -2.0000, 13.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="UY">
+      <name>URUGUAY</name>
+      <description>URUGUAY
+ Population:    3308535
+ Infant Mortality:   9.69</description>
+      <Point>
+        <coordinates> -56.0000,-33.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="UZ">
+      <name>UZBEKISTAN</name>
+      <description>UZBEKISTAN
+ Population:   28128600
+ Infant Mortality:  21.92</description>
+      <Point>
+        <coordinates>  64.0000, 41.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="VC">
+      <name>SAINT VINCENT AND THE GRENADINES</name>
+      <description>SAINT VINCENT AND THE GRENADINES
+ Population:     103869
+ Infant Mortality:  14.27</description>
+      <Point>
+        <coordinates> -61.2000, 13.2500,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="VE">
+      <name>VENEZUELA</name>
+      <description>VENEZUELA
+ Population:   27635743
+ Infant Mortality:  20.62</description>
+      <Point>
+        <coordinates> -66.0000,  8.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="VI">
+      <name>BRITISH VIRGIN ISLANDS</name>
+      <description>BRITISH VIRGIN ISLANDS
+ Population:      25383
+ Infant Mortality:  13.63</description>
+      <Point>
+        <coordinates> -64.5000, 18.5000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="VM">
+      <name>VIETNAM</name>
+      <description>VIETNAM
+ Population:   90549390
+ Infant Mortality:  20.90</description>
+      <Point>
+        <coordinates> 106.0000, 16.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="WA">
+      <name>NAMIBIA</name>
+      <description>NAMIBIA
+ Population:    2147585
+ Infant Mortality:  45.59</description>
+      <Point>
+        <coordinates>  17.0000,-22.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="WF">
+      <name>WALLIS AND FUTUNA</name>
+      <description>WALLIS AND FUTUNA
+ Population:      15398
+ Infant Mortality:   4.67</description>
+      <Point>
+        <coordinates>-176.2000,-13.3000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="WI">
+      <name>WESTERN SAHARA</name>
+      <description>WESTERN SAHARA
+ Population:     507160
+ Infant Mortality:  60.44</description>
+      <Point>
+        <coordinates> -13.0000, 24.5000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="WS">
+      <name>SAMOA</name>
+      <description>SAMOA
+ Population:     193161
+ Infant Mortality:  22.74</description>
+      <Point>
+        <coordinates>-172.3333,-13.5833,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="WZ">
+      <name>SWAZILAND</name>
+      <description>SWAZILAND
+ Population:    1370424
+ Infant Mortality:  63.09</description>
+      <Point>
+        <coordinates>  31.5000,-26.5000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="YM">
+      <name>YEMEN</name>
+      <description>YEMEN
+ Population:   24133492
+ Infant Mortality:  55.11</description>
+      <Point>
+        <coordinates>  48.0000, 15.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="ZA">
+      <name>ZAMBIA</name>
+      <description>ZAMBIA
+ Population:   13881336
+ Infant Mortality:  66.60</description>
+      <Point>
+        <coordinates>  30.0000,-15.0000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark id.CIA.Codes="ZI">
+      <name>ZIMBABWE</name>
+      <description>ZIMBABWE
+ Population:   12084304
+ Infant Mortality:  29.50</description>
+      <Point>
+        <coordinates>  30.0000,-20.0000,0</coordinates>
+      </Point>
+    </Placemark>
+  </Document>
+</kml>

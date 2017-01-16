@@ -1,0 +1,392 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+%\addtolength{\oddsidemargin}{-.1in} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{lipsum}
+\usepackage[]{units}
+\usepackage{relsize}
+\usepackage{verbatim}
+\usepackage{bbm}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{graphicx}
+\usepackage{xfrac}
+\usetikzlibrary{cd}
+
+
+\setenumerate{listparindent=\parindent}
+
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\gen}[1]{\langle #1 \rangle}
+\DeclareMathOperator*{\dom}{dom}
+\DeclareMathOperator*{\Aut}{Aut}
+\DeclareMathOperator*{\Ann}{Ann}
+\DeclareMathOperator*{\Tor}{Tor}
+\DeclareMathOperator*{\Gal}{Gal}
+\DeclareMathOperator*{\Hom}{Hom}
+\DeclareMathOperator*{\End}{End}
+\DeclareMathOperator*{\im}{Im}
+\DeclareMathOperator*{\Perm}{Perm}
+\DeclareMathOperator*{\card}{card}
+\DeclareMathOperator*{\Alt}{Alt}
+\renewcommand{\bar}{\overline}
+
+\newtheorem*{lem}{Lemma}
+
+\usepackage{fancyhdr} % Required for custom headers 
+%\usepackage{lastpage} % Required to determine the last page for the footer
+
+\pagestyle{fancy}
+\lhead{Math 250A (HW 3)}
+\chead{Michael Knopf (24457981)}
+\rhead{September $17^\text{th}$, 2015}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+%\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}
+\renewcommand\headrulewidth{0.4pt}
+%\renewcommand\footrulewidth{0.4pt}
+
+\begin{document}
+\begin{enumerate}
+\item[28.] Let $p, q$ be distinct primes.  Prove that a group of order $p^2 q$ is solvable, and that one of its Sylow subgroups is normal.
+
+\begin{proof}
+Suppose $|G| = p^2q$ for some primes $p \neq q$, and let $n_p$ and $n_q$ be the numbers of $p$- and $q$-Sylows, respectively.  We know that $n_p \mid q$ and $n_q \mid p^2$.  If either $n_p = 1$, then the $p$-Sylow subgroup $P$ is stabilized by conjugation, hence is normal (and similarly if $n_q = 1$).  So we may assume $n_p = q$ and $n_q = p$ or $p^2$.  If $n_q = p^2$, we have a combinatorial issue regarding the size of $G$.  Since the $q$-Sylows are cyclic, their pairwise intersections must be trivial.  Similarly, they must have trivial intersection with each $p$-Sylow as well, else their intersection would generate an order $q$ subgroup of a $p$-Sylow, contradicting that $q \nmid p$.  So these $q$-Sylows, along with just one of the $p$-Sylows, account for $p^2(q-1) + (p^2 - 1) + 1 + p^2q = |G|$ elements of the group.  This leaves no room for any more $p$-Sylows, contradicting that $n_p \neq 1$.  Therefore, $G$ contains a normal subgroup (either a $p$-Sylow or a $q$-Sylow).
+
+We showed in exercise 27 that if some normal subgroup $N$ of $G$ is solvable, and $G / N$ is solvable, then $G$ is solvable.  If there is a normal $p$-Sylow $P$, then $G / P \cong \Z_p$, thus is solvable.  We showed in exercise 24 that a group of order $p^2$ is abelian, so $P$ is also solvable.  So in this case, $G$ is solvable.  The only other possibility is that there is a normal $q$-Sylow $Q$, which is abelian and hence solvable.  $G/Q$ has order $p^2$, so again by exercise 24 is solvable.  So $G$ is solvable.
+\end{proof}
+
+\item[29.] Let $p,q$ be odd primes.  Prove that a group of order $2pq$ is solvable.
+
+\begin{proof}
+Let $G$ be a group of order $2pq$.  First, suppose $p = q$.  Then $G$ has order $2p^2$, and we are reduced to the situation solved in exercise 28.  So we may assume $p \neq q$.
+
+We will first show that either a $2$-, $p$-, or $q$-Sylow is normal.  Assume this is false, meaning that $n_2, n_p, n_q > 1$.  We may also assume, without loss of generality, that $p < q$.  Since $n_q \mid 2p$, we know $n_q \in \{2,p,2p\}$.  However, since $n_q \equiv 1 \pmod{q}$, and $2 < q$, we cannot have $n_q = 2$, else $2 \equiv 1 \pmod {q}$, a contradiction.  If $n_q \equiv p \pmod{q}$, then since $p < q$ we have the same problem in that $p \equiv 1 \pmod{q}$, a contradiction.  So the only possibility is $n_q = 2p$.
+
+Next, we know that $n_p \in \{2,q,2q\}$.  Since $q > 2$, we cannot have $n_p = 2$ by the same reasoning (that it would imply $2 \equiv 1 \pmod{p}$).  So we can assume $n_p \geq q$.  Finally, we know $n_2 \in \{p,q,pq\}$, so that $n_2 \geq p$.
+
+Each Sylow subgroup is cyclic, and therefore any two Sylows must have trivial intersection.  This means the number of elements accounted for by these Sylows is at least $2p(q-1) + q(p-1) + p(2-1) + 1$.  This number cannot exceed the order of the group, thus
+$$
+2p(q-1) + q(p-1) + p(2-1) + 1 \leq 2pq
+$$
+or, equivalently, $(p-1)(q-1) \leq 0$.  The only solutions to this have $p \leq 1$ or $q \leq 1$, a contradiction.  Therefore, some Sylow subgroup is normal.
+
+Let $H$ be this normal Sylow subgroup.  $H$ has order $2$, $p$, or $q$, so is cyclic and hence solvable.  All that remains to show is that $G/H$ is solvable.  $G/H$ has order $pq$, $2q$, or $2p$.  Any group whose order is a product of two primes is solvable, so $G/H$ is solvable.  Thus $G$ is solvable.
+\end{proof}
+
+\item[32.] Let $S_n$ be the permutation group on $n$ elements.  Determine the $p$-Sylow subgroups of $S_3, S_4, S_5$ for $p = 2$ and $p=3$.
+
+\begin{proof}
+Suppose $\gen{\sigma}$ is an order $k$ cyclic subgroup of $S_n$.  We can decompose $\sigma$ into (nonempty) disjoint cycles as $\sigma = \sigma_1 \cdots \sigma_j$, and these cycles commute with each other.  We have
+$$
+\sigma^k = (\sigma_1 \cdots \sigma_j)^k = \sigma_1^k \cdots \sigma_j^k = e
+$$
+thus $\sigma_1^k = \cdots = \sigma_j^k = e$.  If $k = 2$ or $k=3$, then this means that $\sigma$ is a product of disjoint $2$- or $3$-cycles, respectively.  Conversely, it is clear that if $\sigma$ is a product of disjoint $2$- or $3$-cycles, then it generates a subgroup of order $2$ or $3$, respectively.  Therefore, the subgroups of order $2$ or $3$ are precisely those generated by a product of disjoint $2$-cycles, resp. $3$-cycles.
+
+It is easy to list the $3$-Sylows for these groups.  The highest power of $3$ that divides $3!$, $4!$, or $5!$ is $3^1$, so the $3$-Sylow subgroups are just the cyclic subgroups of order $3$, which we have just identified.  No two $3$-cycles in $S_n$ are disjoint when $n \leq 5$, so the $3$-Sylows are simply the subgroups generated by any three-cycle.  Note also that, given any three objects, there are only two ways they can be cycled, and these two permutations generate each other.  Therefore, there are $\binom{n}{3}$ $3$-Sylow subgroups of $S_n$ (when $n \leq 5$).  For $S_3$, there is only $\gen{(123)}$.  For $S_4$, they are $\gen{(123)}, \gen{(124)},$ and $\gen{(134)}$.  For $S_5$, they are $\gen{(123)}, \gen{(124)}, \gen{(125)}, \gen{(134)}, \gen{(135)}, \gen{(145)}, \gen{(234)}, \gen{(235)}, \gen{(245)},$ and $\gen{(345)}$.
+
+The highest power of $2$ that divides $3!$ is $2^1$, so we are looking for cyclic $2$-groups.  In $S_3$, no two $2$-cycles are disjoint, and no two $2$-cycles generate the same subgroup.  So there are $\binom{3}{2} = 3$ $2$-Sylows, specifically $\gen{(12)}, \gen{(13)},$ and $\gen{(23)}$.
+
+The $2$-Sylows of $S_4$ and $S_5$ have order $2^3 = 8$.  Observe first that $\gen{(13),(1234)}$ is an order $8$ subgroup of both $S_4$ and $S_5$ which is isomorphic to $D_8$ under the mapping $(13) \mapsto s$, $(1234) \mapsto r$.  All $2$-Sylows are conjugate, and hence isomorphic.  Therefore, the $2$-Sylows are precisely the copies of $D_8$ within $S_4$ and $S_5$.
+
+In $S_n$, for $n = 4$ or $n=5$, there are $\binom{n}{4} \cdot 3$ copies of $S_4$.  This can be confirmed simply by taking the conjugates of the subgroup $\gen{(13),(1234)}$ in each group.  However, a more intuitive reasoning is that each copy of $D_8$ is the symmetry group of a square labeled with some choice of four numbers from $\{1, \dots , n \}$.  After choosing these four numbers, the only remaining decision is which labels will be positioned on corners opposite each other.  There are 3 ways to decide this.
+
+The three $2$-Sylows in $S_4$ are $\gen{(12),(1324)}, \gen{(13),(1234)},$ and $\gen{(14),(1243)}$.  In $S_5$, there are $15$:
+$$
+\begin{array}{ccc}
+\gen{(12),(1324)} &  \gen{(13),(1234)} & \gen{(14),(1243)}  \\ 
+\gen{(12),(1325)} & \gen{(13),(1235)} & \gen{(15),(1253)} \\ 
+\gen{(12),(1425)} & \gen{(14),(1245)} & \gen{(15),(1254)} \\
+\gen{(13),(1435)} & \gen{(14),(1345)} & \gen{(15),(1354)} \\ 
+\gen{(23),(2435)} & \gen{(24),(2345)} & \gen{(25),(2354)} \\
+\end{array} 
+$$
+
+\end{proof}
+
+\item[33.] Let $\sigma$ be a permutation of a finite set $I$ having $n$ elements.  Define $e(\sigma)$ to be $(-1)^n$ where
+$$
+m = n - \text{number of orbits of } \sigma
+$$
+
+If $I_1, \dots, I_r$ are the orbits of $\sigma$, then $m$ is also equal to the sum
+$$
+m = \sum_{v=1}^r [\card(I_v) - 1].
+$$
+If $\tau$ is a transposition, show that $e(\sigma \tau ) = -e(\sigma)$ by considering the two cases when $i,j$ lie in the same orbit of $\sigma$, or lie in different orbits.  in the first case, $\sigma \tau$ has one more orbit and in the second case one less orbit than $\sigma$.  In particular, the sign of a transposition is $-1$.  Prove that $e(\sigma) = \varepsilon(\sigma)$ is the sign of the permutation.
+
+\begin{proof}
+Let $\tau$ be the transposition swapping $i$ and $j$.  $\sigma$ decomposes as a product of disjoint cycles: $\sigma = \sigma_1 \cdots \sigma_r$.  The $v$th orbit of $\sigma$ is precisely the set $I_v = \{x \mid \sigma_v(x) \neq x \}$.  First, suppose $i$ and $j$ lie in the same orbit, which we can assume without loss of generality is orbit $1$.
+
+$\sigma_1$ takes the form $\sigma_1 = (i \ s_1 \cdots s_l \ j \ s_{l+1} \cdots s_k)$ for some $s_1, \dots s_k \in I_1$.  So
+$$
+\sigma_1 \tau = (i \ s_1 \cdots s_l \ j \ s_{l+1} \cdots s_k) (i \ j) = (i \ s_{l+1} \cdots s_k) (s_1 \cdots s_l \ j)
+$$
+$\tau$ commutes with $\sigma_u$ for all $u \neq 1$, so
+$$\sigma \tau = \sigma_1 \cdots \sigma_r \tau = \sigma_1 \tau \sigma_2 \cdots \sigma_r = (i \ s_{l+1} \cdots s_k) (s_1 \cdots s_l \ j) \sigma_2 \cdots \sigma_r
+$$
+has one more orbit than $\sigma$ did.  Therefore, $e(\sigma \tau) = (-1)^{m - 1} = - (-1)^m = - e(\sigma)$.
+
+Next, suppose $i$ and $j$ lie in different orbits.  Again, since disjoint cycles commute, we may assume WLOG that $i$ lies in orbit 1 and $j$ lies in orbit 2.  So $\sigma_1 = (i \ s_1 \cdots s_k)$ and $\sigma_2 = (j \ t_1 \cdots t_l)$.  Now,
+$$
+\sigma_1 \sigma_2 \tau = (i \ s_1 \cdots s_k) (j \ t_1 \cdots t_l) (i \ j) = (i \ t_1 \cdots t_l \ j \ s_1 \cdots s_k ).
+$$
+So
+$$
+\sigma \tau = (i \ t_1 \cdots t_l \ j \ s_1 \cdots s_k ) \sigma_3 \cdots \sigma_r
+$$
+has one less orbit than $\sigma$, thus $e(\sigma \tau) = (-1)^{m + 1} = - (-1)^m = - e(\sigma)$.  So, in all cases, $e(\sigma \tau) = - e(\sigma)$.
+
+The sign of the identity permutation $()$ is $1$, and $e(()) = (-1)^{n-n} = 1$ since the identity permutation has $n$ orbits.  So for the identity permutation, $e$ is its sign.  We also have in particular that, if $\tau$ is a transposition, then $e( () \tau) = - e(()) = -1$ is the sign of $\tau$.
+
+Any permutation $\sigma$ can also be decomposed into transpositions as $\sigma = \tau_1 \cdots \tau_k$.  Its sign is $(-1)^k$.  By induction, $e(\sigma) = e(\tau_1 \cdots \tau_{k-1} \tau_k) = -e(\tau_1 \cdots \tau_{k-1}) = -(-1)^{k-1} = (-1)^k$ as well.  Thus, $e(\sigma)$ is the sign of $\sigma$, for any permutation $\sigma$.
+\end{proof}
+
+\item[39.] Show that the action of $A_n$ on $\{1, \dots , n \}$ is $(n-2)$-transitive.
+
+\begin{proof}
+Suppose we are given two tuples $(s_1, \dots , s_{n-2})$ and $(t_1, \dots , t_{n-2})$ of $n-2$ distinct elements from $\{1,\dots,n\}$.  Then $\{1,\dots,n\} \setminus \{s_1, \dots , s_{n-2}\}$ is some set of two elements $s_{n-1}, s_n$, and $\{1,\dots,n\} \setminus \{t_1, \dots , t_{n-2}\}$ is some set of two elements $t_{n-1}, t_n$.  We can form the permutation
+$ \sigma = 
+\begin{pmatrix}
+s_1 & \cdots & s_{n} \\
+t_1 & \cdots & t_{n}
+\end{pmatrix}.
+$
+If $\sigma$ is an even permutation, then we are done.  Otherwise, $\sigma \circ (s_{n-1} \ s_n)$ is an even permutation which has the same effect on the elements we are interested in.
+\end{proof}
+
+\item[40.] Let $A_n$ be the alternating group of even permutations of $\{1,\dots , n\}$.  For $j = 1, \dots , n$ let $H_j$ be the subgroup of $A_n$ fixing $j$, so $H_j \cong A_{n-1}$, and $(A_n : H_j) = n$ for $n \geq 3$.  Let $n \geq 3$ and let $H$ be a subgroup of index $n$ in $A_n$.
+\begin{enumerate}
+\item Show that the action of $A_n$ on cosets of $H$ by left translation gives an isomorphism of $A_n$ with the alternating group of permutations of $A_n / H$.
+
+\begin{proof}
+The described action gives a homomorphism $A_n \rightarrow \Perm (A_n / H) \cong S_n$.  Let $K$ be the kernel.  First, recognize that $K \subseteq H$, because $g \in K$ implies in particular that $gH = H$.  So $K \neq A_n$.
+
+We have shown that $A_n$ is simple whenever $n \geq 5$, and $A_3 \cong \Z_3$ is also simple.  So in both of these cases, we must have $K = \{e\}$.  When $n = 4$, the index of $H$ must be 4, so $|H| = 3$.  Since $3^1$ is the highest power of $3$ dividing $|A_n| = 12$, all groups of order $3$ are conjugate.  One of these groups is $\{(), (1 \ 2 \ 3), (1 \ 3 \ 2)\}$.  In order for $H$ to be normal, $H$ must equal this group and it can have no other conjugates.  However, $(1 \ 4) (1 \ 2 \ 3)(1 \ 4) = (2 \ 3 \ 4) \not \in H$.  So $H$ is not normal, therefore $K \neq H$.
+
+So, in all cases, the action has a trivial kernel, so the action gives an embedding of $A_n$ into $\Perm(A_n / H)$, whose image must then be the alternating subgroup of this permutation group.
+\end{proof}
+
+\item Show that there exists an automorphism of $A_n$ mapping $H_1$ on $H$, and that such an automorphism is induced by an inner automorphism of $S_n$ if and only if $H = H_i$ for some $i$.
+
+\begin{proof}
+We have just seen that the action of $A_n$ by left translation on $A_n / H$ gives an isomorphism of $A_n$ into $\Alt(A_n / H)$.  If $h \in H$, then translation by $h$ fixes the coset $H$.  So, labeling the coset $H$ as element $1$, the restriction of this isomorphism to $H$ yields an embedding of $H$ into $H_1$.  Since these two subgroups have equal size, this embedding is actually an isomorphism.
+
+Now, let $i,j \in \{1, \dots , n\}$ and let $\sigma \in S_n$ be such that $\sigma(i) = j$.  Clearly, $\sigma H_i \sigma^{-1} \subseteq H_j$.  However, since $|\sigma H_i \sigma^{-1}| = |H_j|$, we actually have an isomorphism.  Now, suppose $\sigma H \sigma^{-1} = H_j$.  Then $H = \sigma^{-1}H_j \sigma$.  Since $\sigma^{-1}(j) = i$, we must have $H = H_i$.  Thus this automorphism is induced by an inner automorphism of $S_n$ if and only if $H = H_i$ for some $i$.
+\end{proof}
+
+\end{enumerate}
+
+\item[44.] Let $f: A \rightarrow A'$ be a homomorphism of abelian groups.  Let $B$ be a subgroup of $A$.  Denote by $A^f$ and $A_f$ the image and kernel of $f$ in $A$ respectively, and similarly for $B^f$ and $B_f$.  Show that $(A:B) = (A^f : B^f)(A_f : B_f)$, in the sense that if two of these three indices are finite, so is the third, and the stated equality holds.
+
+\begin{proof}
+We have a morphism of short exact sequences
+$$
+\begin{tikzcd}
+0 \arrow[r] & A_f \arrow[r, hook] & A \arrow[r, twoheadrightarrow, "f"] & A^f \arrow[r] & 0 \\
+0 \arrow[r] & B_f \arrow[u, hook] \arrow[r, hook] & B \arrow[u, hook] \arrow[r, twoheadrightarrow, "f"] & B^f \arrow[u, hook] \arrow[r] & 0 \\
+\end{tikzcd}
+$$
+which yields a new short exact sequence
+$$
+\begin{tikzcd}
+0 \arrow[r] & A_f / B_f \arrow[r, hook, "\iota"] & A/B \arrow[r, twoheadrightarrow, "\bar{f}"] & A^f / B^f \arrow[r] & 0
+\end{tikzcd}
+$$
+(We actually have a special case of this where the inclusions are literally containments, but this is not in general necessary for the result.)
+It is clear that both sequences in the top diagram are exact and that the diagram commutes.  In this new diagram, we have taken $\iota$ to be $a+B_f \mapsto a+B$ and $\bar{f}$ to be $a+B \mapsto f(a)+B^f$.  These maps are obviously well-defined (if $a \in B_f$ then $a \in B$; if $a \in B$ then $f(a) \in B^f$).  $\iota$ is injective because $A_f \cap B = B_f$, and $\bar{f}$ is clearly surjective.
+
+
+The image of $\iota$ is $\{a+B \mid a \in A_f\}$.  The sequence is exact because the kernel of $\bar{f}$ is
+\begin{align*}
+\ker(\bar{f}) &= \{a+B \mid f(a) \in B^f \} \\
+&= \{a+B \mid f(a) = f(b) \text{ for some } b \in B \} \\
+&= \{a+B \mid a - b \in A_f \text{ for some } b \in B \} \\
+&= \{a + b + B \mid a \in A_f, b \in B \} \\
+&= \{a + B \mid a \in A_f \}
+\end{align*}
+as well.  Therefore, we have an isomorphism $(A/B) / \iota(A_f / B_f) \cong A^f / B^f$ (this occurs with any short exact sequence of abelian groups:  if $0 \rightarrow K \xrightarrow{\varphi} G \xrightarrow{\psi} H \rightarrow 0$ is exact, then $x + \varphi(K) \mapsto \psi(x)$ is an isomorphism of $G / \varphi(K)$ to $H$).
+
+Since $|A_f / B_f| = |\iota(A_f / B_f)|$, it is clear now that if any two of the mentioned indices are finite, then so must be the third, and they must satisfy the asserted equality.
+\end{proof}
+
+\item[45.] Let $G$ be a finite cyclic group of order $n$, generated by an element $\sigma$.  Assume that $G$ operates on an abelian group $A$, and let $f,g:A \rightarrow A$ be the endomorphisms of $A$ given by
+$$
+f(x) = \sigma x - x \text{ and } g(x) = x + \sigma x + \cdots + \sigma^{n-1} x.
+$$
+Define the \textbf{Herbrand quotient} by the expression $q(A) = (A_f:A^g) / (A_g : A^f)$, provided both indices are finite.  Assume now that $B$ is a subgroup of $A$ such that $GB \subseteq B$.
+\begin{enumerate}
+\item Define in a natural way an operation of $G$ on $A / B$.
+\begin{proof}
+The natural operation is $\sigma^k(a+B) = \sigma^k(a)+B$.  This is well-defined because of the assumption $GB \subseteq B$, since if $a \in B$ then $\sigma^k(a)+B = B$.
+\end{proof}
+\item Prove that
+$$
+q(A) = q(B)q(A/B)
+$$
+in the sense that if two of these quotients are finite, so is the third, and the stated equality holds.
+\begin{proof}
+An online collection of notes at \\ \verb|http://www.math.harvard.edu/~chaoli/doc/ClassFieldTheory2.html#cor:CFT2hexagon| on class field theory suggest using an ``exact hexagon" to show this result.  It does not give details, only the diagram itself.  I was nowhere close to coming up with this idea myself, but this hint gave me what I needed to solve the problem.
+
+First, check that we actually have $A^g \subseteq A_f$ and $A^f \subseteq A_g$.  Notice that every element of $A^g$ is fixed by $\sigma$, since applying $\sigma$ to $x + \sigma x + \cdots + \sigma^{n-1}x$ simply reorders the terms.  This gives the first inclusion.  For the second, suppose $x = \sigma y - y$ for some $y \in A$.  Then $\sigma^{k-1} = \sigma^k y - \sigma^{k-1}y$ for all integers $k$, so
+\begin{align*}
+g(x) &= x + \sigma x + \cdots + \sigma^{n-1} x \\
+&= (\sigma y - y) + (\sigma^2 y - \sigma y) + \cdots + (\sigma^{n-1} y - \sigma^{n-2}y) + (y - \sigma^{n-1} y) \\
+&= 0.
+\end{align*}
+
+First, we will show that there are two exact sequences
+$$
+\begin{tikzcd}
+B_f / B^g \arrow[r, "\alpha"] & A_f / A^g \arrow[r, "\beta"] & (A/B)_f / (A/B)^g
+\end{tikzcd}
+$$
+$$
+\begin{tikzcd}
+B_g / B^f \arrow[r, "\alpha'"] & A_g / A^f \arrow[r, "\beta'"] & (A/B)_g / (A/B)^f.
+\end{tikzcd}
+$$
+$\alpha$ is the map $b+B^g \mapsto b+A^g$, which is well-defined because $B^g \subseteq A^g$.  $\beta$ is the map $a+A^g \mapsto (a+B) + (A/B)^g$.  This is well-defined because if $a \in A^g$, then there is some $x \in A$ such that $a+B = g(x) + B = g(x+B) \in (A/B)^g.$  The image of $\alpha$ is $\{b + A^g \mid b \in B_f\}$.  We will explain why this equals the kernel of $\beta$.
+
+The inclusion $\im(\alpha) \subseteq \ker(\beta)$ is clear, so for the other direction suppose $a+A^g \in \ker(\beta)$, that is $a \in A_f$ and $a+B \in (A/B)^g$.  Then $a - g(x) \in B$ for some $x \in A$.  So $a - g(x) = b$ for some $b \in B$.  But $a \in A_f$ by assumption, and $g(x) \in A^g \subseteq A_f$, therefore $b \in B_f$.  Therefore, $a - b  = g(x) \in A^g$, so $a + A^g = b + A^g$ for some $b \in B_f$, meaning $a + B \in \ker(\beta)$.
+
+For the next sequence, we define $\alpha'$ by $b + B^f \mapsto b + A^f$, which is well-defined because $B^f \subseteq A^f$.  We define $\beta'$ to be $a + A^f \mapsto (a+B) + (A/B)^f$.  If $a \in A^f$, then $f(x) = a$ for some $x \in A$, thus $a+B = f(x) + B \in (A/B)^f$.  So $\beta'$ is well-defined.
+
+The image of $\alpha'$ is $\{b+A^f \mid b \in B_g\}$.  Again, $\im(\alpha') \subseteq \ker(\beta')$ is trivial.  For the other direction, suppose $a + A^f \in \ker(\beta')$.  Then $a \in A_g$ and $a+B \in (A/B)^f$.  So $a+B = f(x) + B$, i.e. $a - f(x) \in B$, for some $x \in A$.  But $f(x) \in A^f \subseteq A_g$, and $a \in A_g$ by assumption, thus $a - f(x) \in B \cap A_g = B_g$.  Let $b = a - f(x)$.  Now, $a - b = f(x) \in A^f$, thus $a + A^f = b + A^f$ for some $b \in B_g$, therefore $a + A^f \in \im(\alpha')$.  This proves that the second sequence is exact.
+
+Now, consider the maps $\varphi:(A/B)_f / (A/B)^g \rightarrow B_g / B^f$ and $\psi : (A/B)_g / (A/B)^f$ given by
+$$
+(a+B) + (A/B)^g \mapsto f(a) + B^f
+$$
+$$
+(a+B) + (A/B)^f \mapsto g(a) + B^g
+$$
+respectively.  We will show that these are well-defined, beginning with $\varphi$.  If $a \in (A/B)_f$, then $f(a + B) = B$, so $f(a) \in B$.  Also, $f(a) \in A^f \subseteq A_g$, thus $f(a) \in B \cap A_g = B_g$, as desired.  Also, if $a \in B$, then $f(a) \in B^f$, so each element is assigned a unique image.
+
+A similar argument shows that $\psi$ is well-defined.  If $a \in (A/B)_g$, then $g(a) \in B$.  But $g(a) \in A^g \subseteq A_f$ as well, so $g(a) \in B_f$, as desired.  Also, if $a \in B$ then $g(a) \in B^g$, so each element is assigned a unique image.
+
+These six maps, when strung together, yield the following exact hexagon:
+
+$$
+\begin{tikzcd}
+\ & B_f / B^g \arrow[r, "\alpha"] & A_f / A^g \arrow[dr, "\beta"] &  \ \\
+(A/B)_g / (A/B)^f \arrow[ur, "\psi"] & \ & \ & (A/B)_f / (A/B)^g \arrow[dl, "\varphi"] \\
+\ & A_g / A^f \arrow[ul, "\beta'"] & B_g / B^f \arrow[l, "\alpha'"] & \ \\
+\end{tikzcd}
+$$
+
+\begin{comment}
+$$
+\begin{tikzcd}
+B_f / B^g \arrow[r, "\alpha"] & A_f / A^g \arrow[r, "\beta"] & (A/B)_f / (A/B)^g \arrow[dd, "\varphi"] \\ \ & \ & \phantom{a} \\
+(A/B)_g / (A/B)^f \arrow[uu, "\psi"] & A_g / A^f \arrow[l, "\beta'"] & B_g / B^f \arrow[l, "\alpha'"]
+\end{tikzcd}
+$$
+\end{comment}
+
+All we must show is that the proper images and kernels coincide.  First, we compute
+\begin{align*}
+\im(\varphi) &= \{f(a) + B^f \mid (a+B) \in (A/B)_f \} \\
+&= \{f(a) + B^f \mid f(a) \in B , a \in A\} \\
+&= \ker(\alpha') \\
+\im(\psi) &= \{g(a) + B^g \mid (a+B) \in (A/B)_g \} \\
+&= \{g(a) + B^g \mid g(a) \in B, a \in A \} \\
+&= \{b + B^g \mid b \in B \cap A^g \} \\
+&= \ker(\alpha)
+\end{align*}
+Next, note that $\im(\beta) = \{(a+B) + (A/B)^g \mid a \in A_f\}$ and $\ker \varphi = \{(a+B) + (A/B)^g \mid f(a) \in B^f \}$.  The inclusion $\im(\beta) \subseteq \ker(\varphi)$ is easy, since if $a \in A_f$ then $f(a) = 0 \in B^f$.  For the reverse inclusion, suppose $a \in A$ and $f(a) \in B^f$.  Then $f(a) = f(b)$ for some $b \in B$, i.e. $a-b \in A_f$.  Then $(a+B) + (A/B)^g = \beta(a-b + A^g) \in \im(\beta)$.  The same exact arguments, replacing $f$ with $g$, prove that $\im(\beta ' ) = \ker(\psi)$.  Therefore, the above hexagon is exact.
+
+With this, the result immediately follows, since the quotient of any group in this chain by the previous is isomorphic to the following, which gives us
+\begin{align*}
+(A_f : A^g) &= (B_f : B^g)((A/B)_f : (A/G)^g) \\
+(A_g : A^f) &= (B_g : B^f)((A/B)_g : (A/B)^f) \\
+\implies
+\frac{(A_f : A^g)}{(A_g : A^f)} &= \frac{(B_f : B^g)}{(B_g : B^f)} \frac{((A/B)_f : (A/G)^g)}{((A/B)_g : (A/B)^f)} \\
+\implies \ \ \ \ \ \ \
+q(A) &= q(B)q(A/B).
+\end{align*}
+\end{proof}
+\item If $A$ is finite, show that $q(A) = 1$.
+
+\begin{proof}
+\begin{comment}
+First, we will show the result for cyclic groups of prime order $p$, so let $A = \Z_p$.  In this case, the kernels of $f$ and $g$ completely determine their images, and conversely.  For instance, if $A_f$ is trivial, then $A^f = f(A) = \{0\}$.  This gives us the following table of possibilities for these indices, and the resulting value of $q(A)$:
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline 
+$|A_f|$ & $|A^g|$ & $|A_g|$ & $|A^f|$ & $(A_f:A^g)$ & $(A_g:A^f)$ & $q(A)$ \\ 
+\hline 
+$p$ & $p$ & $0$ & $0$ & $1$ & $1$ & $1$ \\ 
+\hline 
+$p$ & $0$ & $p$ & $0$ & $p$ & $p$ & $1$ \\ 
+\hline 
+$0$ & $0$ & $p$ & $p$ & $1$ & $1$ & $1$ \\ 
+\hline 
+\end{tabular} 
+\end{center}
+So the result holds when $A$ is cyclic of prime order.
+
+The general claim now follows by induction.  The result is trivial when $A = \{0\}$, so suppose it holds for all groups of order less than some $k$.  Then some prime $p$ divides the order of $A$, hence $A$ has a subgroup $B$ of order $p$.
+\end{comment}
+
+Since $A / A_f \cong A^f$ and $A / A_g \cong A^g$, we have $(A:A_f) = |A^f|$ and $(A:A_g) = |A^g|$.  Also, we can tower the indices in the subgroup chains
+$$
+0 \subseteq A^g \subseteq A_f \subseteq A
+\hspace{1cm}
+0 \subseteq A^f \subseteq A_g \subseteq A
+$$
+to obtain
+\begin{align*}
+|A^g|(A_f : A^g)(A:A_f) &= |A| = |A^f|(A_g : A^f)(A:A_g)
+\\
+\implies |A^g|(A_f : A^g)|A^f| &= |A^f|(A_g : A^f)|A^g|
+\\
+\implies
+q(A) \cdot \frac{|A^g|}{|A^f|}\frac{|A^f|}{|A^g|} &= 1
+\\
+\implies q(A) &= 1
+\end{align*}
+\end{proof}
+
+\end{enumerate}
+\end{enumerate}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

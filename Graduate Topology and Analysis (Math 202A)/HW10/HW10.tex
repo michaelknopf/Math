@@ -1,0 +1,206 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+%\addtolength{\oddsidemargin}{-.1in} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{lipsum}
+\usepackage[]{units}
+\usepackage{relsize}
+\usepackage{verbatim}
+\usepackage{bbm}
+\usepackage{mathtools}
+\usepackage{eufrak}
+\usepackage[mathscr]{euscript}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{graphicx}
+\usepackage{xfrac}
+
+\setenumerate{listparindent=\parindent}
+
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Int}{{\displaystyle \int}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\U}{\mathcal{U}}
+\renewcommand{\L}{\mathcal{L}}
+
+\newcommand{\dd}[2]{\frac{d#1}{d#2}}
+
+\DeclareMathOperator*{\dom}{dom}
+\DeclareMathOperator*{\Aut}{Aut}
+\DeclareMathOperator*{\Ann}{Ann}
+\DeclareMathOperator*{\Tor}{Tor}
+\DeclareMathOperator*{\Gal}{Gal}
+\DeclareMathOperator*{\Hom}{Hom}
+\DeclareMathOperator*{\End}{End}
+\DeclareMathOperator*{\im}{Im}
+\DeclareMathOperator*{\card}{card}
+\DeclareMathOperator*{\id}{id}
+
+\renewcommand{\bar}{\overline}
+\renewcommand{\P}{\mathcal{P}}
+
+\usepackage{fancyhdr} % Required for custom headers 
+%\usepackage{lastpage} % Required to determine the last page for the footer
+
+\pagestyle{fancy}
+\lhead{Math 202A (HW 10)}
+\chead{Michael Knopf (24457981)}
+\rhead{November $19^\text{th}$, 2015}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+%\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}
+\renewcommand\headrulewidth{0.4pt}
+%\renewcommand\footrulewidth{0.4pt}
+
+\begin{document}
+
+\begin{enumerate}
+\item[F 2.6.53] Fill in the details of the proof of Theorem 2.41:
+
+\noindent \emph{If $f \in L^1(m)$ and $\epsilon > 0$, there is a simple function $\phi = \sum_1^N a_j \chi_{R_j}$, where each $R_j$ is a product of intervals, such that $\Int |f-\phi| < \epsilon$, and there is a continuous function $g$ that vanishes outside a bounded set such that $\Int |f-g| < \epsilon$.}
+
+\begin{proof}
+
+By Theorem 2.10.b, there is a sequence $\theta_i = \sum_{j=0}^{N_i} c_{ij}\chi_{E_{ij}}$ of simple functions such that $0 \leq | \theta_1| \leq |\theta_2| \leq \cdots \leq |f|$ and $\theta_n \rightarrow f$ pointwise.  By Theorem 2.40.c, for each pair $i,j$ there exists a finite disjoint collection $\{R_n^{ij}\}_{n=1}^{m_{ij}}$, where each set is a product of intervals, such that $m(E_{ij} \triangle \bigcup_{n=1}^{m_{ij}} R_n^{ij}) < \epsilon_{ij}$ for any chosen $\epsilon_{ij}$.  So we may define, for each $i$, a new simple function
+$$
+\phi_{i} = \sum_{j=0}^{N_i} \sum_{n=1}^{m_i} c_{ij} \chi_{R_n^{ij}}.
+$$
+
+Note that we now have
+\begin{align*}
+\Int |\theta_i - \phi_i| &= \Int \left| \sum_{j=0}^{N_i} c_{ij} (\chi_{E_{ij}} - \chi_{\bigcup_{n=1}^{m_{ij}}R_n^{ij}} ) \right|
+\\
+& \leq
+\sum_{j=0}^{N_i} c_{ij} \Int \left| \chi_{E_{ij}} - \chi_{\bigcup_{n=1}^{m_{ij}}R_n^{ij}} \right|
+\\
+&= \sum_{j=0}^{N_i} c_{ij} m(E_{ij} \triangle \bigcup_{n=1}^{m_{ij}} R_n^{ij})
+\\
+&< \sum_{j=0}^{N_i} c_{ij} \epsilon_{ij}.
+\end{align*}
+Given some $\epsilon > 0$, we can then force the above integral to be less than $\epsilon$ by chooising $\epsilon_{ij} = \dfrac{\epsilon}{c N_i}$ where $c = \max\{c_{i,1}, \dots , c_{i,N_i}\}$.
+
+Since $|f - \theta_i| \leq 2|f|$ for all $i$, we may apply the dominated convergence theorem to find some $i$ such that $\Int |f - \theta_i| < \frac{\epsilon}{2}$.  Similarly, choose $\frac{\epsilon}{2}$ in the last sentence of the last paragraph to obtain
+$$
+\Int |f - \phi_i| \leq \Int |f - \theta_i| + \Int |\theta_i - \phi_i| < \epsilon.
+$$
+
+We may now simply take $\phi = \sum_1^N c_j \chi_{R_j}$ to be a simple function where each $R_j$ is a product of open intervals, such that $\Int |f - \phi| < \epsilon$.  Futher, we can assume the $R_j$ are disjoint, since otherwise we could take a disjoint refinement.  Each $R_j$ is of the form $R_j = I_1 \times \cdots \times I_n$ for some open intervals.  For $1 \leq i \leq n$, consider $I_i = (a_i,b_i)$.  We can define a continuous function $h_i$ by taking $h_i = a_j$ on $(a+\frac{\epsilon}{2}, b_i - \frac{\epsilon}{2})$, $0$ on $I_i^c$, and linear in between.  Then the product $g_j = h_1 \times \cdots \times h_n$ is a continuous function that agrees with $a_j\chi_{R_j}$ except on $S = R_j \setminus ((a_1 + \frac{\epsilon}{2}, b_1 - \frac{\epsilon}{2}) \times \cdots \times (a_n + \frac{\epsilon}{2}, b_n - \frac{\epsilon}{2}))$, where $|a_j \chi_{R_j} - h_j| \leq |a_j|$.  Thus,
+\begin{align*}
+\Int |a_j \chi_{R_j} - h_j| &= \Int_S |a_j \chi_{R_j} - h_j| \\
+&\leq \Int_S |a_j| \\
+&= m(S)|a_j| \\
+&= \epsilon^n |a_j|
+\end{align*}
+can be made arbitrarily small.  Take $g = g_1 + \dots + g_n$.  Since the supports of the $g_i$ are disjoint, we see that
+\begin{align*}
+\Int |\phi - g| &\leq \sum_1^N \Int |a_j\chi_{R_j} - h_j| \leq N \epsilon
+\end{align*}
+can be made arbitrarily small.  Thus,
+$$
+\Int |f - g| \leq \Int |f - \phi| + \Int |\phi - g|
+$$
+can be made arbitrarily small.  $g$ is a sum of continuous functions, hence continuous, so the claim is proven.
+\end{proof}
+
+\item[F 3.4.22] If $f \in L^1(\R^n)$, $f \neq 0$, there exist $C,R > 0$ such that $Hf(x) \geq C|x|^{-n}$ for $|x|>R$.  Hence $m(\{x : Hf(x)>\alpha\}) \geq C'/\alpha$ when $\alpha$ is small, so the estimate in the maximal theorem is essentially sharp.
+
+\begin{proof}
+In $\R^n$, the volume of a ball is proportional to $r^n$, where $r$ is its radius.  Since $f \neq 0$, there is some $R > 0$ such that $f \neq 0$ on $B(R,x)$.  So $\Int_{B(R,0)} |f| > 0$.  Also, for any $x \in \R^n$ with $|x|>R$, we have $B(R,0) \subset B(2|x|,x)$, and so $B(R,0) \leq m(B(2|x|,x) = 2^n|x|^n m(B(R,0))$.
+\begin{align*}
+Hf(x) &= \sup_{r>0} \frac{1}{m(B(r,x))}\Int_{B(r,x)} |f| \\
+&\geq \frac{1}{m(B(2|x|,x))}\Int_{B(2|x|,x)} |f| \\
+&\geq 2^{-n}|x|^{-n}m(B(1,0))\Int_{B(R,0)} |f|
+\end{align*}
+so taking $C = 2^{-n}m(B(1,0))\Int_{B(R,0)} |f|$ suffices.
+
+For the second statement, choose $\alpha < CR^{-n}$.  If $R^n < |x|^n < \frac{C}{\alpha}$, then 
+\begin{enumerate}
+\item $|x| > R$ and so the bound $Hf(x) \geq C|x|^{-n}$ holds, and
+\item $C|x|^{-n} > \alpha$ and so $x \in \{x : Hf(x) > \alpha\}$.
+Therefore, $B_{(C/\alpha)^{1/n}} \setminus B_R \subseteq \{x : Hf(x) > \alpha\}$, where both of these balls are centered at 0.  This gives us the bound
+\begin{align*}
+m(\{x : Hf(x) > \alpha \}) \geq m(B_{(C/\alpha)^{1/n}}) - m(B_R)
+= m(B_1)\left( \frac{C}{\alpha} - R^n\right)
+> \frac{m(B_1)C}{\alpha}
+\end{align*}
+and so taking $C' = m(B_1)C$ suffices.
+\end{enumerate}
+\end{proof}
+
+\item[F 3.4.23] A useful variant of the Hardy-Littlewood maximal function is
+$$
+H^*f(x) = \sup \left\{ \frac{1}{m(B)} \Int_B |f(y)|dy : B \text{ is a ball and } x \in B \right\}.
+$$
+Show that $Hf \leq H^*f \leq 2^nHf$.
+
+\begin{proof}
+Let $S = \left\{\dfrac{1}{m(B(r,x))} \Int_{B(r,x)} |f| : r > 0\right\}$ and $S^* = \left\{ \dfrac{1}{m(B)} \Int_B |f(y)|dy : B \text{ is a ball and } x \in B \right\}$.  Then $Hf(x) = \sup S$ and $H^*f(x) = \sup S^*$.  However, $S \subseteq S^*$ because any ball of positive radius centered at $x$ obviously contains $x$, and so the first inequality $Hf \leq H^*f$ is established.
+
+For the second inequality, suppose $B^*$ is a ball containing $x$.  Let $r$ be the maximum distance from $x$ to a point on the boundary of $B^*$, and let $B = B(r,x)$, so that $B^* \subseteq B$.  Letting $C$ be the volume of a ball of radius $1$ in $\R^n$, the average value of $|f|$ on $B$ is
+$$
+A_B = \frac{1}{Cr^n}\Int_B |f| \geq \frac{1}{Cr^n} \Int_{B^*} |f| = \frac{m(B^*)}{Cr^n} \frac{1}{m(B^*)} \Int_{B^*} |f| = \frac{m(B^*)}{Cr^n} A_{B^*} \geq \frac{C(\frac{r}{2})^n}{Cr^n} A_{B^*} = 2^{-n} A_{B^*}
+$$
+where $A_{B^*}$ is the average value on $B^*$, and so $A_{B^*} \leq 2^n A_B$.  Therefore, for every element $A_{B^*}$ of $S^*$, there is some element $A_B$ of $S$ such that $A_{B^*} \leq 2^n A_B$.  This establishes the second bound.
+\end{proof}
+
+\item[F 3.4.24] If $f \in L_{\text{loc}}^1$ and $f$ is continuous at $x$, then $x$ is in the Lebesgue set of $f$.
+
+\begin{proof}
+Let $\epsilon > 0$.  Since $f$ is continuous, there is some $\delta$ such that if $y \in B_\delta$ (the ball of radius $\delta$ centered at $x$), then $|f(y) - f(x)| < \epsilon$.  So surely this holds if $y \in B_r$ and $0 < r < \delta$, in which case
+$$
+\frac{1}{m(B_r)} \Int_{B_r} |f(y) - f(x)|dy < \frac{1}{m(B_r)} m(B_r) \epsilon = \epsilon.
+$$
+So by definition, the limit mentioned in the definition of the Lebesgue set is $0$, thus $x$ is in the Lebesgue set of $f$.
+\end{proof}
+
+\item[F 3.4.25] If $E$ is a Borel set in $\R^n$, the density $D_E(x)$ of $E$ at $x$ is defined as
+$$
+D_E(x) = \lim_{r\rightarrow 0} \frac{m(E \cap B(r,x))}{m(B(r,x))}
+$$
+whenever the limit exists.
+\begin{enumerate}
+\item Show that $D_E(x) = 1$ for a.e. $x \in E$ and $D_E(x) = 0$ for a.e. $x \in E^c$.
+
+\begin{proof}
+Define a measure $\nu$ by $\nu(A) = m(A \cap E)$ for all Borel sets $A$.  This is clearly a measure, since $\nu(\emptyset) = 0$, $\nu(A) \geq 0$ for all $A$, and
+$$
+\nu(\cup_1^\infty A_i) = m(\bigcup_1^\infty (E \cap A_i)) = \sum_1^\infty m(E \cap A_i) = \sum_1^\infty \nu(A_i)
+$$
+for a disjoint family $\{A_i\}$.
+
+Also, if $K$ is compact, then it is closed hence measurable and bounded thus $m(K) < \infty$; thus $\nu(K) = m(K \cap E) \leq m(K) < \infty$.  Therefore, $\nu$ is regular, so we may apply Theorem 3.22.  First, note that the LRN representation of $\nu$ with respect to $m$ is $d\nu = d\lambda + fdm$ where $f = \chi_E$ and $\lambda = 0$.  Also, $\{B(r,x)\}_{r>0}$ shrinks nicely to $x$.  So the theorem then gives us
+$$
+D_E(x) = \lim_{r \rightarrow 0} \frac{m(E \cap B(r,x))}{m(B(r,x))} = \lim_{r \rightarrow 0} \frac{\nu(B(r,x))}{m(B(r,x))} = 
+ f(x) = \chi_E(x)
+$$
+for a.e. $x$.  This expression equals $1$ if $x \in E$ and $0$ if $x \in E^c$.  Therefore, $D_E(x) = 1$ for a.e. $x \in E$ and $D_E(x) = 0$ for a.e. $x \in E^c$.
+\end{proof}
+
+\item Find examples of $E$ and $x$ such that $D_E(x)$ is a given number $\alpha \in (0,1)$, or such that $D_E(x)$ does not exist.
+
+\begin{proof}
+In $\R^2$, take $E$ to be the set, given in polar coordinates, $E = \{(r, \theta) : 0 \leq r < \infty, 0 \leq \theta < 2 \pi \alpha\}$.  Then clearly $D_E(x) = \alpha$.  The exercise says ``or", so I have already done what was asked.  But if one wanted to construct a set in $\R^n$ where the relative density at $0$ was undefined, it could be done in this way.  Take ``rings" centered at $0$ (that is, a ball minus a smaller ball contained within it).  The difference of the outer and inner radius of each ring should be decreasing as the sequence progresses, and the rings should be contained within one another, but with some space in between their boundaries.  If this is done in the right way, then the sequence of the inner boundaries of each ball will have a lower density than the sequence of outer boundaries, since the first thing you encounter when moving inward from an outer boundary is part of the set, but the first thing you encounter when moving inward from an inner boundary is empty space.
+\end{proof}
+
+\end{enumerate}
+\end{enumerate}
+
+\end{document}
+
+
+
+
+
+
+

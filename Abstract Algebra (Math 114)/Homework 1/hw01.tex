@@ -1,0 +1,202 @@
+\documentclass[10pt]{article}
+\usepackage[margin=.9in]{geometry} 
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{bm}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\DeclareMathOperator*{\dom}{dom}
+\DeclareMathOperator*{\Aut}{Aut}
+\DeclareMathOperator*{\Mat}{Mat}
+
+
+\begin{document}
+
+\begin{center}
+\large Math 114 Homework 1
+
+\large Michael Knopf
+
+\normalsize (due Thursday, 29 January)
+\end{center}
+
+%Note: These exercises are all from Dummit and Foote, but I've rephrased some parts and omitted others.  You're responsible for the versions in this document, not the original versions in the book.
+
+%%%%%%%%%%%%%%%%%%%%%      1      %%%%%%%%%%%%%%%%%%%%%%
+
+\begin{enumerate}
+
+\item (Exercise 7 in DF \S 13.2.) Prove that $\mathbf{Q}(\sqrt{2}+\sqrt{3}) = \mathbf{Q}(\sqrt{2},\sqrt{3})$.  (One inclusion is obvious; for the other consider powers of $\sqrt{2}+\sqrt{3}$.)  Find an irreducible polynomial $p(X) \in \mathbf{Q}[X]$ such that $p(\sqrt{2}+\sqrt{3})=0$.
+
+\begin{proof}
+All we need to show is that $\sqrt{2} + \sqrt{3} \in \Q(\sqrt{2},\sqrt{3})$ and $\sqrt{2}, \sqrt{3} \in \Q(\sqrt{2}+\sqrt{3})$, since $\Q(A)$ is defined to be the intersection of all fields containing $\Q$ and $A$.
+
+
+Clearly, $\Q(\sqrt{2} + \sqrt{3}) \subseteq \Q(\sqrt{2},\sqrt{3})$ because we can simply add $\sqrt{2}$ and $\sqrt{3}$ to obtain the primitive the primitive element of $\Q(\sqrt{2} + \sqrt{3})$.
+
+\
+
+To see that $\Q(\sqrt{2}, \sqrt{3}) \subseteq \Q(\sqrt{2} + \sqrt{3})$, note that $$\frac{1}{2}(\sqrt{2} + \sqrt{3})^3 - \frac{9}{2}(\sqrt{2}+\sqrt{3}) = \frac{1}{2}(11\sqrt{2} + 9\sqrt{3}) - \frac{9}{2}(\sqrt{2} + \sqrt{3}) = \sqrt{2},$$ so $\sqrt{2} \in \Q(\sqrt{2} + \sqrt{3})$.  Therefore, $\sqrt{3} = (\sqrt{2} + \sqrt{3}) - \sqrt{2} \in \Q(\sqrt{2} + \sqrt{3}) $ as well.
+
+\
+
+An irreducible polynomial $p(X) \in \Q[X]$ such that $p(\sqrt{2} + \sqrt{3}) = 0$ is $$p(X) = (X + (\sqrt{2} + \sqrt{3}))^2 (X - (\sqrt{2} + \sqrt{3}))^2 = X^4 - 10X^2 + 1.$$  The only factors of $p(X)$ we need to check for containment in $\Q[X]$ are $$(X + (\sqrt{2} + \sqrt{3}))(X - (\sqrt{2} + \sqrt{3})) = X^2 - 5 - 2\sqrt{6} \not \in \Q[X]$$ and $$(X + (\sqrt{2} + \sqrt{3}))^2 = X^2 + 2(\sqrt{2} + \sqrt{3})X + 2\sqrt{6} + 5 \not \in \Q[X]$$ thus $p(X)$ is indeed irreducible in $\Q[X]$ (the other non-unit factor is the conjugate of the $(X + (\sqrt{2} + \sqrt{3}))^2$, so it also contains non-rational coefficients).
+
+%Now, apply Eisenstein's Criterion using the prime $2$: since $2 \nmid 1$ and $2^2 \nmid 1$ but $2 \mid 10$, $p(X)$ is irreducible in $\Q[X]$.
+
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%      2      %%%%%%%%%%%%%%%%%%%%%%
+
+
+\item (Exercise 12 in DF \S 13.2.) Suppose the degree of the extension $K/F$ is a prime $p$.  Show that any subfield $E$ of $K$ containing $F$ is either $K$ or $F$.
+
+
+\begin{proof}
+
+We will first show that if $A \subseteq B \subseteq C$ is a chain of subfields, then $[C:A] = [C:B][B:A]$.
+
+Let $n = [C:B]$ and $m = [B:C]$.  Let $v_1, \dots, v_n$ be a basis for $C$ over $B$ and let $u_1, \dots , u_m$ be a basis for $B$ over $A$.  We will show that $S = \{v_iu_j : 1 \leq i \leq n, 1 \leq j \leq m\}$ forms a basis for $C$ over $A$.
+
+First, we need to show that $S$ spans $C$ over $A$.  Let $v \in C$.  Since $v_1, \dots, v_n$ is a basis for $C$ over $B$, there exist constants $b_1, \dots, b_n \in B$ such that $v = b_1v_1 + \cdots + b_nv_n$.
+
+Since $u_1, \dots, u_m$ is a basis for $B$ over $A$, there exist constants $a_{i,j}$ such that $b_i = a_{i,1}u_1 + \cdots + a_{i,m}u_m$.
+
+Therefore, $$v = \sum_{i=1}^n b_iv_i = \sum_{i=1}^n \left(\sum_{j=1}^m a_{i,j}u_j \right)v_i = \sum_{i=1}^n\sum_{j=1}^m a_{i,j}u_j v_i.$$ The righthand side is a linear combination of elements of $S$ with coefficients in $A$, thus $S$ spans $C$ over $A$.
+
+Next, to see that $S$ is linearly independent, suppose that $$\sum_{i=1}^n\sum_{j=1}^m a_{i,j}u_j v_i = \sum_{i=1}^n \left(\sum_{j=1}^m a_{i,j}u_j \right)v_i = 0.$$  Since $v_1, \dots, v_n$ are linearly independent over $B$ and $\sum_{j=1}^m a_{i,j}u_j \in B$ for each $i$, we must have $\sum_{j=1}^m a_{i,j}u_j = 0$ for each $i$.  Since $u_1, \dots, u_m$ are linearly independent over $A$ and $a_{i,j} \in A$ for each $i,j$, we must have $a_{i,j} = 0$ for each $i,j$.  Therefore, $S$ is linearly independent over $A$ and has $n \cdot m$ elements, so $[A:C] = n \cdot m$.
+
+Now, suppose that $[A:B] = 1$.  Then $1$ forms a basis for $A$ over $B$, so $A = \{b \cdot 1 : b \in B\} = B$.  It follows that if $[A:B] = [A:C]$ then $[B:C] = 1$, thus $B = C$.
+
+Since $[K:F] = p$, if $F \subseteq E \subseteq K$ then either $[K:E] = p$ or $[K:E] = 1$, since $[K:E] \mid p$.  Therefore, by the previous paragraph, either $E = K$ or $E = F$.
+
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%      3      %%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+\item (Exercise 19 in DF \S 13.2.) Let $K$ be an extension of $F$ of degree $n \in \mathbf{N}$.
+
+(a) For any $\alpha \in K$, prove that the map $K \rightarrow K$ given by $x \mapsto \alpha x$ is an $F$-linear transformation of $K$ (i.e. a linear transformation of $K$ as an $F$-vector space).
+
+\begin{proof}
+
+Let $x,y \in K$ and $c \in F$.  Let $T$ denote the map given above.  Then $$T(cx + y) = \alpha(cx+y) = \alpha cx + \alpha y = c \alpha x + \alpha y = c T(x) + T(y)$$ where the third equality is given by the fact that $c,\alpha \in K$ so $\alpha c = c \alpha$.
+
+\end{proof}
+
+(b) Prove that $K$ is isomorphic to a subfield of the ring $M_n(F)$ of $n \times n$ matrices over $F$.  (For a review of the relationship between matrix rings and rings of linear transformations of a vector space, see \S 11.2.)  Thus $M_n(F)$ contains a copy of every extension of $F$ with degree $\leq n$.
+
+\begin{proof}
+
+Define $\varphi: K \rightarrow M_n(F)$ by $\alpha \mapsto \Mat(T_{\alpha})$, where $T_{\alpha}(x) = \alpha x$ and $\Mat$ denotes the matrix representation of a linear map $K \rightarrow K$ with respect to some basis for $K$ over $F$.  Since $T_{\alpha}$ is an $F$-linear transformation of $K$, the $\Mat$ function is well-defined.
+
+We will show that $\varphi$ is a ring homomorphism, thus a field homomorphism:  for any $\alpha, \beta, x \in K$, 
+\begin{align*}
+\varphi(\alpha + \beta)(x) &= \Mat(T_{\alpha + \beta})(x) = (\alpha + \beta)(x) = \alpha x + \beta x \\
+&= \Mat(T_{\alpha})(x) + \Mat(T_{\beta})(x) = (\varphi(\alpha) + \varphi(\beta))(x)
+\end{align*}
+and
+\begin{align*}
+\varphi(\alpha \beta)(x) &= \Mat(T_{\alpha \beta})(x) = \alpha \beta x \\
+&= \Mat(T_{\alpha}) \Mat(T_{\beta}) (x) = (\varphi(\alpha) \circ \varphi(\beta))(x).
+\end{align*}
+
+Clearly, $\varphi \neq 0$, since $\varphi(1) = T_1$ is the identity map, which is nonzero.  The image of a nonzero field homomorphism is a field, thus $\varphi$ is an isomorphism onto a subfield of $M_n(F)$.
+
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%      4      %%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+\item (Exercise 4 in DF \S 14.1.) Prove that $\mathbf{Q}(\sqrt{2})$ and $\mathbf{Q}(\sqrt{3})$ are not isomorphic.
+
+
+
+\begin{proof}
+
+Suppose that $\varphi: \Q(\sqrt{2}) \rightarrow \Q(\sqrt{3})$ is an isomorhpism.  Then there is some unique $\alpha \in \Q(\sqrt{2})$ whose image is $\sqrt{3}$, so $$\varphi(\alpha^2) = \varphi(\alpha)^2 = (\sqrt{3})^2 = 3.$$  However, we also have $$ \varphi(3) = \varphi(1 + 1 + 1) = 3\varphi(1) = 3.$$
+
+Since $\varphi$ is a bijection, this means that $\alpha^2 = 3$.  We know $\alpha = a + b\sqrt{2}$ for some $a,b \in \Q$, so $(a + b\sqrt{2})^2 = a^2 + 2b^2 + 2ab\sqrt{2} = 3$.  Since the set $\{1, \sqrt{2} \}$ is linearly independent over $\Q$, this gives the system
+$$\begin{cases}
+a^2 + 2b^2 = 3 \\
+2ab \sqrt{2} = 0
+\end{cases}.$$  From the second equation, we know either $a = 0$ or $b = 0$.  If $a = 0$, then the first equation gives $b^2 = \frac{3}{2}$, which has no rational solution for $b$.  If $b = 0$, we obtain $a^2 = 3$, which also has no rational solutions for $a$.  Therefore $\alpha \not \in \Q(\sqrt{2})$, a contradiction.
+
+\end{proof}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%      5      %%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+\item (Exercise 7 in DF \S 14.1.) This exercise determines $\Aut(\mathbf{R}/\mathbf{Q})$.
+
+(a) Prove that any $\sigma \in \Aut(\mathbf{R}/\mathbf{Q})$ takes squares to squares and takes positive reals to positive reals.  Conclude that $a<b$ implies $\sigma(a)<\sigma(b)$ for every $a,b \in \mathbf{R}$.
+
+
+\begin{proof}
+
+For any $\alpha \in \R$, $\sigma(\alpha^2) = \sigma(\alpha)^2$ is a square.  Thus $\sigma$ takes squares to squares.
+
+In $\R$, any positive real number $x$ is the square of $\sqrt{x}$, which is also a real number.  So $\sigma(x)$ is a square as well.  Therefore, $\sigma(x)$ is nonnegative, since $\R$ contains no negative perfect squares.  Since $\sigma$ is bijective, the only element that maps to $0$ is $0$, thus $\sigma(x) \neq 0$ since $x$ is strictly positive.  So $\sigma(x)$ is positive, thus $\sigma$ takes positive reals to positive reals.
+
+\end{proof}
+
+(b) Prove that $-\frac1m < a-b < \frac1m$ implies $-\frac1m < \sigma(a)-\sigma(b) < \frac1m$ for every positive integer $m$.  Conclude that $\sigma$ is a continuous map on $\mathbf{R}$.  (Recall that a map $f:\mathbf{R} \rightarrow \mathbf{R}$ is \emph{continuous} if for every $a \in \mathbf{R}$ and every $\epsilon>0$ there exists some $\delta>0$ such that $|f(b)-f(a)|<\epsilon$ whenever $|b-a|<\delta$.)
+
+\begin{proof}
+
+Suppose $-\frac1m < a-b < \frac1m$.  Then $a-b+ \frac1m > 0$ and $\frac1m + b - a > 0$.  By part (a), this means that $\sigma(a) - \sigma(b) + \sigma(\frac1m) > 0$ and $\sigma(\frac1m) + \sigma(b) - \sigma(a) > 0$.  Since $\frac1m$ is rational and $\sigma$ fixes rationals, $\sigma(\frac1m) = \frac1m$.  So rearranging the inequalities gives $-\frac1m < \sigma(a) - \sigma(b) < \frac1m$.
+
+Now, let $\epsilon > 0$.  By the Archimedean Principle, there exists some positive integer $m$ such that $\frac1m < \epsilon$.  Let $\delta = \frac1m$.  Whenever $|a-b| < \delta$, it follows that $|\sigma(a) - \sigma(b)| < \frac1m < \epsilon$ by the above paragraph.  Therefore, $\sigma$ is continuous.
+
+\end{proof}
+
+(c) Prove that any continuous map $\mathbf{R} \rightarrow \mathbf{R}$ which is the identity on $\mathbf{Q}$ is the identity map; hence $\Aut(\mathbf{R}/\mathbf{Q})=\{1\}$.  (You may use without proof the fact that $\mathbf{Q}$ is dense in $\mathbf{R}$; that is, for every $a \in \mathbf{R}$ and every $\epsilon>0$ there exists some $q \in \mathbf{Q}$ such that $|a-q|<\epsilon$.)
+
+\begin{proof}
+
+Let $x \in \R$.  By definition, $x$ is the limit of some Cauchy sequence $\{q_n\}$ in $\Q$.  Suppose $f: \R \rightarrow \R$ is a continuous function that fixes $\Q$.  Since $f$ is continuous and $q_n$ is convergent, $f(\lim q_n) = \lim f(q_n)$.  Since $f$ fixes $\Q$, we know $f(q_n) = q_n$.  So $$f(x) = f(\lim q_n) = \lim f(q_n) = \lim q_n = x$$ therefore $f$ fixes $\R$ as well, since $x$ was arbitrary.  So $f$ must be the identity.
+
+We have shown that if $\sigma \in \Aut(\R / \Q)$ is a continuous map that fixes $\Q$, then $\sigma$ is the identity.  So $\Aut(\R / \Q) = \{ 1 \}$.
+
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%      6      %%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\item (Exercise 9 in DF \S 14.1.) Let $k$ be a field, and let $k(t)$ denote the field of rational functions in $t$ with coefficients in $k$.  (In other words, $k(t)$ is the field of fractions of the polynomial ring $k[t]$.  It is an extension of $k$ of infinite degree.)  Observe (but you need not prove) that the map $\phi: k(t) \rightarrow k(t)$ given by $\phi(r(t))=r(t+1)$ is an automorphism of $k(t)$.  Determine (with proof) the fixed field of $\phi$.
+
+
+
+\noindent \emph{The fixed field of $\phi$ is the field of all $r \in k(t)$ that are periodic with a period of 1.}
+
+\begin{proof}
+
+If $r$ is periodic with a period of 1, then $\phi(r)(t) = r(t+1) = r(t)$ for all $t$, thus $\phi(r) = r$.
+
+Conversely, if $r$ is not periodic with a period of 1, then for some $t$, $r(t) \neq r(t+1) = \phi(r)(t)$, thus $\phi(r) \neq r$.
+
+\end{proof}
+
+\end{enumerate}
+
+\end{document}

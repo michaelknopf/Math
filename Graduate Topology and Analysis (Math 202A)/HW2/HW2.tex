@@ -1,0 +1,328 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+%\addtolength{\oddsidemargin}{-.1in} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{lipsum}
+\usepackage[]{units}
+\usepackage{relsize}
+\usepackage{verbatim}
+\usepackage{bbm}
+\usepackage{mathtools}
+\usepackage{eufrak}
+\usepackage[mathscr]{euscript}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{graphicx}
+\usepackage{xfrac}
+
+\setenumerate{listparindent=\parindent}
+
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Int}{{\displaystyle \int}}
+\newcommand{\M}{\mathcal{M}}
+
+\DeclareMathOperator*{\dom}{dom}
+\DeclareMathOperator*{\Aut}{Aut}
+\DeclareMathOperator*{\Ann}{Ann}
+\DeclareMathOperator*{\Tor}{Tor}
+\DeclareMathOperator*{\Gal}{Gal}
+\DeclareMathOperator*{\Hom}{Hom}
+\DeclareMathOperator*{\End}{End}
+\DeclareMathOperator*{\im}{Im}
+\DeclareMathOperator*{\card}{card}
+
+\renewcommand{\bar}{\overline}
+
+\usepackage{fancyhdr} % Required for custom headers 
+%\usepackage{lastpage} % Required to determine the last page for the footer
+
+\pagestyle{fancy}
+\lhead{Math 202A (HW 2)}
+\chead{Michael Knopf (24457981)}
+\rhead{September $17^\text{th}$, 2015}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+%\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}
+\renewcommand\headrulewidth{0.4pt}
+%\renewcommand\footrulewidth{0.4pt}
+
+\begin{document}
+
+%\noindent Note: $\mathbbm{1}(P(x))$ is the indicator function that evaluates as $1$ if the proposition $P$ holds of $x$, and 0 otherwise.
+
+\newcommand{\NN}{\mathcal{N}}
+
+\begin{enumerate}
+\item Let $\M$ be an infinite $\sigma$-algebra.
+\begin{enumerate}
+\item $\M$ contains an infinite sequence of disjoint sets.
+
+\begin{proof}
+If $\M$ contains an infinite ascending chain $(E_i)_{i \in \N}$ (meaning that $E_i \subsetneq E_{i+1}$ for all $i$), then we immediately have an infinite sequence $(F_i)_{i \in \N}$ of disjoint sets by taking $F_1 = E_1$ and $F_i = E_i \setminus \bigcup_{j=1}^{i-1} E_i$ for all $i > 1$.  Clearly, each $F_i$ is in $\M$, and the $F_i$ are disjoint.  So we may assume that no infinite ascending chain exists.  We will show now that an infinite \emph{descending} chain must then exist.
+
+Since there are no infinite ascending chains, any ascending chain in $\M$ must have a maximal element.  We can produce such a maximal element by defining a sequence as follows.  Let $S_1 = \emptyset$.  For each $n$, define $S_n$ to be any element such that $S_{n-1} \subsetneq S_n$, if such a set exists.  Eventually, we will reach some $n$ for which $S_n$ is not properly contained within any proper subset of $X$.  Thus, $S_n$ is a maximal element, so let $A = S_n$.
+
+We can define a $\sigma$-algebra on $A$ by
+$$
+\M_A = \{E \in \M : E \subseteq A \}.
+$$
+We will check that $\M_A$ is indeed a $\sigma$-algebra.  $\M_A$ contains $A$, hence is nonempty.  Any countable union of elements in $\M_A$ is another element of $\M$, since $\M$ is a $\sigma$-algebra, and also must be in $A$ because a union of subsets of $A$ is a subset of $A$.  Finally, the complement of a set $E$ in $A$ is $A \cap E^c$, where $E^c$ is its complement in $X$.  If $E \in \M_A$, then $E \in \M$, so $E^c \in \M$, so $E^c \cap A \in \M$ and $E^c \cap A \subseteq A$.  Thus $E^c \cap A \in \M_A$.
+
+Finally, we will show that $\M_A$ is infinite.  Let $\NN_A = \{E \in \M : E \not \subseteq A\}$.  Define a map $f : \M_A \rightarrow \NN_A$ by $f(E) = E^c$.  The map is well-defined because $A$ is a proper subset of $X$, so there is some $x \in A^c$; if $E \subseteq A$ then $x \in E^c$ but $x \not \in A$, hence $E^c \not \subseteq A$.  Thus $E^c \in \NN_A$ for any $E \in \M_A$.  The map is clearly injective, since $f(E) = f(F) \implies E^c = F^c \implies (E^c)^c = (F^c)^c \implies E = F$.
+
+We will now show that $f$ is surjective as well, which follows from the the fact that no proper subset of $X$ properly contains $A$.  Suppose $E \in \NN_A$, so that $E \not \subseteq A$, but that $E^c \not \in \M_A$.  Then $E^c \not \subseteq A$, hence $A^c \not \subseteq E$.  Clearly, $E \cup A \neq A$, since $E \not \subseteq A$.  But also, $E \cup A \neq X$ because $A^c \not \subseteq E$.  Therefore, $A \subsetneq E \cup A \subsetneq X$, contradicting the maximality of $A$.  So we must have $E^c \in \M_A$, and so $f(E^c) = E$, thus $f$ is a bijection.
+
+Since $\M = \M_A \cup \NN_A$ and $\M$ is infinite, one of $\M_A$ or $\NN_A$ must be infinite.  However, because of this bijection, they both must be infinite.  Also, since $\M_A \subseteq \M$, any infinite ascending chain in $\M_A$ would also be one in $\M$, and thus none can exist.  So $\M_A$ is a $\sigma$-algebra on a proper subset of $X$ satisfying the exact same hypotheses as $\M$.  This means that we can inductively create a decreasing $(\M_i)$ of $\sigma$-algebras, whose universes $(X_i)$ satisfy $X_0 = X$ and $X_i \supsetneq X_{i+1}$ for each $i \in \N$.  Define the sequence $S_i = X_i \setminus X_{i+1}$.  Given any $i < j$, we have $$S_i \cap S_j = (X_i \cap X_{i+1}^c) \cap (X_j \cap X_{j+1}^c) = X_i \cap (X_{i+1}^c \cap X_j) \cap X_{j+1}^c = X_i \cap \emptyset \cap X_{j+1}^c = \emptyset$$
+because $X_j \subseteq X_{i+1}$.  Furthermore, $S_i \neq \emptyset$ for all $i$ because each containment is proper.  So $(S_i)_{i \in \N}$ is an infinite sequence of disjoint sets.
+\end{proof}
+
+\item $\card(\M) \geq \mathfrak{c}$
+
+\begin{proof}
+Let $(S_i)$ be an infinite sequence of disjoint sets in $\M$.  Define a map $f: \M(\{S_i\}) \rightarrow \{0,1\}^\infty$ by $f(E) = (x_i)$ where $x_i = \mathbbm{1}(S_i \subseteq E)$.  An arbitrary sequence $(x_i) \in \{0,1\}^\infty$ is the image of the set $\bigcup_{\{i : x_i = 1 \}} S_i$, hence $f$ is surjective.  Therefore, $\card(\M) \geq \card(\{0,1\}^\infty) = \mathfrak{c}$.
+\end{proof}
+
+\end{enumerate}
+
+\newcommand{\A}{\mathcal{A}}
+\item An algebra $\A$ is a $\sigma$-algebra if and only if $\A$ is closed under countable increasing unions.
+
+\begin{proof}
+The forward direction holds simply by definition of a $\sigma$-algebra, since a countable increasing union is a countable union.  Suppose $\A$ is an algebra closed under countable increasing unions.  Let $(E_i)$ be any countable sequence of sets in $\A$, and for each $i$ define $F_i = E_1 \cup \cdots \cup E_i$.  $\A$ is an algebra, so $F_i \in \A$.  Also, for each $i$ we have $F_i \subseteq F_{i+1}$, so $(F_i)$ is an increasing sequence and thus $\bigcup_{i \in \N} F_i \in \A$.  But clearly, $\bigcup_{i \in \N} E_i = \bigcup_{i \in \N} F_i$, thus $\A$ is closed under countable unions.
+\end{proof}
+
+\let\A\undefined
+
+\renewcommand{\M}{\mathscr{M}}
+\renewcommand{\NN}{\mathscr{N}}
+
+\item Complete the proof of Theorem 1.9, which states the following: Suppose that $(X,\M,\mu)$ is a measure space.  Let $\NN = \{ N \in \M : \mu(N) = 0 \}$ and $\bar{\M} = \{ E \cup F : E \in \M \text{ and } F \subset N \text{ for some } N \in \NN \}$.  Then $\bar{\M}$ is a $\sigma$-algebra, and there is a unique extension $\bar{\mu}$ of $\mu$ to a complete measure on $\bar{\M}$.
+
+\begin{proof}
+It has already been shown that $\bar{\M}$ is a $\sigma$-algebra and that $\bar{\mu}$, defined by $\bar{\mu}(E \cap F) = \mu(E)$ for any $E \in \M$ and $F \in N \subseteq \NN$, is a well-defined extension of $\mu$.  It remains to be shown is that $\bar{\mu}$ is a complete measure on $\bar{\M}$ and that it is the unique extension of $\mu$ to $\bar{\M}$.
+
+To see that $\bar{\mu}$ is complete, let $E \cap F$ be any null-set in $\bar{\M}$, where $E \in \M$ and $F \subseteq N \in \NN$ (all sets of $\bar{\M}$ take this form).  Let $B \subseteq E \cap F$.  Since $\bar{\mu}(E \cup F) = \mu(E) = 0$, $E$ is a nullset of the original measure space $\M$, therefore $E \in \NN$.  In fact, $E \cup N \in \NN$ because a union of nullsets is a nullset.  Thus, letting $E' = \emptyset, N' = E \cup N$ and $F' = B$, we have $B = E' \cup F'$ where $E' \in \M$ and $F' \subseteq N' \in \NN$.  Therefore, $B \in \bar{\M}$.  So $\bar{\M}$ is complete.
+
+Finally, suppose $\nu$ is another extension of $\mu$ to $\bar{\M}$.  Let $E \cup F \in \bar{\M}$.  By subadditivity, we have
+$$
+\nu(E \cup F) \leq \nu(E \cup N) \leq \nu(E) + \nu(N) = \mu(E) + \mu(N) = \mu(E) = \bar{\mu}(E)
+$$
+and
+$$
+\nu(E \cup F) \geq \nu(E) = \mu(E) = \bar{\mu}(E)
+$$
+thus $\nu(E \cup F) = \bar{\mu}(E \cup F)$.  So $\nu = \bar{\mu}$.
+\end{proof}
+
+\renewcommand{\M}{\mathcal{M}}
+\let\NN\undefined
+\newcommand{\sd}{\bigtriangleup}
+
+\item Let $(X,\M, \mu)$ be a finite measure space.
+\begin{enumerate}
+\item If $E,F \in \M$ and $\mu(E \sd F) = 0$ then $\mu(E) = \mu(F)$.
+
+\begin{proof}
+
+Suppose $\mu(E \sd F) = 0$.  We have
+$$
+\mu(E \sd F) = \mu((E \setminus F) \cup (F \setminus E)) = \mu(E \setminus F) + \mu(F \setminus E) = 0
+$$
+therefore $\mu(E \setminus F) + \mu(F \setminus E) = 0$, since both terms are nonnegative.  We also have
+$$
+\mu(E) = \mu((E \setminus F) \cup (E \cap F)) = \mu(E \setminus F) + \mu(E \cap F) = \mu(E \cap F)
+$$
+and
+$$
+\mu(F) = \mu((F \setminus E) \cup (E \cap F)) = \mu(F \setminus E) + \mu(E \cap F) = \mu(E \cap F)
+$$
+therefore $\mu(E) = \mu(F)$.
+\begin{comment}
+\begin{align*}
+0 &= \mu(E \sd F) \\
+&= \mu((E \setminus F) \cup (F \setminus E)) \\
+&= \mu(E \setminus F) + \mu(F \setminus E) \\
+&= |\mu(E \setminus F)| + |\mu(F \setminus E)| \\
+&\geq |\mu (E \setminus F) - \mu(F \setminus E)| \\
+&= |[\mu (E \setminus F) + \mu(E \cap F)] - [\mu(F \setminus E) + \mu(E \cap F)]| \\
+&= |\mu ((E \setminus F) \cup (E \cap F)) - \mu((F \setminus E)\cup (E \cap F))| \\
+&= |\mu(E) - \mu(F)|
+\end{align*}
+therefore $\mu(E) = \mu(F)$.
+\end{comment}
+\end{proof}
+
+\item Say that $E \sim F$ if $\mu(E \sd F) = 0$; then $\sim$ is an equivalence relation on $\M$.
+
+\begin{proof}
+$\sim$ is clearly symmetric, since $\sd$ is commutative.  Also, $E \sd E = (E \setminus E) \cup (E \setminus E) = \emptyset$, so $\mu(E \sd E) = 0$.  Thus $\sim$ is reflexive.
+
+For transitivity, two facts will be useful.  First, $\sd$ is associative, which can be seen in the below truth table:
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline 
+$A$ & $B$ & $C$ & $A\sd B$ & $B \sd C$ & $(A \sd B) \sd C$ & $A \sd (B \sd C)$ \\ 
+\hline 
+$T$ & $T$ & $T$ & $F$ & $F$ & $T$ & $T$ \\ 
+\hline 
+$T$ & $T$ & $F$ & $F$ & $T$ & $F$ & $F$ \\ 
+\hline 
+$T$ & $F$ & $T$ & $T$ & $T$ & $F$ & $F$ \\ 
+\hline 
+$T$ & $F$ & $F$ & $T$ & $F$ & $T$ & $T$ \\ 
+\hline 
+$F$ & $T$ & $T$ & $T$ & $F$ & $F$ & $F$ \\ 
+\hline 
+$F$ & $T$ & $F$ & $T$ & $T$ & $T$ & $T$ \\ 
+\hline 
+$F$ & $F$ & $T$ & $F$ & $T$ & $T$ & $T$ \\ 
+\hline 
+$F$ & $F$ & $F$ & $F$ & $F$ & $F$ & $F$ \\ 
+\hline 
+\end{tabular} 
+\end{center}
+Also, recall that $E \sd E = \emptyset$.  Therefore, $A \sd C = A \sd (B \sd B) \sd C = (A \sd B) \sd (B \sd C)$.  Next, if $\mu(A) = \mu(B) = 0$, then $\mu(A \sd B) = \mu((A \cup B) \setminus (A \cap B)) \leq \mu(A \cup B) \leq \mu(A) + \mu(B) = 0$, so $\mu(A \sd B) = 0$.
+
+Now, suppose $E \sim F$ and $F \sim G$.  Then $\mu(E \sd F) = \mu(F \sd G) = 0$.  Thus, we have $\mu(E \sd G) = \mu((E \sd F) \sd (F \sd G)) = 0$ by the results of the previous paragraph, so $E \sim G$.  Thus, $\sim$ is an equivalence relation.
+\end{proof}
+
+\item For $E,F \in \M$, define $\rho (E,F) = \mu(E \sd F)$.  Then $\rho (E,G) \leq \rho(E,F) + \rho(F,G)$, and hence $\rho$ defines a metric on the space $\M / \sim$ of equivalence classes.
+
+\begin{proof}
+First, note that if $A \sim C$ and $B \sim D$, then $\mu((A \sd B) \sd (C \sd D)) = \mu((A \sd C) \sd (B \sd D)) = 0$ by the work shown in part (b), and also because $\sd$ is clearly commutative.  Thus, by part (a), $\rho(A,B) = \mu(A \sd B) = \mu(C \sd D) = \rho(C,D)$.  So the measure is well-defined.
+
+We have already checked that $\rho(E,E) = \mu(E \sd E) = 0$ for all $E \in \M$.  Also, if $\rho(A,B) = 0$ for any $A, B \in \M$, then $A \sim B$, therefore $\rho$ is positive-definite.  Clearly, $\rho$ is symmetric because $A \sd B = B \sd A$.  The triangle inequality also holds:
+\begin{align*}
+\rho(E,G) &= \mu(E \sd G) \\
+&= \mu((E \sd F) \sd (F \sd G)) \\
+&\leq \mu((E \sd F) \cup (F \sd G)) \\
+&= \mu(E \sd F) + \mu(F \sd G) \\
+&= \rho(E,F) + \rho(F,G)
+\end{align*}
+where the inequality holds because $A \sd B \subseteq A \cup B$ for any sets $A,B \in \M$.  Thus $\rho$ is a metric on $\M / \sim$.
+\end{proof}
+
+\end{enumerate}
+
+\item (Middle thirds Cantor set) Let $I_0 = [0,1]$ be the unit interval, and let $I_1 = [0,\frac{1}{3}] \cup [\frac23 , 1]$ be $I_0$ with the interior of the middle third interval removed.  Proceed iteratively to construct
+$$
+I_n = \bigcup_{a_1, \dots , a_n \in \{0,2\}} \left[ \sum_{i=1}^n a_i 3^{-i} , \sum_{i=1}^n a_i 3^{-i} + 3^{-n} \right].
+$$
+Let $C = \bigcap_{n=0}^\infty I_n$.  Show that $C$ is compact, uncountable, and a null set.
+
+\begin{proof}
+
+For each $n$, $I_n$ is a union of finitely many closed intervals, and hence is closed.  Therefore, $C$ is an intersection of closed intervals, and is thus closed.  Also, each $I_n$ is bounded below by $0$ and above by $1$, so their intersection is bounded.  So $C$ is a closed and bounded subset of $\R$, thus is compact.
+
+\begin{comment}
+
+It is well-known that the Cantor set is defined by the recurrence
+$$I_n = \frac{I_n}{3} \cup \left(\frac23 + \frac{I_n}{3}\right), \hspace{1cm} I_1 = \left[0,\frac13\right] \cup \left[\frac23 , 1\right]$$
+but I will show that the given explicit formula for $I_n$ solves this recurrence (and is thus the unique solution).
+
+\begin{align*}
+\frac{I_n}{3} \cup \left(\frac23 + \frac{I_n}{3}\right) &=
+\bigcup_{(a_i) \in \{0,2\}^n} \left[ \sum_{i=1}^n a_i 3^{-(i+1)} , \sum_{i=1}^n a_i 3^{-(i+1)} + 3^{-(n+1)} \right]
+\cup \\
+& \ \ \ \bigcup_{(a_i) \in \{0,2\}^n} \left[ \frac23 + \sum_{i=1}^n a_i 3^{-(i+1)} , \frac23 + \sum_{i=1}^n a_i 3^{-(i+1)} + 3^{-(n+1)} \right]
+\\
+&= \bigcup_{(a_i) \in \{0\} \times \{0,2\}^n} \left[ \sum_{i=1}^{n+1} a_i 3^{-i} , \sum_{i=1}^{n+1} a_i 3^{-i} + 3^{-(n+1)} \right]
+\cup \\
+& \ \ \ \bigcup_{(a_i) \in \{2\} \times \{0,2\}^n} \left[ \sum_{i=1}^{n+1} a_i 3^{-i} , \sum_{i=1}^{n+1} a_i 3^{-i} + 3^{-(n+1)} \right]
+\\
+&= \bigcup_{(a_i) \in \{0,2\}^{n+1}} \left[ \sum_{i=1}^{n+1} a_i 3^{-i} , \sum_{i=1}^{n+1} a_i 3^{-i} + 3^{-(n+1)} \right]
+\\
+&= I_{n+1}
+\end{align*}
+
+\end{comment}
+Each $I_n$ is a union of $2^n$ disjoint intervals $J_a^n$, each naturally corresponding to an $n$-tuple $a$ from $\{0,2\}$.  Given some $n$-tuple $(a_1, \dots , a_n)$, there are exactly two intervals $J_b^{n+1}$ and $J_c^{n+1}$, with $b,c \in \{0,2\}^{n+1}$, such that $J_b^{n+1}, J_c^{n+1} \subseteq J_a^n$.  For, we have
+$$
+J_b^{n+1} = \left[ \sum_{i=1}^{n+1} b_i 3^{-i} , \sum_{i=1}^{n+1} b_i 3^{-i} + 3^{-(n+1)} \right]
+\subseteq
+\left[ \sum_{i=1}^n a_i 3^{-i} , \sum_{i=1}^n a_i 3^{-i} + 3^{-n} \right] = J_a^n
+$$
+if and only if
+$$
+\sum_{i=1}^n a_i 3^{-i} \leq
+\sum_{i=1}^{n+1} b_i 3^{-i} \leq 
+\sum_{i=1}^{n+1} b_i 3^{-i} + 3^{-(n+1)} \leq \sum_{i=1}^n a_i 3^{-i} + 3^{-n}.
+$$
+These inequalities reduce to
+$$
+3^{-(n+1)} - 3^{-n} + b_{n+1}3^{-(n+1)} \leq \sum_{i=1}^n (a_i - b_i)3^{-i} \leq b_{n+1}3^{-(n+1)}.
+$$
+Note that $\sum_{i=1}^n (a_i - b_i)3^{-i}$ is actually a summation of the form $\sum_{i=1}^n c_i 3^{-i}$ where $c_i \in \{-2,0,2\}$.  We can show inductively that, unless $c_i = 0$ for all $i$, the magnitude of this sum is at least $\frac{2}{3^n}$.  This is clear if $n=1$.  Now, supposing it holds for some $n$, we have
+\begin{align*}
+\left| \sum_{i=1}^{n+1} c_i 3^{-i} \right| &=
+\left| \sum_{i=1}^n c_i 3^{-i} + \frac{c_{n+1}}{3^{n+1}} \right| \geq \frac{2}{3^n} \pm \frac{c_{n+1}}{3^{n+1}} \geq \frac{2}{3^n} + \frac{2}{3^{n+1}} = \frac{2}{3^{n+1}}.
+\end{align*}
+
+Now, returning to the previous system of inequalities, it is now apparent that we must have $a_i = b_i$ for all $i \leq n$.  Otherwise, we will undoubtedly have either $\sum_{i=1}^n (a_i - b_i)3^{-i} \geq \frac{2}{3^n}$, which leads to
+$$
+\frac{2}{3^n} \leq \sum_{i=1}^n (a_i - b_i)3^{-i} \leq b_{n+1}3^{-(n+1)}
+$$
+giving the contradiction $b_{n+1} \geq 6$; or $\sum_{i=1}^n (a_i - b_i)3^{-i} \geq \frac{2}{3^n} \leq - \frac{2}{3^n}$, which leads to
+$$
+3^{-(n+1)} - 3^{-n} + b_{n+1}3^{-(n+1)} \leq \sum_{i=1}^n (a_i - b_i)3^{-i} \leq -\frac{2}{3^n}
+$$
+giving the contradiction $b_{n+1} \leq -4$.  So $a_i = b_i$ for all $i \leq n$.  Therefore, the only two possibilities for $b$ come from the choice of $b_{n+1}$ (it is clear that either choice satisfies the inequalities).
+
+Let $x \in C$.  There is a sequence $\mathbf{a_n}$, where the $n$th element is an $n$-tuple from $\{0,2\}$, such that $x \in J_{\mathbf{a_n}}^n$ for each $n$.  Clearly, this requires $J_{\mathbf{a_1}}^1 \supseteq J_{\mathbf{a_2}}^2 \supseteq J_{\mathbf{a_3}}^3 \supseteq \cdots $.  So, by the previous discussion, the first $n$ components of $\mathbf{a_{n+1}}$ must equal those of $\mathbf{a_n}$, for each $n$.  Therefore, this sequence identifies a sequence $(s_n)$ from $\{0,2\}$, where the $n$th component agrees with the $n$th components of $\mathbf{a_m}$ for all $m \geq n$.
+
+This identification gives a surjection of $C$ onto $\{0,2\}^\infty$, since for any sequence $(s_n) \in \{0,2\}^\infty$, we gain a sequence $J_{1} \supseteq J_{2} \supseteq J_{3} \supseteq \cdots$ of corresponding intervals.  This is a decreasing sequence of closed intervals in a compact metric space.  Therefore, their intersection is nonempty.  Choose any $x$ in this intersection.  Under our identification, $x$ maps onto $(s_n)$.  Therefore, $\card (C) \geq \card(\{0,2\}^\infty) = \mathfrak{c}$.
+
+Finally, we will show that $C$ has measure $0$.  It is clear from our earlier discussion that $I_1 \supseteq I_2 \supseteq I_3 \supseteq \cdots$, thus $C \subseteq I_n$ for all $n$.  $I_n$ is a union of $2^n$ intervals, each having length $3^{-n}$, hence the total length is $(\frac23)^n$.  By choosing a large enough $n$, this expression can be made arbitrarily small, hence $C$ is covered by a union of closed intervals having arbitrarily small total length.
+
+Now, if a set can be covered by countably many closed intervals of arbitrarily small total length, then it can be covered by countably many open intervals of arbitrarily small total length.  For, given some sequence $I_n$ of intervals with total length $\frac{\epsilon}{2}$, we can, for each $n$, take the $n$th interval $I_n = [a,b]$ and replace it with $(a - \frac{\epsilon}{2^{n+1}}, b + \frac{\epsilon}{2^{n+1}})$, so that the total length becomes $\epsilon$.  Therefore, $C$ has measure $0$.
+\end{proof}
+
+\item It is possible to modify the above construction of the Cantor set $C$ in order to produce a set that is compact and uncountable but which is no longer a null set.  Indeed, a set of any measure strictly between $0$ and $1$ may be so produced.  We have yet to define the notion of Lebesgue measure on $[0,1]$; however, we may work with the notion of outer measure arising from the collection of open intervals contained in $[0,1]$ endowed with length.  Can you find a Cantor-like set of outer measure some given value in $[0,1]$ - say $\frac12$ - by modifying the above procedure?
+
+\begin{proof}
+We can make a ``Cantor middle fourths" set $D$ defined as follows.  Let
+$$
+I_1 = \left[ 0 , 1 \right]
+$$
+$$
+ I_2 = \left[0,\frac38 \right] \cup \left[\frac58 , 1\right]
+$$ 
+$$
+ I_3 = \left[0,\frac{5}{32} \right] \cup \left[\frac{7}{32} , \frac38 \right] \cup \left[\frac{5}{8},\frac{25}{32} \right] \cup \left[\frac{27}{32}, 1 \right]
+$$
+
+$$
+ I_4 = \left[0, \frac{39}{512} \right] \cup \left[\frac{41}{512}, \frac{5}{32} \right] \cup \left[\frac{7}{32} , \frac{151}{512}\right] \cup \left[ \frac{153}{512}, \frac38 \right]
+ \cup \left[\frac{5}{8}, \frac{359}{512}\right] \cup \left[ \frac{361}{512}, \frac{25}{32} \right] \cup \left[\frac{27}{32}, \frac{471}{512}\right] \cup \left[\frac{473}{512}, 1 \right]
+$$
+$$
+\vdots
+$$
+This construction, in the $n$th step, removes an interval of length $2^{-2(n-1)}$ from the center of each of the $2^{(n-1)}$ intervals in the $n-1$th union.  Define $D = \bigcap_{n=1}^\infty I_n$.
+
+The difference in length between the $n$th and $n+1$th interval is $2^{n-1} \cdot 2^{-2n} = 2^{-(n+1)}$.  Therefore, the total length removed over the entire intersection is
+$$
+\sum_{n=1}^\infty 2^{-(n+1)} = \frac{1}{2}.
+$$
+The outer measure of $D$, then, is $1 - \frac{1}{2} = \frac12$.  This process can easily be altered by adjusting the amount removed from each interval in each iteration in order to create a set of measure $r$ for any $0 \leq r < 1$.
+
+It is obvious that $D$ is compact, since it is an intersection of closed intervals, and $D$ is bounded between $0$ and $1$.  It is also obvious that $D$ is uncountable, because if it were countable then it would have measure $0$, which we have just shown it does not.
+\end{proof}
+
+\end{enumerate}
+\end{document}
+
+
+
+
+
+
+

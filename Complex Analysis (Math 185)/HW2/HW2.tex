@@ -1,0 +1,617 @@
+% Insert HW number and date into heading!
+
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+%\addtolength{\oddsidemargin}{-.1in} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{lipsum}
+\usepackage[]{units}
+\usepackage{relsize}
+\usepackage{verbatim}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{graphicx}
+\usepackage{xfrac}
+
+\setenumerate{listparindent=\parindent}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}}
+
+\DeclareMathOperator*{\dom}{dom}
+\DeclareMathOperator*{\re}{Re}
+\DeclareMathOperator*{\im}{Im}
+\renewcommand{\bar}{\overline}
+
+\definecolor{mygray}{rgb}{.8,.8,0.8}
+
+\newtheorem*{lem}{Lemma}
+
+%%% Heading %%%
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Math 185 (HW 2)}
+\chead{Michael Knopf (24457981)}
+\rhead{July $9^{\text{th}}$, 2015}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+\renewcommand\headrulewidth{0.4pt}
+
+\begin{document}
+
+%\noindent Note:  I will sometimes identify a function $f$ of complex numbers with the corresponding function $g(x,y) = u(x) + v(y)i$ of $\R^2$, where $g(x,y) = f(z)$ whenever $z = x+yi$.  I will simply refer to $g$ by the name $f$ and identify the domain of $f$ with its natural embedding into $\R^2$, and I will do it without further mention.  I realize that this is an abuse of notation.
+
+\begin{enumerate}
+\setcounter{enumi}{6}
+%%%%%%%%%%%% 7 %%%%%%%%%%%%%%%
+\item Suppose $f: \Omega \rightarrow \C$ is holomorphic, where $\Omega$ is connected.  Prove that if any of $\re(f)$, $\im(f)$, or $|f|$ are constant, then $f$ is constant.
+
+\begin{proof}
+By Corollary I.3.6, since $\Omega$ is connected and $f$ is holomorphic on $\Omega$, $f$ is constant if $f' = 0$.  Recall that a differentiable function $g: U \rightarrow \R^n$ (where $U \subseteq \R^m$ is open) is constant on its domain if its derivative is $0$.  Clearly, any constant function $U \rightarrow \R^n$ is differentiable.  So if any one of $\re(f)$, $\im(f)$, or $|f|$ is constant, then its derivative is the 0 matrix.
+
+First, assume $\re(f)(z) = u(z)$ is constant.  Then its derivative is the 0 matrix, so its partial derivatives $u_x(z)$ and $v_x(z)$ are 0.  By the Cauchy-Riemann equations, we have $v_x(z) = -u_y(z) = 0$.  Also, in the proof of the Cauchy-Riemann equations, we showed that if $f$ is holomorphic then its derivative must satisfy
+$$
+f'(z) = u_x(z) + v_x(z)i
+$$
+which is 0, given our observations.  Therefore, $f$ is constant by the corollary.
+
+The same argument applies if $\im(f)(z) = v(z)$ is constant.  Its partial derivatives $v_x(z)$ and $v_y(z)$ are 0, and the Cauchy-Riemann equations gives $u_y = -v_x = 0$.  Also, we derived that the derivative of $f$ must be
+$$
+f'(z) = v_y(z) - u_y(z)i
+$$
+which is again 0, so $f$ is constant.
+
+Finally, assume $|f(z)| = u^2 + v^2$ is constant.  The partial derivatives of $|f|$ are then $\frac{\partial}{\partial x}|f(z)| = 2uu_x + 2vv_x = 0$ and $\frac{\partial}{\partial y}|f(z)| = 2uu_y + 2vv_y = 0$.  Dividing by $2$ and substituting with the Cauchy-Riemann equations gives the system
+$$
+uu_x - vu_y = 0
+$$
+$$
+uu_y + vu_x = 0
+$$
+Multiplying the first equation by $u$ and the second by $v$ and summing them gives
+$$
+u^2u_x - uvu_y + uvu_y + v^2u_x = (u^2 + v^2)u_x = |f(z)|^2u_x = 0.
+$$
+If $|f(z_0)| ^2= 0$ for some $z_0 \in \Omega$, then the function must be 0 there, since, for any $z \in \C$, $|z|^2 = 0$ if and only if $z = 0$.  Since $|f|$ is constant, then, $f = 0$ and hence $f$ is constant.  So we may assume that $|f| \neq 0$, which then implies, by the above equation, that $u_x = 0$.
+
+Substituting $u_x = 0$ into the system we derived, we find that $vu_y = 0$ and $uu_y = 0$.  Multiplying the first equation by $v$ and the second by $u$ then summing gives
+$$
+v^2u_y + u^2u_y = |f(z)|^2 u_y = 0.
+$$
+We have assumed $|f(z)|^2 \neq 0$, which gives that $u_y=0$.
+
+By applying the Cauchy-Riemann equations again, we now have $u_x = u_y = v_x = v_y = 0$.  So, by the formula for the derivative we stated earlier, $f'=0$.  Again, by the corollary, $f$ is constant.
+\end{proof}
+
+%%%%%%%%%%%% 8 %%%%%%%%%%%%%%%
+\item Say that a function $f:\Omega \rightarrow \C$ is \emph{$\bar{z}$-differentiable} at $z_0 \in \Omega$ if the limit
+$$
+\frac{\partial}{\partial \bar{z}} f(z_0) = \lim_{z \rightarrow 0} \frac{f(z_0 + z) - f(z_0)}{\bar{z}}
+$$
+exists.  Show that, if the limit exists, it must equal
+$
+\frac12 [(u_x - v_y) + i(v_x + u_y)]
+$
+Explain why, if $f$ is holomorphic, we must have
+$
+\frac12 [(u_x - v_y) + i(v_x + u_y)] = 0.
+$
+Thus, in a reasonable sense, holomorphic functions are truly functions of one variable $z$ and are independent of $\bar{z}$.
+
+\begin{proof}
+\begin{align*}
+\frac{\partial}{\partial \bar{z}} f(z_0)
+&= \lim_{z \rightarrow 0} \frac{f(z_0 + z) - f(z_0)}{\bar{z}}
+\\
+&= \lim_{x \rightarrow 0} \frac{f(x_0 + x, y_0) - f(x_0,y_0)}{\bar{x}}
+\\
+&= \lim_{x \rightarrow 0} \frac{u(x_0 + x, y_0) + v(x_0 + x, y_0)i - u(x_0,y_0) - v(x_0,y_0)i}{x}
+\\
+&= \lim_{x \rightarrow 0} \frac{[u(x_0 + x, y_0) - u(x_0,y_0)] + [v(x_0 + x, y_0) - v(x_0,y_0)]i}{x}
+\\
+&= \lim_{x \rightarrow 0} \frac{u(x_0 + x, y_0) - u(x_0,y_0)}{x} + i\lim_{x \rightarrow 0} \frac{v(x_0 + x, y_0) - v(x_0,y_0)}{x}
+\\
+&= u_x(z_0) + v_x(z_0)i
+\\
+\\
+\frac{\partial}{\partial \bar{z}} f(z_0)
+&= \lim_{z \rightarrow 0} \frac{f(z_0 + z) - f(z_0)}{\bar{z}}
+\\
+&= \lim_{y \rightarrow 0} \frac{f(x_0, y_0 + y) - f(x_0,y_0)}{\bar{yi}}
+\\
+&= \lim_{y \rightarrow 0} \frac{u(x_0, y_0 + y) + v(x_0, y_0 + y)i - u(x_0,y_0) - v(x_0,y_0)i}{-yi}
+\\
+&= -\lim_{y \rightarrow 0} \frac{v(x_0,y_0 + y) - v(x_0,y_0)}{y} + i\lim_{y \rightarrow 0} \frac{u(x_0,y_0 + y) - u(x_0,y_0)}{y}
+\\
+&= -v_y(z_0) + u_y(z_0) i
+\end{align*}
+\noindent Therefore,
+\begin{align*}
+\frac{\partial}{\partial \bar{z}} f(z_0)
+&=
+\frac12 \frac{\partial}{\partial \bar{z}} f(z_0) + \frac12 \frac{\partial}{\partial \bar{z}} f(z_0)
+\\
+&= \frac12 [u_x(z_0) + v_x(z_0)i] + \frac12 [-v_y(z_0) + u_y(z_0) i]
+\\
+&= \frac12 [(u_x(z_0) - v_y(z_0)) + (v_x(z_0) + u_y(z_0))i].
+\end{align*}
+Applying the Cauchy-Riemann equations reduces this equation to
+$$
+\frac{\partial}{\partial \bar{z}} f(z_0)
+=
+\frac12 [(u_x(z_0) - v_y(z_0)) + (v_x(z_0) + u_y(z_0))i]
+=
+\frac12 [(u_x(z_0) - u_x(z_0)) + (v_x(z_0) - v_x(z_0))i]
+= 0.
+$$
+\end{proof}
+
+
+%%%%%%%%%%%% 9 %%%%%%%%%%%%%%%
+\item Find the radii of convergence of the following power series:
+\\
+%Note: By Theorem ?, $R = \lim_{n \rightarrow \infty} |\frac{a_n}{a_{n+1}}|$, provided this limit exists.
+\begin{enumerate}
+\item $\sum_{n=0}^\infty n! z^n$ \hspace{1cm} $R = 0$
+\begin{proof}
+Let $r > 0$.  There exists some $N \in \N$ such that $N > \frac{2}{r}$, which gives $N (\frac{r}{2}) > 1$.  So for $z = \frac{r}{2}$ and $n > N$, the summand satisfies
+\begin{align*}
+n! \left( \frac{r}{2} \right)^n
+&=
+N! \left( \frac{r}{2} \right)^N \frac{n!}{N!} \left( \frac{r}{2} \right)^{n-N}
+\\
+&>
+N! \left( \frac{r}{2} \right)^N N^{n-N} \left( \frac{r}{2} \right)^{n-N}
+\\
+&=
+N! \left( \frac{r}{2} \right)^N \left( N \frac{r}{2} \right)^{n-N}
+\\
+&>
+N! \left( \frac{r}{2} \right)^N 1^{n-N}
+\\
+&=
+N! \left( \frac{r}{2} \right)^N > 0.
+\end{align*}
+Therefore, for the choice $z = \frac{r}{2}$, which is in the disc of radius $r$, the series diverges, since its summand does not converge to $0$.  So for every $r > 0$, we know $R \neq r$.  Thus $R = 0$.
+\end{proof}
+
+\item $\sum_{n=1}^\infty \dfrac{z^n}{n^3}$ \hspace{1cm} $R = 1$
+\begin{proof}
+$\dfrac1R = \lim\limits_{n \rightarrow \infty} \left| \dfrac{(n+1)^3}{n^3} \right| = \lim\limits_{n \rightarrow \infty} \dfrac{n^3 + 3n^2 + 3n + 1}{n^3} = 1$ thus $R = 1$.
+\end{proof}
+
+\item $\sum_{n=1}^\infty z^{n!}$ \hspace{1cm} $R = 1$
+
+\begin{proof}
+Note that $\sum_{n=1}^\infty z^{n!} = \sum_{n=1}^\infty a_n z^{n}$ where $a_n = 1$ if $n = k!$ for some $k>0$ and $a_n = 0$ otherwise.  This allows us to apply Hadamard's formula.  Since $a_n = 1$ for infinitely many $n$, we know that $\frac{1}{R} = \limsup\limits_{n \rightarrow \infty} |a_n|^{1/n} = 1$, thus $R = 1$.
+\end{proof}
+
+\item $\sum_{n=1}^\infty n! z^{n!}$ \hspace{1cm} $R = 0$
+\begin{proof}
+Using the same method as in (d), express the series as $\sum_{n=1}^\infty z^{n!} = \sum_{n=1}^\infty na_n z^{n}$, where $a_n$ is defined as before.  For every $M \in \R$, there exists some $N$ such that $k! > M$ for all $k > N$.  Therefore, $\limsup\limits_{n \rightarrow \infty} |n a_n|^{1/n} = \infty$, so $R = 0$.
+\end{proof}
+
+\item $\sum_{n=1}^\infty n^n z^{n^2}$ \hspace{1cm} $R = 0$
+\begin{proof}
+Using the same method, define $a_n = 1$ if $n$ is a perfect square and $a_n = 0$ otherwise.  Thus, $\sum_{n=1}^\infty n^n z^{n^2} = \sum_{n=1}^\infty \sqrt{n}^{\sqrt{n}}a_n z^n$.  Again, $\sqrt{n}^{\sqrt{n}}$ is unbounded and $a_n = 1$ for infinitely many $n$.  Thus $\limsup\limits_{n \rightarrow \infty} |\sqrt{n}^{\sqrt{n}}a_n|^{1/n} = \infty$, so $R = 0$.
+\end{proof}
+\item $\sum_{n=0}^\infty q^{n^2} z^n$, where $q \in \C$ is such that $|q|<1$. \hspace{1cm} $R = \infty$
+\begin{proof}
+This is a straightforward application of Hadamard's formula and the fact that the modulus function is multiplicative:
+$$
+\limsup\limits_{n \rightarrow \infty} |q^{n^2}|^{1/n}
+=
+\limsup\limits_{n \rightarrow \infty} |q|^n = 0
+$$
+so $R = \infty$.
+\end{proof}
+\end{enumerate}
+
+%%%%%%%%%%%% 10 %%%%%%%%%%%%%%%
+\item Let $(a_n)_{n=1}^\infty$ and $(b_n)_{n=1}^\infty$ be sequences of complex numbers.  For all $n \in \N$, define $B_n = \sum_{k=1}^n b_k$ and define $B_0 = 0$.  Prove that, for any integers $N > M \geq 1$,
+$$
+\sum_{n=M}^N a_n b_n = a_N B_N - a_M B_{M-1} - \sum_{n=M}^{N-1} (a_{n+1} - a_n)B_n.
+$$
+\begin{proof}
+This actually holds for $N = M \geq 1$ as well, so I will prove this stronger statement by induction because the base case is simpler.
+
+Fix $M > 0$, and define $f(n)$ to be the right-hand side of the given equation.  First, let $N = M$.  Then $\sum_{n=M}^N a_n b_n  = a_M b_M$ and 
+\begin{align*}
+f(N) &= a_M B_M - a_M B_{M-1} - \sum_{n=M}^{M-1} (a_{n+1} - a_n)B_n
+\\
+&= a_M b_M - a_M \cdot 0 - 0
+\\
+&= \sum_{n=M}^N a_n b_n
+\end{align*}
+since the third term and $B_{M-1}$ are both the empty sum.
+
+Now, assume the proposition holds for some $N \geq M$.  Since $\sum_{n=M}^{N+1} a_n b_n = \sum_{n=M}^N a_n b_n + a_{N+1}b_{N+1}$, we need to show that $f(N+1) = f(N) + a_{N+1}b_{N+1}$.
+\begin{align*}
+f(N+1) &= a_{N+1} B_{N+1} - a_M B_{M-1} - \sum_{n=M}^N (a_{n+1} - a_n)B_n
+\\
+&= a_{N+1} (B_{N} + b_{N+1}) - a_M B_{M-1} - \sum_{n=M}^{N-1} (a_{n+1} - a_n)B_n - (a_{N+1} - a_N)B_N
+\\
+&= a_{N+1}b_{N+1} - a_M B_{M-1} - \sum_{n=M}^{N-1} (a_{n+1} - a_n)B_n + a_NB_N
+\\
+&= f(N) + a_{N+1}b_{N+1}
+\end{align*}
+as desired.
+\end{proof}
+
+%%%%%%%%%%%% 11 %%%%%%%%%%%%%%%
+\item The following power series all have radius of convergence equal to 1.  Prove that
+\begin{enumerate}
+\item $\sum_{n=1}^\infty n z^n$ converges at no point on $|z|=1$.
+We begin a lemma:
+\begin{lem}
+Let $M$ be a nonnegative integer, and define $s_N = \sum_{n=M}^N a_n$ for some sequence $a_n$ of complex numbers.  If $s_N$ converges to a complex number (not to infinity), then $\lim\limits_{n \rightarrow \infty} a_n = \lim\limits_{n \rightarrow \infty} |a_n| = 0$.
+\end{lem}
+\begin{proof}
+Suppose $s_N$ converges to $s \in \C$.  Then $$\lim\limits_{n \rightarrow \infty} a_n = \lim\limits_{n \rightarrow \infty} (s_{n+1} - s_n) = \lim\limits_{n \rightarrow \infty} s_{n+1} - \lim\limits_{n \rightarrow \infty} s_n = s - s = 0.$$
+Since the modulus function is continuous, we know that $$\lim\limits_{n \rightarrow \infty} |a_n| = |\lim\limits_{n \rightarrow \infty} a_n | = 0$$
+as well.
+\end{proof}
+\begin{proof}
+This series diverges by the lemma, since $$\lim\limits_{n \rightarrow \infty} |nz^n| = \lim\limits_{n \rightarrow \infty} |n||1| = \lim\limits_{n \rightarrow \infty} n = \infty.$$
+\end{proof}
+
+\item $\sum_{n=1}^\infty \dfrac{z^n}{n^2}$ converges at every point on $|z|=1$.
+\begin{proof}
+We know from real analysis that the series converges when $z = 1$.  Therefore, it is Cauchy.  So for every $\epsilon > 0$ there exists an $N$ such that $m \geq n > N$ implies
+$$
+\left| \sum_{k=m}^n \dfrac{z^k}{k^2} \right|
+\leq
+\sum_{k=m}^n \left| \dfrac{z^k}{k^2} \right|
+= \sum_{k=m}^n \dfrac{1}{k^2}
+= \left| \sum_{k=m}^n \dfrac{1}{k^2} \right|
+< \epsilon
+$$
+So, $\sum_{n=1}^\infty \dfrac{z^n}{n^2}$ is Cauchy as well, and thus convergent because $\C$ is complete.
+\end{proof}
+
+\item $\sum_{n=1}^\infty \dfrac{z^n}{n}$ converges at every point on $|z| = 1$ except $z=1$.
+\begin{lem}
+If $a_n$ is a decreasing sequence of non-negative real numbers converging to $0$ and $b_n$ is a sequence of complex numbers such that, for some $C \in \R$, $$\left| \sum\limits_{n=1}^N b_n \right| \leq C$$ for every $N \in \N$, then $\sum\limits_{n=1}^\infty a_n b_n$ converges.
+\end{lem}
+\begin{proof}
+Define $B_n$ as $B_n = \sum_{k=1}^Nb_k$ for $n \geq 1$ and $B_0 = 0$.  We can now apply Exercise 10 with $M = 1$ to obtain
+$$
+\sum_{n=1}^N a_n b_n = a_N B_N - a_1 B_0 - \sum_{n=1}^{N-1} (a_{n+1} - a_n)B_n
+=
+a_N B_N - \sum_{n=1}^{N-1} (a_{n+1} - a_n)B_n.
+$$
+We will now show that the right-hand side converges as $N \rightarrow \infty$.
+
+Since $\lim\limits_{N \rightarrow \infty} a_N = 0$, we know that $\lim\limits_{N \rightarrow \infty} C a_N = 0$.  But $0 \leq |a_N B_N| \leq C a_N$, thus $a_N B_N$ is absolutely convergent by the squeeze theorem, and thus convergent.  Now, $|a_{n+1} - a_n| = a_n - a_{n+1}$ because $a_n$ is a decreasing sequence.  So $$|B_n(a_n - a_{n+1})| = |B_n|(a_n - a_{n+1}) \leq C(a_n - a_{n+1})$$ for all $n$.  Note that $$\sum_{n=1}^{N-1} C(a_n - a_{n+1}) = C(a_1- a_N)$$ by telescoping, and $$\lim\limits_{N \rightarrow \infty} (a_1 - a_N) = \lim\limits_{N \rightarrow \infty} a_1 - \lim\limits_{N \rightarrow \infty} a_N = a_1 - 0 = a_1.$$
+Therefore, $\lim\limits_{N \rightarrow \infty} \sum\limits_{n=1}^{N-1} C(a_n - a_{n+1}) = \lim\limits_{N \rightarrow \infty} C(a_1 - a_N) = Ca_1$.  Since
+$$
+0 \leq
+\sum_{n=1}^{N-1} |(a_{n+1} - a_n)B_n| \leq
+\sum_{n=1}^{N-1} C(a_n - a_{n+1})
+$$
+we know that $\sum\limits_{n=1}^{N-1} (a_{n+1} - a_n)B_n$ converges absolutely (and thus converges) by comparison.  Consequentially, $\sum\limits_{n=1}^N a_n b_n$ converges.
+\end{proof}
+\begin{proof}[Main proof]
+Let $a_n = \frac1n$ and $b_n = z^n$.  Clearly, $a_n$ is a non-negative decreasing sequence of real numbers.  By the lemma, it suffices to show find some $C \in \R$ such that, for all $N \in \N$, $\left| \sum\limits_{n=1}^N z^n \right| \leq C$.  However, this is a geometric series, so
+$$
+\left| \sum\limits_{n=1}^N z^n \right|
+= \left| \frac{1 - z^{N+1}}{1-z} - 1 \right|
+= \frac{|z^{N+1} + z|}{|1-z|}
+= \frac{|z|^N|z+1|}{|1-z|}
+= \frac{|z+1|}{|1-z|}
+\leq \frac{|1| + |z|}{|1-z|} = \frac{2}{|1-z|}
+$$
+shows that $C = \dfrac{2}{|1-z|}$ suffices.
+\end{proof}
+\end{enumerate}
+
+%%%%%%%%%%%% 12 %%%%%%%%%%%%%%%
+\item Define $f: \R \rightarrow \R$ by
+$$
+f(x) =
+\begin{cases}
+e^{-\frac{1}{x}} & x>0 \\
+0 & x \leq 0
+\end{cases}.
+$$
+Prove that $f$ is infinitely differentiable.  What is the Taylor series of $f$ centered at 0?  Does it equal $f$?
+
+\begin{proof}
+We will show by induction on $n$ that there exists a sequence $p_n$ of polynomials such that, for all $x > 0$, $\frac{d^n}{dx^n}e^{-\frac{1}{x}} = p_n(\frac{1}{x})e^{-\frac{1}{x}}$.  For $n = 0$, the polynomial $p_0(x) = 1$ suffices.  Now, suppose the proposition holds for some $n$.  Then, for $x > 0$,
+\begin{align*}
+\frac{d^{n+1}}{dx^{n+1}}e^{-\frac{1}{x}}
+&= \frac{d}{dx}[p_n(1/x)e^{-\frac{1}{x}}]
+\\
+&=  x^{-2} p_n(1/x)e^{-\frac{1}{x}} - x^{-2}p_n'(1/x)e^{-\frac{1}{x}}
+\\
+&= x^{-2} [p_n(1/x) - p_n'(1/x)] e^{-\frac{1}{x}}
+\end{align*}
+Letting $y = \frac{1}{x}$, we see that
+$$
+x^{-2} [p_n(1/x) - p_n'(1/x)] = y^2 [p_n(y) - p_n'(y)].
+$$
+The derivative of a polynomial is a polynomial, and sums and products of polynomials are polynomials.  Thus this expression is a polynomial in $y$, or equivalently a polynomial $p_{n+1}(1/x)$ in $1/x$.   Thus, the proposition is true by induction.
+
+So $e^{-\frac{1}{x}}$ is infinitely differentiable, and its $n$th derivative of the form $p(\frac{1}{x})e^{-\frac{1}{x}}$ for some polynomial $p$.  The $n$th derivative of $0$ is $0$, so all that remains to show is that the limit as $x \rightarrow 0$ of any function of this form is 0, since this will prove that the function is infinitely differentiable at $x=0$ as well.
+
+\begin{lem}
+Suppose $g: (0,\infty) \rightarrow (0,\infty)$ and $h: (0,\infty) \rightarrow \R$ and
+$$
+\lim\limits_{x \rightarrow 0} g(x) = \infty, \hspace{.5cm} \lim\limits_{x \rightarrow \infty} h(x) = 0
+$$
+then
+$$
+\lim\limits_{x \rightarrow 0} h(g(x)) = 0.
+$$
+\end{lem}
+\begin{proof}
+Let $\epsilon > 0$.  Since $\lim\limits_{x \rightarrow \infty} h(x) = 0$, there exists some $M$ such that, whenever $g(x) > M$, we have $h(g(x)) < \epsilon$.  Since $\lim\limits_{x \rightarrow 0} g(x) = \infty$, there exists some $\delta > 0$ such that whenever $0 < |x| < \delta$, we have $g(x) > M$.  Therefore, whenever $0 < |x| < \delta$, we have $h(g(x)) < \epsilon$.
+\end{proof}
+Letting $g(x) = \frac{1}{x}$ and $h(x) = p(x)e^{-x}$ for $x \in (0, \infty)$, we see that $\lim\limits_{x \rightarrow 0} g(x) = \infty$ and $\lim\limits_{x \rightarrow \infty} h(x) = 0$.  Therefore, by the lemma, $\lim\limits_{x \rightarrow 0} p(1/x)e^{-\frac{1}{x}} = \lim\limits_{x \rightarrow 0} h(g(x)) = 0$.
+
+The Taylor series for $f(x)$ centered at $0$ is the $0$ function, since $f^{(n)}(0) = 0$ for all nonnegative integers $n$.  Although this Taylor series has an infinite radius of convergence, it does not equal $f$.
+\end{proof}
+
+%%%%%%%%%%%% 13 %%%%%%%%%%%%%%%
+\item Let $a,b,c \in \C$ and consider the equation $az^2 + bz + c = 0$.  Complete the square to show that the quadratic formula still holds.
+
+\begin{proof}
+Assume $a \neq 0$.
+\begin{align*}
+& az^2 + bz + c = 0
+\\ \implies
+& z^2 + \frac{b}{a}z = -\frac{c}{a}
+\\ \implies
+& z^2 + \frac{b}{a}z + \frac{b^2}{4a^2} = \frac{b^2}{4a^2} - \frac{c}{a}
+\\ \implies
+& \left( z+\frac{b}{2a} \right)^2 = \frac{b^2}{4a^2} - \frac{c}{a}
+\\ \implies
+& \left( z+\frac{b}{2a} \right)^2 = \frac{b^2 - 4ac}{4a^2}
+\end{align*}
+
+From the discussion on $n$th roots of complex numbers, we know that any nonzero complex number $w = r e^{i \phi}$ has exactly two square roots: $\sqrt{r} e^{i \phi / 2}$ and $\sqrt{r} e^{i(\phi / 2 + \pi)} = -\sqrt{r} e^{i\phi / 2}$.  The former root we call the \emph{principal square root}, and define the image of $w$ under the square root function $\sqrt{\phantom{z}}: \C \rightarrow \C$ to be the principal square root of $w$.  This means that the square roots of $w$ are $\sqrt{w}$ and $-\sqrt{w}$.  Therefore, the final equation in the above algebraic argument is equivalent to
+$$
+z+\frac{b}{2a} = \sqrt{\frac{b^2 - 4ac}{4a^2}} \text{\hspace{1cm} or \hspace{1cm}} z+\frac{b}{2a} = -\sqrt{\frac{b^2 - 4ac}{4a^2}}.
+$$
+
+The square root function is still multiplicative, since
+$$
+\sqrt{(re^{i\theta})(se^{i\phi})} = \sqrt{rs e^{i(\theta + \phi)}} = \sqrt{rs}e^{i(\theta + \phi) / 2} = (\sqrt{r}e^{i\frac{\theta}{2}})( \sqrt{s} e^{i \phi / 2}) = \sqrt{re^{i\theta}} \sqrt{s e^{i\phi}}.
+$$
+So the above equations reduce to
+$$
+z+\frac{b}{2a} = \frac{\sqrt{b^2 - 4ac}}{2a} \text{\hspace{1cm} or \hspace{1cm}} z+\frac{b}{2a} = -\frac{\sqrt{b^2 - 4ac}}{2a}
+$$
+since two of the four equations that result from all the possible combinations of positive and negative numerators and denominators would be redundant.  The statement above is precisely the definition of $z+\dfrac{b}{2a} = \pm \dfrac{\sqrt{b^2 - 4ac}}{2a}$, which gives us
+$$
+z = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}.
+$$
+\end{proof}
+
+%%%%%%%%%%%% 14 %%%%%%%%%%%%%%%
+\item Let $n \in \N, m \in \Z$.  Define $\omega = e^{\frac{2\pi i}{n}}$.  Compute $\sum\limits_{k=0}^{n-1} \omega^{mk}$ and $\sum\limits_{k=0}^{n-1} (-1)^k \omega^{mk}$.
+
+$$
+\sum\limits_{k=0}^{n-1} \omega^{mk} =
+\begin{cases}
+n & \text{if } n \mid m \\
+0 & \text{if } n \nmid m
+\end{cases}
+$$
+$$
+\sum\limits_{k=0}^{n-1} (-1)^k \omega^{mk} =
+\begin{cases}
+n & \text{if } \frac{m}{n} \in \Z + \frac12 \\
+0 & \text{if } \frac{m}{n} \not \in \Z + \frac12 \text{ and }2 \mid n \\
+\dfrac{2}{1 + \omega^m} & \text{if } \frac{m}{n} \not \in \Z + \frac12 \text{ and } 2 \nmid n
+\end{cases}
+$$
+where $\Z + \frac12 = \{n + \frac12 : n \in \Z \}$.
+
+\begin{proof}
+
+The formula for a finite geometric series can be applied to both of these sums, but only if the ratio is not 1.  For the first sum, this means $\omega^m \neq 1$; for the second, $-\omega^m \neq 1$.  It is clear that $\omega^m = 1$ if and only if $n$ divides $m$.  For the second situation, observe that $-\omega^m = 1$ if and only if
+$$
+\omega^m = e^{2\pi\frac{m}{n}i} = -1 = e^{\pi i}
+$$
+which is equivalent to $\frac{2\pi m}{n} = \pi + 2\pi k$ for some integer $k$.  This equation can be rewritten as
+$$
+\frac{m}{n} = \frac{2k+1}{2} = k + \frac12.
+$$
+In this case, where the ratio equals 1, the first sum is $n$.  In the second case, the sum is 0 if $n$ is even and $1$ if $n$ is odd.  However, the condition we have derived requires that $n$ be even, thus the second sum is always $0$ in this case.
+
+Next, we may assume the ratio is not $1$ and apply the formula for a finite geometric series:
+$$
+\sum\limits_{k=0}^{n-1} \omega^{mk} = \frac{1 - \omega^{mn}}{1 - \omega^m}
+=
+\frac{1 - 1^m}{1 - \omega^m}
+= 0.
+$$
+$$
+\sum\limits_{k=0}^{n-1} (-1)^k \omega^{mk}
+=
+\sum\limits_{k=0}^{n-1} (-\omega^m)^k
+=
+\frac{1 - (-\omega^m)^n}{1 -(- \omega^m)}
+=
+\dfrac{1 - (-\omega^m)^n}{1 + \omega^m}
+=
+\begin{cases}
+\dfrac{1 - \omega^{mn}}{1 + \omega^m} & \text{if } 2 \mid n
+\vspace{.2cm} \\
+\dfrac{1 + \omega^{mn}}{1 + \omega^m} & \text{if } 2 \nmid n
+\end{cases}
+$$
+$$
+=
+\begin{cases}
+0 & \text{if } 2 \mid n
+\vspace{.2cm} \\
+\dfrac{2}{1 + \omega^m} & \text{if } 2 \nmid n
+\end{cases}.
+$$
+\begin{comment}
+If $n$ divides $m$, then $\omega^m = e^{\frac{2m\pi i}{n}} = e^{2 t \pi i}$ for some integer $t$.  Thus, $\omega^m = 1$, and we have that $\sum\limits_{k=0}^{n-1} \omega^{mk} = \sum\limits_{k=0}^{n-1} 1^k = n$, and $\sum\limits_{k=0}^{n-1} (-1)^k \omega^{mk} = \sum\limits_{k=0}^{n-1} (-1)^k$ equals 1 if $n$ is odd and $0$ if $n$ is even.
+
+Next, assume $n$ does not divide $m$.  In this case, $\omega^m \neq 1$, so we may apply the formula for a finite geometric series to obtain
+$$
+\sum\limits_{k=0}^{n-1} \omega^{mk} = \frac{1 - \omega^{mn}}{1 - \omega^m}
+=
+\frac{1 - 1^m}{1 - \omega^m}
+= 0.
+$$
+Applying the formula to the second summation gives
+$$
+\sum\limits_{k=0}^{n-1} (-1)^k \omega^{mk}
+=
+\sum\limits_{k=0}^{n-1} (-\omega^m)^k
+=
+\frac{1 - (-\omega^m)^n}{1 -(- \omega^m)}
+=
+\dfrac{1 - (-\omega^m)^n}{1 + \omega^m}
+=
+\begin{cases}
+\dfrac{1 - \omega^{mn}}{1 + \omega^m} & \text{if } 2 \mid n
+\vspace{.2cm} \\
+\dfrac{1 + \omega^{mn}}{1 + \omega^m} & \text{if } 2 \nmid n
+\end{cases}
+$$
+$$
+=
+\begin{cases}
+0 & \text{if } 2 \mid n
+\vspace{.2cm} \\
+\dfrac{2}{1 + \omega^m} & \text{if } 2 \nmid n
+\end{cases}
+$$
+\end{comment}
+\end{proof}
+%%%%%%%%%%%% 15 %%%%%%%%%%%%%%%
+\item Prove that, for any $\theta$ that is not an integer multiple of $2\pi$ and for any $n \in \N$,
+$$
+\sum_{k=0}^n \cos k\theta = \frac12 + \frac{\sin((n+\frac12)\theta)}{2\sin \frac{\theta}{2}}.
+$$
+\begin{proof}
+\begin{align*}
+\sum_{k=0}^n \cos k\theta
+&= \sum_{k=0}^n \re [e^{i k\theta}]
+\\
+&= \re \left[ \sum_{k=0}^n e^{i k\theta} \right]
+\\
+&= \re \left[ \frac{e^{i (n+1) \theta} - 1}{e^{i\theta} - 1} \right]
+\\
+&= \re \left[\frac{e^{-i\frac{\theta}{2}}}{e^{-i\frac{\theta}{2}}} \cdot \frac{e^{i (n+1) \theta} - 1}{e^{i\theta} - 1} \right]
+\\
+&= \re \left[ \frac{e^{i (n+\frac12) \theta} - e^{-i\frac{\theta}{2}}}{e^{i\frac{\theta}{2}} - e^{-i\frac{\theta}{2}}} \right]
+\\
+&= \re \left[ \frac{e^{i (n+\frac12) \theta} - e^{-i\frac{\theta}{2}}}{2i \im [e^{i\frac{\theta}{2}}]} \right]
+\\
+&= \re \left[\frac{-i}{-i} \cdot \frac{e^{i (n+\frac12) \theta} - e^{-i\frac{\theta}{2}}}{2i \sin (\frac{\theta}{2})} \right]
+\\
+&= \frac{\re [ -i (\cos((n+\frac12) \theta) + i \sin ((n+\frac12) \theta) - ( \cos ( -\frac{\theta}{2}) + i \sin (-\frac{\theta}{2}))) ]}{2\sin (\frac{\theta}{2})}
+\\
+&= \frac{ \sin(\frac{\theta}{2}) + \sin ( (n + \frac12)\theta )}{2\sin (\frac{\theta}{2})}
+\\
+&= \frac12 + \frac{ \sin ( (n + \frac12)\theta )}{2\sin (\frac{\theta}{2})}
+\end{align*}
+\end{proof}
+
+%%%%%%%%%%%% 16 %%%%%%%%%%%%%%%
+\item Prove that if $f$ is an entire function such that $f' = f$, then for some $c \in \C$, $f(z) = c e^z$.
+\begin{proof}
+Observe that
+$$
+\frac{d}{dz}f(z)e^{-z} = f'(z)e^{-z} - f(z)e^{-z} = f'(z)e^{-z} - f'(z)e^{-z} = 0
+$$
+therefore $f(z)e^{-z}$ is constant.  So $f(z)e^{-z} = c$ for some $c \in \C$, thus $f(z)=ce^{z}$.
+\end{proof}
+\end{enumerate}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%\begin{comment}
+%\begin{lem}
+%Let $U,V \subseteq \R$ be open, and let $f:U \rightarrow \R$ and $g: V \rightarrow \R$ be infinitely differentiable functions.
+%\begin{enumerate}
+%\item A real linear combination of real-valued infinitely differentiable functions, defined on open subsets of $\R$, is infinitely differentiable on the intersection of their domains.
+%%Its derivative is also a linear combination of real-valued infinitely differentiable functions defined on the intersection of the domains of the original functions.
+%\begin{proof}
+%We will induct on the number $n$ of terms in the combination.  This is trivial for $n=0$ because the zero function is infinitely differentiable.  Now, assume this holds for $n$ functions. Let $c_1, \dots , c_{n+1} \in \R$, and let $f_1, \dots , f_{n+1}$ be real-valued functions defined open subsets $U_1, \dots, U_{n+1}$ of $\R$, respectively.  By the linearity of the differentiation operator, $(c_1f_1 + \cdots + c_nf_n + c_{n+1}f_{n+1})' = (c_1f_1 + \cdots + c_nf_n)' + c_{n+1}(f_{n+1})'$. By the inductive hypothesis, this function is infinitely differentiable.  %A linear combination of linear combinations is a linear combination, thus $(c_1f_1 + \cdots + c_nf_n + c_{n+1}f_{n+1})'$ is a linear combination of real-valued infinitely differentiable functions defined on the intersection of the domains of the original functions.
+%\end{proof}
+%\begin{comment}
+%\item $f + g: U \cap V \rightarrow \R$ is infinitely differentiable.
+%\begin{proof}
+%We will show by induction that $(f+g)^{(n)}(x)$ exists for all $x \in U \cap V$, and equals $f^{(n)}(x) + g^{(n)}(x)$.  This is trivial when $n=0$.  Since the differentiation operator is linear, $\frac{d}{dx}[f^{(n)}(x) + g^{(n)}(x)] = f^{(n+1)}(x) + g^{(n+1)}(x)$, thus the statement holds by induction.
+%\end{proof}
+%\end{comment}
+%\item $f \cdot g: U \cap V \rightarrow \R$ is infinitely differentiable.
+%\begin{proof}
+%We will show by induction that $(f\cdot g)^{(n)(x)}$ exists for all $x \in U \cap V$, and is given by
+%$$
+%(f\cdot g)^{(n)}(x) = \sum_{k=0}^n \binom{n}{k} f^k(x)g^{(n-k)}(x).
+%$$
+%This is trivial for $n=0$.  Now, if the proposition holds for some $n$, then
+%\begin{align}
+%(f\cdot g)^{(n+1)}(x) &= \frac{d}{dx}\sum_{k=0}^n \binom{n}{k} f^{(k)}(x)g^{(n-k)}(x)
+%\\
+%&= \sum_{k=0}^n \binom{n}{k} [ f^{(k+1)}(x)g^{(n-k)}(x) + f^{(k)}(x)g^{(n+1-k)}(x)]
+%\\
+%&= \sum_{k=0}^n \binom{n}{k} f^{(k+1)}(x)g^{(n-k)}(x) + \sum_{k=0}^n \binom{n}{k}  f^{(k)}(x)g^{(n+1-k)}(x)
+%\\
+%&= \sum_{k=1}^n \binom{n}{k-1} f^{(k)}(x)g^{(n+1-k)}(x) + \sum_{k=1}^n \binom{n}{k}  f^{(k)}(x)g^{(n+1-k)}(x) + \binom{n}{0}  f(x)g^{n+1}(x)
+%\\
+%&= \sum_{k=1}^n \left(\binom{n}{k-1} + \binom{n}{k} \right) f^{(k)}(x)g^{(n+1-k)}(x) + \binom{n+1}{0}  f(x)g^{n+1}(x)
+%\\
+%&= \sum_{k=1}^n \binom{n+1}{k} f^{(k)}(x)g^{(n+1-k)}(x) + \binom{n+1}{0}  f(x)g^{n+1}(x)
+%\\
+%&= \sum_{k=0}^n \binom{n+1}{k} f^{(k)}(x)g^{(n+1-k)}(x)
+%\end{align}
+%where on line (5) we have applied the fact that $\binom{n}{0} = 1 = \binom{n+1}{0}$ and on line (6) we have applied Pascal's rule.  So the proposition holds by induction.
+%\end{proof}
+%\item An arbitrary product of real-valued infinitely differentiable functions, defined on open subsets of $\R$, is infinitely differentiable on the intersection of their domains.
+%\begin{proof}
+%We will induct on the number $n$ of factors in the product.  This is trivial for $n = 0$ because the function $1$ is infinitely differentiable.  Assume the proposition holds for some $n$, and let $f_1, \dots , f_{n+1}$ be real-valued functions defined open subsets $U_1, \dots, U_{n+1}$ of $\R$, respectively.  Then
+%$$
+%(f_1 \cdots f_n \cdot f_{n+1})'
+%= ((f_1 \cdots f_n) \cdot f_{n+1})'
+%=(f_1 \cdots f_n)'\cdot f_{n+1} + (f_1 \cdots f_n) \cdot f_{n+1}'
+%$$
+%by the product rule and the inductive hypothesis.  Both terms in this sum are infinitely differentiable by part (b) and the inductive hypothesis, and their sum is infinitely differentiable by part (a).
+%\end{proof}
+%\item $f \circ g$ is infinitely differentiable if $g(V) \subseteq U$.
+%\begin{proof}
+%We will show by induction that $(f \circ g)^{(n)}(x)$ exists for all $x \in V$, and is a real linear combination of elements of the subgroup of the group of functions from $U$ to $\R$ (under pointwise multiplication) generated by $\{f^{(k)}(g(x)) : k \in \Z, k \geq 0\} \cup \{g^{(k)}(x) : k \in \Z, k \geq 0\}$.  This is true by assumption for $n = 0$.
+%
+%Assume the proposition holds for some $n$.  For convenience, let $F = \{f^{(k)}(g(x)) : k \in \Z, k \geq 0\}$ and $G = \{g^{(k)}(x) : k \in \Z, k \geq 0\}$.  Since $f^{(k)}$ is differentiable for all nonnegative integers $k$, and $g$ is differentiable, every element of $F$ is differentiable by the chain rule.  Also, $g^{(k)}$ is differentiable for all nonnegative integers $k$, so every element of $G$ is differentiable.  Thus, part (c), the vectors being linearly combined in $(f \circ g)^{(n)}$ are all infinitely differentiable.  By part (d), $(f \circ g)^{(n)}$ is infinitely differentiable.
+%\end{proof}
+%\item If $f(x) \neq 0$ for all $x \in U$, then $\dfrac{1}{f(x)}$ is infinitely differentiable.
+%\end{enumerate}
+%\end{lem}
+%\end{comment}
+
+
+
+

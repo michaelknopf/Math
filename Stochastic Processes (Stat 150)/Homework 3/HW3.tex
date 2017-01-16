@@ -1,0 +1,69 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=.75in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{units}
+\usepackage{bm}
+\usepackage{enumitem}
+\setenumerate{listparindent=\parindent}
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\p}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+
+\theoremstyle{definition}
+\newtheorem*{prob1}{Q 1}
+\newtheorem*{prob2}{Q 2}
+\newtheorem*{prob3}{Q 3}
+\newtheorem*{prob4}{Q 4}
+\newtheorem*{prob5}{Q 5}
+\newtheorem*{prob6}{Q 6}
+
+ 
+\begin{document}
+
+\title{Homework 3 \\ Stat 150}
+\author{Michael Knopf \\ 24457981}
+\maketitle
+
+\begin{prob1}
+On a game show there are two contestants. A contestant answers a series of questions until they make a mistake and then it becomes the other contestants turn. Contestant one answers questions correctly 70\% of the time while contestant two answers correctly 80\% of the time. Over the long run what proportion of questions are asked of contestant 1?
+\end{prob1}
+
+\begin{proof}
+
+Let $X_n = 1$ if contestant 1 is asked question $n$, and 2 if contestant 2 is asked question $n$.  The transition matrix for $X_n$ is
+$$P = \left( \begin{matrix}
+.7 & .3 \\
+.2 & .8
+\end{matrix}
+\right)$$.
+
+Solve for the stationary distribution.  Let $\pi = (x, y)$.  Then $\pi P = \pi$ implies
+$$
+
+$$
+
+\end{proof}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,154 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+%\addtolength{\oddsidemargin}{-.1in} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{lipsum}
+\usepackage[]{units}
+\usepackage{relsize}
+\usepackage{verbatim}
+\usepackage{bbm}
+\usepackage{mathtools}
+\usepackage{eufrak}
+\usepackage[mathscr]{euscript}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{graphicx}
+\usepackage{xfrac}
+
+\setenumerate{listparindent=\parindent}
+
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Int}{{\displaystyle \int}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\U}{\mathcal{U}}
+\renewcommand{\L}{\mathcal{L}}
+
+\newcommand{\sd}{\Delta}
+
+\DeclareMathOperator*{\dom}{dom}
+\DeclareMathOperator*{\Aut}{Aut}
+\DeclareMathOperator*{\Ann}{Ann}
+\DeclareMathOperator*{\Tor}{Tor}
+\DeclareMathOperator*{\Gal}{Gal}
+\DeclareMathOperator*{\Hom}{Hom}
+\DeclareMathOperator*{\End}{End}
+\DeclareMathOperator*{\im}{Im}
+\DeclareMathOperator*{\card}{card}
+
+\renewcommand{\bar}{\overline}
+\renewcommand{\P}{\mathcal{P}}
+
+\usepackage{fancyhdr} % Required for custom headers 
+%\usepackage{lastpage} % Required to determine the last page for the footer
+
+\pagestyle{fancy}
+\lhead{Math 202A (HW 6)}
+\chead{Michael Knopf (24457981)}
+\rhead{October $22^\text{nd}$, 2015}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+%\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}
+\renewcommand\headrulewidth{0.4pt}
+%\renewcommand\footrulewidth{0.4pt}
+
+\begin{document}
+
+\begin{enumerate}
+\item[6.2.] Suppose $f$ is non-negative and measurable and $\mu$ is $\sigma$-finite.  Show there exist simple functions $s_n$ increasing to $f$ at each point such that $\mu(\{x : s_n(x) \neq 0\}) < \infty$ for each $n$.
+
+\begin{proof}
+
+Let $X = \bigcup_1^\infty X_i$ where $\mu(X_i) < \infty$ for each $i$, and $X_i \cap X_j = \emptyset$ for $i \neq j$.  Define $f_i = f \cdot \mathbbm{1}(X_i)$.  Then $f_i$ is non-negative and measurable, so for each $i$ there is a sequence $\{s_i^n\}_{n=0}^\infty$ of simple functions increasing to $f_i$.  Since $f_i = 0$ on $X_i^c$ and this sequence is increasing, we must have $s_i^n = 0$ on $X_i^c$.
+
+Define a sequence $t_n$ of functions by $t_n = \sum\limits_{i=1}^n s_i^n$.  Each $t_n$ is a sum of simple functions, hence simple.  For $x \in X_i$ we have $t_n(x) = 0$ if $i > n$ and $t_n = s_i^n(x)$ if $i \leq n$.  So $t_n(x) \rightarrow f(x)$ for all $x$.  Also, for all $n$ we have 
+$$
+\mu(\{x : t_n(x) \neq 0\}) \leq \mu\left(\bigcup_1^n X_i \right) \leq \sum_1^n \mu(X_i) < \infty.
+$$
+
+\end{proof}
+
+\item[6.3.] Let $f$ be a non-negative measurable function.  Prove that
+$$
+\lim_{n\rightarrow \infty} \int(f \wedge n) \rightarrow \int f.
+$$
+\begin{comment}
+\begin{proof}
+Let $s_n$ be an increasing sequence of simple functions converging to $f$, and let $x \in X$, $\epsilon > 0$.  There is some $N > 0$ such that $n > N$ implies $|s_n(x) - f(x)| < \epsilon$.  Let $N' = N \vee f(x)$, and suppose $n > N'$.  We have $s_n(x) \leq f(x) < n$, so $f(x) \wedge n = f(x)$ and $s_n(x) \wedge n = s_n(x)$.  Thus, $|(s_n(x) \wedge n) - (f(x) \wedge n)| = |s_n(x) -f(x)| < \epsilon$.  So $s_n \wedge n \rightarrow f \wedge n$.
+
+Now, for each $n$, one of the following chains of inequalities must hold:
+$$
+n \leq s_n(x) \leq f(x), \hspace{1cm} s_n(x) \leq n \leq f(x), \hspace{1cm} s_n(x) \leq f(x) \leq n
+$$
+\end{proof}
+\end{comment}
+
+\begin{proof}
+This is a straightforward application of the monotone convergence theorem.  Let $f_n = f \wedge n$.  Let $x \in X$.  Then one of $f(x) \leq n$, or $n+1 \leq f(x)$, or $n < f(x) < n+1$ holds.  In the first case, $f(x) \wedge n = f(x) = f(x) \wedge (n+1)$.  In the second, $f(x) \wedge n = n \leq n+1 = f(x) \wedge (n+1)$.  In the last, $f(x) \wedge n = n \leq f(x) = f(x) \wedge (n+1)$.  Therefore, $f_n \leq f_{n+1}$.  
+
+Let $N = f(x)$.  Whenever $n > N$, we have $|(f(x) \wedge n) - f(x)| = |f(x) - f(x)| = 0 < \epsilon$ for a given $\epsilon$.  Thus $\lim_{n \rightarrow \infty} f \wedge n = f$.  Clearly, the minimum of two non-negative functions ($f$ and the constant function $n$) is non-negative.  Thus $f_n$ satisfies the hypotheses of the monotone convergence theorem, of which the conclusion is the desired result.
+\end{proof}
+
+\item[6.4.] Let $(X, \A, \mu)$ be a measure space and suppose $\mu$ is $\sigma$-finite.  Suppose $f$ is integrable.  Prove that given $\epsilon$ there exists $\delta$ such that
+$$
+\int_A |f(x)| \mu(dx) < \epsilon
+$$
+whenever $\mu(A) < \delta$.
+
+\begin{proof}
+Since $f$ is integrable, $f$ is measurable.  Therefore, so is $|f|$.  So, by the previous exercise, there exists an $n$ such that $\left|\Int |f| - \Int (|f| \wedge n) \right| < \dfrac{\epsilon}{2}$.  However, $|f| \wedge
+ n \leq |f|$, so we may drop the outside absolute values.  We can also apply linearity to obtain
+$$
+\Int |f| - (|f| \wedge n) < \dfrac{\epsilon}{2}.
+$$
+For any measurable function $g$ and measurable set $A$, we have $g \cdot \mathbbm{1}(A) \leq g$, so $\Int_A g \leq \Int g$.  This yields
+$$
+\Int_A |f| - (|f| \wedge n) \leq \Int |f| - (|f| \wedge n) < \dfrac{\epsilon}{2}.
+$$
+
+Let $\delta = \frac{\epsilon}{2n}$, and assume $\mu(A) < \delta$.  Since $n$ is measurable and $|f| \wedge n \leq n$, we have
+$$
+\Int_A |f| \wedge n \leq \Int_A n = n\mu(A) \leq \frac{\epsilon}{2}.
+$$
+Note that we have applied here the fact that $\Int_A n = n\mu(A)$, which we acquire from Proposition 6.3 (1) by taking $a = b = n$.
+
+Combining these inequalities, we find
+\begin{align*}
+\Int_A |f| = \Int_A |f| - (|f| \wedge n) + (|f| \wedge n) = \Int_A |f| - (|f| \wedge n) + \Int_A |f| \wedge n < \epsilon.
+\end{align*}
+The fact that $\mu$ is $\sigma$-finite seems irrelevant.
+\end{proof}
+
+\item[6.5.] Suppose $\mu(X) < \infty$ and $f_n$ is a sequence of bounded real-valued measurable functions that converge to $f$ uniformly.  Prove that
+$$
+\int f_n d\mu \rightarrow \int f d\mu.
+$$
+This is called the \emph{bounded convergence theorem}.
+
+\begin{proof}
+
+Given $\epsilon > 0$, let $\epsilon ' = \frac{\epsilon}{\mu(X)}$.  Since each $f_n$ is bounded by some $M_n$, $\Int f_n \leq M_n \mu(X)$.  So $\Int f_n$ is finite.  Since $f_n \rightarrow f$ uniformly, there is some $N$ such that $|f(x) - f_n(x)| < \epsilon'$ for all $x$ whenever $n > N$.  So $f$ is bounded as well, since $|f| = |f-f_{n+1}| + |f_{n+1}| \leq \epsilon' + M_{n+1}$.  Thus $\Int f$ is also finite (by the same reasoning).  So
+$$
+\left| \Int f - \Int f_n \right| = \left| \Int f - f_n \right| \leq \Int |f - f_n| \leq \Int \epsilon' = \frac{\epsilon}{\mu(X)} \mu(X) = \epsilon
+$$
+whenever $n > N$.  Therefore, $\Int f_n \rightarrow \Int f$.
+\end{proof}
+
+\end{enumerate}
+\end{document}
+
+
+
+
+
+
+

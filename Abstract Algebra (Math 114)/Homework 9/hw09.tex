@@ -1,0 +1,342 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+%\addtolength{\oddsidemargin}{-.1in} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{lipsum}
+\usepackage[]{units}
+\usepackage{relsize}
+\usepackage{verbatim}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{graphicx}
+\usepackage{xfrac}
+
+\setenumerate{listparindent=\parindent}
+
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\DeclareMathOperator*{\dom}{dom}
+\DeclareMathOperator*{\Aut}{Aut}
+\DeclareMathOperator*{\Ann}{Ann}
+\DeclareMathOperator*{\Tor}{Tor}
+\DeclareMathOperator*{\Gal}{Gal}
+\DeclareMathOperator*{\Hom}{Hom}
+\DeclareMathOperator*{\End}{End}
+
+\usepackage{fancyhdr} % Required for custom headers 
+%\usepackage{lastpage} % Required to determine the last page for the footer
+
+\pagestyle{fancy}
+\lhead{Math 114 (HW7)}
+\chead{Michael Knopf (24457981)}
+\rhead{April $16^\text{th}$, 2015}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+%\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}
+\renewcommand\headrulewidth{0.4pt}
+%\renewcommand\footrulewidth{0.4pt}
+
+
+\begin{document}
+
+\begin{center}
+\large Math 114 Homework 9
+
+\normalsize (due Thursday, 16 April)
+\end{center}
+
+\begin{enumerate}
+
+\item Let $R$ be a ring with identity, $I$ a nonempty index set (possibly infinite), $(M_\alpha)_{\alpha \in I}$ a list of $R$-modules indexed by $I$.  Prove that the direct product $\prod_{\alpha \in I} M_\alpha$ (together with, for each $\beta \in I$, the projection map $p_\beta: \prod_{\alpha \in I} M_\alpha \rightarrow M_\beta$ given by $(m_\alpha) \mapsto m_\beta$) has the following universal property: 
+
+Let $N$ be any $R$-module, and for each $\beta \in I$ let $f_\beta: N \rightarrow M_\beta$ be an $R$-module homomorphism.  Then there is a unique $R$-module homomorphism $f: N \rightarrow \prod_{\alpha \in I} M_\alpha$ such that $p_\beta \circ f = f_\beta$ for every $\beta \in I$.
+
+(Try doing this without looking at the corresponding proof for direct sums, which we did in class.  The definition of the direct product is given in Exercise 20 in \S 10.3.)
+
+\begin{proof}
+Define $f: N \rightarrow \prod_{\alpha \in I} M_\alpha$ by
+$$
+n \mapsto \prod_{\beta \in I} f_{\beta}(n)
+$$
+for all $n \in N$.
+
+First, we will show that $f$ is a homomorphism.  For any $a,b \in N$ and $r \in R$, we have
+$$
+f(a+rb) = \prod_{\beta \in I} f_{\beta}(a + rb) = \prod_{\beta \in I} f_{\beta}(a) + r\prod_{\beta \in I}f_{\beta}(b) = f(a) + rf(b)
+$$
+where the middle equality is given by the fact that the addition in and action of $R$ on the direct product is componentwise.
+
+Now, for any $n \in N$, we have
+$$
+p_{\beta} \circ f (n) = p_{\beta} \left( \prod_{\beta \in I} f_{\beta}(n) \right) = f_{\beta}(n)
+$$
+so $p_{\beta} \circ f = f_{\beta}$.
+
+Now, suppose $g$ is any map $ N \rightarrow \prod_{\alpha \in I} M_\alpha$ such that $g \neq f$.  So $g$ differs from $f$ at some point $n \in N$, i.e. $g(n) \neq f(n)$.  Let $(a_{\alpha})$ be the function such that $g(n) = \prod_{\alpha \in I} a_{\alpha}$.  Since $f$ and $g$ differ at $n$, there must be some $\beta \in I$ such that $a_{\beta} \neq f_{\beta}(n)$ (by our definition of $f$).  But then
+$$
+p_{\beta} \circ g (n) = p_{\beta} \left( \prod_{\alpha \in I} a_{\alpha} \right) = a_{\beta} \neq f_{\beta}(n)
+$$
+thus $p_{\beta} \circ g \neq f_{\beta}$.  So our choice of $f$ is the unique map with this property.
+\end{proof}
+
+\item (Exercise 5 in DF \S 10.3.)  Let $R$ be an integral domain (a commutative ring with $1$ in which $1 \neq 0$ and there are no zero-divisors).  An $R$-module $M$ is \emph{torsion} if for each $m \in M$ there is a nonzero element $r \in R$ such that $rm=0$.  Prove that if $M$ is any finitely generated torsion $R$-module, then there is a nonzero element $r \in R$ such that $rm=0$ for every $m \in M$ (i.e., the annihilator of $M$ in $R$ (defined in Exercise 9 of \S 10.1) is nonzero).
+
+Give an example of an integral domain $R$ and a torsion $R$-module $M$ (necessarily not finitely generated) whose annihilator in $R$ is the zero ideal.  (Hint: see Exercise 20 in \S 10.3.)
+
+\begin{proof}
+Let $\{a_1 , \dots , a_n \}$ be a generating set for $M$ over $R$.  Then there exist nonzero $r_1, \dots, r_n \in R$ such that $r_i a_i = 0$ for each $i$.  Any element of $M$ is of the form $s_1a_1 + \cdots + s_na_n$ for some $s_1, \dots, s_n \in R$, so for any element of $M$ we have
+\begin{align*}
+r_1 \cdots r_n (s_1 a_1 + \cdots + s_n a_n)
+&= (s_1r_2 \cdots r_n) (r_1 a_1) + \cdots + (s_n r_1 \cdots r_{n-1}) (r_na_n)
+\\
+&= (s_1r_2 \cdots r_n) (0) + \cdots + (s_n r_1 \cdots r_{n-1}) (0)
+\\
+&= 0
+\end{align*}
+because $R$ is commutative.  However, $r_1 \cdots r_n \neq 0$ because $R$ contains no zero divisors, and each $r_i$ is nonzero.  Therefore, since $r_1 \cdots r_n \in \Ann_R (M)$, we know that $\Ann_R (M) \neq 0$.
+
+For the example, let $R = \Z$ and let $M = \Z / 1 \Z \oplus \Z / 2 \Z \oplus \Z / 3 \Z \oplus \cdots$ (over $\Z$).  Any $x \in M$ is of the form $r_1 x_1 + \cdots r_n x_n$ for some $r_1, \dots, r_n \in \Z$ and $x_1 \in \Z / k_1 \Z, \dots , x_n \in \Z / k_n \Z$ for some positive integers $k_1, \dots , k_n$.  Letting $l$ be the least common multiple of $k_1, \dots , k_n$, we see that
+$$
+rx = r_1 \left(\frac{l}{k_1} \right) \left(k_1x_1 \right) + \cdots + r_n \left(\frac{l}{k_n} \right) \left(k_n x_n \right)
+= r_1 \left(\frac{l}{k_1} \right) (0) + \cdots + r_n \left(\frac{l}{k_n} \right) (0) = 0.
+$$
+So $M$ is a torsion $R$-module.  However, given any $r \in R$, we may consider its action on the identity element $1_{r+1}$ of $\Z / (r+1)\Z$, which we know is contained in $M$.  This action $r \cdot 1_{r+1}$ is the element $r$ in $\Z / (r+1)\Z$, which is nonzero.  Therefore, the annihilator of $M$ in $\Z$ is the zero ideal.
+\end{proof}
+
+\item (Exercise 9 in DF \S 10.3.  WILL NOT BE GRADED.) Let $R$ be a ring with $1$.  An $R$-module $M$ is called \emph{irreducible} if $M \neq \{0\}$ and the only submodules of $M$ are $\{0\}$ and $M$.  Show that $M$ is irreducible if and only if $M \neq \{0\}$ and $M = Rm$ (that is, $M$ is generated by the element $m$) for any nonzero $m \in M$.
+
+Determine all the irreducible $\mathbf{Z}$-modules.
+
+\begin{proof}
+Suppose $M$ is an irreducible $\Z$-module.  First, assume $M$ contains an element $x$ of finite order $n > 1$ in the underlying group.  Then $x$ generates a cyclic subgroup $H$ of order $n$, so we must have $H = G$.  However, if $n$ is not prime, then some prime $p$ is a proper divisor of $n$; thus, by Cauchy's Theorem, $H$ contains a proper subgroup of order $p$, a contradiction.  So $G$ has prime order, thus is isomorphic to $\Z / p\Z$ for some prime $p$.
+
+Next, assume every non-identity element of $M$ has infinite order.  Given any $x \in M$, $2x$ will generate a proper subgroup of $M$ (since it cannot generate the element $x$).  This contradicts the irreducibility of $M$, so the only option is the previous case.
+
+Therefore, $M \cong \Z / p\Z$ for some prime $p$.  So these are all the irreducible $\Z$-modules.
+\end{proof}
+
+\item (Exercise 11 in DF \S 10.3.) Let $R$ be a ring with $1$.  Show that if $M_1$ and $M_2$ are irreducible $R$-modules, then any nonzero $R$-module homomorphism from $M_1$ to $M_2$ is an isomorphism.  Deduce that if $M$ is an irreducible $R$-module, then $\End_R(M)$ (defined on p. 347 of DF) is a division ring.  (This result is called \emph{Schur's lemma}.)
+
+\begin{proof}
+Let $\varphi: M_1 \rightarrow M_2$ be a nonzero $R$-module homomorphism of the irreducbile $R$-modules $M_1$ and $M_2$.  Since $\varphi$ is nonzero, $\ker \varphi \neq M_1$.  By the First Isomorphism Theorem, $\ker (\varphi)$ is a submodule of $M_1$, thus it must be $\{0\}$ since $M_1$ is irreducible.  Since $\varphi$ is a group homomorphism as well (module homomorphisms respect the structure of the underlying group), $\varphi$ is injective.
+
+The First Isomorphism Theorem also tells us that the image of $\varphi$ is a submodule of $M_2$.  If it were $\{0\}$, then $\varphi$ would be the zero map.  Thus the image must be all of $M_2$, since $M_2$ is irreducible.  So $\varphi$ is surjective, and thus an isomorphism.
+
+If $M$ is an irreducible $R$-module, and $\varphi \in \End_R(M)$, then $\varphi: M \rightarrow M$ is an $R$-module homomorphism from an irreducible module to an irreducible module, thus by this exercise it is an isomorphism.  Therefore, it has a unique inverse isomorphism $\varphi^{-1} \in \End(M)$ as well.  So $\End(M)$ is a division ring.
+\end{proof}
+
+\item (Exercise 23 in DF \S 10.3.) Let $R$ be a ring with $1$.  Show that any direct sum of free $R$-modules is free.
+
+\begin{proof}
+Let $I$ be an index set.  For each $\alpha \in I$, let $M_\alpha$ be an $R$-module.  Let $M$ be the direct sum $\oplus_{\alpha \in I} M_\alpha$.  Let $A$ be the disjoint union $\bigsqcup_{\alpha \in I} A_\alpha$, meaning we may consider it to be the union of the sets $\overline{A_\alpha} = \{(a,\alpha) : a \in A_\alpha \}$.  (From this point on, we will assume that the $A_\alpha$ are disjoint.)
+
+For each $\alpha \in I$, let $\iota_\alpha: M_\alpha \rightarrow M$ be the natural inclusion of $M_\alpha$ into $M$.  Now, define a map $\iota:A \rightarrow M$ by $\iota(a) = \iota_\alpha(a)$ if $a \in A_\alpha$ and $\iota(a) = 0$ otherwise.  Clearly, $\iota$ restricts to $\iota_\alpha$ on $A_\alpha$.  By the universal property of free modules, there is a unique homomorphism $\Phi :F(A) \rightarrow M$ that restricts to $\iota$ on $A$, and thus also to $\iota_\alpha$ on $A_\alpha$.
+
+\begin{comment}
+Let $\iota_\alpha: A_\alpha \rightarrow M$ be the natural inclusion of $A_\alpha$ into $M$, meaning that $\iota_\alpha (a) = \prod_{\beta \in I} m_\beta$ where $m_\beta = a$ if $\beta = \alpha$ and $m_\beta = 0$ otherwise.  Let $\varphi: A \rightarrow M$ be the natural inclusion of $A$ into $M$, meaning that $\varphi(a) = \iota_\alpha(a)$ if $a \in A_\alpha$ and $\varphi(a) = 0$ otherwise.  Let $\iota: A \rightarrow F(A)$ be the natural inclusion of $A$ into the free $R$-module on $A$.  By the universal property of free modules, there is a unique homomorphism $\Phi : F(A) \rightarrow M$ that restricts to $\varphi$ on $A$.  We will show that $\Phi$ is an isomorphism.
+\end{comment}
+
+We will now show that $\Phi$ is injective.  Assume there is some nonzero $x \in \ker(\Phi)$.  Since $A$ is a basis for $F(A)$, and $A$ is the disjoint union of the $A_\alpha$, $x$ has a unique representation of the form
+$$
+x = r_{1,1}a_{1,1} + \cdots + r_{1,k_1}a_{1,k_1} + \cdots + r_{n,1}a_{n,1} + \cdots + r_{n,k_n}a_{n,k_n}
+$$
+where $r_{i,j} \in R$ is nonzero for all $i,j$, and $a_{i,j} \in A_{\alpha_i}$ for some $\alpha_i \in I$ such that $\alpha_s \neq \alpha_t$ whenever $s \neq t$.  So
+
+\begin{align*}
+\Phi(x) &= \Phi(r_{1,1}a_{1,1} + \cdots + r_{1,k_1}a_{1,k_1} + \cdots + r_{n,1}a_{n,1} + \cdots + r_{n,k_n}a_{n,k_n})
+\\
+&=
+r_{1,1}\iota(a_{1,1}) + \cdots + r_{1,k_1}\iota(a_{1,k_1}) + \cdots + r_{n,1}\iota(a_{n,1}) + \cdots + r_{n,k_n}\iota(a_{n,k_n})
+\\
+&=
+r_{1,1}\iota_{\alpha_1}(a_{1,1}) + \cdots + r_{1,k_1}\iota_{\alpha_1}(a_{1,k_1}) + \cdots + r_{n,1}\iota_{\alpha_n}(a_{n,1}) + \cdots + r_{n,k_n}\iota_{\alpha_n}(a_{n,k_n})
+\\
+&=
+\iota_{\alpha_1}(r_{1,1}a_{1,1} + \cdots + r_{1,k_1}a_{1,k_1}) + \cdots + \iota_{\alpha_n}(r_{n,1}a_{n,1} + \cdots + r_{n,k_n}a_{n,k_n})
+\\
+&= \prod_{\alpha \in I} m_\alpha
+\\
+&= 0_M.
+\end{align*}
+where $m_\alpha = r_{i,1}a_{i,1} + \cdots + r_{i,k_1}a_{i,k_i}$ if $\alpha = \alpha_i$ for some $i \in \{1, \dots , n \}$, and $m_\alpha = 0$ otherwise.
+
+Since addition in a direct sum is componentwise, we must have $m_\alpha = 0_{M_\alpha}$ for all $\alpha$.  This means that $m_{\alpha_i} = r_{i,1}a_{i,1} + \cdots + r_{i,k_1}a_{i,k_i} = 0_{M_{\alpha_i}}$ for all $i$.  However, $A_{\alpha_i}$ forms a basis for $M_{\alpha_i}$, thus $0_{M_{\alpha_i}}$ cannot take this form with nonzero $r_{i,j}$.  Therefore, $x \neq 0_{F(A)}$, a contradiction.  So $\ker(\Phi) = \{0\}$, thus $\Phi$ is injective.
+(Note:  Just to make sure I do not take this for granted, if $B$ is a basis for an $R$-module $N$ and we have some nonzero $r_1,\dots , r_n \in R$ such that $r_1a_1 + \cdots + r_na_n = 0$ for some distinct $a_1, \dots , a_n \in A$, then $r_1a_1 + \cdots + r_{n-1}a_{n-1} = (-r_n)a_n$ gives two separate representations of $-r_na_n$ as an $R$-linear combination of basis elements, a contradiction.  This is obvious, but we have not explicitly proven it up to this point).
+
+Next, we will show that $\Phi$ is surjective.  Let $x \in M$, so that $x = \prod_{\alpha \in I}m_\alpha$ where $m_\alpha \in M_\alpha$ for each $\alpha$ and $m_\alpha \neq 0$ for finitely many $\alpha \in I$.  Each nonzero $m_\alpha$ is of the form $m_\alpha = r_{1,\alpha}a_{1,\alpha} + \cdots + r_{n,\alpha}a_{n,\alpha}$ where $r_{1,\alpha}, \dots , r_{n,\alpha} \in R$ and $a_{1,\alpha}, \dots , a_{n,\alpha} \in A_\alpha$.  Let
+$$
+y = \sum_{\{\alpha: m_\alpha \neq 0\}} r_{1,\alpha}a_{1,\alpha} + \cdots + r_{n,\alpha}a_{n,\alpha} \in F(A).
+$$
+Then
+\begin{align*}
+\Phi(y) &= \Phi \left( \sum_{\{\alpha: m_\alpha \neq 0\}} r_{1,\alpha}a_{1,\alpha} + \cdots + r_{n,\alpha}a_{n,\alpha} \right)
+\\
+&= \sum_{\{\alpha: m_\alpha \neq 0\}} r_{1,\alpha} \Phi(a_{1,\alpha}) + \cdots + r_{n,\alpha} \Phi(a_{n,\alpha})
+\\
+&= \sum_{\{\alpha: m_\alpha \neq 0\}} r_{1,\alpha} \iota_\alpha(a_{1,\alpha}) + \cdots + r_{n,\alpha} \iota_\alpha(a_{n,\alpha})
+\\
+&= \sum_{\{\alpha: m_\alpha \neq 0\}} \iota_\alpha(r_{1,\alpha} a_{1,\alpha} + \cdots + r_{n,\alpha} a_{n,\alpha})
+\\
+&= \sum_{\{\alpha: m_\alpha \neq 0\}} \iota_\alpha(m_\alpha)
+\\
+&= \prod_{\alpha \in I} m_\alpha
+\\
+&= x
+\end{align*}
+therefore, $\Phi$ is surjective and thus an isomorphism.
+
+We have now shown that $F(A) \cong M$.  All that remains to show is that, for any $R$-modules $M$ and $N$ such that $M \cong N$, if $M$ is free, then $N$ is free.  Let $M$ and $N$ be congruent $R$-modules such that $M$ is free on a set $A$.  Let $\varphi: M \rightarrow N$ be an isomorphism, and let $y \in N$ be nonzero.  There is a unique nonzero element $x \in M$ such that $\varphi(x) = y$.  Since $M$ is free on $A$, there are unique nonzero $r_1, \dots, r_n \in R$ and unique $a_1, \dots , a_n \in A$ such that $x = r_1a_1 + \cdots + r_na_n$.  Thus $y = \varphi(x) = \varphi(r_1a_1 + \cdots + r_na_n) = r_1\varphi(a_1) + \cdots + r_n\varphi(a_n)$.  Since $\varphi$ is injective, $\varphi(a_1),\dots , \varphi(a_n)$ are distinct.  Thus $y$ has a representation as an $R$-linear combination of distinct elements of the set $\varphi(A)$ with nonzero coefficients.
+
+Now, assume that $y = s_1\varphi(b_1) + \cdots + s_n\varphi(b_n)$ for nonzero $s_1, \dots , s_n \in R$ and distinct $\varphi(b_1), \dots , \varphi(b_n) \in \varphi(A)$ (where $b_1, \dots , b_n \in A$).  Note that, since $\varphi$ is injective, $b_1, \dots , b_n$ must also be distinct.  We have
+\begin{align*}
+x &= r_1\varphi(a_1) + \cdots + r_n\varphi(a_n)
+\\
+&= s_1\varphi(b_1) + \cdots + s_n\varphi(b_n)
+\\
+&= \varphi(s_1b_1 + \cdots + s_nb_n)
+\\
+&= s_1b_1 + \cdots + s_nb_n.
+\end{align*}
+Since $A$ forms a basis for $M$ over $R$, the coefficients $s_1, \dots, s_n$ are nonzero, and $b_1, \dots , b_n$ are distinct, we must have $a_i = b_i$ and $r_i = s_i$ for every $i \in \{1, \dots , n \}$, up to reordering the indices.  Therefore, the representation of $x$ of this form is unique, so $N$ is free on $\varphi(A)$.
+
+
+
+
+\begin{comment}
+Let $I$ be a nonempty index set and for each $i \in I$ let $M_i$ be an $R$-module freely generated by $A_i$ over $R$.  Let $M = \oplus_{i \in I} M_i$.  Let $\overline{M_i}$ be the natural inclusion of $M_i$ into $M$ under the inclusion map $\iota: M_i \rightarrow M$.  Since $\iota$ is an injective homomorphism, it is an isomorphism of $M_i$ onto its image $\overline{M_i}$.  So every element $\overline{m_i} \in \overline{M_i}$ has a unique representation as
+$$
+\overline{m_i} = \iota(r_1a_1 + \cdots + r_na_n) = r_1 \iota(a_1) + \cdots + r_n \iota(a_n).
+$$
+Therefore, $\overline{A_i} = \iota(A_i)$ forms a basis for $\overline{M_i}$ over $R$.  So $\overline{M_i}$ is freely generated by $\overline{A_i}$ over $R$.
+
+The direct sum $M$ is equal to the set of all finite sums $x_1 + \cdots + x_n$ where $x_k \in M_{i_k}$ for some $i_k \in I$.  Furthermore, every element of $M$ has a unique representation of this form.  Also, each $x_k$ has a unique representation of the form
+\end{comment}
+\begin{comment}
+First, we need to make a technical construction.  By the definition in exercise 20, we cannot necessarily assume the $M_i$ are submodules of some larger module, since the book has defined the direct sum to be the restriced direct product with the action of $R$ defined componentwise.  First, for each $i$, we will embed the basis of $M_i$ into $M$ and show that this embedding yields a basis for the inclusion of $M_i$ into the $M$.  The union of these embedded bases will then be a basis for $M$.
+
+Let $i \in I$, and let $\iota: M_i \rightarrow M$ be the natural inclusion of $M_i$ into $M$, i.e.
+$$
+\iota(m) = \prod_{j \in I} m_j
+$$
+$$
+m_j =
+\begin{cases}
+0 & j \neq i \\
+m & j = i
+\end{cases}.
+$$
+We will now show that the set $\overline{A_i} = \iota(A) = \{\iota(a):a \in A \}$, where $\iota(a) = \prod_{j \in I} a_j$ for $a_j = a$ if $j = i$ and $a_j = 0$ otherwise, forms a basis for the submodule $\overline{M_i} = \iota(M_i) \subseteq M$.  Any element $m \in \overline{M_i}$ is of the form $\prod_{j \in I} m_j$, where $m_j = m$ if $j = i$ and $0$ otherwise.  We know $m_j$ has a unique representation of the form $r_1a_1 + \cdots + r_na_n$ for some $r_1, \dots , r_n \in R$, $a_1, \dots , a_n \in A_i$.  Thus $m$ has a unique representation of the form
+$$
+m = \prod_{j \in I} m_j = r_1 \iota(a_1) + \cdots + r_n \iota(a_n)
+$$
+$$
+m_j =
+\begin{cases}
+0 & j \neq i \\
+r_1a_1 + \cdots + r_na_n & j = i
+\end{cases}
+$$
+by the componentwise definition in $M$ of addition and multiplication by element of $R$.
+\end{comment}
+
+\end{proof}
+
+\item (Exercise 27 in DF \S 10.3.) For each $i \in \mathbf{N}$, let $M_i = \mathbf{Z}$ (viewed as a $\mathbf{Z}$-module).  Let $M$ be the direct product $\prod_{i \in \mathbf{N}} M_i$, and let $R = \End_\mathbf{Z}(M)$ (defined on p. 347 of DF).
+
+Define $\phi_o, \phi_e \in R$ by
+\begin{align*}
+\phi_o(a_1,a_2,a_3,\ldots) &= (a_1,a_3,a_5,\ldots) \text{,}
+\\
+\phi_e(a_1,a_2,a_3,\ldots) &= (a_2,a_4,a_6,\ldots) \text{.}
+\end{align*}
+
+(a) Prove that $\{\phi_o,\phi_e\}$ is a basis of the left $R$-module $R$.  (Hint: Define elements $\psi_o, \psi_e \in R$ by 
+\begin{align*}
+\psi_o(a_1,a_2,a_3,\ldots) &= (a_1,0,a_2,0,\ldots) \text{,}
+\\
+\psi_e(a_1,a_2,a_3,\ldots) &= (0,a_1,0,a_2,\ldots) \text{.}
+\end{align*}
+Verify that $\phi_o \psi_o = \phi_e \psi_e = 1$, $\phi_o \psi_e = \phi_e \psi_o = 0$, and $\psi_o \phi_o + \psi_e \phi_e = 1$.  Deduce from these relations that $\{\phi_o,\phi_e\}$ is a basis.)
+
+\begin{proof}
+We will verify that the relations hold:
+\begin{align*}
+\phi_o \psi_o(a_1,a_2,a_3,\ldots) &= \phi_o (a_1,0,a_2,0,\ldots) = (a_1, a_2, a_3, \ldots)
+\\
+\phi_e \psi_e(a_1,a_2,a_3,\ldots) &= \phi_e (0,a_1,0,a_2,\ldots) = (a_1, a_2, a_3, \ldots)
+\\
+\phi_o \psi_e(a_1,a_2,a_3,\ldots) &= \phi_o (0,a_1,0,a_2,\ldots) = (0,0,0, \ldots)
+\\
+\phi_e \psi_o(a_1,a_2,a_3,\ldots) &= \phi_e (a_1,0,a_2,0,\ldots) = (0,0,0, \ldots)
+\\
+(\psi_o\phi_o + \psi_e \phi_e)(a_1,a_2,a_3,\ldots) &= \psi_o(a_1,a_3,a_5,\ldots) + \psi_e(a_2,a_4,a_6,\ldots)
+\\
+&= (a_1, 0 , a_3, 0 ,a_5, 0 , \ldots) + (0,a_2,0,a_4,0,a_6,\ldots)
+\\
+&= (a_1,a_2,a_3,a_4,a_5,a_6,\ldots)
+\end{align*}
+Since $\psi_o \phi_o + \psi_e \phi_e = 1$, left multplying by any $\varphi \in \End_\Z (\Z)$ gives
+$$
+(\varphi\psi_o) \phi_o + (\varphi\psi_e) \phi_e = \varphi(\psi_o \phi_o + \psi_e \phi_e) = \varphi
+$$
+thus every element has a representation as a linear combination of elements of this basis.
+
+Now, assume for some $f,g \in \End_\Z(\Z)$ that $f\phi_o + g \phi_e = 0$.  Right multiplication by $\psi_o$ and left multiplication by $\psi_e$ gives
+\begin{align*}
+\psi_e f
+&= (\psi_e f) \cdot 1 + (\psi_e g) \cdot 0
+\\
+&= (\psi_e f) (\phi_o\psi_o) + (\psi_e g) (\phi_e\psi_o)
+\\
+&= \psi_e (f\phi_o) \psi_o + \psi_e (g \phi_e)\psi_o
+\\
+&= \psi_e (f\phi_o + g \phi_e) \psi_o
+\\
+&= 0.
+\end{align*}
+Right multiplication by $\psi_e$ and left multiplication by $\psi_o$ gives
+\begin{align*}
+\psi_o g
+&= (\psi_o f) \cdot 0 + (\psi_o g) \cdot 1
+\\
+&= (\psi_o f) (\phi_o\psi_e) + (\psi_o g) (\phi_e\psi_e)
+\\
+&= \psi_o (f\phi_o) \psi_e + \psi_o (g \phi_e)\psi_e
+\\
+&= \psi_o (f\phi_o + g \phi_e) \psi_e
+\\
+&= 0.
+\end{align*}
+Left multiplying by $\phi_e$ and $\phi_o$, respectively, gives
+\begin{align*}
+f &= (\phi_e \psi_e) f = \phi_e (\psi_e f) = \phi_e \cdot 0 = 0
+\\
+g &= (\phi_o \psi_o) g = \phi_o (\psi_o g) = \phi_o \cdot 0 = 0.
+\end{align*}
+
+Now, if any element of $M$ has two equal representations $a\phi_0 + b\phi_e$ and $c\phi_0 + d\phi_e$ as an $R$-linear combination of these generators, then we have
+$$
+a\phi_0 + b\phi_e = c\phi_0 + d\phi_e
+$$
+$$
+\implies
+(a-c)\phi_0 + (b-d)\phi_e = 0.
+$$
+So by the result of the previous paragraph, $a-c = b-d = 0$, so $a = c$ and $b = d$.  Thus these representations are unique, so $\{ \phi_o, \phi_e\}$ is a basis of the left $R$-module $R$.
+\end{proof}
+
+(b) Use part (a) to prove that $R \cong R^2$.  Deduce that $R \cong R^n$ for every $n \in \mathbf{N}$.
+
+\begin{proof}
+The universal property given in Theorem 6 implies that $R \cong R^2$.  Since $R$ is free on $A = \{\phi_o, \phi_e\}$, the set map $\phi_o \mapsto (1_R,0)$, $\phi_e \mapsto (0,1_R)$ naturally and uniquely extends to an isomorphism between $R=R\phi_o \oplus R\phi_e$ and $R^2$.  Thus $R \cong R^2$.
+
+Now, assume for some $n \in \mathbb{N}$ that $R \cong R^n$.  Then $R^{n+1} \cong R \oplus R^n \cong R \oplus R \cong R^2 \cong R$, so the desired result follows by induction.
+\end{proof}
+
+\end{enumerate}
+\end{document}

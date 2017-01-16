@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<kml>
+  <Document>
+    <name>Earthquakes</name>
+    <description>6+ Earthquakes, 1968-2008</description>
+    <Folder>
+      <name>Quakes</name>
+      <Placemark>
+        <Point>
+          <coordinates>-124.9497,41.0352,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <Point>
+          <coordinates>-135,42,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <Point>
+          <coordinates>-118.831,37.5903,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+  </Document>
+  <LookAt>
+    <longitude>-135.5</longitude>
+    <latitude>42.0</latitude>
+    <altitude>4100000</altitude>
+    <tilt>0</tilt>
+    <heading>0</heading>
+    <altitudeMode>absolute</altitudeMode>
+  </LookAt>
+</kml>

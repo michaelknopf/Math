@@ -1,0 +1,186 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+%\addtolength{\oddsidemargin}{-.1in} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{lipsum}
+\usepackage[]{units}
+\usepackage{relsize}
+\usepackage{verbatim}
+\usepackage{bbm}
+\usepackage{mathtools}
+\usepackage{eufrak}
+\usepackage[mathscr]{euscript}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{graphicx}
+\usepackage{xfrac}
+
+\setenumerate{listparindent=\parindent}
+
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Int}{{\displaystyle \int}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\U}{\mathcal{U}}
+\renewcommand{\L}{\mathcal{L}}
+
+\newcommand{\sd}{\Delta}
+
+\DeclareMathOperator*{\dom}{dom}
+\DeclareMathOperator*{\Aut}{Aut}
+\DeclareMathOperator*{\Ann}{Ann}
+\DeclareMathOperator*{\Tor}{Tor}
+\DeclareMathOperator*{\Gal}{Gal}
+\DeclareMathOperator*{\Hom}{Hom}
+\DeclareMathOperator*{\End}{End}
+\DeclareMathOperator*{\im}{Im}
+\DeclareMathOperator*{\card}{card}
+
+\renewcommand{\bar}{\overline}
+\renewcommand{\P}{\mathcal{P}}
+
+\usepackage{fancyhdr} % Required for custom headers 
+%\usepackage{lastpage} % Required to determine the last page for the footer
+
+\pagestyle{fancy}
+\lhead{Math 202A (HW 7)}
+\chead{Michael Knopf (24457981)}
+\rhead{October $29^\text{th}$, 2015}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+%\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}
+\renewcommand\headrulewidth{0.4pt}
+%\renewcommand\footrulewidth{0.4pt}
+
+\begin{document}
+
+\begin{enumerate}
+\item[7.6] Suppose $f: \R \rightarrow \R$ is integrable, $a \in \R$, and we define
+$$
+F(x) = \Int_a^x f(y)dy.
+$$
+Show that $F$ is a continuous function.
+
+\begin{proof}
+In the previous homework, we proved exercise 6.4, which can be applied to the measure space $\R$ because it is $\sigma$-finite.  It states that for each $\epsilon > 0$ there is a $\delta>0$ such that if $\mu(A) < \delta$ then $\Int_A |f| < \epsilon$.  Now, let $x \in \R$ and $\epsilon > 0$.  Choose a $\delta$ so that the bound just mentioned holds.  Then if $|x - x_0| < \frac{\delta}{3}$, we have $x_0 \in A = (x - \frac{\delta}{3}, x + \frac{\delta}{3})$ where $\mu(A) < \delta$.  So we have
+\begin{align*}
+|F(x) - F(x_0)| &= \left| \Int_a^x f - \Int_a^{x_0} f \right| \\
+&= \left| \Int_a^x f - \Int_a^x f - \Int_x^{x_0} f \right| \\
+&= \left|\Int_x^{x_0} f \right| \\
+& \leq \Int_x^{x_0} |f| \\
+& \leq \Int_A |f| < \epsilon.
+\end{align*}
+We have applied here the fact that, for any $r,s,t \in \R$, $\Int_r^t f = \Int_r^s f + \Int_s^t$.  According to the definition given in Bass, $\Int_a^b f = \Int_{[a,b]} f$.  This is nonsense if $a > b$, since then $[a,b] = \emptyset$, which would create a truly stupid inconsistency in notation between the Lebesgue the Riemann integrals.  I will assume that $\Int_a^b f = -\Int_b^a f$ if $a > b$, since this makes more sense.  Then, for $r \leq s \leq t$, we have
+$$
+\Int_r^t f = \Int (f \cdot \mathbbm{1}_{(-\infty,s)} + f \cdot \mathbbm{1}_{[s,\infty)})\mathbbm{1}_{[r,t]} = \Int f \cdot \mathbbm{1}_{[r,s)} + \Int f \cdot \mathbbm{1}_{[s,t]} = \Int_r^s f + \Int_s^t f.
+$$
+If $r \leq t \leq s$, we have from the previous result
+$
+\Int_r^s f = \Int_r^t f + \Int_t^s f,
+$
+so subtracting $\Int_t^s f$ gives
+$$
+\Int_r^t f = \Int_r^s f - \Int_t^s f = \Int_r^s f + \Int_s^t f
+$$
+as desired.  All other cases follow from rearranging and/or negating both sides of one of these equalities.
+\end{proof}
+
+\item[7.10] Prove that the limit exists and find its value:
+$$
+\lim_{n \rightarrow \infty} \Int_0^1 \frac{1+nx^2}{(1+x^2)^n}\log (2+\cos(x/n))dx
+$$
+
+\begin{proof}
+Assume $x \in [0,1]$.  Note that $0 < 1+nx^2 \leq \sum_{k=0}^n \binom{n}{k}x^{2n} = (1+x^2)^n$, therefore $0 < \left|\frac{1+nx^2}{(1+x^2)^n}\right| \leq 1$.  Also, $0 < \cos(x/n) \leq 1$, so $0 < |\log(2 + \cos(x/n))| \leq \log(3)$.  So if $f_n$ is the integrand, then $|f_n| \leq \log(3)$, hence we may apply the dominated convergence theorem.
+
+Since $\{0\}$ is a null set, the expression equals $\lim_{n \rightarrow \infty} \Int_{(0,1]} f_n$.  Applying L'Hospital's rule to the first factor by differentiating with respect to $n$ gives
+$$
+\lim_{n \rightarrow \infty} \frac{1+nx^2}{(1+x^2)^n} = \lim_{n \rightarrow \infty} \frac{x^2}{\log(1+x^2)(1+x^2)^n} =  \frac{x^2}{\log(1+x^2)}\lim_{n \rightarrow \infty} \frac{1}{(1+x^2)^n} = 0.
+$$
+The limit of the second factor is clearly $\log 3$, which is finite.  So the limit of the integrand is the product of the limits of these factors, which is $0$.  Thus, by the dominated convergence theorem, the expression equals $\Int_{(0,1]} 0 = 0$.
+\end{proof}
+
+\item[7.16] Let $(X, \A, \mu)$ be a measure space.  A family of measurable functions $\{f_n\}$ is \emph{uniformly integrable} if given $\epsilon$ there exists $M$ such that
+$$
+\Int_{\{x : |f_n(x)| > M\}} |f_n(x)| d\mu < \epsilon
+$$
+for each $n$.  The sequence is \emph{uniformly absolutely continuous} if, given $\epsilon$, there exists $\delta$ such that
+$$
+\left| \Int_A f_n d\mu \right| < \epsilon
+$$
+for each $n$ if $\mu(A) < \delta$.
+
+Suppose $\mu$ is a finite measure.  Prove that $\{f_n\}$ is uniformly integrable if and only if $\sup_n \Int |f_n| d\mu < \infty$ and $\{f_n\}$ is uniformly absolutely continuous.
+
+\begin{proof}
+For each $n, M$, let $T_M^n = \{x : |f_n(x)| > M\}$.  Suppose first that $\{f_n\}$ is uniformly integrable, and choose an $M$ so that $\Int_{T_M^n} |f_n(x)| d\mu < \frac{\epsilon}{2}$.  Let $\delta = \frac{\epsilon}{2M}$.  Then for any $A$ with $\mu(A) < \delta$, we have
+\begin{align*}
+\left| \Int_A f_n \right| &\leq \Int_A |f_n| \\
+&= \Int_{T_M^n \cap A} |f_n| + \Int_{(T_M^n)^c \cap A} |f_n| \\
+&\leq \Int_{T_M^n} |f_n| + \Int_{A} M \\
+&< \frac{\epsilon}{2} + M\mu(A)
+< \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon.
+\end{align*}
+Now, fix any positive $\epsilon$.  There is some $M$ such that, for all $n$, $$\Int |f_n| = \Int_{T_M^n} |f_n| + \Int_{(T_M^n)^c} |f_n| < \epsilon + M\mu((T_M^n)^c) \leq \epsilon + M\mu(X) < \infty.$$  Thus, since the sequence $\Int |f_n|$ is bounded, its supremum is finite.
+
+Next, suppose that $\sup_n \Int |f_n| d\mu < \infty$ and $\{f_n\}$ is uniformly absolutely continuous.  There exists some $\delta$ such that $$
+\left| \Int_A f_n d\mu \right| < \frac{\epsilon}{2}
+$$
+for each $n$ if $\mu(A) < \delta$.  Thus, if $\mu(A) < \delta$ we have
+$$
+\Int_A |f_n| = \Int_{A \cap \{x : f_n(x) \geq 0 \}} f_n - \Int_{A \cap \{x : f_n(x) < 0 \}} f_n < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon.
+$$
+Suppose we were to have, for all $M$, that $\mu(\{x : |f_n(x)| > M \}) \geq \delta$.  Then, for all $M$, we would have
+$$
+M\delta \leq M \mu(\{x : |f_n(x)| > M\}) \leq \Int_{\{x : |f_n(x)| > M\}} M \leq \Int_{\{x : |f_n(x)| > M\}} |f_n|
+\leq \Int |f_n| \leq \sup \Int |f_n|
+$$
+contradicting that the supremum is finite.  Thus $\mu(\{x : |f_n(x)| > M \}) \leq \delta$ for some $M$.  Therefore, $\Int_{\{x : |f_n(x)| > M\}} |f_n(x)| d\mu < \epsilon$, so $\{f_n\}$ is uniformly integrable.
+\end{proof}
+
+\item[8.3] Suppose $A$ is a Borel measurable subset of $[0,1]$, $\mu$ is the Lebesgue measure, and $\epsilon \in (0,1)$.  Prove that there exists a continuous function $f: [0,1] \rightarrow \R$ such that $0 \leq f \leq 1$ and
+$$
+\mu(\{x : f(x) \neq \mathbbm{1}_A(x)\}) < \epsilon.
+$$
+
+\begin{proof}
+If $A$ is a null set, then $g = 0$ suffices.  So we may assume $A$ has positive measure.  Since $A$ is Borel measurable, there exists a compact set $F$ and an open set $G$ such that $F \subseteq A \subseteq G$ and $\mu(G \setminus F) < \epsilon$.  Since $\mu(A) > 0$, we may assume $F \neq \emptyset$, since we could take $\epsilon$ to be $\min(\epsilon, \mu(A))$ instead, forcing $\mu(F) > 0$ (otherwise $\epsilon > \mu(G\setminus F) = \mu(G) > \mu(A)$, a contradiction).  So there exists some minimum distance $\delta$ from $F$ to $G^c$.  Define
+$$
+g(x) = \left(1 - \frac{\text{dist}(x,F)}{\delta}\right)^+.
+$$
+
+$g$ is a composition of continuous functions, hence continuous.  $g$ is 0 on $G^c$ and $1$ on $F$, and $0 \leq g \leq 1$.  So we have $g = \mathbbm{1}_A$ on both $F$ and $G^c$.  Therefore, $\{x : f(x) \neq \mathbbm{1}_A(x)\} \subseteq G \setminus F$, hence $\mu(\{x : f(x) \neq \mathbbm{1}_A(x)\}) \leq \mu(G \setminus F) < \epsilon$.
+\end{proof}
+
+\item[8.7] Let $\mu$ be a measure, not necessarily $\sigma$-finite, and suppose $f$ is real-valued and integrable with respect to $\mu$.  Prove that $A = \{x : f(x) \neq 0\}$ has $\sigma$-finite measure, that is, there exists $F_n \uparrow A$ such that $\mu(F_n) < \infty$ for each $n$.
+
+\begin{proof}
+For each $n \in \N$ (including zero) define $S_n = f^{-1}((n,n+1])$ and $T_n = f^{-1}([-(n+1),-n))$.  Then $A = \bigcup_{n=0}^\infty S_n \cup \bigcup_{n=0}^\infty T_n$.  Suppose that, for some $n$, $\mu(S_n) = \infty$.  Then
+$$
+\Int_{S_n} |f| = \Int_{S_n} f \geq \Int_{S_n} n = n\mu(S_n) = \infty,
+$$
+a contraction.  Suppose that, for some $n$, $\mu(T_n) = \infty$.  Then
+$$
+\Int_{T_n} |f| = \Int_{T_n} (-f) \geq \Int_{T_n} n = n\mu(T_n) = \infty,
+$$
+a contradiction.  So $\mu(S_n), \mu(T_n) < \infty$ for all $n$, thus $A$ is $\sigma$-finite.
+\end{proof}
+
+\end{enumerate}
+\end{document}
+
+
+
+
+
+
+

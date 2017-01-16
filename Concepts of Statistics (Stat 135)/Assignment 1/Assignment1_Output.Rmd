@@ -1,0 +1,46 @@
+---
+title: "Maternal Smoking and Infant Health I"
+author: "Michael Knopf, Lecture 2"
+date: September 16, 2014
+output: pdf_document
+---
+
+This write-up was created using the knitr package in R.
+
+```{r}
+data = read.table("http://www.stat.berkeley.edu/~statlabs/data/babiesI.data",
+                  header = TRUE);
+nsmokers = data$bwt[data$smoke==0];
+smokers = data$bwt[data$smoke==1];
+```
+\begin{center}
+\textit{Summary of birthweights for babies born to non-smokers}
+\end{center}
+
+```{r}
+summary(nsmokers)
+```
+
+\begin{center}
+\textit{Summary of birthweights for babies born to smokers}
+\end{center}
+
+```{r}
+summary(smokers)
+```
+
+\begin{center}
+\textit{Graphical comparisons of the two distributions}
+\end{center}
+
+```{r}
+boxplot(main = "Boxplots", nsmokers, smokers,
+        ylab = "Birthweight", names = c("Non-Smokers", "Smokers"))
+```
+
+```{r, fig.height=4.405}
+hist(nsmokers, freq = FALSE, main = "Histogram of Non-Smokers",
+     xlab = "Birthweights", xlim = c(50,180), ylim = c(0,0.025))
+hist(smokers, freq = FALSE, main = "Histogram of Smokers",
+     xlab = "Birthweights", xlim = c(50,180), ylim = c(0,0.025))
+```

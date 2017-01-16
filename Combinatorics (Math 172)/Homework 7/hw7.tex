@@ -1,0 +1,237 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=.75in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\setenumerate{listparindent=\parindent}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{verbatim}
+\usepackage{gensymb}
+\usepackage{bm}
+
+\usepackage{tikz}
+\usepackage{tkz-berge}
+%\usepackage{graphics,graphicx}
+%\usepackage{pstricks,pst-node,pst-tree}
+\usepackage[colorinlistoftodos]{todonotes}
+\usetikzlibrary{arrows,shapes,positioning}
+%\usetikzlibrary{positioning,arrows}
+ 
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\p}{\mathcal{P}_2(T)}
+\newcommand{\Aut}{\textnormal{Aut}(P)}
+
+ 
+\begin{document}
+
+
+\title{Math 172 - HW 7}
+\author{Michael Knopf}
+ 
+\maketitle
+
+\noindent I worked with Sydney Wong on this assignment.
+
+\begin{enumerate}[leftmargin=0cm,itemindent=.5cm,labelwidth=\itemindent,labelsep=0cm,align=left]
+\item True or false (give proofs):\\ \\
+(a) $n^2 = O(n^2 \log (n))$ \textbf{True}
+\begin{proof}
+\ $\log n > 1$ for all $n > 3$, so $n^2 < n^2 \log n$ for all $n > 3$.  Thus $n^2 = O(n^2 \log (n))$.
+\end{proof}
+\noindent (b) $n^2 = o(n^2\log(n))$ \textbf{True}
+\begin{proof}
+\ $\lim\limits_{n \rightarrow \infty} \dfrac{n^2}{n^2 \log n} = \lim\limits_{n \rightarrow \infty} \dfrac{1}{\log n} = 0$.
+\end{proof}
+\noindent (c) $n^2 + 5n = n^2(1+o(1)) = O(n^2)$ \textbf{True}
+\begin{proof}
+\ Since $\lim\limits_{n \rightarrow \infty} \dfrac{5/n}{1} = 0$, we have $\dfrac5n = o(1)$.  So $$n^2 + 5n = n^2 + n^2 \left(\frac5n \right) = n^2 + n^2o(1) = n^2(1+o(1)).$$
+Now, let $f(n)$ be any function that is $o(1)$.  Then $\lim\limits_{n \rightarrow \infty} f(n) = 0$, so there exists some $N$ such that $f(n) < 1$ whenever $n > N$.  So $n^2(1+o(1)) < n^2(1+1) = 2n^2$ whenever $n > N$.  Thus $n^2(1+o(1)) = O(n^2)$.
+\end{proof}
+\noindent (d) $\dbinom{n}{k} \leq \left( \dfrac{en}{k} \right)^k$
+\begin{proof}
+\ The following well-known bound on $k!$ can be found on the Wikipedia page for Stirling's approximation:
+$$n! \geq \sqrt{2\pi} n^{n+1/2} e^{-n}.$$
+So, whenever $k \geq 1$, we have
+$$
+k! \geq \sqrt{2\pi k} \left( \frac{k}{e} \right)^k > \left( \frac{k}{e} \right)^k.
+$$
+Thus
+$$
+\dbinom{n}{k} = \dfrac{n_{(k)}}{k!} < \frac{n^k}{k!} < \frac{n^k}{\left( \frac{k}{e} \right)^k} = \left( \frac{en}{k} \right)^k.
+$$
+\end{proof}
+\noindent (e) $\left( \dfrac{n}{k} \right)^k \leq \dbinom{n}{k}$
+\begin{proof}
+\ We can express $\dbinom{n}{k}$ as a product of $k$ factors that are all less than or equal to $\left( \dfrac{n}{k} \right)$:
+$$
+\dbinom{n}{k} = \left( \dfrac{n}{k} \right)\left( \dfrac{n-1}{k-1} \right) \cdots \left( \dfrac{n-k+1}{1} \right).
+$$
+If $1 < k \leq n$, then $nk - n \leq nk - k$, so $n(k-1) \leq k(n-1)$, thus $\dfrac{n}{k} \leq \dfrac{n-1}{k-1}$.  Thus each of the $k$ factors in this product is at most $\left( \dfrac{n}{k} \right)$, so the entire product is at most $\left( \dfrac{n}{k} \right)^k$.  If $k = 1$, then $\dbinom{n}{k} = n = \left( \dfrac{n}{k} \right)^k$.
+\end{proof}
+
+\item Classify all possible pairs of (possibly distinct) fair $6$-sided dice with integers on them such that, if we roll them and record their sum, the resulting distribution is indistinguishable from rolling a pair of fair normal dice.
+
+\begin{proof}
+
+\ Consider two $6$-sided dice, where the first has $a_i$ faces that show the value $i$, and the second has $b_i$ faces that show the value $i$.  Then the product of the generating functions for $a_i$ and $b_i$ is the generating function for the sequence $c_i$, which is the number of outcomes in which their rolls sum to $i$.
+In particular, for two standard $6$-sided dice, this product
+$$
+(x + x^2 + x^3 + x^4 + x^5 + x^6)^2
+$$
+$$
+=x^2 + 2^3 + 3x^4 + 4x^5 + 5x^6 + 6x^7 + 5x^8 + 4x^9 + 3x^{10} + 2x^{11} + x^{12}.
+$$
+reveals that the outcome space for rolling both dice has size $1 + 2 + 3 + 4 + 5 + 6 + 5 + 4 + 3 + 2 + 1 = 36$, thus probability that the sum of the rolls is $k$ is $\dfrac{6 - |7 - k|}{36}$ (for $1 \leq k \leq 12$).
+
+This expanded polynomial completely determines the distribution of the sum of the two rolls.  Therefore, the sum of the rolls of two dice $A$ and $B$ have this same distribution if and only if the product of the generating functions for the sequences of their sides equals this expansion.  In other words, let $A(x) = a_1x + a_2x^2 + a_3x^3 + a_4x^4 + a_5x^5 + a_6x^6$ and $B(x) = b_1x + b_2x^2 + b_3x^3 + b_4x^4 + b_5x^5 + b_6x^6$, where $a_i$ and $b_i$ are the number of faces that have value $i$.  Then the distribution of the sum of these dice is indistinguishable from the distribution of the sum of two standard $6$-sided dice if and only if
+\begin{align*}
+A(x)B(x) &= x^2 + 2^3 + 3x^4 + 4x^5 + 5x^6 + 6x^7 + 5x^8 + 4x^9 + 3x^{10} + 2x^{11} + x^{12}
+\\
+&=x^2(x+1)^2(x^2+x+1)^2(x^2-x+1)^2.
+\end{align*}
+Therefore, an equivalent problem is to find a factorization of this expansion into two polynomials with positive coefficients that sum to $6$.  We have also given, above, the prime factorization of this polynomial.  The factor $x$ will not be important in this discussion, since, in any factorization of the expansion into two factors, each factor will be a product of some of the three irreducible factors on the right, multiplied either by $x^0$, $x^1$, or $x^2$.  Since multiplication by $x$ does not change the sum of the coefficients, we have reduced to the problem to finding a product of these factors whose coefficients sum to $6$.
+
+If this is the case, then the product of the remaining irreducibles will also have coefficients which sum to $6$, since the sum of the coefficients of a polynomial is a multiplicative function (this sum is obtained by evaluating the polynomial at $1$, and we know that $(p \cdot q)(1) = p(1)\cdot q(1)$ for any polynomials $p$ and $q$).  Because of this multiplicative property, we know that the sums of the coefficients in the irreducibles we choose in making each factor must multiply to $6$.  In fact, this condition is necessary and sufficient.
+
+The sum of the coefficients of $x+1$, $x^2 + x + 1$, and $x^2 - x + 1$ are $2$, $3$, and $1$ respectively.  Therefore, the only products of these irreducibles whose coefficients sum to 6 are
+\begin{itemize}
+\item \ $(x+1)(x^2 + x + 1) = x^3 + 2x^2 + 2x + 1$
+\item \ $(x+1)(x^2 + x + 1)(x^2 - x + 1) = x^5 + x^4 + x^3 + x^2 + x + 1$
+\item \ $(x+1)(x^2 + x + 1)(x^2 - x + 1)^2 = x^7 + x^5 + x^4 + x^3 + x^2 + 1$
+\end{itemize}
+Notice that the product of the first and third polynomials is equal to the full degree $12$ polynomial, and that the square of the second polynomial also equals the full degree $12$ polynomial.  The second polynomial gives a pair of standard $6$-sided dice; the first and third gives a non-standard pair.  However, we first must multiply the factor of $x^2$ back in.  I will do this by placing one factor of $x$ into one of the polynomials for each pair, although the $2$ factors could be distributed in any way (even by giving a negative number to one polynomial).
+
+These pairings give representatives for two classes of factorizations of the degree $12$ polynomial into two factors:
+
+$$[x^k(x^6 + x^5 + x^4 + x^3 + x^2 + x)][x^{-k}(x^6 + x^5 + x^4 + x^3 + x^2 + x)]$$
+and
+$$
+[x^k(x^4 + 2x^3 + 2x^2 + x)][x^{-k}(x^8 + x^6 + x^5 + x^4 + x^3 + x)]
+$$
+for any $k \in \mathbb{Z}$.  From these, we can read off the faces of the dice:
+One possibility is that the first die has faces $(1+k,2+k,3+k,4+k,5+k,6+k)$ and the second has faces $(1-k,2-k,3-k,4-k,5-k,6-k)$, for any integer $k$.  The other possibility is that the first has faces $(1+k, 2+k, 2+k, 3+k, 3+k, 4+k)$ and the second has faces $(1-k, 3-k, 4-k, 5-k, 6-k, 8-k)$, for any integer $k$.  Therefore, the only possibilities where the faces contain non-negative values are
+\begin{align*}
+\{(1,2,3,4,5,6),(1,2,3,4,5,6)\}\\
+\{(0,1,2,3,4,5),(2,3,4,5,6,7)\}\\
+\{(0,1,1,2,2,3),(2,4,5,6,7,9)\}\\
+\{(1,2,2,3,3,4),(1,3,4,5,6,8)\}\\
+\{(2,3,3,4,4,5),(0,2,3,4,5,7)\}
+\end{align*}
+\begin{comment}
+To ensure that we have checked all possibilities, we must count the number of combinations that use in 1, 2, or 3 factors.  There are 3 ways to use 1 factor.  To use 2 factors, we may take the square of any one of the three unique factors, or choose 2 different factors, giving 6 total ways.  To use 3 factors, we can take the square of one of the unique factors, then take one copy of either of the two remaining factors (which can be done in $3\cdot2$ ways), or we can take all three unique factors; so this can be done in $7$ ways.  Therefore, there are $3 + 6 + 7 = 16$ total combinations to check.
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|c|c|c|}
+\hline 
+$A(x)$ & Expansion & Sum of Coefficients \\ 
+\hline 
+$x+1$ & $x+1$ & 2 \\ 
+\hline 
+$x^2 + x + 1$ & $x^2 + x + 1$ & 3 \\ 
+\hline 
+$x^2 - x + 1$ & $x^2 + x - 1$ & not all positive \\ 
+\hline 
+$(x+1)^2$ & $x^2 + 2x + 1$ & 4 \\ 
+\hline 
+$(x^2 + x + 1)^2$ & $x^4 + 2x^3 + 3x^2 + 2x + 1$ & 9 \\ 
+\hline 
+$(x^2 - x + 1)^2$ & $x^4 - 2x^3 + 3x^2 - 2x + 1$ & not all positive \\ 
+\hline 
+$\bold{(x+1)(x^2 + x + 1)}$ & $\bold{x^3 + 2x^2 + 2x + 1}$ & \textbf{6} \\ 
+\hline 
+$(x+1)(x^2 - x + 1)$ & $x^3 + 1$ & 2 \\ 
+\hline 
+$(x^2 + x + 1)(x^2 - x + 1)$ & $x^4 + x^2 + 1$ & 3 \\ 
+\hline 
+$(x+1)^2(x^2 + x + 1)$ & $x^4 + 3x^3 + 4x^2 + 3x + 1$ & 12 \\ 
+\hline
+$(x+1)(x^2 + x + 1)^2$ & $x^5 + 3x^4 + 5x^3 + 5x^2 + 3x + 1
+$ & 18 \\ 
+\hline 
+$(x+1)^2(x^2 - x + 1)$  & $x^4 + x^3 + x + 1$ & 4 \\ 
+\hline
+$(x+1)(x^2 - x + 1)^2$  & $x^5 - x^4 + x^3 + x^2 - x + 1$ & not all positive \\ 
+\hline 
+$(x^2 + x + 1)^2(x^2 - x + 1)$ & $x^6 + x^5 + 2x^4 + x^3 + 2x^2 + x + 1$ & 9 \\ 
+\hline 
+$(x^2 - x + 1)^2(x^2 + x + 1)$ & $x^6 - x^5 + 2x^4 - x^3 + 2x^2 - x + 1$ & not all positive \\ 
+\hline 
+$\bold{(x+1)(x^2 + x + 1)(x^2 - x + 1)}$ & $\bold{x^5 + x^4 + x^3 + x^2 + x + 1}$ & \textbf{6} \\ 
+\hline 
+\end{tabular} 
+\end{center}
+\end{comment}
+\end{proof}
+
+\item Count $L_n$, the number of ways to put $n$ distinguishable flags onto indistinguishable poles.
+
+\begin{proof}
+\ A configuration of distinguishable flags on indistinguishable poles is a hand of cards, where a standard card of weight $k$ has as its structure a flagpole with $k$ labeled flags on it, in some order from top to bottom.  Every one of the $k!$ labelings of the flags gives a different picture, thus a different standard card.  Therefore, $|D_k| = k!$ for $k>0$.  However, there are no flagpoles with $0$ flags, since otherwise we would have $L_n = \infty$, and I don't believe this is the problem we are intended to solve.  So no ``empty" poles are allowed, thus $|D_0| = 0$.
+
+The exponential generating function for $D_k$ is
+$$D(x) = \sum_{k=1}^\infty k! \frac{x^k}{k!} = \left( \sum_{k=0}^\infty x^k \right) - 1 = \frac{1}{1-x} - 1 = \frac{x}{1-x}.$$
+The exponential formula gives that the generating function for $L_n$ is
+$$
+H(x) = \exp\left\{\dfrac{x}{1-x}\right\}.
+$$
+$L_n$ can be found by evaluating the $n$th derivative of $H(x)$ at $0$.  Computing the first few terms of $L_n$ leads to sequence A000262 on OEIS: $1, 1, 3, 13, 73, 501, 4051, 37633, \dots$
+\end{proof}
+
+\item We have $n$ kinds of objects, and we want to count the number of ways to select a $k$-list/tuple of the objects.  Find the number of ways to do this if we have:
+(a) Just 1 object of each kind.
+(b) Infinite objects of each kind.
+(c) Just $l$ objects of each kind.
+
+\begin{proof}
+\ Part (a) is simply asking for the number of injective functions from $[k]$ to $[n]$, which we know is $n_{(k)}$.  Part (b) is asking for the total number of functions from $[k]$ to $[n]$, which we know is $n^k$.
+\end{proof}
+
+\item Consider a graph $G$, two of its vertices being $v$ and $w$.  Suppose there exist two paths of lengths $l_1$ and $l_2$ between $v$ and $w$.  Now suppose $l_1$ is odd and $l_2$ is even.  Show that $G$ contains an odd cycle.
+
+\begin{proof}
+\ Let the two paths be $A$ and $B$.  If $v = w$, then the first path is an odd cycle, so we may assume this is not the case.  We may also assume, without loss of generality, that the paths are not self-intersecting.  Let $P_i$ be the $i$th segment of overlap between the paths.  One endpoint $a$ of $P_i$ and one endpoint $b$ of $P_{i+1}$ must then be part of a cycle: part of this cycle is the path $A$ takes from $a$ to $b$, and the remainder of the cycle is the path $B$ takes from $a$ to $b$.  So let the $i$th such cycle be $C_i$.
+
+Let the lengths of $C_i$ and $P_i$ be $c_i$ and $p_i$, respectively.  Assume, for a contradiction, that each $C_i$ has even length.  Then
+$$
+l_1 + l_2 = 2\sum p_i + \sum c_i \equiv 0 + \sum 0 = 0 \pmod{2},
+$$
+a contradiction because $l_1$ and $l_2$ have different parity.  Thus one of these cycles must have odd length.
+\end{proof}
+
+\item Let a \emph{codeword} be an $n$-tuple of elements in $\mathbb{Z}_2^n$.  Call a codeword \emph{even} if it has an even number of 1s.  Find the fraction of codewords that are even for every $n$, and find the limit of this fraction as $n \rightarrow \infty$.
+
+\begin{proof}
+\ Every even codeword of length $n$ is created in a unique way by the following process:  Choose the first $n-1$ digits.  If there are currently an even number of 1s, let the $n$th digit be 0.  Otherwise, let it be 1.  Thus, an even codeword of length $n$ is completely determined by the choice of its first $n-1$ digits, so there are $2^{n-1}$ even codewords of length $n$.  There are $2^n$ codewords of length $n$, thus the fraction of even codewords of length $n$ is $\frac{1}{2}$ for every $n$.  The limit of $\frac12$ as $n \rightarrow \infty$ is $\frac12$.
+\end{proof}
+
+\item This homework was fun.  It was not too hard.  The hardest problem was part (c) of \#4.  \#2 was by far my favorite.  It was one of the best applications of generating functions I have seen.  I don't think I could have come up with a better systematic way to approach the problem rather than using polynomials.  Problem 6 was kind of stupid.
+
+\end{enumerate}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

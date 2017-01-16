@@ -1,0 +1,170 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=.85in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{units}
+\usepackage{bm}
+\usepackage{enumitem}
+\setenumerate{listparindent=\parindent}
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\p}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Var}{Var}
+
+\theoremstyle{definition}
+\newtheorem*{prob1}{Q 1}
+\newtheorem*{prob2}{Q 2}
+\newtheorem*{prob3}{Q 3}
+\newtheorem*{prob4}{Q 4}
+\newtheorem*{prob5}{Q 5}
+\newtheorem*{prob6}{Q 6}
+
+ 
+\usepackage{fancyhdr} % Required for custom headers 
+%\usepackage{lastpage} % Required to determine the last page for the footer
+
+\pagestyle{fancy}
+\lhead{Stat 150 (HW5)}
+\chead{Michael Knopf (24457981)}
+\rhead{March $13^\text{th}$, 2015}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+%\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}
+\renewcommand\headrulewidth{0.4pt}
+%\renewcommand\footrulewidth{0.4pt}
+
+\begin{document}
+
+%\title{Homework 5 \\ Stat 150}
+%\author{Michael Knopf \\ 24457981}
+%\maketitle
+\noindent Worked with Sydney Wong and Taylor Hines
+\begin{prob1}
+Let $Z_n$ be a branching process with offspring distribution $X$.  Suppose that $X$ has mean $\mu < 1$.  Calculate the total expected number of offspring in all the generations.
+\end{prob1}
+
+\begin{proof}
+$\E[Z_n] = \mu^n$, so
+$$
+\E \left[ \sum\limits_{n=0}^\infty Z_n \right] = \sum\limits_{n=0}^\infty \E[Z_n] = \sum\limits_{n=0}^\infty \mu^n = \dfrac{1}{1-\mu}.
+$$
+We know that this sum converges to the given value because $\mu < 1$.
+\end{proof}
+
+\begin{prob2}
+Let $Z_n$ be a branching process with offspring distribution $X \sim \text{Geom}(\frac12)$.  We showed in class that the branching process becomes extinct with probability 1.  Calculate the expected number of steps to extinction.
+\end{prob2}
+
+\begin{proof}
+Let $T$ be the time of extinction.  We know that $\p(T < \infty) = 1$, and we can express $T$ as $T = \sum\limits_{n=0}^\infty I_n$, where $I_n$ indicates the event $\{Z_n > 0 \}$.  Note that $\E[I_n] = \p(Z_n > 0) = \frac{1}{n+1}$, since we have shown in lecture that this is true when $X \sim \text{Geom}(\frac12)$. Therefore,
+$$
+\E[T] = \E \left[ \sum\limits_{n=0}^\infty I_n \right] = \sum\limits_{n=0}^\infty \E[I_n] = \sum\limits_{n=0}^\infty \frac{1}{n+1} = -1 + \sum\limits_{n=0}^\infty \frac{1}{n} = \infty
+$$
+by the divergence of the harmonic series.
+\end{proof}
+
+\begin{prob3}
+Let $Z_n$ be a branching process with offspring distribution $X$.  Suppose that $X$ has mean $\mu$ and variance $\sigma^2$.  Find $$\Cov(Z_t,Z_s).$$
+\end{prob3}
+
+\begin{proof}
+We have shown in class that
+$$
+\Var(Z_n) = \begin{cases}
+       n\sigma^2& \mu = 1 \\
+       \sigma^2 \mu^{n-1} \frac{\mu^n - 1}{\mu - 1}& \mu \neq 1 \\
+   \end{cases}.
+$$
+We may assume WLOG that $s \leq t$.  Note that
+\begin{align*}
+\E[Z_tZ_s] &= \E[\E[Z_tZ_s \ | \ Z_s ]] = \E[ Z_s \E[Z_t \ | \ Z_s ]] = \E[Z_s \E[Z_{t-s} \ | \ Z_0 = Z_s]]
+\\
+&= \E[Z_s^2 \mu^{t-s}] = \mu^{t-s}(\Var(Z_s) + \E[Z_s]^2)
+\\
+&= \begin{cases}
+\mu^{t-s} ( s\sigma^2 + \mu^{2s}) & \mu = 1 \\
+\mu^{t-s}(\sigma^2 \mu^{s-1} \frac{\mu^s - 1}{\mu - 1} + \mu^{2s}) & \mu \neq 1
+\end{cases}
+\\
+&= \begin{cases}
+s\sigma^2 + 1 & \mu = 1 \\
+\sigma^2 \mu^{t-1} \frac{\mu^s - 1}{\mu - 1} + \mu^{t+s} & \mu \neq 1.
+\end{cases}
+\end{align*}
+So
+\begin{align*}
+\Cov(Z_s, Z_t) &= \E[Z_sZ_t] - \E[Z_s]\E[Z_t]
+\\
+&= \begin{cases}
+s\sigma^2 + 1 - \mu^{t+s} & \mu = 1 \\
+\sigma^2 \mu^{t-1} \frac{\mu^s - 1}{\mu - 1} + \mu^{t+s} - \mu^{t+s} & \mu \neq 1
+\end{cases}
+\\
+&= \begin{cases}
+s\sigma^2 & \mu = 1 \\
+\sigma^2 \mu^{t-1} \frac{\mu^s - 1}{\mu - 1} & \mu \neq 1.
+\end{cases}
+\end{align*}
+Obviously, if $t<s$ then all we need to do is to switch $t$ and $s$ in this expression.
+\end{proof}
+
+\begin{prob4}
+Let $Z_n$ be a branching process with offspring distribution $X \sim \text{Geom}(p)$.  Find the extinction probability as a function of $p$.
+\end{prob4}
+
+\begin{proof}
+We have shown in lecture that the extinction probability, in this case, is the smaller fixed point of the generating function $G_X(s)$.  Thus $s^*$ solves
+\begin{align*}
+s &= G_X(s) = \frac{1}{1-(1-p)s}
+\\
+\implies 0 &= (1-p)s^2 - s + p
+\\
+&= \frac{1}{1-p}(s-1) \left(s-\frac{p}{1-p} \right).
+\end{align*}
+If $p \leq \frac12$, then $\frac{p}{1-p}$ is the smaller root, and thus the extinction probability.  Otherwise, it is $1$.
+\end{proof}
+
+\begin{prob5}
+Students come to office hours according to a rate $5$ per hour Poisson process.  They stay for $10$ minutes and then leave.  Conditional that $8$ came during the hour, what is the distribution of the number still there at the end?
+\end{prob5}
+
+\begin{proof}
+A person is still in office hours at the end of the hour if and only if they arrived during the last 10 minutes.  The arrivals in a Poisson process fall uniformly throughout the interval, so it is clear that the distribution is $\text{Bin}(8,\frac16)$, since this 10 minute interval is $\frac16$ of the entire interval.  To see this proven, suppose that $N$ is the number of arrivals in some length 1 time interval of a rate $\lambda$ Poisson process, and that $M$ is the number of arrivals in some length $p$ subinterval.  Then $M$ is independent from $N-M$, since $N-M$ is the number of arrivals in the complement of the length $p$ interval, and these two intervals are disjoint.  So
+\begin{align*}
+\p(M=k \ | \ N = n) &= \dfrac{\p(M = k, N-M = n-k)}{\p(N = n)}
+\\
+&=\dfrac{\p(M = k)\p(N-M = n-k)}{\p(N = n)}
+\\
+&= \dfrac{e^{-p\lambda} \frac{(p\lambda)^k}{k!}  e^{-(1-p)\lambda} \frac{((1-p)\lambda)^{n-k}}{(n-k)!}}{e^{-\lambda} \frac{(\lambda)^n}{n!}}
+\\
+&= \dfrac{n!}{k!(n-k)!}p^k(1-p)^{n-k}
+\\
+&= \dbinom{n}{k}p^k(1-p)^{n-k}.
+\end{align*}
+Thus the number of arrivals in the length $p$ subinterval, conditional on the number of arrivals $n$ in the entire interval, is distributed Binomial$(n,p)$.
+\end{proof}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

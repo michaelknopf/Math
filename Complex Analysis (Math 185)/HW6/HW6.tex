@@ -1,0 +1,480 @@
+% Insert HW number and date into heading!
+
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+%\addtolength{\oddsidemargin}{-.1in} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{lipsum}
+\usepackage[]{units}
+\usepackage{relsize}
+\usepackage{verbatim}
+\usepackage{mathrsfs}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{graphicx}
+\usepackage{xfrac}
+
+\setenumerate{listparindent=\parindent}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\U}{\mathcal{U}}
+\newcommand{\Int}{\displaystyle\int}
+
+\DeclareMathOperator*{\dom}{dom}
+\DeclareMathOperator*{\re}{Re}
+\DeclareMathOperator*{\im}{Im}
+\DeclareMathOperator*{\res}{res}
+\renewcommand{\bar}{\overline}
+%\renewcommand{\int}{\int}
+
+\definecolor{mygray}{rgb}{.8,.8,0.8}
+
+\newtheorem*{lem}{Lemma}
+
+%%% Heading %%%
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Math 185 (HW 6)}
+\chead{Michael Knopf (24457981)}
+\rhead{August $7^{\text{th}}$, 2015}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+\renewcommand\headrulewidth{0.4pt}
+
+\begin{document}
+
+\begin{enumerate}
+\setcounter{enumi}{40}
+\item Let $\Omega \subseteq \C$ be open.  Prove that $\Omega$ can be written as the countable disjoint union of open connected sets.
+
+\begin{proof}
+For each $x \in \Omega$, define $\U_x$ to be the union of all open, connected sets containing $x$ that are contained in $\Omega$.  We know that this union is nonempty because $\Omega$ is open, so there is at least an open ball which satisfies this condition.  Also, $\U_x$ is open and connected, because a union of open sets is open and a union of connected sets with nonempty intersection is connected (by the hint).
+
+Define a relation $\sim$ on $\Omega$ by $x \sim y$ if and only if $\U_x = \U_y$.  It is obvious that $\sim$ is an equivalence relation; it follows immediately from the fact that equality of sets is an equivalence relation.  Therefore, $\sim$ partitions $\Omega$ into a collection $\mathcal{C}$ of disjoint sets.
+
+It is easy to see that $\U_x$ is the equivalence class to which $x$ belongs.  If $x \sim y$, then $\U_y = \U_x$.  We know $y \in \U_y$, so also $y \in \U_x$.  Conversely, if $y \in \U_x$, then $\U_x$ is an open, connected subset of $\Omega$ containing $y$, thus $\U_x \subseteq \U_y$ (since $\U_y$ was defined as the union of all such subsets).  But then $x \in \U_y$, so it would contradict the maximality of $\U_x$ if we did not have $\U_x = \U_y$.  Therefore, $y \in \U_x$ if and only if $x \sim y$.  So $\U_x$ is the equivalence class containing $x$.
+
+This proves that every element of $\mathcal{C}$ is equal to $\U_x$ for some $x \in \Omega$, and thus $\mathcal{C}$ is a partition of $\Omega$ into pairwise disjoint, nonempty, open and connected subsets.
+
+We will now show that $\mathcal{C}$ is countable.  Let $\U \in \mathcal{C}$.  Since $\U$ is open and nonempty, and $\Q^2$ is dense in $\C$, there must be some $q \in \U \cap \Q^2$.  This allows us to define a function $f: \C \rightarrow \Q^2$ by mapping each $\U$ to any $q \in \U \cap \Q^2$ we desire.  We are guaranteed that $f$ is injective, no matter how we choose the $q$s, because the elements of $\C$ are pairwise disjoint.  Thus $f$ is an injection of $\C$ into a countable set, hence $\C$ is countable.
+\end{proof}
+
+\item Let $\Omega_1,\Omega_2 \subseteq \C$ be open, and let $\gamma_1 : [a,b] \rightarrow \Omega_1$, $\gamma_2 : [c,d] \rightarrow \Omega_2$ be paths.  Let $f$ be a continuous function defined on $\gamma_1 \times \gamma_2$, and define $F_1 : \gamma_1 \rightarrow \C$, $F_2: \gamma_2 \rightarrow \C$ by
+$$
+F_1(z) = \int_{\gamma_2} f(z,w)dw, \hspace{1cm} F_2(w) = \int_{\gamma_1} f(z,w)dz.
+$$
+Prove that $F_1$ and $F_2$ are continuous and that
+$$
+\int_{\gamma_1} F_1(z)dz = \int_{\gamma_2} F_2(w) dw,
+$$
+or in other words,
+$$
+\int_{\gamma_1}\int_{\gamma_2} f(z,w) dwdz = \int_{\gamma_2}\int_{\gamma_1} f(z,w) dzdw.
+$$
+
+\begin{proof}
+First, note that since $\gamma_1$ and $\gamma_2$ are compact, the integrals that define $F_1$ and $F_2$ definitely converge.  We will prove that $F_1$ is continuous, since the proof that $F_2$ is continuous is exactly symmetric.
+
+Let $z_0 \in \gamma_1, w \in \gamma_2$, and $\epsilon > 0$.  Since $f$ is continuous, it is continuous in its first component as well.  So there exists some $\delta > 0$ such that, whenever $d((z,w), (z_0, w)) < \delta$, we have $|f(z,w) - f(z_0, w)| \leq \frac{\epsilon}{L(\gamma_2)}$.  But $d((z,w), (z_0, w)) = |z - z_0|$.  Therefore, whenever $|z - z_0| \leq \delta$ we have
+\begin{align*}
+|F_1(z) - F_1(z_0)| &=
+\left| \int_{\gamma_2} f(z,w) dw - \int_{\gamma_2} f(z_0,w) dw \right|
+\\
+&=
+\left| \int_{\gamma_2} f(z,w) - f(z_0,w) dw \right|
+\\
+&\leq \sup\limits_{w \in \gamma_2} |f(z,w) - f(z_0,w)| L(\gamma_2)
+\\
+&\leq \frac{\epsilon}{L(\gamma_2)} L(\gamma_2)
+\\
+&= \epsilon.
+\end{align*}
+By symmetry, $F_2$ is also continuous as well.
+
+We can apply Fubini's Theorem to the second statement.  Since $[a,b]$ and $[c,d]$ are compact, and $\gamma_1$ and $\gamma_2$ are continuous, their images in $\Omega_1$ and $\Omega_2$ must be compact as well.  The product of two compact sets is compact, hence $\gamma_1 \times \gamma_2$ is compact.  Since $f$ is continuous on $\gamma_1 \times \gamma_2$, it achieves its maximum on this set, and hence is bounded.
+
+Since $\gamma_1$ and $\gamma_2$ are piecewise $C^1$, their derivatives on each interval of continuity are continuous, and hence bounded (since these intervals are compact).  Therefore, $|f(\gamma_1(s),\gamma_2(t)) \gamma_1 ' (s) \gamma_2 ' (t)| < r$ for some $r \in \R$.  Clearly, then the real and imaginary parts $u$ and $v$ of this function are both bounded by $r$ as well.
+
+Thus,
+$$
+ \int_c^d \int_a^b |u(s,t)| ds dt < |a-b| |c-d| r < \infty
+$$
+and
+$$
+ \int_c^d \int_a^b |v(s,t)| ds dt < |a-b| |c-d| r < \infty.
+$$
+
+Therefore, we may apply Fubini's Theorem to each of these integrals:
+\begin{align*}
+\int_{\gamma_2}\int_{\gamma_1} f(z,w) dzdw
+&=
+\int_c^d \int_a^b f(\gamma_1(s),\gamma_2(t)) \gamma_1 ' (s) \gamma_2 ' (t) ds dt
+\\
+&= \int_c^d \int_a^b u(s,t) + i v(s,t) ds dt
+\\
+&= \int_c^d \int_a^b u(s,t)ds dt + i \int_c^d \int_a^b  v(s,t) ds dt
+\\
+&= \int_a^b \int_c^d u(s,t)ds dt + i \int_a^b \int_c^d  v(s,t) ds dt
+\\
+&=
+\int_a^b \int_c^d f(\gamma_1(s),\gamma_2(t)) \gamma_1 ' (s) \gamma_2 ' (t) ds dt
+\\
+&= \int_{\gamma_1}\int_{\gamma_2} f(z,w) dwdz.
+\end{align*}
+\end{proof}
+
+\item Prove that the Laurent expansion is unique: That is, if $f$ is holomorphic in an annulus $0 \leq R_1 < |z-z_0| < R_2 \leq \infty$ and $$f(z) = \sum\limits_{n=-\infty}^\infty a_n (z-z_0)^n = \sum\limits_{n=-\infty}^\infty b_n (z-z_0)^n$$ for all $z$ in the annulus, then each $a_n = b_n$.
+
+\begin{proof}
+Assuming that the Laurent expansion of $f$ takes these two forms, we will have $\sum\limits_{n=-\infty}^\infty (a_n - b_n) (z-z_0)^n = 0$.  So, we need only to show that $a_n - b_n = 0$ for each $n$.  Thus, it suffices to assume $b_n = 0$ for all $n$ and prove that the only Laurent expansion for the $0$ function about $z_0$ is $\sum\limits_{n=-\infty}^\infty 0 (z-z_0)^n $.
+
+Suppose $\sum\limits_{n=-\infty}^\infty a_n (z-z_0)^n = 0$, and let $r = \frac{R_1 + R_2}{2}$.  For any $k \in \Z$, we have
+\begin{align}
+0 &= \frac{1}{2\pi i} \int_{C_{r}(z_0)} 0 \cdot (z-z_0)^{-(k+1)} dz
+\\
+&= \frac{1}{2\pi i} \int_{C_{r}(z_0)} \sum\limits_{n=-\infty}^\infty a_n (z-z_0)^{-(k+1)} (z-z_0)^n dz
+\\
+&= \sum\limits_{n=-\infty}^\infty \frac{1}{2\pi i} \int_{C_{r}(z_0)} a_n (z-z_0)^{n-(k+1)} dz
+\\
+&= \frac{1}{2\pi i} \int_{C_{r}(z_0)} a_k (z-z_0)^{-1} dz
+\\
+&= a_k.
+\end{align}
+On line 1, we are simply claiming that 0 equals the integral of 0.  On line 2, we are substituting this Laurent series for the factor of 0, since it equals 0.  On line 3, we interchange the summation and integral; this is justified because Laurent series converge uniformly on compact subsets of the annulus, which the circle $C_r(z_0)$ is.  On line 4, we are using the fact that the integrand has a primitive for all terms except $n = k$.  But the remaining term, which is on line 4, is simply equal to $a_k$, since $\frac{1}{2\pi i}\int_{C_r(z_0)} (z-z_0)^{-1}dz = 1$.
+\end{proof}
+
+\item Determine the Laurent expansion of each of the following functions in the regions indicated:
+\begin{enumerate}
+\item $\dfrac{1}{(z-1)(z-2)}$ in the regions $1 < |z| < 2$, $|z| > 2$, and $0 < |z-1| < 1$.
+
+\begin{proof}
+The partial fraction decomposition of $\dfrac{1}{(z-1)(z-2)}$ is given by
+$$
+\dfrac{1}{(z-1)(z-2)} = \frac{1}{1-z} - \frac{1}{2-z}.
+$$
+When $|z| < 1$, we have $$\dfrac{1}{1-z} = \sum_{n=0}^\infty z^n.$$  When $|z| > 1$, we find that
+$$
+\frac{1}{1-z} = -\frac{1}{z}\frac{1}{1-z^{-1}} = -\frac{1}{z}\sum_{n=0}^\infty z^{-n} = \sum_{n=1}^\infty -z^{-n}.
+$$
+
+Similarly, when $|z| < 2$ we have
+$$
+-\frac{1}{2-z} = -\frac12 \frac{1}{1-\frac{z}{2}} = -\frac{1}{2}\sum_{n=0}^\infty \left(\frac{z}{2} \right)^n = \sum_{n=0}^\infty -2^{-(n+1)}z^n.
+$$
+However, when $|z| > 2$,
+$$
+-\frac{1}{2-z} = \frac{1}{z}\frac{1}{1-\frac{2}{z}} = \frac{1}{z}\sum_{n=0}^\infty \left( \frac{2}{z} \right)^n = \sum_{n=1}^\infty 2^{n-1} z^{-n}.
+$$
+
+For the last region, $0 < |z-1| < 1$, consider the transformation $w = z-1$.  Under this change of variables, we have
+$$
+\dfrac{1}{(z-1)(z-2)} = -\dfrac{1}{w(1-w)} = -w^{-1} \sum_{n=0} w^n = \sum_{n=-1}^\infty -w^n = \sum_{n=-1}^\infty -(z-1)^n.
+$$
+
+Putting all of these expansions together, according to where their annuli of convergence intersect, gives the following Laurent expansions:
+$$
+\dfrac{1}{(z-1)(z-2)} = 
+\begin{cases}
+\sum\limits_{n=1}^\infty -z^{-n} + \sum\limits_{n=0}^\infty -2^{-(n+1)} z^n  & 1 < |z| < 2 \\
+\sum\limits_{n=1}^\infty 2^{-n} z^{-n} + \sum\limits_{n=1}^\infty -z^{-n} & |z| > 2 \\
+\sum\limits_{n=-1}^\infty -(z-1)^n & 0 < |z-1| < 1
+\end{cases}
+$$
+\end{proof}
+
+\item $\dfrac{1}{z^2(1-z)}$ in the regions $0 < |z| < 1$, $|z| > 1$, and $0 < |z-1| < 1$.
+
+\begin{proof}
+When $0 < |z| < 1$,
+$$
+\frac{1}{z^2(1-z)} = z^{-2}\sum_{n=0}^\infty z^n = \sum_{n=-2}^\infty z^n.
+$$
+When $|z| > 1$,
+$$
+\frac{1}{z^2(1-z)} = -z^{-2}\frac{1}{z}\frac{1}{1-z^{-1}} = -z^{-3} \sum_{n=0}^\infty z^{-n} = \sum_{n=3}^\infty -z^{-n}.
+$$
+For the last region, we again make the substitution $w = 1-z$.  Notice that
+$$
+\frac{1}{(1-w)^2} = \frac{d}{dw} \frac{1}{1-w} = \frac{d}{dw} \sum_{n=0}^\infty w^n = \sum_{n=0}^\infty \frac{d}{dw} w^n = \sum_{n=0}^\infty n w^{n-1} = \sum_{n=1}^\infty n w^{n-1} = \sum_{n=0}^\infty (n+1) w^{n}.
+$$
+This means that
+$$
+\frac{1}{z^2(1-z)} = \frac{1}{(1-w)^2 w} = w^{-1}\sum_{n=0}^\infty (n+1) w^{n} = \sum_{n=0}^\infty (n+1) w^{n-1} = \sum_{n=-1}^\infty (n+2) w^{n} = \sum_{n=-1}^\infty (n+2) (1-z)^{n}
+$$
+$$
+= \sum_{n=-1}^\infty (n+2)(-1)^n (z-1)^{n}.
+$$
+Thus,
+$$
+\dfrac{1}{z^2(1-z)}
+=
+\begin{cases}
+\sum\limits_{n=-2}^\infty z^n & 0 < |z| < 1 \\
+\sum\limits_{n=3}^\infty -z^{-n} & |z| > 1 \\
+\sum\limits_{n=-1}^\infty (n+2)(-1)^n (z-1)^{n} & 0 < |z-1| < 1
+\end{cases}
+$$
+\end{proof}
+
+\item $\dfrac{2z + 10}{(1+z)^2 (z^2 - 9)}$ in the region $1 < |z| < 3$.
+\begin{proof}
+The partial fraction decomposition of this function is
+\begin{align*}
+\dfrac{2z + 10}{(1+z)^2 (z^2 - 9)} &= \dfrac{1}{6}\left(\frac{1}{z-3}\right) - \frac{1}{6}\left(\frac{1}{z+3}\right) - \frac{1}{(1+z)^2}
+\\
+&= -\frac{1}{18} \left(\frac{1}{1 - (-\frac{z}{3})}\right) + \frac{1}{18}\left(\frac{1}{1-\frac{z}{3}}\right) - \frac{1}{z^2}\frac{1}{(1+z^{-1})^2}.
+\end{align*}
+The Taylor expansions for the first two terms converge on the given region.  For the last term, notice that
+$$
+\frac{1}{z^2}\frac{1}{(1+z^{-1})^2} = \frac{d}{dz} \frac{1}{1+z^{-1}} = \frac{d}{dz} \sum_{n=0}^\infty (-z)^{-n} = \sum_{n=0}^\infty (-1)^n (-n)z^{-(n+1)} = \sum_{n=1}^\infty (-1)^{n+1} (n-1)z^{-n}.
+$$
+So
+$$
+\dfrac{2z + 10}{(1+z)^2 (z^2 - 9)} = -\frac{1}{18} \sum_{n=0}^\infty \left(-\frac{1}{3}\right)^n z^n + \frac{1}{18} \sum_{n=0}^\infty \left(\frac{1}{3}\right)^n z^n - \sum_{n=1}^\infty (-1)^{n+1} (n-1)z^{-n}
+$$
+$$
+= \frac{1}{9} \sum_{n=0}^\infty o_n\left(\frac{1}{3}\right)^n z^n - \sum_{n=1}^\infty (-1)^{n+1} (n-1)z^{-n}
+$$
+where $o_n$ is $1$ if $n$ is odd and $0$ otherwise.
+\end{proof}
+\end{enumerate}
+
+\item Let $z_0$ be an isolated singularity of a holomorphic function $f$.  Suppose that there are $A, \epsilon > 0$ such that for all $z$ sufficiently close to $z_0$, $|f(z)| \leq \dfrac{A}{|z-z_0|^{1-\epsilon}}$.  Prove that $z_0$ is a removable singularity.
+
+\begin{proof}
+Rearranging gives $|(z-z_0)f(z)| \leq A |z-z_0|^\epsilon$.  Since $\epsilon > 0$, the righthand side converges to zero as $z \rightarrow z_0$.  Therefore, $\lim\limits_{z \rightarrow z_0} (z-z_0) f(z) = 0$.  So the power series expansion of $(z-z_0)f(z)$ must have $a_n = 0$ for all $n <0$.  We also know that the constant term must be $0$ as well, since the constant term \emph{is} the limit Therefore, the principal part of the Laurent expansion of $f(z)$ about $z_0$ must be $0$, so $z_0$ is a removable singularity.
+\end{proof}
+
+\item Prove that if $z_0$ is an isolated singularity of $f$, then it is not a pole of the function $e^f$.
+
+\begin{proof}
+There are three possibilities: $z_0$ can be a removable singularity, an essential singularity, or a pole.
+
+First, assume $z_0$ is removable.  Then $\lim\limits_{z \rightarrow z_0} f(z) = c$ for some $c \in \C$.  Since $e$ is continuous, $\lim\limits_{z \rightarrow z_0} e^{f(z)} = e^{\lim\limits_{z \rightarrow z_0} f(z)} = e^c < \infty$, thus $z_0$ is not a pole of $e^f$.
+
+Next, assume $z_0$ is an essential singularity.  By Casorati-Weierstrass, the image of $f$ is dense in $\C$ on any deleted neighborhood $B_r(z_0)$.  This means we can find two sequences $z_n$ and $w_n$ such that $\re (f(z_n)) \rightarrow \infty$ but $\re (f(w_n)) \rightarrow - \infty$, and both $\im(f(z_n)) \rightarrow 0$ and $\im(f(w_n)) \rightarrow 0$.  But then $e^{f(z_n)} \rightarrow \infty$ and $e^{f(w_n)} \rightarrow 0$.  Therefore, $e^f$ has an essential singularity at $z_0$.
+
+Finally, assume $z_0$ is a pole.  Then there exists some maximum $N$ such that $a_{-N} \neq 0$ in the Laurent expansion of $f$.  We are able to construct a sequence of points converging to $z_0$ for which $f(z)$ takes arbitrarily large values, however its values alternate back and forth across the origin along some axis.  What is required for this sequence to behave in this way is dependent upon the value of $N$, but one always exists.  When we consider the values of $e^{f(z)}$ on this sequence, they alternate between very large values and values close to 0, thus the sequence does not converge.  So $\lim\limits_{z \rightarrow z_0} e^f$ does not exist, hence $z_0$ is not a pole of $e^f$.
+\end{proof}
+
+\item Let $f$ be meromorphic in all of $\C$, and suppose that for all sufficiently large $|z|$, $|f(z)| \leq C \cdot |z|^n$.  Prove that $f$ is a rational function.
+
+\begin{proof}
+Let $S$ be the set of singularities of $f$.  We may assume that $f$ has no removable singularities, since otherwise we could replace it with a function $F$ which has been extended analytically to those singularities, and be left with only poles.  So assume $S$ contains only poles.
+
+First, we will show that $S$ is finite.  There exists $M \in \R$ such that, whenever $|z| > M$, we have $|f(z)| \leq C\cdot |z|^n$.  Let $z_0 \in \C$ be any point such that $|z_0| > M$.  Since $\lim\limits_{z \rightarrow z_0} C \cdot |z|^n = C \cdot |z_0|^n$, we cannot have $\lim\limits_{z \rightarrow z_0} f(z) = \infty$, else it would contradict that the inequality holds near this point.  So $z_0$ cannot possibly be a pole.  Thus, there are no poles outside the ball $B_M$ of radius $M$ centered at 0.
+
+Now, if $S$ were \emph{not} finite, then there would be infinitely many poles within $B_M$.  However, this ball is a bounded set, thus Bolzano-Weierstrass states that $S$ would have a limit point, contradicting that $S$ is discrete.  So $S$ must be finite.
+
+Enumerate the elements of $S$ as $z_1, \dots , z_k$, and let $m_j$ be the order of $z_j$ as a pole.  Define
+$$
+q(z) = (z - z_1)^{m_1} \cdots (z - z_k)^{m_k}.
+$$
+$q(z)f(z)$ has only removable singularities, and so we may simply identify it with its analytic continuation to all of $\C$.  Thus, under this identification, $q(z) f(z)$ is entire.
+
+Whenever $|z| > M$, we have $|q(z)||f(z)| \leq C \cdot |z|^n |q(z)|$.  There clearly exists some $m$ such that $|q(z)f(z)| \leq C \cdot |z|^m$ for sufficiently large $|z|$
+
+Therefore, by a previous exercise, $q(z)f(z) = p(z)$ for some polynomial $p$, giving us
+$$
+f(z) = \frac{p(z)}{q(z)}.
+$$
+\end{proof}
+
+\item Let $z_0$ be an isolated singularity of $f$.  Prove that if $\res_{z_0}f = 0$, then $f$ has a primitive in some deleted neighborhood of $z_0$.
+
+\begin{proof}
+Let $R$ be the outer radius of convergence for the annulus of convergence of the Laurent expansion of $f(z)$ about $z_0$.  Since $z_0$ is an isolated singularity, we have for any closed path $\gamma \in B_R(z_0) \setminus \{z_0\}$
+$$
+\res\nolimits_{z_0} f = \frac{1}{2\pi i W_r(z_0)} \int_{\gamma} f(z) dz = 0.
+$$
+This implies $\int_{\gamma} f(z) dz = 0$ for all closed paths $\gamma \in B_R(z_0)$.  Thus $f$ is path independent, hence it has an antiderivative.
+\end{proof}
+
+\item Let $g,h : \Omega \rightarrow \C$ be holomorphic, and suppose $h$ has a simple zero at $z_0 \in \Omega$.  Prove that $\res_{z_0}\left[ \dfrac{g}{h} \right] = \dfrac{g(z_0)}{h'(z_0)}$.
+
+\begin{proof}
+We can write $h(z)$ as $h(z) = (z - z_0)f(z)$, where $f$ is holomorphic and $f(z_0) \neq 0$.  Since $h'(z) = (z-z_0)f'(z) + f(z)$, we have $h'(z_0) = f(z_0)$.  There are two cases to consider, based on whether or not $g(z_0) = 0$.
+
+If $g(z_0) = 0$, then we can factor $g(z)$ as $g(z) = (z-z_0) l(z)$ for some holomorphic function $l$ such that $l(z_0) \neq 0$.  Thus, $\dfrac{g(z)}{h(z)} =  \dfrac{(z-z_0) l(z)}{(z-z_0)f(z)} = \dfrac{l(z)}{f(z)}$ is holomorphic on $\Omega$, so its residue is zero.  Also,
+$$
+\dfrac{g(z_0)}{h'(z_0)} = \frac{(z_0 - z_0)l(z_0)}{(z_0 - z_0)f'(z_0) + f(z_0)} = \frac{0}{f(z_0)} = 0
+$$
+because $f(z_0) \neq 0$.  So the proposition holds in this case.
+
+Next, assume $g(z_0) \neq 0$.  Then $z_0$ is a simple pole of $\frac{g}{h}$, so
+$$
+\res\nolimits_{z_0} \left[ \frac{g}{h} \right] = \lim_{z \rightarrow z_0} (z-z_0) \frac{g(z)}{(z-z_0)f(z)} = \lim_{z \rightarrow z_0} \frac{g(z)}{f(z)} = \lim_{z_o \rightarrow z} \frac{g(z)}{h'(z) - (z-z_0)f'(z)} = \frac{g(z)}{h'(z)}.
+$$
+\end{proof}
+
+\item Let $f$ be meromorphic in $\Omega$ and not identically zero.  Show that each isolated singularity of $\frac{f'}{f}$ is a simple pole, and show that the residue at each pole is an integer.
+
+\begin{proof}
+Since $f$ is meromorphic and not identically zero, for any pole $z_0$ of $f$ of order $N$ we can write $f(z) = \sum_{n = -N}^\infty a_n (z-z_0)^n$, where $a_{-N}$ is nonzero.  Differentiating gives $f'(z) = \sum_{n = -N}^\infty n a_n (z-z_0)^{n-1} = \sum_{n = -N-1}^\infty (n+1) a_{n+1} (z-z_0)^n$.  Therefore, any pole of $f$ with order $N$ is also a pole of $f'$, but with order $N+1$.  Now, suppose $z_0$ is a pole of $f'$ of order $N+1$.  Then by the same expansion and differentiation as above, we see that $z_0$ must be a pole of $f$ of order $N$.
+
+Similarly, inspecting the expansions of $f$ and $f'$ reveals that any zero of $f$ is also a zero of $f'$ with one less multiplicity (adopting the convention that $z$ is a zero of multiplicity 0 if it is not a zero), and any zero of $f'$ with multiplicity $k>0$ is a zero of $f$ with multiplicity $k + 1$.
+
+Therefore, in the quotient $\dfrac{f'}{f}$, all but one copy of each pole of $f'$ is reduced to a removable singularity, and all but one copy of each zero of $f$ is reduced to a removable singularity.  Thus, the poles of $\dfrac{f'}{f}$ are all simple, and they are precisely the poles and zeros of $f$.
+
+Now, suppose $z_0$ is a pole of $f$ of order $N$.  Then $f(z) = (z - z_0)^{-N}h(z)$ for some $h$ that is holomorphic and nonzero in a neighborhood of $z_0$.  This gives $f'(z) = -N(z-z_0)^{-N-1}h(z) + (z-z_0)^{-N}h'(z)$.  Also, $z_0$ is a simple pole of $\dfrac{f'}{f}$, so its residue is given by
+\begin{align*}
+\res\nolimits_{z_0} \frac{f'(z)}{f(z)} &= \lim_{z \rightarrow z_0} (z-z_0)\frac{f'(z)}{f(z)}
+\\
+&=
+\lim_{z \rightarrow z_0} (z-z_0)\frac{-N(z-z_0)^{-N-1}h(z) + (z-z_0)^{-N}h'(z)}{(z - z_0)^{-N}h(z)}
+\\
+&=
+\lim_{z \rightarrow z_0} \frac{-Nh(z) + (z-z_0)h'(z)}{h(z)}
+\\
+&=
+\frac{-Nh(z_0)}{h(z_0)}
+\\
+&= -N \in \Z.
+\end{align*}
+If $z_0$ is a zero of $f$ of order $M$, then $f(z) = (z - z_0)^M h(z)$ for a function $h$ that is holomorphic and nonzero in a neighborhood of $z_0$.  Now, $f'(z) = M(z-z_0)^{M-1}h(z) + (z-z_0)^{M}h'(z)$.   Again, $z_0$ is a simple pole of $\frac{f'}{f}$.  Substituting $-N = M$ in the algebraic proof directly above, we see that the exact result still follows, and we obtain
+$$
+\res\nolimits_{z_0} \frac{f'(z)}{f(z)} = M \in \Z.
+$$
+So, in all cases, the residue is an integer.
+\end{proof}
+
+\item Prove that, for $n \geq 3$, the sum of the residues of all the isolated singularities of
+$$
+\frac{z^n}{1 + z + z^2 + \cdots + z^{n-1}}
+$$
+is 0.
+
+\begin{proof}
+The denominator has simple zeros at all $n$th roots of unity except for $z = 1$.  The numerator only has roots at $0$, so it does not affect the singularities.  Thus this function has simple poles at all $n$th roots of unity except $z = 1$.
+We can rewrite the function as
+$$
+\frac{z^n(z-1)}{z^n - 1}.
+$$
+Exercise 49 states that the residue is
+$$
+\res\nolimits_{\omega} = \frac{\omega^n(\omega - 1)}{\omega^{n-1}} = \omega(\omega - 1) = \omega^2 - \omega
+$$
+where $\omega$ is any $n$th root of unity except for $1$.  The sum of the residues is then
+$$
+\sum_{n=1}^n \omega^{2k} - \omega^k
+$$
+where $\omega$ is now a primitive $n$th root of unity.
+
+If $n$ is odd, then $\omega^2$ is also an $n$th root of unity; if $n$ is even, then $\omega^2$ is an $\frac{n}{2}$th root of unity.  In either case, it is an $m$th root of unity with $m \geq 3$, so the summation above equals $-1 - (-1) = 0$.
+\end{proof}
+
+\item Each of the following functions is defined on all of $\C$ except for isolated singularities.  Locate each singularity, classify it as removable, a pole [give the order], or essential, and compute the residue there:
+\begin{enumerate}
+\item $\dfrac{1}{\sin^2 z}$
+\begin{proof}
+Suppose $\sin z = 0$.  Then $\dfrac{e^{iz} - e^{-iz}}{2i} = 0$, thus $e^{2iz} = 1$.  So $2zi$ is an integer multiple of $2\pi i$, thus $z = \pi n $ for some $n \in \Z$.  So the zeros of $\sin z$ occur at $z = \pi n$ for all $n \in \Z$.  Since the derivative of $\sin z$ at $\pi n$ is $\cos (\pi n ) \neq 0$, these are all simple zeros of $\sin$.  Therefore, they are all poles of order 2 of $\dfrac{1}{\sin^2 z}$.
+
+Let $C$ be the circle of radius $\frac{\pi}{2}$ about the origin.  Since $\sin^2(-z) = (-\sin(z))^2 = \sin^2(z)$, $\gamma'(z) = -\gamma'(-z)$ (where $\gamma$ is a parametrization of $C$)
+$$
+\res\nolimits_{0} \left( \dfrac{1}{\sin^2 z} \right) = \frac{1}{2\pi i}\int_C \dfrac{1}{\sin^2 z} dz = 0.
+$$
+For every pole $z_0$ of $\dfrac{1}{\sin^2 z}$, we can find a neighborhood about $z_0$ on which $\dfrac{1}{\sin^2 (z - z_0)} = \dfrac{1}{\sin^2 z} $.  Thus, the integral around this point will yield the same value.  So all residues are 0.  It is clear that this function has no essential or removable singularities.
+\end{proof}
+\item $\sin \dfrac{1}{z}$
+\begin{proof}
+This function is defined everywhere except for $0$.  This point is an essential singularity, since we know from real analysis that the limit of this function does not even exist when we approach along the real line.  The Laurent expansion for this function is obtained by substituting $\frac1z$ into the series expansion for $\sin$, giving
+$$
+\sin \left(\frac1z \right) = \sum_{n=0}^\infty \frac{(-1)^n}{(2n+1)!}z^{-(2n+1)}.
+$$
+Therefore, the residue is the $n$th term, where $-(2n+1) = -1$, which equals 1.
+\end{proof}
+\item $\dfrac{z}{e^z - 1}$
+\begin{proof}
+Clearly, the only isolated singularities occur at integer multiples of $2\pi i$.  Except for when $n = 0$, the limit approaching $2\pi i n$ is clearly $\infty$, so we know these are poles.
+
+Since the derivative of the denominator is $e^z$, which is nonzero, we know these are all simple zeros of the denominator.  Thus there is a removable singularity at $z = 0$ (since it ``cancels" with the numerator, i.e. the limit approaching this point is not infinity), and simple poles at $z = 2\pi i n$ for all $n \neq 0$.  The residue at $0$ is obviously 0.  Since the zeros of the denominator are simple at the poles, we can apply exercise 49 to find the residues there:
+$$
+\res\nolimits_{2\pi i n} \frac{z}{e^z - 1} = \frac{z}{(e^z - 1)'}\bigg|_{z=2\pi i n} = 2\pi i n.
+$$
+\end{proof}
+\item $\tan z$
+\begin{proof}
+We know $\tan z = \dfrac{\sin z}{\cos z}$.  The zeros of $\cos z$ occur when
+$$
+\frac{e^{iz} + e^{-iz}}{2} = 0
+$$
+which has solutions at $z = (n + \frac12)\pi$.  None of these zeros coincide with those of $\sin z$, so none cancel with the numerator.  $-\sin z$ is also the derivative of $\cos z$, so these are all simple zeros as well.  Thus, these are all simple poles of $\tan z$.  Again, we can apply exercise 49:
+$$
+\res\nolimits_{(n + \frac12)\pi} \frac{\sin z}{\cos z}= \frac{\sin z}{-\sin z}\bigg|_{z=(n + \frac12)\pi} = -1.
+$$
+\end{proof}
+\item $\dfrac{\cos z}{1 + z + z^2}$
+\begin{proof}
+The denominator is the minimal polynomial for the cube roots of unity, so its only zeros occur at $\omega = \dfrac{-1 + \sqrt{-3}}{2}$ and $\omega^2$.  Neither of these are zeros of $\cos z$, and neither are multiple roots of the denominator.  Thus the function has two simple poles at these points, and so the residues are given by
+$$
+\res\nolimits_{\omega} \dfrac{\cos z}{1 + z + z^2} = \frac{\cos(\omega)}{2\omega + 1}.
+$$
+\end{proof}
+\item $\dfrac{z^m}{1-z^n}$ ($m,n$ positive integers)
+\begin{proof}
+The denominator has isolated singularities at all $n$th roots of unity.  It shares no roots with the numerator, and all of the zeros are simple.  So $f$ has simple poles at each $n$th root of unity.  The residues there are given by
+$$
+\res\nolimits_{\omega} = \frac{\omega^m}{n\omega^{n-1}} = \omega^m \frac{1}{\frac{n}{\omega}} = \frac{\omega^{m+1}}{n}
+$$
+where $\omega$ is any $n$th root of unity.
+\end{proof}
+\item $\dfrac{1}{z^m(1-z)^n}$ ($m,n$ positive integers)
+\begin{proof}
+Clearly, $f$ has poles of order $m$ and $n$ at $0$ and $1$, respectively.
+\begin{align*}
+\res\nolimits_{0} &= \frac{1}{(m-1)!} \lim_{z \rightarrow 0} \frac{d^{m-1}}{dz^{m-1}}[z^m \dfrac{1}{z^m(1-z)^n}]
+\\
+&= \frac{(-1)^n}{(m-1)!} \lim_{z \rightarrow 0} \frac{d^{m-1}}{dz^{m-1}}[(z-1)^{-n}]
+\\
+&= \frac{(-1)^n}{(m-1)!} \lim_{z \rightarrow 0} \frac{n!}{(n-(m-1))!}(-1)^{m-1}(z-1)^{-n-m+1}
+\\
+&= \frac{(-1)^{n+m-1}}{(m-1)!} \lim_{z \rightarrow 0} \frac{n!}{(n-(m-1))!}(z-1)^{-n-m+1}
+\\
+&= \frac{(-1)^{n+m-1}}{(m-1)!} \frac{n!}{(n-(m-1))!}(-1)^{-n-m+1}
+\\
+&= \frac{n!}{(m-1)!(n-(m-1))!}
+\\
+&= \binom{n}{m-1}
+\end{align*}
+\begin{align*}
+\res\nolimits_{1} &= \frac{1}{(n-1)!} \lim_{z \rightarrow 1} \frac{d^{n-1}}{dz^{n-1}}[(z-1)^n \dfrac{1}{z^m(1-z)^n}]
+\\
+&=\frac{(-1)^n}{(n-1)!} \lim_{z \rightarrow 1} \frac{d^{n-1}}{dz^{n-1}}[z^{-m}]
+\\
+&=\frac{(-1)^n}{(n-1)!} \lim_{z \rightarrow 1} (-1)^{(n-1)} \frac{m!}{(m-(n-1))!} z^{-m - n + 1}
+\\
+&=- \binom{m}{n-1}
+\end{align*}
+\end{proof}
+\end{enumerate}
+\end{enumerate}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

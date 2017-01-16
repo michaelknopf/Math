@@ -1,0 +1,223 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+%\addtolength{\oddsidemargin}{-.1in} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{lipsum}
+\usepackage[]{units}
+\usepackage{relsize}
+\usepackage{verbatim}
+\usepackage{bbm}
+\usepackage{mathtools}
+\usepackage{eufrak}
+\usepackage[mathscr]{euscript}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{graphicx}
+\usepackage{xfrac}
+
+\setenumerate{listparindent=\parindent}
+
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Int}{{\displaystyle \int}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\U}{\mathcal{U}}
+\renewcommand{\L}{\mathcal{L}}
+
+\newcommand{\sd}{\Delta}
+
+\DeclareMathOperator*{\dom}{dom}
+\DeclareMathOperator*{\Aut}{Aut}
+\DeclareMathOperator*{\Ann}{Ann}
+\DeclareMathOperator*{\Tor}{Tor}
+\DeclareMathOperator*{\Gal}{Gal}
+\DeclareMathOperator*{\Hom}{Hom}
+\DeclareMathOperator*{\End}{End}
+\DeclareMathOperator*{\im}{Im}
+\DeclareMathOperator*{\card}{card}
+
+\renewcommand{\bar}{\overline}
+\renewcommand{\P}{\mathcal{P}}
+
+\usepackage{fancyhdr} % Required for custom headers 
+%\usepackage{lastpage} % Required to determine the last page for the footer
+
+\pagestyle{fancy}
+\lhead{Math 202A (HW 4)}
+\chead{Michael Knopf (24457981)}
+\rhead{October $1^\text{st}$, 2015}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+%\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}
+\renewcommand\headrulewidth{0.4pt}
+%\renewcommand\footrulewidth{0.4pt}
+
+\begin{document}
+
+\noindent In these exercises, $\mu$ denotes Lebesgue measure.  A subset of $\R$ is called Borel if it is an element of the Borel $\sigma$-algebra $\B_\R$.
+
+\begin{enumerate}
+
+\item Find an example of Lebesgue measurable subsets $\{A_i : i \in \N\}$ of $[0,1]$ such that $\mu(A_n) > 0$ for each $n$, $\mu(A_n \sd A_m) > 0$ if $n \neq m$, and $\mu(A_n \cap A_m) = \mu(A_n)\mu(A_m)$ if $n \neq m$.
+
+$$
+A_n = \bigcup_{i=0}^{2^{n-1}-1} \left(\frac{2i}{2^n}, \frac{2i + 1}{2^n}\right), \hspace{.7cm} n \geq 1
+$$
+
+\begin{proof}
+First, note that for each $n$, $A_n$ is a union of $2^{n-1}$ intervals, each of measure $2^{-n}$.  So $A_n$ has measure $\frac12$.  Now, let $m < n$.  We will show that a given interval in the union defining $A_m$ intersects exactly $2^{n-m-1}$ of the intervals in the union defining $A_n$, and that each of these intersections is actually a containment.
+
+Fix two such intervals, $\left(\frac{2i}{2^n}, \frac{2i + 1}{2^n}\right) \subset A_n$ and $\left(\frac{2j}{2^n}, \frac{2j + 1}{2^n}\right) \subset A_m$ for some $i$ and $j$ such that $0 \leq i < 2^n$ and $0 \leq j < 2^m$.  Assume, for a contradiction, that $\left(\frac{2i}{2^n}, \frac{2i + 1}{2^n}\right) \cap \left(\frac{2j}{2^n}, \frac{2j + 1}{2^n}\right) \neq \emptyset$ but $\left(\frac{2i}{2^n}, \frac{2i + 1}{2^n}\right) \not \subset \left(\frac{2j}{2^n}, \frac{2j + 1}{2^n}\right)$.  This means we must have either
+$$
+\frac{2i}{2^n} < \frac{2j}{2^m} < \frac{2i+1}{2^n}
+\hspace{.5cm} \text{ or } \hspace{.5cm}
+\frac{2i}{2^n} < \frac{2j+1}{2^m} < \frac{2i+1}{2^n}.
+$$
+However, these inequalities reduce to
+$$
+2^{n-m}j - \frac12 < i < 2^{n-m}j
+\hspace{.5cm} \text{ or } \hspace{.5cm}
+2^{n-m-1}(2j+1) - \frac12 < i < 2^{n-m-1}(2j+1),
+$$
+both of which contradict that $i$ is an integer.  So we must have $\left(\frac{2i}{2^n}, \frac{2i + 1}{2^n}\right) \subset \left(\frac{2j}{2^n}, \frac{2j + 1}{2^n}\right)$.
+
+The inclusion $\left(\frac{2i}{2^n}, \frac{2i + 1}{2^n}\right) \subset \left(\frac{2j}{2^n}, \frac{2j + 1}{2^n}\right)$ holds if and only if we have
+$$
+\frac{2j}{2^m} \leq \frac{2i}{2^n} < \frac{2i + 1}{2^n} \leq \frac{2j+1}{2^m}.
+$$
+Solving shows that these inequalities are satisfies if and only if $2^{n-m}j \leq i < 2^{n-m-1}(2j+1)$.  Therefore, there are exactly $2^{n-m-1}(2j+1) - 2^{n-m}j = 2^{n-m-1}$ choices of $i$ for which these inequalities hold, each corresponding to an interval $\left(\frac{2i}{2^n}, \frac{2i + 1}{2^n}\right)$ that is contained in $\left(\frac{2j}{2^n}, \frac{2j + 1}{2^n}\right)$.
+
+$A_m$ is a disjoint union of $2^{m-1}$ intervals, and we have just shown that each of these contains $2^{n-m-1}$ intervals from $A_n$.  Each interval in $A_n$ has measure $2^{-n}$.  Therefore
+$$
+\mu(A_n \cap A_m) = 2^{m-1}\cdot 2^{n-m-1} \cdot 2^{-n} = \frac14 = \frac12 \cdot \frac12 = \mu(A_n)\mu(A_m).
+$$
+Finally, we have $\mu(A_n \sd A_m) = \mu(A_n) + \mu(A_m) - 2\mu(A_n \cap A_m) = \frac12 > 0$.
+\end{proof}
+
+\item (F 1.5, exercise 30) If $E \in \L$ and $m(E) > 0$, for any $\alpha < 1$ there is an open interval $I$ such that $m(E \cap I) > \alpha m(I)$.
+
+\begin{proof}
+
+First, we will prove Proposition 1.20 as a lemma, which claims that for any $E \in \M_{\mu}$ with $\mu (E) < \infty$, there is a set $A$ that is a finite union of disjoint open intervals such that $\mu(E \sd A) < \epsilon$ (it does not actually state ``disjoint", but this is just as easy to prove).  By Theorem 1.18, there is an open set $U \supset E$ such that $\mu(U) \leq \mu(E) + \frac{\epsilon}{2}$.  $U$ can be written as a union of disjoint open intervals $I_k$.  Since $\mu(U) < \infty$, we know that there is some $n$ such that $\sum\limits_{n+1}^\infty I_k < \frac{\epsilon}{2}$, so let $A = \bigcup\limits_{1}^n I_k$.  We have $\mu(E \setminus A) \leq \mu(U \setminus A) = \sum\limits_{n+1}^\infty I_k < \frac{\epsilon}{2}$ and $\mu(A \setminus E) \leq \mu(U \setminus E) = \mu(U) - \mu(E) \leq \frac{\epsilon}{2}$, thus $\mu(E \sd A) = \mu(E \setminus A) + \mu (A \setminus E) < \epsilon$.
+
+Now, for the main proof, begin by assuming $m(E) < \infty$.  Then there is a finite union $A$ of open intervals such that $m(E \sd A) < (1-\alpha)m(E)$.  We have
+\begin{align*}
+m(E) &= m(E \cap A) + m(E \setminus A) \\
+&\leq m(E \cap A) + m(E \sd A) \\
+&< m(E \cap A) + (1-\alpha)m(E)
+\end{align*}
+which gives $\alpha m(E) < m(E \cap A)$.  Using this, we find
+\begin{align*}
+m(A) &= m(E \cap A) + m(A \setminus E) \\
+&\leq m(E \cap A) + m(E \sd A) \\
+&< m(E \cap A) + (1-\alpha)m(E) \\
+&< m(E \cap A) + (1-\alpha)\frac{m(E\cap A)}{\alpha}\\
+&= \frac{m(E\cap A)}{\alpha}
+\end{align*}
+so $\alpha m(A) < m(E \cap A)$.  We know there are disjoint open intervals $I_1, \dots , I_n$ such that $A = I_1 \cup \cdots \cup I_n$.  This means
+$$
+\sum_1^n m(E \cap I_k) = m(E \cap A) > \alpha m(A) = \sum_1^n \alpha m(I_k)
+$$
+so there must be some $k$ for which $m(E \cap I_k) > \alpha m(I_k)$.
+
+Finally, consider the case where $m(E) = \infty$.  There must be some open interval $J = (j,j+2)$ for $j \in \Z$ such that $E \cap J$ has finite, positive measure.  Otherwise, $m(E) = m(\bigcup_1^\infty E \cap (i,i+2)) \leq \sum_1^\infty m(E \cap (i,i+2)) = \sum_1^\infty 0 = 0$, a contradiction.  We can apply the finite case of the proposition, which we have just proven, to the set $E \cap J$ to obtain an open interval $I$ such that $$m(E \cap (I \cap J)) = m((E \cap J) \cap I) > \alpha m(I) \geq \alpha m(I \cap J).$$
+Therefore, $I \cap J$ is the interval we seek (it is an intersection of open intervals, thus is an open interval).
+
+\end{proof}
+
+\item Suppose that $A \subset \R$ is a Borel set of $\R$ with $\mu(A) > 0$.  Prove that the set of differences
+$$
+\{x - y : x,y \in A \}
+$$
+contains a nonempty open interval that includes the origin.
+
+\begin{proof}
+For any set $S$, denote the set of differences by $S - S = \{x - y : x,y \in S \}$.
+Apply the previous exercise to obtain an open interval $I$ such that $\frac{3}{4}\mu(I) < \mu(A \cap I)$.  Clearly, $I$ has finite measure, since it is strictly less than something; it must also be nonempty because otherwise we would have
+$$
+0 = \frac{3}{4}\mu(\emptyset) = \frac34 \mu(I) < \mu(A \cap I) = \mu(\emptyset) = 0.
+$$
+So $J = (-\frac12 \mu(I), \frac12 \mu(I))$ is nonempty and includes the origin.  Let $E = A \cap I$.
+
+Suppose, for a contradiction, that $J \not \subset E - E$.  Then there is some $x \in J$ such that, for all $y \in E$, $x+y \not \in E$; otherwise, there would be some $a \in E$ such that $x = y-a \in E - E$, a contradiction.  Thus, $(x+E) \cap E = \emptyset$, and so $$\mu((x+E) \cup E) = \mu(x+E) + \mu(E) - \mu((x+E) \cap E) = \mu(E) + \mu(E) - 0 = 2\mu(E).$$
+Also, $E \subset I$, so $(x+E) \cup E \subset (x + I) \cup I$.  But $|x| < \frac12 \mu(I)$, therefore $\mu((x + I) \cap I) \geq \frac12 \mu(I)$.  This means
+$$
+2 \mu(E) = \mu((E + x) \cup E) \leq \mu((I+x) \cup I) \leq 2\mu(I) - \frac12 \mu(I) = \frac32 \mu(I)
+$$
+thus $\mu(E) \leq \frac34 \mu(I)$, a contradiction.  So we must have $J \subset E - E \subset A - A$.
+\end{proof}
+
+
+\item Construct a Borel set $A \subset \R$ such that $0 < \mu(A \cap I) < \mu(I)$ for every open interval $I$.  We may wish to consider variants of Cantor-like sets, and F 1.5 exercise 32 may assist you in the construction of a Cantor set of positive measure (something that was also an exercise in a preceding assignment).
+
+\begin{proof}
+
+Let $\{q_i\}$ be an enumeration of the rationals, and for each $k$ let $I_k$ be an open interval of length $3^{-i}$, centered at $q_i$.  Now, we can create a sequence of disjoint sets $U_n$ by
+$$
+U_n = I_n \setminus \bigcup_{n+1}^\infty I_i.
+$$
+Take note of three facts:
+\begin{enumerate}
+\item[1.] Any open interval $I \subset \R$ contains some $U_n$:
+
+Let $I'$ be an interval of $\frac13$ the length of $I$, but with the same center as $I$.  $I'$ contains an infinite number of rationals, but there are only finitely many $n$ for which the width of $U_n$ (meaning $\sup U_n - \inf U_n$) is at least that of $I'$.  So $I'$ must contain some rational $q_n$ for which the width of $U_n$ is less than that of $I'$.  Since $U_n$ is centered at $q_n \in I'$, we must have $U_n \subset I$.
+
+\item[2.] The $U_n$ are disjoint:  This is clear from their construction.
+
+\item[3.] Every $U_n$ contains a subset $A_n$ such that $0 < \mu(A_n) < \mu(U_n)$:
+
+The $U_n$ have positive measure because
+$$
+\mu(U_n) \geq \mu(U_n) - \mu(\bigcup_{n+1}^\infty I_i) \geq 3^{-n} - \sum_{n+1}^\infty 3^{-k} = \frac{3^{-n}}{2} > 0.
+$$
+For each $n$, let $a_n = \inf(U_n)$ and $b_n = \sup(U_n)$, and take an increasing sequence $\{s_k^n\}$ such that $s_1^n = a$, $s_{k+1}^n - s_k^n < 3^{-n} = \mu(U_n)$ for each $k$, and $s_k^n \rightarrow b$.  Now define sets $A_k^n = U_n \cap (a,s_k)$ for each $k$.  For each $k$, if $\mu(A_k) = 0$ then $0 \leq \mu(A_{k+1}^n) = \mu(A_k^n) \cap \mu(U_n \cap (s_k, s_{k+1})) < \mu(U_n)$ by construction.  But we cannot have $\mu(A_k^n) = 0$ for all $k$, since then $\mu(U_n) = \mu(\bigcup_1^\infty A_k^n) \leq \sum_1^\infty \mu(A_k^n) = 0$, a contradiction.  So we may let $K$ be the smallest index such that $\mu(A_K^n) > 0$.  We must have $K > 1$ because $A_1^n = U_n \cap (a,a) = \emptyset$.  Therefore, $\mu(A_{K-1}^n) = 0$, and hence by the previous argument we have
+$$
+0 < \mu(A_K^n) < \mu(U_n).
+$$
+So $A_n = A_K^n$ satisfies $0 < \mu(A_n) < \mu(U_n)$.
+\end{enumerate}
+
+Let $A = \bigcup_1^\infty A_n$, $U = \bigcup_1^\infty U_n$, and let $I$ be any open interval.  By (1), $I$ contains some $U_k$.  Thus, $A_k \subset A \cap I$.  Thus, $0 < \mu(A_k) \leq \mu(A \cap I)$.  Since the $U_n$ are disjoint, so are the $A_n$, thus
+$$
+\mu(A \cap I) = \sum_1^\infty \mu(A_n \cap I) < \sum_1^\infty \mu(U_n \cap I) = \mu(U \cap I) \leq \mu(I).
+$$
+The middle inequality comes from the fact that at least one of the terms on the left is strictly less than one on the right, specifically the term $\mu(A_k \cap I) < \mu(U_k \cap I)$.  For all other $n$, we have $A_n \cap I \subset U_n \cap I$, so we at least have $\mu(A_n \cap I) \leq \mu(U_n \cap I)$.  Therefore, putting these inequalities together gives $0 < \mu(A \cap I) < \mu(I)$.
+
+\end{proof}
+
+\item Read the proof of Theorem 1.19 from the text. Complete the missing details.
+
+\begin{proof}
+The theorem is proven for all $E \subset \R$ with finite measure.  Since $\mu$ is finite on bounded sets, $\R$ is $\sigma$-finite.  So $\R = \bigcup_1^\infty X_i$ where $\mu(X_i) < \infty$ for each $i$.  Let $E \in \M_\mu$ and define $E_i = E \cap X_i$.
+
+We will show that (a) implies (c).  By the finite case of the theorem, there exist $H_i \in F_\sigma$ and $N_i$ such that $E_i = H_i \cup N_i$ and $\mu(N_i) = 0$.  Each $H_i$ is a countable union of closed sets, so $H = \bigcup_1^\infty H_i$ is also a countable union of closed sets, so $H \in F_\sigma$.  Also, letting $N = \bigcup_1^\infty N_i$ we have $\mu(N) \leq \sum_1^\infty \mu(N_i) = 0$, so $\mu(N) = 0$.  Therefore,
+$$
+E = \bigcup_1^\infty H_i \cup N_i = \left(\bigcup_1^\infty H_i \right) \cup \left( \bigcup_1^\infty N_i \right) = H \cup N
+$$
+giving the desired result.
+
+Now, we will show that (a) implies (b).  Again, let $E \in \M_\mu$.  By theorem 1.9, $\M_\mu$ is a $\sigma$-algebra, therefore $E^c \in \M_\mu$.  We have just proven that (a) implies (c), therefore we can write $E^c = H \cup N$ for some $H \in F_\sigma$ and $\mu(N) = 0$.  $H$ is a countable union of closed sets, therefore $H^c$ is a countable intersection of open sets, i.e. $H^c \in G_\delta$.  So
+$$
+E = (E^c)^c = (H \cup N)^c = H^c \setminus N
+$$
+thus $E$ takes the form given in (b).
+\end{proof}
+
+
+\end{enumerate}
+\end{document}
+
+
+
+
+
+
+

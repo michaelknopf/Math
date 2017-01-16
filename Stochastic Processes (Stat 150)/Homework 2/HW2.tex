@@ -1,0 +1,214 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=.75in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{units}
+\usepackage{bm}
+\usepackage{enumitem}
+\setenumerate{listparindent=\parindent}
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\p}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+
+\theoremstyle{definition}
+\newtheorem*{prob1}{Q 1}
+\newtheorem*{prob2}{Q 2}
+\newtheorem*{prob3}{Q 3}
+\newtheorem*{prob4}{Q 4}
+\newtheorem*{prob5}{Q 5}
+\newtheorem*{prob6}{Q 6}
+
+ 
+\begin{document}
+
+\title{Homework 2 \\ Stat 150}
+\author{Michael Knopf \\ 24457981}
+\date{February 6, 2015}
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%     1     %%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{prob1}
+Can a reversible chain be periodic (demonstrate with an explanation or example)? \emph{Yes.}
+\end{prob1}
+
+\begin{proof}
+
+Consider the Markov chain defined by the transition matrix $\left(
+\begin{matrix}
+0 & 1 \\
+1 & 0
+\end{matrix}
+\right)$.  This is a chain with 2 states, where at each step we transition to the other state with probability 1.  The chain can be defined by the sequence of distributions $$\p(X_n = n \pmod{2}) = 1.$$  Then $\p(X_{n+1} = i \ | \ X_n = j) = \p(X_{n+1} = j \ | \ X_n = i)$ for any $i,j \in \mathbb{Z}_2$, since both sides of the equation are $0$ if $i=j$ and $1$ if $i \neq j$.  Thus the chain is reversible.  Also, gcd$(\{m : P_{ii}^m > 0\}) = 2$.  So the chain is periodic.
+
+\end{proof}
+
+\begin{prob2}
+Consider the probability transition matrix
+$$ \left(
+\begin{matrix}
+0 & 0 & 0 & 0 & 0 & 0.1 & 0.9 \\
+0.2 & 0.2 & 0.6 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+0.5 & 0 & 0 & 0 & 0 & 0 & 0.5 \\
+0.9 & 0 & 0 & 0 & 0 & 0.1 & 0 \\
+\end{matrix}
+\right).$$
+What are the classes of communicating states?  Which are recurrent?  Which states are aperiodic?
+\end{prob2}
+
+\begin{proof}
+
+The classes of communicating states are $\{1,6,7\}$, $\{2\}$, and $\{3,4,5\}$, since these are the states which the process always has a nonzero probability of transitioning between.
+
+The recurrent states are 1,6,7,3,4, and 5 since, given that we start in any of these states, there is a probability of 1 that we will return to them.  This is because it is impossible to leave either of the classes $\{1,6,7\}$ or $\{3,4,5\}$.
+
+The only transient state is 2, since the probability of never returning to 2, given that we start there, is 0.8, which is nonzero.
+
+The only aperiodic states are 1,2,6, and 7.  We can get from state 2 to itself in 1 step.  For any $i \in \{1,6,7\}$, we can return to $i$ in both 2 or 3 steps, thus its period is gcd$\{2,3,...\} = 1$.
+
+\end{proof}
+
+\pagebreak
+\begin{prob3}
+If states $i$ and $j$ communicate and $i$ is aperiodic, show that $j$ must also be aperiodic.
+\end{prob3}
+
+\begin{proof}
+
+Suppose $i$ and $j$ communicate.  Then there exist some $a,b > 0$ such that $P_{ij}^a > 0$ and $P_{ji}^b > 0$.  So $P{ii}^{a+b} > 0$.  So the period $p$ of state $i$ must divide $a + b$.  Now, let $M = \{ m : P_{ii}^m > 0 \}$.  If $m \in M$, then $P_{ii}^{a + m + b} > 0$, so $p$ divides $a+b+m$.  But $p$ divides $a+b$, so $p$ divides $m$.  Thus the period of $i$ divides every $m \in M$, so the period of $i$ divides the period of $j$.  However, this argument is symmetric in $i$ and $j$, thus the period of $j$ divides that of $i$, as well.  So $i$ and $j$ have the same period.  So clearly, if $i$ is aperiodic, then so is $j$.
+
+\end{proof}
+
+\begin{prob4}
+A biased coin lands heads with probability $\frac23$ and tails with probability $\frac13$. We toss the coin repeatedly and let $U_n$ be the indicator of the event that there are an even number of heads in the first $n$ coin tosses.
+\begin{itemize}
+\item What is the transition matrix of $U_n$?
+\item What is its stationary distribution?
+\item After $n$ coin tosses, what is the probability of an even number of heads?
+\end{itemize}
+\end{prob4}
+
+\begin{proof}
+
+The transition matrix is
+$
+\left(
+\begin{matrix}
+\nicefrac13 & \nicefrac23 \\
+\nicefrac23 & \nicefrac12
+\end{matrix}
+\right)
+$.  The matrix is doubly stochastic, thus the stationary distribution must be uniform.  So the stationary distribution is $\pi = \left(\begin{matrix} \frac12 & \frac12 \end{matrix} \right)$.
+
+The probability $s_n$ of an even number of heads after $n$ coin tosses is simply the distribution of $U_n$.  We know that 
+\begin{align*}
+s_{n+1} = \p(U_{n+1} = 1) &= \p(U_{n+1} = 1 \ | \ U_n = 0)\p(U_n = 0) + \p(U_{n+1} = 1 \ | \ U_n = 1)\p(U_n = 1) \\
+&= \frac23 (1-s_n) + \frac13 s_{n-1} = \frac23 - \frac13 s_{n-1}
+\end{align*}
+and $s_0 = 1$, since $\p(U_0 = 1) = 1$.  We can easily solve this recurrence relation by adding the homogenous solution to a particular solution.
+
+The homoogeneous solution is $c (-\frac13)^n$ for some $c$.  A particular solution is $\frac12$, since $\frac23 - (\frac13) (\frac12) = \frac12$.  Solving for $c$, we find $$c \left(-\frac13 \right)^0 + \frac12 = c + \frac12 = 1$$ so $c = \frac12$.  Thus the general solution is $\p(U_n = 1) = s_n = \frac12 \left( 1 + \left( -\frac13 \right)^n \right)$.
+
+\end{proof}
+
+
+\begin{prob5}
+Two bags each contain $n$ balls. In total there are $2n$ balls, $n$ are green and $n$ are red.  After each unit of time, a ball is selected from each bag and the two are swapped over (i.e. the selected balls are put each put in the opposite bag). Let $X_n$ be the number of green
+balls in the first bag.
+\begin{itemize}
+\item What is the transition matrix of $X_n$?
+\item Find the stationary distribution.
+\item Is the Markov chain reversible?
+\end{itemize}
+\end{prob5}
+
+\begin{proof}
+The transition matrix at any time is given by
+$$P_{ij} = \begin{cases}
+\left(\dfrac{i}{n}\right)^2 & j = i-1 \\
+2\left(\dfrac{i}{n}\right)\left(\dfrac{n-i}{n}\right) & j=i \\
+\left(\dfrac{n-i}{n}\right)^2 & j=i+1
+\end{cases}.$$
+
+This is, by definition, a birth-death process.  By the results derived in lecture, since the state-space is finite, the chain is reversible and its stationary distribution is given by
+
+$$
+\pi_j = \pi_0 \prod_{i=1}^j \frac{\left(\frac{n-i+1}{n}\right)^2}{\left(\frac{i}{n}\right)^2}
+= \pi_0 \left(\prod\limits_{i=1}^j \frac{n-i+1}{i} \right)^2 = \pi_0 \binom{n}{j}^2.
+$$
+and
+$$
+\pi_0
+= \sum\limits_{j=0}^n \frac{\pi_j}{\binom{n}{j}^2}
+= \frac{1}{\sum\limits_{j=0}^n \binom{n}{j}^2}
+= \frac{1}{\binom{2n}{n}}.
+$$
+Thus the stationary distribution is given, for all $j \in \{0, \dots, n \}$, by
+$$
+\pi_j = \dfrac{\dbinom{n}{j}^2}{\dbinom{2n}{n}} = \dfrac{\dbinom{n}{j}\dbinom{n}{n-j}}{\dbinom{2n}{n}}.
+$$
+
+\noindent So the stationary distribution is hypergeometric.
+
+\end{proof}
+
+\begin{prob6}
+For $0 < p < 1$ let $X_n$ be an auto-regressive process, $$X_{n+1} = pX_n + W_{n-1}$$ where the $W_n$ are IID $N(0,1)$ random variables.  What is the stationary distribution of the Markov chain?  What happens if $p>1$?
+\end{prob6}
+
+\begin{proof}
+
+First, note that the sequence $X_n$ is given by $$X_n = p^nX_0 + Z_n$$ where $Z_n = p^{n-1}W_1 + p^{n-2}W_2 + \cdots + pW_{n-1} + W_n$.  $Z_n$ is a linear combination of standard normal random variables, thus it is normal with mean $0$ and variance
+
+\begin{align*}
+Var(Z_n) &= Var \left( \sum\limits_{i=1}^n p^{n-i}W_i \right) = \sum\limits_{i=1}^n Var \left(p^{n-i}W_i \right) \\
+&= \sum\limits_{i=1}^n (p^{n-i})^2 Var(W_i) = \sum\limits_{i=1}^n p^{2n-2i} \\
+&= p^{2n-2}\sum\limits_{i=0}^{n-1} (p^{-2})^i
+= p^{2n-2} \left( \dfrac{1-p^{-2n}}{1-p^{-2}} \right) \\
+&= \dfrac{1-p^{2n}}{1-p^2}.
+\end{align*}
+
+\noindent Thus $X_n$ is normal as well with parameters $\E[X_n] = p^nX_0$ and $Var(X_n) = Var(p^nX_0 + Z_n) = 0 + Var(Z_n) = \dfrac{1-p^{2n}}{1-p^2}$.
+
+The stationary distribution of $X_n$ is its limiting distribution, so we may take the limit of these parameters as $n \rightarrow \infty$ to obtain the stationary distribution $N \left(0, \dfrac{1}{1-p^2} \right)$, since $0 < p < 1$.
+
+If $p>1$, both parameters of the normal distribution of $X_n$ exhibit divergent behavior.  Its variance approaches $+ \infty$ and its expected value approaches $\pm \infty$, depending on the sign of $X_0$.  However, since its expectation and variance are both divergent, we would naturally wonder if $X_n$ is overwhelmingly likely to be large if its expectation approaches $\infty$ and heavily negative if its expecation is $-\infty$, or if its divergent variance ``wins out" and causes the value of $X_n$ to be completely unpredictable for large values of $n$.
+
+Let $c \in \mathbb{R}$.  What is $\p(X_n > c)$ for large $n$?
+\begin{align*}
+\lim_{n \rightarrow \infty} \p(X_n < c) &=
+\lim_{n \rightarrow \infty} \p\left(\dfrac{X_n - p^nX_0}{\frac{1-p^{2n}}{1-p^2}} < \frac{c - p^n X_0}{\frac{1-p^{2n}}{1-p^2}} \right) \\
+&= \lim_{n \rightarrow \infty} \p \left( Z < - \frac{c - cp^2 + p^nX_0 - p^{n+2} X_0}{1-p^{2n}} \right) \\
+&= \lim_{n \rightarrow \infty} \p \left( Z < -\frac{\frac{c}{p^{2n}} - \frac{c}{p^{2n-2}} + \frac{X_0}{p^n} - \frac{X_0}{p^{n-2}} }{\frac{1}{p^{2n}} - 1} \right) \\
+&= \p \left( Z < 0 \right) = \frac12.
+\end{align*}
+
+Thus, for any value $c$ and large values of $n$, it is equally likely that the chain will be on either side of $c$.  No matter how long the process has run, every interval of the form $(-\infty,c)$ or $(c,\infty)$, for any $c$, will be visited at some future step.  Essentially, the divergent variance ``wins out" against the divergent expectation.
+
+\end{proof}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

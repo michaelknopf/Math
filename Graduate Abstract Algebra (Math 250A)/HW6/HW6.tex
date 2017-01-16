@@ -1,0 +1,249 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+\addtolength{\oddsidemargin}{-.2in} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{lipsum}
+\usepackage[]{units}
+\usepackage{relsize}
+\usepackage{verbatim}
+\usepackage{bbm}
+
+\usepackage{tikz}
+\usetikzlibrary  {positioning}
+\usepackage{graphicx}
+\usepackage{xfrac}
+\usetikzlibrary{cd}
+
+
+\setenumerate{listparindent=\parindent}
+
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\p}{\mathfrak{p}}
+\renewcommand{\a}{\mathfrak{a}}
+\renewcommand{\b}{\mathfrak{b}}
+\newcommand{\m}{\mathfrak{m}}
+\newcommand{\gen}[1]{\langle #1 \rangle}
+\DeclareMathOperator*{\dom}{dom}
+\DeclareMathOperator*{\Aut}{Aut}
+\DeclareMathOperator*{\Ann}{Ann}
+\DeclareMathOperator*{\Tor}{Tor}
+\DeclareMathOperator*{\Gal}{Gal}
+\DeclareMathOperator*{\Hom}{Hom}
+\DeclareMathOperator*{\End}{End}
+\DeclareMathOperator*{\im}{Im}
+\let\ker\relax
+\DeclareMathOperator*{\ker}{Ker}
+\DeclareMathOperator*{\spn}{span}
+\DeclareMathOperator*{\Perm}{Perm}
+\DeclareMathOperator*{\card}{card}
+\DeclareMathOperator*{\Alt}{Alt}
+\DeclareMathOperator*{\id}{id}
+\renewcommand{\bar}{\overline}
+
+\newtheorem*{lem}{Lemma}
+
+\usepackage{fancyhdr} % Required for custom headers 
+%\usepackage{lastpage} % Required to determine the last page for the footer
+
+\pagestyle{fancy}
+\lhead{Math 250A (HW 6)}
+\chead{Michael Knopf (24457981)}
+\rhead{October $8^\text{th}$, 2015}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+%\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}
+\renewcommand\headrulewidth{0.4pt}
+%\renewcommand\footrulewidth{0.4pt}
+
+\begin{document}
+\begin{enumerate}
+\item[3.] Let $\p$ be a prime ideal of $A$.  Show that $A_\p$ has a unique maximal ideal, consisting of all elements $a/s$ with $a \in \p$ and $s \not \in \p$.
+
+\begin{proof}
+Let $\m = \{a/s \mid a \in \p, s \not \in \p\}$.  First, we will show that $\m$ is proper.  If $1 \in \m$, then $a/s = 1/1$ for some $a \in \p$, $s \not \in \p$, meaning $r(a-s) = 0$ for some $r \not \in \p$.  But we know $a-s \not \in \p$, and thus $0=r(a-s) \not \in \p$ (because the complement of $\p$ is multiplicative), a contradiction.  So $1 \not \in \m$, hence $\m$ is proper.
+
+Let $\a$ be an ideal of $A_\p$, but suppose that $\a \not \subseteq \m$.  Then for some $a,s \not \in \p$ we have $a/s \in \a$.  But then $s/a \in \a$ as well, meaning $1 \in \a$ and hence $\a$ is not proper.  Therefore, $\m$ contains every proper ideal of $A_\p$, thus is maximal.
+\end{proof}
+
+\item[4.] Let $A$ be a principal ring and $S$ a multiplicative subset with $0 \not \in S$.  Show that $S^{-1}A$ is principal.
+
+\begin{proof}
+Let $\b$ be an ideal of $S^{-1}A$, and define $\a = \{a \mid a / s \in \b \text{ for some } s \in S \}$.  We will show $\a$ is an ideal of $A$.  Let $a \in \a$ and $c \in A$.  There is some $s \in S$ such that $a/s \in \b$, so $\frac{a}{s} \frac{c}{1} = \frac{ac}{s} \in \b$, since $\b$ is an ideal.  Thus, $ac \in \a$, so $\a$ is closed under multiplication by $A$.  Next, let $a,b \in \a$, so that $a/s,b/t \in \b$ for some $s,t \in S$.  Then $\frac{a}{s} - \frac{t}{s}\frac{y}{t} = \frac{x-y}{s} \in \b$, so $x-y \in \a$.  Clearly, $0 / 1 \in \b$, so $\a$ is an ideal.
+
+Since $A$ is principal, $\a = (k)$ for some $k \in A$.  Thus, $\b = \{\frac{a}{s} \cdot \frac{k}{1} \mid a/s \in S^{-1} A \} = (k/1)$ is principal.  Finally, since $0 \not \in S$, we know $S^{-1}A \neq \{0\}$.  Thus $S^{-1}A$ is principal.
+\end{proof}
+
+\item[5.] Let $A$ be a factorial ring and $S$ a multiplicative subset of $0 \not \in S$.  Show that $S^{-1}A$ is factorial, and that the prime elements of $S^{-1}A$ are of the form $up$ with primes $p$ of $A$ such that $(p) \cap S$ is empty, and units $u$ in $S^{-1}A$.
+
+\begin{proof}
+Note that, since $A$ is an integral domain and $0 \not \in S$, $\frac{x}{s} = \frac{y}{t}$ if and only if $xt = ys$.  Also, since $A$ is a UFD, irreducibles are prime.  Finally, if every element of an integral domain $R$ factors as a product of irreducibles \emph{and} all irreducibles in $R$ are prime, then $R$ is a UFD.  (Given two factorizations $\prod_i^m p_i$ and $\prod_j^n q_i$ with $m \leq n$, we can relabel the factors so that $p_i \mid q_i$ for each $i$.  But $q_i$ is irreducible, so $q_j = u_i p_i$ for some unit $u_i$.  If we had $m < n$, then dividing through by $\prod_i^m p_i$s would leave us with a product of irreducibles equal to $1$, a contradiction.)
+
+Let $p \in A$ be irreducible.  Suppose first that $(p) \cap S \neq \emptyset$, so that $s = pa$ for some $s \in S$, $a \in A$.  Then $\frac{p}{1}\frac{a}{s} = \frac{pa}{s} = \frac{s}{s} = \frac1s$, hence $p/1$ is a unit.  Conversely, if $p/1$ is a unit then $\frac{p}{1} \frac{a}{s} = \frac{1}{1}$ for some $a \in A, s \in S$.  This must mean $pa = s$, so that $(p) \cap S \neq \emptyset$.  So $(p) \cap S \neq \emptyset$ if and only if $p/1$ is a unit.
+
+Next, suppose $(p) \cap S = \emptyset$, where again $p \in A$ is irreducible.  Suppose $\frac{p}{1} = \frac{a}{s} \frac{b}{t}$.  Then $pst = xy$, so $p$ divides either $x$ or $y$.  Assuming $p \mid x$, we have $x = px'$ so $\frac{x'}{s}\frac{y}{t} = 1$, hence $\frac{y}{t}$ is a unit.  Since $(p) \cap S = \emptyset$, we know $p/1$ cannot be a unit.  Therefore, it is irreducible.  So if $(p) \cap S = \emptyset$ then $p/1$ is irreducible. 
+
+%Now, suppose $a/s$ is irreducible.  Let $a = \prod_i^n p_i$ be the factorization of $a$ into irreducibles in $A$.  Then $\frac{a}{s} = \frac{1}{s} \prod_i^n \frac{p_i}{1}$.  Since $p/1$ is irreducible, $p_k/1$ is irreducible for some $k$, and $p_i/1$ is a unit for all $i \neq k$.  Letting $u = \frac{1}{s} \prod\limits_{i \neq k} \frac{p_i}{1}$, we see that $a/s = u (p_k / 1)$ where $u$ is a unit and $(p_k) \cap S = \emptyset$ (since otherwise $p_k/1$ would be a unit, contradicting that $a$ is not a unit).
+
+We can factor any $a \in A$ as $a = \prod_i q_i \prod_i p_i$, where $(q_i) \cap S \neq \emptyset$ and $(p_i) \cap S = \emptyset$ for each $i$.  Thus, for any $s \in S$, $a/s$ has a factorization into units, namely
+$$
+a/s = \left( \frac{1}{s} \prod_i \frac{q_i}{1} \right) \prod_i \frac{p_i}{1}
+$$
+where the left-hand factor is a unit and the right-hand factor is the product of all irreducibles $p$ in a given factorization of $a$ for which $(p) \cap S = \emptyset$.  This also means that, if $a/s$ is irreducible, then $a/s = u (p/1)$, where $u \in S^{-1}A$ is a unit and $p$ is an irreducible such that $(p)\cap S = \emptyset$.
+
+Finally, let $u(p/1)$ be irreducible, and suppose it divides $\frac{a}{s} \frac{b}{t}$.  We wish to show that $u(p/1)$ divides one of $\frac{a}{s}$ or $\frac{b}{t}$, completing the proof.  We may assume $u=1$ since, in any commutative ring, an element $\alpha$ divides another $\beta$ if and only if $\alpha \cdot u$ divides $\beta$ for all units $u$.  So $\frac{p}{1}\frac{c}{r} = \frac{a}{s} \frac{b}{t}$ for some $r \in S, c \in A$, giving
+$$
+pstc = rab.
+$$
+Since $p$ is prime in $A$ but divides no element of $S$, we must have $p \mid a$ or $p \mid b$.  If WLOG $p \mid a$, then $pd = a$ for some $d \in A$.  Thus, $\frac{p}{1}\frac{d}{s} = \frac{a}{s}$, so $\frac{p}{1} \mid \frac{a}{s}$.  Therefore, $u(p/1)$ is prime, and so $S^{-1}A$ is a UFD.
+\end{proof}
+
+\item[6.] Let $A$ be a factorial ring and $p$ a prime element.  Show that the local ring $A_{(p)}$ is principal.
+
+\begin{proof}
+Let $\a \subseteq A_{(p)}$ be an ideal.  If $a/s \in \a$, then $p^k \mid \mid a$ for some $j$.  So $a$ factors as $p^j p_1 \cdots p_n$ where $p \nmid p_i$ for all $i$.  Hence $\frac{1}{p_1 \cdots p_n} \in A_{(p)}$, meaning that $p^j/1 \in \a$.  If we let $k$ be the minimum exponent such that $p^k/1 \in \a$, then it is clear from this discussion that $\a = (p^k/1)$.
+\end{proof}
+
+\item[3.] Let $R$ be an entire ring containing a field $k$ as a subring.  Suppose that $R$ is a finite dimensional vector space over $k$ under the ring multiplication.  Show that $R$ is a field.
+
+\begin{proof}
+Let $x \in R$ be nonzero.  There exists some $n$ such that $c_0 + c_1x + c_2x^2 + \cdots + c_n x^n = 0$ for some $c_0, c_1, \dots , c_n \in k$ (not all zero); otherwise, the set $\{x^k : k \in \mathbb{N} \}$ forms an infinite linearly independent set over $k$, contradicting that $R$ is finite dimensional over $k$.  Also, $n > 1$ because $x \neq 0$.  Let $m$ be the minimum index such that $c_m \neq 0$.  Then
+$$
+c_mx^m + \cdots c_n x^n = x^m ( c_m + c_{m+1}x + \cdots + c_n x^{n-m}) = 0.
+$$
+Because $R$ is entire, one of the two factors must be $0$.  But $x^m \neq 0$, else $x$ is a zero divisor.  So the righthand factor is $0$.  This gives us
+$$
+x(-\frac{c_{m+1}}{c_m} -\frac{c_{m+2}}{c_m}x  - \cdots - \frac{c_n}{c_m}x^{n-m-1}) = -\frac{c_{m+1}}{c_m}x -\frac{c_{m+2}}{c_m}x^2 - \cdots - \frac{c_n}{c_m}x^{n-m} = 1
+$$
+therefore $x^{-1} = -\frac{c_{m+1}}{c_m} -\frac{c_{m+2}}{c_m}x  - \cdots - \frac{c_n}{c_m}x^{n-m-1}$, so $R$ is a field.
+\end{proof}
+
+\item[4.] \textbf{Direct Sums}
+\begin{enumerate}
+\item Prove in detail that the conditions given in Proposition 3.2 for a sequence to split are equivalent.  Show that a sequence $0 \rightarrow M' \xrightarrow{f} M \xrightarrow{g} M'' \rightarrow 0
+$ splits if and only if there exists a submodule $N$ of $M$ such that $M$ is equal to the direct sum $\im f \oplus N$, and that if this is the case, then $N$ is isomorphic to $M''$.  Complete all the details of the proof of Proposition 3.2.
+
+\begin{proof}
+
+First, we wish to show that, if the above sequence is exact, then the following are equivalent:
+\begin{enumerate}
+\item[(1)] There exists a homomorphism $\varphi : M'' \rightarrow M$ such that $g \circ \varphi = \id$.
+\item[(2)] There exists a homomorphism $\psi : M \rightarrow M'$ such that $\psi \circ f = \id$.
+\end{enumerate}
+
+Suppose that such a $\varphi$ exists, and let $m \in M$.  Letting $m'' = g(m)$, we have $g(m - \varphi(m'')) = g(m) - g \circ \varphi(m'') = 0$, thus $m - \varphi(m'') \in \ker(g)$.  So $m = (m - \varphi(m'')) + \varphi(m'')$, meaning $$M = \ker g + \im \varphi.$$  If $x \in \ker g \cap \im \varphi$, then $x = \varphi(m'')$ for some $m'' \in M''$; but then $g(x) = g \circ \varphi(m'') = m'' = 0$, hence $x = g(0) = 0$.  Thus, the sum is direct.  Since $M' \cong \im f = \ker g$ and $M'' \cong \im \varphi$, we have $$M \cong M' \oplus M''.$$
+
+Next, suppose that such a $\psi$ exists, and let $m \in M$.  Letting $m' = \psi(m)$, we have $\psi(m - f(m')) = \psi(m) - \psi \circ f(m') = m' - m' = 0$, so $m - f(m') \in \ker \psi$.  We have $m = f(m') + (m - f(m'))$, thus $$M = \im f + \ker \psi.$$  Again, if $x \in \im f \cap \ker \psi$, then $x = f(m')$ for some $m' \in M'$, and so $\psi(x) = \psi \circ f(m') = m' = 0$.  Therefore, $x = f(0) = 0$, so the sum is direct.
+
+We have just proven that (1) and (2) both imply that the sequence splits.  Now, suppose the sequence splits, i.e. $M = M' \oplus M''$ where $f$ is the inclusion of $M'$ and $g$ is projection onto $M''$.  Taking $\psi$ to be projection of $M$ onto $M'$ and $\varphi$ to be inclusion of $M''$ into $M$ we have $g \circ \varphi = \psi \circ f = \id$; hence (1) and (2) are both equivalent to the sequence slitting, and thus equivalent to each other.
+
+Since $f$ is the inclusion of $M'$, we know that $M = \im f \oplus N$ for some submodule $N$.  But $\im f \cong \ker g$, therefore $$M'' \cong M / \ker g = M / \im f \cong N$$
+where the last equivalence follows from the fact that $0 \rightarrow A \rightarrow A \oplus B \rightarrow B \rightarrow 0$ is exact for any modules $A$ and $B$, so $(A \oplus B)/ A \cong B$ (we are taking $A = \im f$ and $B = N$).
+
+\end{proof}
+
+\item Let $E$ and $E_i$ ($i = 1,\dots , m)$ be modules over a ring.  Let $\varphi_i : E_i \rightarrow E$ and $\psi_i:E \rightarrow E_i$ be homomorphisms having the following properties:
+$$
+\psi_i \circ \varphi_i = \id, \hspace{.7cm} \psi_i \circ \varphi_j = 0 \hspace{.7cm} \text{ if } i \neq j$$
+$$
+\sum_{i=1}^m \varphi_i \circ \psi_i = \id
+$$
+Show that the map $x \mapsto (\psi_1 x, \dots , \psi_m x)$ is an isomorphism of $E$ onto the direct product of the $E_i$, and that the map $(x_1, \dots , x_m) \mapsto \varphi_1 x_1 + \cdots + \varphi_m x_m$ is an isomorphism of this direct product onto $E$.  Conversely, if $E$ is equal to a direct product (or direct sum) of submodules $E_i$, if we let $\varphi_i$ be the inclusion of $E_i$ in $E$, and $\psi_i$ the projection of $E$ on $E_i$, then these maps satisfy the above-mentioned properties.
+
+\begin{proof}
+Let $\psi: E \rightarrow \prod E_i$ be the first map and $\varphi : \prod E_i \rightarrow E$ be the second.  Then
+\begin{align*}
+\psi \circ \varphi (x_1, \dots, x_m) &= \psi ( \varphi_1 (x_1) + \cdots + \varphi(x_m)) \\
+&= \psi (\varphi_1 x_1) + \cdots + \psi( \varphi x_m) \\
+&= (\psi_1 \varphi_1 x_1, \dots, \psi_1 \varphi_m x) + \cdots + (\psi_m \varphi_1 x, \dots , \psi_m \varphi_m x) \\
+&= (x_1 , 0 , \dots , 0) + \cdots + (0 , \dots , 0 , x_m)\\
+&= (x_1, \dots , x_m) \\
+\varphi \circ \psi (x) &= \varphi (\psi_1 x, \dots , \psi_m x) \\
+&= \varphi_1 \psi_1 x + \cdots + \varphi_m \psi_m x \\
+&= \sum_{i=1}^m \varphi_i \circ \psi_i ( x) \\
+&= x
+\end{align*}
+so $\psi$ and $\varphi$ are inverses of each other, thus both isomorphisms.
+
+Next, assume $E$ is a direct product of submodules $E_i$, $\varphi_i$ is the inclusion of $E_i$, and $\psi$ is the projection onto $E_i$.  Then
+$$
+\psi_i \circ \varphi_j (x) = \psi_i((0, \dots , 0 , x , 0 , \dots , 0 ))
+$$
+is $x$ if $i = j$ and $0$ otherwise, so the first two properties are satisfied.  Also,
+$$
+\sum_1^m \varphi_i \circ \psi_i ( x_1, \dots , x_m) = \sum_1^m \psi_i(x_i) = \sum_1^m (0,\dots,0,x_i,0,\dots,0) = (x_1, \dots,x_m)
+$$
+so the last property is satisfied.
+\end{proof}
+
+\end{enumerate}
+
+\item[5.]Let $A$ be an additive subgroup of Euclidean space $\R^n$, and assume that in every bounded region of space, there is only a finite number of elements of $A$.  Show that $A$ is a free abelian group on $\leq n$ generators.
+
+\begin{proof}
+Let $\{v_1, \dots , v_m\}$ be a maximal $\R$-linearly independent set of elements from $A$ (if $A=\{0\}$, take the empty set; otherwise, add linearly independent vectors until no new elements from $A$ can be added).  We may assume that $m$ is the largest number for which such a set exists; this is possible because all such sets have size $\leq n$, hence some must have a maximum size.  We will induct on $m$.  Clearly, if $m = 0$ then $A = 0$, hence is free on $0$ generators.
+
+Let $A_0 = A \cap \spn \{v_1, \dots , v_{m-1}\}$.  Then $\{v_1, \dots , v_{m-1}\}$ is a maximal linearly independent subset of $A_0$, so by induction $A_0$ is free on $\{u_1, \dots , u_k\}$ for some $k \leq m-1$.  However, the vector space spanned by $\{u_1, \dots , u_k\}$ contains $\{v_1, \dots , v_{m-1}\}$, thus we must have $m-1 \leq k$ as well.  So $k = m-1$.
+
+Let $S = A \cap \{a_1u_1 + \cdots + a_{m-1}u_{m-1} + a_mv_m \mid 0 \leq a_i < 1 \text{ for } 1 \leq i \leq m-1, 0 \leq a_m \leq 1 \}$.  By the triangle inequality, $S$ is bounded by $|u_1| + \cdots + |u_{m-1}| + |v_m|$, hence is finite.  Also, every element of $S$ has a unique representation of the given form, because $\{u_1, \dots , u_{m-1}, v_m\}$ is linearly independent - if $v_m$ were in the span of the $u_i$s, then the $\spn\{u_1, \dots , u_{m-1}\}$ would contain $\spn\{v_1, \dots , v_m\}$, contradicting that this latter set is linearly independent.  So there is some $v_m' \in S$ which has a minimal but nonzero coefficient $a_m$ when expanded in this way (we know this is well-defined because these expansions are unique and $S$ is finite).
+
+Let $B = \{u_1, \dots , u_{m-1}, v_m'\}$.  $B$ is linearly independent because $\{u_1, \dots , u_{m-1}\}$ is, and due to the uniqueness of the representations we just discussed, $v_m'$ is not a linear combination of the $u_i$s.  Also, $B$ spans $A$ over $\R$: if there were some $v \in A \setminus \spn (B)$ then $v$ would be linearly independent of $B$, meaning that $\{u_1, \dots , u_{m-1} , v_m', v\}$ is a linearly independent set, contradicting that $m$ is the largest possible size of a linearly independent set in $A$.
+
+Let $v \in A$.  Then $v$ can be expressed as a linear combination $b_1u_1 + \cdots + b_{m-1}u_{m-1} + b_mv_m'$.  Letting $v_m' = a_1u_1 + \cdots + a_{m-1}u_{m-1} + a_mv_m$ be the expansion of $v_m'$, this gives
+$$
+v = (b_1 + b_ma_1)u_1 + \cdots + (b_{m-1} + b_ma_{m-1})u_{m-1} + (b_ma_m)v_m.
+$$
+Let $c_m = \lfloor a_m \rfloor$.  Then the coefficient of $v_m$ in $v - c_m v_m'$ is $(a_m - c_m)b_m$, which satisfies $0 \leq (a_m - c_m)b_m < b_m$ since $0 \leq a_m - c_m < 1$.  Next, for each $i = 1, \dots , m-1$ let $c_i$ be the floor of the coefficient of $u_i$ in $v - c_m v_m'$.  Then
+$$
+v' = v - c_1u_1 - \cdots - c_{m-1}u_{m-1} - c_mv_m'
+$$
+is in $S$.  Since the coefficient of $v_m$ is less than that in the expansion of $v_m'$, we know it must be $0$.  Therefore, $v'$ is a $\Z$-linear combination of $\{u_1, \dots , u_{m-1}\}$.  But also, $w' = c_1u_1 + \cdots + c_{m-1}u_{m-1} + c_m v_m'$ is in the span of $\{u_1, \dots , u_{m-1}, v_m'\}$.  Thus, $v = v' + w \in \spn\{u_1, \dots , u_{m-1}, v_m'\}$.  So this set generates $A$.  Since it is linearly independent, $A$ is free on this set, and we have already explained that $m \leq n$.
+\end{proof}
+
+\item[6.] Let $G$ be a finite group operating on a finite set $S$.  For $w \in S$, denote $1 \cdot w$ by $[w]$, so that we have the direct sum
+$$
+\Z \gen{S} = \sum_{w \in S} \Z[w].
+$$
+Define an action of $G$ on $\Z \gen{S}$ by defining $\sigma [w] = [\sigma w]$ (for $w \in S$), and extending $\sigma$ to $\Z\gen{S}$ by linearity.  Let $M$ be a subgroup of $\Z\gen{S}$ of rank $\# [S]$.  Show that $M$ has a $\Z$-basis $\{y_w\}_{w \in S}$ such that $\sigma y_w = y_{\sigma w}$ for all $w \in S$.
+
+\noindent \emph{This exercise, as presently worded, appears to be false.  It seems the intended exercise should add the condition that $M$ is invariant under $G$, and relax the conclusion to say that $M$ contains a submodule $M'$ of full rank in $M$ that is also $G$-invariant and has such a $\Z$-basis.  Unfortunately, I can't seem to solve any version of the statement, true or false.}
+
+\end{enumerate}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

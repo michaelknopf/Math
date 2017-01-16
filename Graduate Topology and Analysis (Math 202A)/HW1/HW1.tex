@@ -1,0 +1,167 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+%\addtolength{\oddsidemargin}{-.1in} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{lipsum}
+\usepackage[]{units}
+\usepackage{relsize}
+\usepackage{verbatim}
+\usepackage{bbm}
+\usepackage{mathtools}
+%\usepackage{bbold}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{graphicx}
+\usepackage{xfrac}
+
+\setenumerate{listparindent=\parindent}
+
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Int}{{\displaystyle \int}}
+
+\DeclareMathOperator*{\dom}{dom}
+\DeclareMathOperator*{\Aut}{Aut}
+\DeclareMathOperator*{\Ann}{Ann}
+\DeclareMathOperator*{\Tor}{Tor}
+\DeclareMathOperator*{\Gal}{Gal}
+\DeclareMathOperator*{\Hom}{Hom}
+\DeclareMathOperator*{\End}{End}
+\DeclareMathOperator*{\im}{Im}
+\renewcommand{\bar}{\overline}
+
+\usepackage{fancyhdr} % Required for custom headers 
+%\usepackage{lastpage} % Required to determine the last page for the footer
+
+\pagestyle{fancy}
+\lhead{Math 202A (HW 1)}
+\chead{Michael Knopf (24457981)}
+\rhead{September $10^\text{th}$, 2015}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+%\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}
+\renewcommand\headrulewidth{0.4pt}
+%\renewcommand\footrulewidth{0.4pt}
+
+\begin{document}
+
+\noindent Note: $\mathbbm{1}(P(x))$ is the indicator function that evaluates as $1$ if the proposition $P$ holds of $x$, and 0 otherwise.
+
+\begin{enumerate}
+
+\item Prove that $d(f,g) = \Int_{[0,1]} |f(x) - g(x)| dx$ is a metric on the space of continuous functions on $[0,1]$.
+
+\begin{proof}
+
+Let $C$ be the space of continuous functions on $[0,1]$.  For any $f \in C$, $$d(f,f) = \Int_{[0,1]} |f(x) - f(x)| dx = \Int_{[0,1]} 0 dx = 0.$$  Now, suppose $d(f,g) = \Int_{[0,1]} |f(x) - g(x)| dx = 0$.  Since the integrand is non-negative on the whole domain, the integral can only be zero if the integrand is zero on the whole domain.  So $|f(x) - g(x)| = 0$ for all $x \in [0,1]$, thus $f = g$.  So $d$ is positive definite.  Clearly, $d(f,g) = \Int_{[0,1]} |f(x) - g(x)| dx = \Int_{[0,1]} |g(x) - f(x)| dx = d(g,f)$, so $d$ is symmetric.
+
+Finally, let $f,g,h \in C$.  Then
+\begin{align*}
+d(f,h) &= \Int_{[0,1]} |f(x) - h(x)| dx \\
+&= \Int_{[0,1]} |f(x) - g(x) + g(x) - h(x)| dx \\
+&= \Int_{[0,1]} |f(x) - g(x)| + |g(x) - h(x)| dx \\
+&= \Int_{[0,1]} |f(x) - g(x)|dx + \Int_{[0,1]}|g(x) - h(x)| dx \\
+&= d(f,g) + d(g,h).
+\end{align*}
+So $d$ satisfies the triangle inequality as well, hence it is a metric.
+
+\end{proof}
+
+\item Prove that $d(f,g) = \sup\limits_{x \in [0,1]} |f(x) - g(x)|$ is also such a metric.  Show that the set of piecewise linear functions is a dense subset of this metric space.
+
+\begin{proof}
+
+Let $C$ be the space of continuous functions on $[0,1]$.  For any $f \in C$, $d(f,f) = \sup\limits_{x \in [0,1]} |f(x) - f(x)| = \sup\limits_{x \in [0,1]} 0 = 0$.  Now, let $f,g \in C$.  If $d(f,g) = \sup\limits_{x \in [0,1]} |f(x) - g(x)| = 0$, then at every point $x \in [0,1]$ we have $|f(x) - g(x)| \leq 0$, thus $f(x) = g(x)$ for all $x \in [0,1]$.  Thus, $d$ is positive definite.  Clearly, $d(f,g) = \sup\limits_{x \in [0,1]} |f(x) - g(x)| = \sup\limits_{x \in [0,1]} |g(x) - f(x)| = d(g,f)$.  So $d$ is symmetric.
+
+Let $f,g,h \in C$.  Then
+\begin{align*}
+d(f,h) &= \sup\limits_{x \in [0,1]} |f(x) - h(x)| \\
+&= \sup\limits_{x \in [0,1]} |f(x) - g(x) + g(x) - h(x)| \\
+&= \sup\limits_{x \in [0,1]} |f(x) - g(x)| + |g(x) - h(x)| \\
+&\leq \sup\limits_{x \in [0,1]} |f(x) - g(x)| + \sup\limits_{x \in [0,1]} |g(x) - h(x)| \\
+&= d(f,g) + d(g,h)
+\end{align*}
+so $d$ satisfies the triangle inequality, therefore $d$ is a metric.
+
+We will now show that the subset of piecewise linear functions is a dense subset of $C$ by constructing a piecewise linear function that converges to an arbitrary function in $C$.  Let $f \in C$.  Define a sequence of functions $(f_n)$, each from $[0,1]$ to $\R$, by
+$$
+f_n(x) = \sum_{i = 0}^{n-1} \left[ f( \tfrac{i}{n}) + (x - \tfrac{i}{n})\frac{f(\tfrac{i+1}{n}) - f(\tfrac{i}{n})}{\tfrac{1}{n}}  \right] \cdot \mathbbm{1}(x \in [\tfrac{i}{n}, \tfrac{i+1}{n})) + f(1) \cdot \mathbbm{1}(x = 1).
+$$
+On each interval $\left[\frac{i}{n}, \frac{i+1}{n}\right]$, $f_n$ is simply the line connecting $f(\frac{i}{n})$ and $f(\frac{i+1}{n})$, so it is clearly continuous and piecewise linear.
+
+We will show that $f_n \rightarrow f$ in $C$.  Let $\epsilon < 0$.  Since $[0,1]$ is compact under the usual metric, and $f$ is continuous under this metric, $f$ is uniformly continuous under it.  So for any $x,y \in [0,1]$, there exists some $\delta > 0$ such that whenever $|x-y| < \delta$ we have $|f(x) - f(y)| < \frac{\epsilon}{2}$.  Let $N$ be any natural number such that $\frac{1}{N} < \delta$.
+
+Next, let $x \in [0,1]$ and $n > N$.  If $x = 1$, then $|f_n(x) - f(x)| = 0 < \epsilon$ by construction.  Otherwise, there is some $i < n$ such that $\frac{i}{n} \leq x < \frac{i+1}{n}$.  We have
+\begin{align*}
+|f(x) - f_n(x)| &= \left| f(x) - f( \tfrac{i}{n}) - (x - \tfrac{i}{n})\frac{f(\tfrac{i+1}{n}) - f(\tfrac{i}{n})}{\tfrac{1}{n}} \right|
+\\
+&\leq \left| f(x) - f( \tfrac{i}{n}) \right| + n \left| (x - \tfrac{i}{n})\right| \left| f(\tfrac{i+1}{n}) - f(\tfrac{i}{n}) \right|
+\\
+&< \frac{\epsilon}{2} + n \cdot \frac{1}{n} \cdot \frac{\epsilon}{2}
+\\
+&= \epsilon.
+\end{align*}
+Since $|f(x) - f_n(x)| < \epsilon$ for all $n > N$, clearly $\sup\limits_{[0,1]} |f(x) - f_n(x)| < \epsilon$ for all $n > N$.  Therefore, $f_n \rightarrow f$ in $C$, hence the subset of piecewise linear functions is a dense subset of $C$.
+\end{proof}
+
+\item Let $f_n : [0,1] \rightarrow \R$ be a sequence of functions.  For $a > 0$ and $m \in \N$, set
+$$
+E_m^a = \{x \in [0,1] : |f_m(x)| < a \}.
+$$
+Prove that
+$$
+\bigcap_{k=1}^\infty \bigcup_{l = 1}^\infty \bigcap_{m = l}^\infty E_m^{1/k} = \{x \in [0,1] : f_n(x) \rightarrow 0 \text{ as } n \rightarrow \infty \}.
+$$
+
+If we consider instead the set of points $x \in [0,1]$ for which $f_n(x)$ converges as $n \rightarrow \infty$, the new set may also be written in a similar form, where instead we consider
+$$
+E_{m,n}^a = \{x \in [0,1] : |f_m(x) - f_n(x)| < a \}
+$$
+for $m,n \in \N$, and again use several unions or intersections, each of which ranges only over a countable set.  Find such an expression for the new set of points.
+
+\begin{proof}
+We will show that each set in the stated equivalence is a subset of the other.  First, suppose that $x \in \bigcap\limits_{k=1}^\infty \bigcup\limits_{l = 1}^\infty \bigcap\limits_{m = l}^\infty E_m^{1/k}$.  Then for all $k \geq 1$, there exists some $l \geq 1$ such that for all $m \geq l$, $|f_m(x)| < \frac{1}{k}$.  Now, let $\epsilon > 0$.  Choose $k$ so that $\frac{1}{k} < \epsilon$.  Taking our $N$ to be the $l$ given in the statement, we have that $|f_m(x) - 0| < \frac{1}{k} < \epsilon$ whenever $m > N$.  Therefore, $f_n(x) \rightarrow 0$ by definition.  So $x \in \{x \in [0,1] : f_n(x) \rightarrow 0 \text{ as } n \rightarrow \infty \}$, and thus the inclusion $\subseteq$ has been verified.
+
+Next, suppose $x \in \{x \in [0,1] : f_n(x) \rightarrow 0 \text{ as } n \rightarrow \infty \}$.  Then $f_n(x) \rightarrow 0$, so for every $\epsilon > 0$ there exists some $l > 0$ such that $|f_n(x)| < \epsilon$ whenever $m \geq l$.  In particular, this holds whenever $\epsilon$ is any positive integer $k$.  This proves the inclusion $\supseteq$.
+
+For the next part, we will show that
+$$
+\bigcap\limits_{k=1}^\infty \bigcup\limits_{N=1}^\infty \bigcap\limits_{m=N}^\infty \bigcap\limits_{n=N}^\infty E_{m,n}^{1/k} = \{x \in [0,1]: f_n(x) \rightarrow c \text{ for some } c \in \R \}.$$
+A sequence in $\R$ is convergent if and only if it is Cauchy, so the set on the righthand side is equal to the set of all $x \in [0,1]$ such that for all $\epsilon > 0$, there exists some $N \geq 1$ such that for all $m,n \geq N$ we have $|f_m(x) - f_n(x)| \leq \epsilon$.  It is clear that this statement implies the statement obtained by replacing $\epsilon$ with $\frac{1}{k}$, where $k$ is an integer.  The converse is true as well, since given any $\epsilon > 0$ we can find some integer $k$ such that $\frac{1}{k} < \epsilon$.  Therefore,
+$$
+\bigcap\limits_{k=1}^\infty \bigcup\limits_{N=1}^\infty \bigcap\limits_{m=N}^\infty \bigcap\limits_{n=N}^\infty E_{m,n}^{1/k}
+= \{x \in [0,1]: \forall \epsilon > 0 \  \exists N \geq 1 \ \forall m \geq N \ \forall n \geq N \ |f_m(x) - f_n(x)| \leq \epsilon \}
+$$
+$$
+= \{x \in [0,1]: f_n(x) \rightarrow c \text{ for some } c \in \R \}
+$$
+\end{proof}
+
+\item Let $X$ denote the subset of $[0,1]$ of real numbers having a decimal expansion without any appearance of the numeral $6$ in the expansion.  What is the cardinality of the set $X$?
+
+$$|X| = |\R|$$
+
+\begin{proof}
+After establishing injections $X \rightarrow \R$ and $\R \rightarrow X$, we will invoke the Schr{\"o}der-Bernstein theorem to prove the claim.  The inclusion map $X \xhookrightarrow{\iota} \R$ is obviously an injection, so $|X| \leq |\R|$.
+
+There is a natural injection of $\R$ into $\mathcal{P}(\Q)$ taking each real number to the Dedekind cut that defines it, so $|\R| \leq | \mathcal{P}(\Q)|$.  But $|\Q| = |\N|$, so $|\mathcal{P}(\Q)| = |\mathcal{P}(\N)|$.  Finally, let $B$ be the set of all infinite binary sequences in $\{0,1\}$.   $|B| = |\mathcal{P}(\N)|$, since each binary sequence corresponds to the subset of $\N$ which contains the $i \in \N$ if and only if the $i$th component of the sequence is 1.
+
+We also have an injection from $B$ into $X$ defined as follows: for any $(s_n) \in B$, map $(s_n)$ to the number in $[0,1]$ which it represents as a base-10 decimal expansion with $s_i$ being the $i$th digit after the decimal.  Clearly this number has no decimal representation in which a 6 occurs, so the map is well-defined.  The map is injective because any number that has multiple base-10 representations must end in an infinite string of nines, however these strings contain only zeros and ones.  Therefore, $|B| \leq |X|$, and so $|\R| \leq | \mathcal{P}(\Q)| = |\mathcal{P}(\N)| = |B|\leq |X|$.
+\end{proof}
+
+\end{enumerate}
+\end{document}
+
+
+
+
+
+
+

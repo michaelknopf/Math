@@ -1,0 +1,185 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=.75in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\setenumerate{listparindent=\parindent}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{verbatim}
+\usepackage{gensymb}
+\usepackage{bm}
+
+\usepackage{tikz}
+\usepackage{tkz-berge}
+%\usepackage{graphics,graphicx}
+%\usepackage{pstricks,pst-node,pst-tree}
+\usepackage[colorinlistoftodos]{todonotes}
+\usetikzlibrary{arrows,shapes,positioning}
+%\usetikzlibrary{positioning,arrows}
+ 
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\p}{\mathcal{P}_2(T)}
+\newcommand{\Aut}{\textnormal{Aut}(P)}
+
+ 
+\begin{document}
+ 
+% --------------------------------------------------------------
+%                         Start here
+% --------------------------------------------------------------
+
+
+\title{Math 172 - HW 6}
+\author{Michael Knopf}
+ 
+\maketitle
+
+\noindent I worked with Sydney Wong on this assignment.
+
+\begin{enumerate}[leftmargin=0cm,itemindent=.5cm,labelwidth=\itemindent,labelsep=0cm,align=left]
+
+\item Show, \emph{with generating functions}, that there is exactly one way to represent each non-negative integer as a sum of \emph{distinct} powers of 2.
+
+\begin{proof}
+\ Let $$f(x) = \prod_{n=0}^\infty 1 + x^{2^n}.$$  For every binary string $b_nb_{n-1}b_{n-2} \dots b_2b_1b_0$, whose expansion is $a = b_0 \cdot 2^0 + b_1 \cdot 2^1 + b_2 \cdot 2^2 + \cdots + b_{n-2} \cdot 2^{n-2} + b_{n-1} \cdot 2^{n-1} + b_{n} \cdot 2^{n}$, there is an $x^a$ term in the expansion of $f(x)$, formed by taking 1 from the $i$th factor of $f(x)$ if $b_i = 0$ and $x^{2^i}$ from the $i$th factor if $b_i = 1$ (when distributing).  Thus, the coefficient of $x^a$ in this expansion is equal to the number of binary expansions of $a$.
+
+We will now show by induction on $k$ that $f(x) = (1+x+x^2 + \cdots + x^{2^k -1})\prod_{n=k}^\infty 1 + x^{2^n}$.  If $k = 0$, this is trivial, since the factor on the left is $1$ and the factor on the right is $f(x)$.  So assume it is true for some $k$.  Then
+\begin{align*}
+f(x) &= (1+x+x^2 + \cdots + x^{2^k -1})\prod_{n=k}^\infty 1 + x^{2^n}
+\\
+&= (1+x+x^2 + \cdots + x^{2^k -1})(1 + x^{2^k})\prod_{n=k+1}^\infty 1 + x^{2^n}
+\\
+&= (1+x+x^2 + \cdots + x^{2^k -1} + x^{2^k}(1+x+x^2 + \cdots + x^{2^k -1}))\prod_{n=k+1}^\infty 1 + x^{2^n}
+\\
+&= (1+x+x^2 + \cdots + x^{2^{k+1}})\prod_{n=k+1}^\infty 1 + x^{2^n}
+\end{align*}
+so the inductive step holds.  Now, the coefficient of $x^a$ must be 1 for every $a \in \Z$.  This is because $f(x) = (1+x+x^2 + \cdots + x^{2^k -1})\prod_{n=k}^\infty 1 + x^{2^n}$ for some $k > a$.  However, the only way to make a term with $x^a$ in this expansion is to take $x^a$ from the factor on the left and take $1$ from every other factor, since taking $x^{2^n}$ from any other factor will create a term with exponent at least $2^n \geq 2^k > a$.  Thus there is exactly one binary expansion of each non-negative integer.
+\end{proof}
+\pagebreak
+\item Find a closed-form formula for the Lucas numbers, defined by $L_1 = 2$, $L_2 = 1$ and the recursive formula $L_{n+2} = L_{n+1} + L_n$.
+
+\begin{proof}
+\ First, we should redefine the sequence to start at $0$, so that the sequence terms line up with powers of $x$ in the generating function.  So $L_0 = 2$ and $L_1 = 1$.  Let
+
+$$f(x) = \sum_{n=0}^\infty L_n x^n.$$
+Then
+\begin{align*}
+xf(x) + f(x)
+&= \sum_{n=0}^\infty L_n x^{n+1} + \sum_{n=0}^\infty L_n x^{n}
+\\
+&= \sum_{n=0}^\infty L_n x^{n+1} + \sum_{n=1}^\infty L_n x^{n} + L_0
+\\
+&= \sum_{n=0}^\infty L_n x^{n+1} + \sum_{n=0}^\infty L_{n+1} x^{n+1} + L_0
+\\
+&= \sum_{n=0}^\infty (L_n + L_{n+1}) x^{n+1} + L_0
+\\
+&= \sum_{n=0}^\infty (L_{n+2}) x^{n+1} + L_0
+\end{align*}
+$$x^2f(x) + xf(x) - 2x = x^2f(x) + xf(x) - xL_0 = \sum_{n=0}^\infty (L_{n+2}) x^{n+2} = f(x) - L_0 - xL_1 = f(x) - 2 - x
+$$
+$$
+(x^2 + x - 1)f(x) = x-2
+$$
+$$
+f(x) = \dfrac{x - 2}{x^2 + x - 1}.
+$$
+\end{proof}
+
+\item Practice your big $O$'s!
+\begin{enumerate}
+\item[(a)] \ Find the problem with the following argument: ``Since $kn = O(n)$ for all fixed $k$, $\sum_{k=1}^n kn = \sum_{k=1}^n O(n) = O(n^2)$."
+
+The problem is that $\sum_{k=1}^n O(n) \neq O(n^2)$.  First off, clearly $$\sum_{k=1}^n kn = n \sum_{k=1}^n k = n \dfrac{n(n+1)}{2} = O(n^3) \neq O(n^2).$$
+The problem in the argument is that the writer is assuming that $\sum_{k=1}^n kn = \sum_{k=1}^n O(n)$.  This is not true, though.  For instance, the $n$th term in the sum is $n^2$, which is not $O(n)$.
+\pagebreak
+\item[(b)] \ Find your best big $O$ approximation of the number of perfect matchings on $K_{2n}$.
+
+\begin{proof}
+\ We may create a perfect matching on $K_{2n}$ by the following process:  Order the $2n$ vertices as $v_1, v_2, \dots, v_{2n-1}, v_{2n}$.  Let the matching be $\{(v_1,v_2), (v_3,v_4), \dots , (v_{2n-1}, v_{2n}) \}$.  However, we have overcounted by a factor of $2^n n!$, since any swapping of $v_{2i}$ and $v_{2i+1}$ results in the same matching, and any reordering of the pairs results in the same matching.  Another argument is that any matching is created in a unique way by starting at a random vertex and choosing one of the $2n-1$ other vertices to take as its match.  Next, start at another random vertex and choose its match from the $2n-3$ remaining vertices, etc.  So the number $a_n$ of perfect matchings on $K_{2n}$ is $$a_n = (2n-1)(2n-3)(2n-5) \cdots (5)(3)(1) = \dfrac{(2n)!}{2^n n!}.$$  We can use Stirling's approximation to find a big $O$ approximation of this function:
+
+\begin{align*}
+a_n = \dfrac{(2n)!}{2^n n!}
+&\sim
+\dfrac{\sqrt{2\pi 2n} \left( \frac{2n}{e} \right)^{2n}}{2^n \sqrt{2\pi n} \left( \frac{n}{e} \right)^n}
+=
+\frac{\sqrt{2}}{2^n} \cdot \frac{2^{2n} \left( \frac{n}{e} \right)^n \left( \frac{n}{e} \right)^n}{\left( \frac{n}{e} \right)^n}
+\\
+&= \sqrt{2} \cdot 2^n \left( \frac{n}{e} \right)^n = \sqrt{2} \left( \frac{2}{e} \right)^n n^n < \sqrt{2} \cdot n^n.
+\end{align*}
+So $a_n = O(n^n)$.
+\end{proof}
+\end{enumerate}
+\item Fix positive integers $n$ and $k$, and let $S = [n]$.  Find the number of $k$-lists $(T_1, T_2, \dots, T_k)$ of subsets $T_i$ of $S$ such that for every $i < j$, $T_i \subset T_j$.
+
+\begin{proof}
+\ For each $x \in [n]$, choose the minimum $i$ such that $x \in T_i$, or choose for $x$ to appear in none of the $T_i$.  This completely defines the $k$-list, since each set $T_j$ consists of exactly those $x$ for which we chose $i \leq j$.  This gives us $k+1$ choices for each $x \in [n]$, thus there are $(k+1)^n$ such $k$-lists.
+\end{proof}
+
+\item Find the number of ways to sit $n$ couples (which makes $2n$ people) at a round table (with distinguishable seats) such that (a) the two people in every couple sit next to each other; (b) the two people in no couple sit next to each oher.
+
+\begin{proof}
+\ There are $2^{n+1}n!$ ways for part (a).  Order the couples.  Next, we will seat the couples in the chosen order.  First, we need to choose whether to seat the first couple starting in the first seat or in the second seat.  Finally, we need to choose, for each couple, which person to seat first.
+
+For part $(b)$, we can use inclusion-exclusion.  Let $S$ be the space of all possible seatings, so that $|S| = (2n)!$.  Let $E_i$ denote the event where couple $i$ sits together.  Note that, by symmetry, $|E_{i_1} \cap \cdots \cap E_{i_k}| = |E_1 \cap \cdots \cap E_k|$ for all $i_1, \dots, i_k$.
+
+To compute $|E_1 \cap \cdots \cap E_k|$, we may begin with only $2k$ chairs in a circle, and seat the $k$ couples so that each couple is together.  By part (a), there are $2^{k+1}k!$ ways to do this.  Next, we need to place the remaining $2n - 2k$ people into the spaces between the $k$ couples.  First, order the remaining people.  Next, decide how many will go into each spot between the already seated couples.  This is just a function from $[2n-2k]$ to $[k]$, where the elements of the domain are indistinguishable.  So there are $(2n-2k)! \left( \binom{k}{2n-2k} \right)$ ways to do this.  Therefore,
+$$|E_1 \cap \cdots \cap E_k| = 2^{k+1}k!(2n-2k)! \binom{2n-k-1}{k-1}.$$
+
+So the number of elements in none of the $E_i$, which is the number of ways to have no couple sitting together, is
+\begin{align*}
+|S| - |E_1 \cup \cdots \cup E_n|
+&= |S| - \sum_{k=1}^n (-1)^{k-1} \binom{n}{k} |E_1 \cap \cdots \cap E_k|
+\\
+&= (2n)! - \sum_{k=1}^n (-1)^{k-1} \binom{n}{k} 2^{k+1}k!(2n-2k)! \binom{2n-k-1}{k-1}
+\\
+&= (2n)! - \sum_{k=1}^n (-1)^{k-1} \binom{n}{k} \dfrac{(2n-k-1)!}{(2n-2k)!(k-1)!}(2n-2k)!k! 2^{k+1}
+\\
+&= (2n)! - \sum_{k=1}^n (-1)^{k-1} \binom{n}{k} (2n-k-1)! 2^{k+1}k
+\end{align*}
+\end{proof}
+
+\item Let $G$ be a graph such that all its vertices have degree 2. Prove that $G$ is a union of pairwise disjoint cycles.
+
+\begin{proof}
+\ Let $H$ be any connected component of $G$.  Beginning at a vertex $v$, walk in either direction, since there are two edges incident with $v$.  Now, at each step beyond the first, walk along the edge that is not the one from which you came (since each vertex has degree 2, there is exactly one choice for this path).  This walk cannot go on forever without eventually hitting a vertex it has already hit, else the graph would be infinite (I'm assuming this is not the case, or else the statement is not true).
+
+Let $u$ be the first vertex this walk encounters for the second time.  If $u \neq v$, then $u$ must have degree $>3$, since it cannot be coming to $u$ from either of the two edges the walk has aready taken, since this would contradict that $u$ is the \emph{first} vertex it revisits.  Therefore, $u = v$.
+
+The walk also must visit every vertex in $H$.  If $x$ is connected to $y$, and the walk visits $y$, then either it came from $x$ or it will go to $x$ next.  Therefore, if the walk visits a vertex, then it visits both of its neighbors.  By transitivity, the walk must visit every vertex, since $H$ is connected so there is always a path from $v$ to any vertex.
+
+This shows that $H$ must be a cycle.  Since every connected component of $G$ is a cycle, and $G$ is the union of these components, $G$ is the union of pairwise disjoint cycles.
+\end{proof}
+
+\item I guess this problem wasn't assigned this week, but I am answering it anyway.  In fact, I demand 10 extra points to make up for the points I lost on the first homework for not answering it.  Just kidding.
+
+The problems seemed easy this week.  Who knows, mabye they were harder than I thought and my answers are just wrong.
+
+\end{enumerate}
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

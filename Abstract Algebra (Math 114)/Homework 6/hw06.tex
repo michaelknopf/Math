@@ -1,0 +1,132 @@
+\documentclass[10pt]{article}
+\usepackage[margin=.7in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{lipsum}
+\usepackage[]{units}
+\usepackage{relsize}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{graphicx}
+\usepackage{xfrac}
+
+\setenumerate{listparindent=\parindent}
+
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\DeclareMathOperator*{\dom}{dom}
+\DeclareMathOperator*{\Aut}{Aut}
+\DeclareMathOperator*{\Gal}{Gal}
+
+\begin{document}
+
+\begin{center}
+\large Math 114 Homework 6
+
+\normalsize Michael Knopf \\
+(due Thursday, 12 March)
+\end{center}
+
+\begin{enumerate}
+
+\item (Exercise 1 in DF \S 14.4.) Determine the Galois closure of $\mathbf{Q}(\sqrt{1+\sqrt{2}})$ over $\mathbf{Q}$.
+
+(See Corollary 23 on p. 594 in DF for the definition of the Galois closure of an extension $E/F$.  (Properly speaking, we should call it \emph{a} Galois closure, as it is determined by the choice of an algebraic closure of $F$; in this case you will probably choose to work in (the algebraic closure of $\mathbf{Q}$ inside) $\mathbf{C}$.))
+
+\begin{proof}
+The minimal polynomial for $\sqrt{1+\sqrt{2}}$ over $\mathbb{Q}$ is $p(x) = x^4 - 2x^2 - 1$.  Clearly, this element is a root of $p(x)$.  $p(x)$ is quadratic in $x^2$, so the quadratic formula gives that its 4 distinct roots are $\pm \sqrt{1 \pm \sqrt{2}}$.  Thus $p(x)$ has no linear factors over $\Q$.  If it had any quadratic factors over $\Q$, one of the following would need to have rational coefficients:
+\begin{align*}
+\left( x - \sqrt{1+\sqrt{2}} \right)^2 &= x^2-2 \sqrt{1+\sqrt{2}} x+\sqrt{2}+1
+\\
+\left( x + \sqrt{1+\sqrt{2}} \right) \left(x - \sqrt{1+\sqrt{2}} \right) &= x^2 - (1 + \sqrt{2}).
+\end{align*}
+So $p(x)$ is irreducible, thus it is the minimal polynomial for $\sqrt{1+\sqrt{2}}$ over $\Q$.
+
+The Galois closure of $\Q(\sqrt{1+\sqrt{2}})$ needs to also contain $\sqrt{1-\sqrt{2}}$.  The other roots are just the negations of $\sqrt{1+\sqrt{2}}$ and $\sqrt{1-\sqrt{2}}$, so any field that contains these will contain all the roots of $p(x)$.  Therefore, the Galois closure is $\Q(\sqrt{1+\sqrt{2}}, \sqrt{1-\sqrt{2}})$.
+\end{proof}
+
+\item (Exercise 3 in DF \S 14.7.) Let $F$ be a field of characteristic not equal to $2$.  Fix an algebraically closed field $L$ containing $F$.  State and prove a necessary and sufficient condition on $\alpha, \beta \in F$ so that $F(\sqrt{\alpha})=F(\sqrt{\beta})$.  (Here $\sqrt{\alpha}, \sqrt{\beta}$ denote any elements of $L$ whose squares are $\alpha$ and $\beta$ respectively.)
+
+Use this to determine whether $\mathbf{Q}(\sqrt{1-\sqrt{2}}) = \mathbf{Q}(i,\sqrt{2})$ (where $\sqrt{1-\sqrt{2}}$, $i$, $\sqrt{2}$ denote elements of $\mathbf{C}$ with squares $1-\sqrt{2}$, $-1$, and $2$ respectively).
+
+(You already did part of this exercise on the midterm.)
+
+\noindent \emph{$F(\sqrt{\alpha}) = F(\sqrt{\beta})$ if and only if 1) $\alpha\beta$ is a nonzero square in $F$, or 2) one of $\alpha$ or $\beta$ is 0 and the other is a square in $F$.}
+
+\begin{proof}
+
+First, we will show that the given condition is sufficient.  Assume WLOG that $\alpha = 0$.  Then $F(\sqrt{\beta}) = F(\sqrt{\alpha}) = F(0) = F$ if $\beta$ is a square in $F$.  Next, assume that $\alpha\beta = c^2$ for some nonzero $c \in F$.  Then $\alpha$ and $\beta$ must both be nonzero, so $\sqrt{\beta} = \frac{c}{\sqrt{\alpha}} \in F(\sqrt{\alpha})$ and $\sqrt{\alpha} = \frac{c}{\sqrt{\beta}} \in F(\sqrt{\beta})$.  Thus $F(\sqrt{\alpha}) = F(\sqrt{\beta})$.
+
+We will now show that the given condition is necessary.  For us to have $F(\sqrt{\beta}) = F(\sqrt{\alpha})$, we need that $F(\sqrt{\beta}) \subseteq F(\sqrt{\alpha})$.  This implies that $a + b\sqrt{\alpha} = \sqrt{\beta}$ for some $a,b \in F$.  Squaring gives $a^2 + b^2\alpha + 2ab\sqrt{\alpha} = \sqrt{\beta}$.  Therefore, $ab=0$ and $a^2 + b^2\alpha = \beta$.  This gives three cases:
+
+In the first case, $a = 0$ and $b \neq 0$.  This means that $\beta = b^2\alpha$, so either $\alpha = \beta = 0$ or $\alpha\beta = b^2 \alpha^2$ is a nonzero square.  In the second case, $a \neq 0$ and $b = 0$.  This means that $\beta = a^2$ is a nonzero square in $F$.  This also gives that $F(\sqrt{\beta}) = F(a) = F$; so, for us to have $F(\sqrt{\alpha}) = F(\sqrt{\beta}) = F$, we need $\alpha$ to be a square in $F$ as well.  So either $\alpha$ and $\beta$ are both nonzero squares in $F$, thus $\alpha\beta$ is a square in $F$, or $\alpha = 0$ and $\beta$ is a square in $F$.  In the third case, $a=b = 0$; thus, $\beta = 0$.  This means that $F(\sqrt{\beta}) = F(0) = F$, so $\alpha$ must be a square in $F$ in order for us to have $F(\sqrt{\alpha}) = F(\sqrt{\beta})$.
+
+Now, suppose that $\Q(\sqrt{2})(\sqrt{1-\sqrt{2}}) = \Q(\sqrt{1 - \sqrt{2}}) = \Q(i, \sqrt{2}) = \Q(\sqrt{2})(\sqrt{-1})$.  By the previous result, since neither $\sqrt{1 - \sqrt{2}}$ nor $\sqrt{-1}$ are $0$, we must have $$-1 + \sqrt{2} = (-1)(1 - \sqrt{2}) = (a+b\sqrt{2})^2 = a^2 + 2b^2 + 2ab\sqrt{2}$$ for some $a,b \in \Q$.  This means that $a^2 + 2b^2 = -1$, a contradiction because $a^2 + 2b^2 \geq 0$.  Thus, these extensions cannot be equal.
+\end{proof}
+
+\item (Exercise 4 in DF \S 14.7.) Let $n \in \mathbf{N}$ and $a \in \mathbf{Q}$ be such that $a>0$ and $X^n-a \in \mathbf{Q}[X]$ is irreducible.  Let $\beta \in \mathbf{C}$ be any root of $X^n-a$.  Let $K = \mathbf{Q}(\beta)$.  Let $E$ be any subfield of $K$, and let $[E:\mathbf{Q}]=d$.  Prove that $E = \mathbf{Q}(\gamma)$ where $\gamma^d=a$.
+
+(Hint: Consider $N_{K/E}(\beta) \in E$; see Exercise 17 in \S 14.2, of which a modified version was assigned on a previous homework, for the definition.)
+
+\begin{proof}
+Consider the group $G$ of all embeddings of $K/E$ into an algebraic closure of $E$.  By Galois correspondence, $|G| = [K:E] = \dfrac{[K:\Q]}{[E:\Q]} = \dfrac{n}{d}$, where we have let $d$ be the degree of $E$ over $\Q$, which must divide $n$.  Thus $N_{K/E}(t) = t^{n/d}$ for any $t \in \Q$, since this norm is the product of $\sigma(t)$ over all embeddings $\sigma$ which fix $E$, so that $t$ must be fixed.  Using the multiplicative property of the norm, we now have
+$$
+N_{K/E}(\beta)^n = N_{K/E}(\beta^n) = N_{K/E}(a) = a^{n/d}
+$$
+therefore $N_{K/E}(\beta) = \sqrt[d]{a} \in E$, since the norm always takes a value in the fixed field.  Therefore, $\Q(\sqrt[d]{a})$ is a subfield of $E$, and both $E$ and $\Q(\sqrt[d]{a})$ have degree $d$ over $\Q$.  Thus, $\Q(\sqrt[d]{a}) = E$.
+\end{proof}
+
+\item (Exercise 12 in DF \S 14.7.) Let $\alpha \in \mathbf{C}$ be an element algebraic over $\mathbf{Q}$, and let $L$ be the Galois closure (cf. Question 1) of the extension $\mathbf{Q}(\alpha)$ of $\mathbf{Q}$.  For any prime $p$ dividing $[L:\mathbf{Q}]$, prove there is a subfield $F$ of $L$ with $[L:F]=p$ and $L=F(\alpha)$.
+
+\begin{proof}
+
+Let $G = \Gal(L/\Q)$.  By Cauchy's Theorem, $G$ must contain a subgroup $H$ of order $p$.  Thus, by Galois correspondence, the fixed field $K$ of $H$ is a subfield of $L$ such that $[L:K] = p$.  If $\alpha \not \in K$, then $F = K$ would suffice.  However, this is not necessarily the case.
+
+There must be some $\sigma \in G$ for which $\sigma(\alpha) \not \in K$, otherwise all conjugates of $\alpha$ lie in $K$, and so the minimal polynomial of $\alpha$ over $F$ splits completely in $K$.  However, this would mean that $L$ contains a proper subfield that is the splitting field for $m_{\alpha}(x)$, contradicting the minimality of $L$ as the Galois closure of $\Q(\alpha)$.
+
+Now, $\sigma^{-1}$ is an embedding of $K$ into $L$.  Let $F$ be the image of $K$ under $\sigma^{-1}$.  Clearly, $[L:F] = [L:K] = p$.  We know that $\alpha \not \in F$, otherwise there would exist some $k \in K$ such that
+$$
+\alpha = \sigma^{-1}(k) \implies \sigma(\alpha) = k \in K,
+$$
+a contradiction.  Since $\alpha \not \in F$, we know that $F(\alpha) \subseteq L$ has degree greater than 1 over $F$.  Since its degree must divide $p$, it has degree $p$.  Therefore, $F(\alpha)$ must equal $L$, since the degree of $L$ over $F(\alpha)$ is $p$.
+\end{proof}
+
+\item (Exercise 13 in DF \S 14.7.) Let $F$ be a subfield of the real numbers $\mathbf{R}$, $a$ an element of $F$, $n$ a positive integer, and $\beta \in \mathbf{R}$ a real $n^\text{th}$ root of $a$ (i.e., $\beta^n=a$).  Prove that if $L$ is any Galois extension of $F$ contained in $K = F(\beta)$, then $[L:F] \leq 2$.
+
+\begin{proof}
+First, we will check some special cases.  Assume that $a = 1$.  Then $\beta$ is either $1$ or $-1$, since these are the only possible real $n$th roots of unity.  In either case, $K$ is a degree 1 extension, so the proposition is trivial.
+
+It is possible that $\beta$ does not have degree $n$ over $F$.  However, we may assume WLOG that it does.  If this were not the case, then it means that $a$ is an $m$th power in $F$, where $m$ divides $n$, so that the degree of $\beta$ is only $\frac{m}{n}$.  But then we could use $a' = \sqrt[m]{a}$ in place of $a$, $\sqrt[m]{\beta}$ in place of $\beta$, and $n' = \frac{n}{m}$ in place of $n$, and the following proof would hold.  The same argument from \#3 applies to show that $L = F(\sqrt[d]{a})$ for some $d$ dividing $n$, where $\sqrt[d]{a}$ is a real $d$th root of $a$.
+
+Consider the group $G$ of all embeddings of $K/L$ into an algebraic closure of $L$.  By Galois correspondence, $|G| = [K:L] = \dfrac{[K:F]}{[L:F]} = \dfrac{n}{d}$, where we have let $d$ be the degree of $L$ over $F$, which must divide $n$.  Thus $N_{K/L}(t) = t^{n/d}$ for any $t \in F$, since this norm is the product of $\sigma(t)$ over all embeddings $\sigma$ which fix $L$, so that $t$ must be fixed.  Using the multiplicative property of the norm, we now have
+$$
+N_{K/L}(\beta)^n = N_{K/L}(\beta^n) = N_{K/L}(a) = a^{n/d}
+$$
+therefore $N_{K/L}(\beta) = \sqrt[d]{a} \in L$, since the norm always takes a value in the fixed field.  Therefore, $F(\sqrt[d]{a})$ is a subfield of $L$, and both $L$ and $F(\sqrt[d]{a})$ have degree $d$ over $F$.  Thus, $F(\sqrt[d]{a}) = L$.
+
+Since $L$ is assumed to be Galois over $F$, it must contain all roots of $x^d - a$.  So $L$ contains all $d$th roots of unity.  However, $L$ is a real extension of a real field, thus it contains no complex numbers.  The only values of $d$ for which all $d$th roots of unity are real are $d=1$ and $d=2$.  Thus $L = F(\sqrt[d]{a})$ is an extension of degree $d \leq 2$.
+
+%Let $m = \frac{n}{d}$.  We have assumed $L$ to be Galois, so all the roots of $x^{m} - a$ are contained in $L$.  So $\beta, \beta \zeta_m, \beta \zeta_m^2, \dots , \beta \zeta_m^{n-1} \in L$.  So $\dfrac{\beta \zeta_m^2}{\beta \zeta_m} = \zeta_m \in L$.  Thus, $L$ contains a primitive $m$th root of unity, thus it contains all $m$th roots of unity.  Since $L$ is contained in $F(\beta)$, which is a real extension of a real field, $L$ contains no complex numbers.  So the only roots of unity it contains are $1$ and $-1$.  This means that either $m=1$ or $m=2$.
+\end{proof}
+
+%\item (Exercise 14 in DF \S 14.7.) This exercise shows that in general it is necessary to use complex numbers when expressing real roots of polynomials in terms of radicals.
+
+%Let $f(X) \in \mathbf{Q}[X]$ be an irreducible polynomial all of whose roots are real.  Suppose further that one of the roots, $\alpha$, of $f(X)$ can be expressed in terms of \emph{real} radicals; i.e., there is a root extension $K/\mathbf{Q}$ such that $\alpha \in K$ and $K \subset \mathbf{R}$.  (See p. 627 for the definition of a root extension.)
+
+%Prove that the number of elements in the Galois group of $f(X)$ is a power of $2$.  Conclude in particular that the degree of $f(X)$ is a power of $2$.
+
+%(See the problem statement in DF for an extensive hint.  The argument is similar to that used for the \emph{Casus irreducibilis} of cubic equations (pp. 633-634).)
+
+%\begin{proof}
+
+%Let the root extension be $\Q = K_0 \subset K_1 \subset \cdots \subset K_m = K \subset \mathbb{R}$, where $K_{i+1} = K_i(\sqrt[n_i]{a_i})$ for $i = 1,2,\dots, m-1$, for some integers $n_i$ and some $a_i \in K_i$ and $\alpha \in K_m$.  Let $L$ be the Galois closure of $\Q(\alpha)$, and suppose for a contradiction that $|\Gal(L/\Q)| = [L:\Q]$ is divisible by some odd prime $p$.  By exercise 4 in this homework, there is a subfield $F$ of $L$ such that $[L:F] = p$ and $L = F(\alpha)$.
+
+
+
+%\end{proof}
+
+\end{enumerate}
+\end{document}

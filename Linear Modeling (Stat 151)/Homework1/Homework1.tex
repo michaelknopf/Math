@@ -1,0 +1,616 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=.75in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{color}
+\usepackage{graphicx}
+\setenumerate{listparindent=\parindent}
+\definecolor{gray}{gray}{0.6}
+
+\setenumerate{listparindent=\parindent}
+ 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\E}{\mathbb{E}}
+\DeclareMathOperator*{\Cov}{Cov}
+\DeclareMathOperator*{\Col}{Col}
+ 
+\usepackage{listings}
+\lstset{
+language=R,
+basicstyle=\scriptsize\ttfamily,
+commentstyle=\ttfamily\color{gray},
+%numbers=left,
+numberstyle=\ttfamily\color{gray}\footnotesize,
+stepnumber=1,
+numbersep=5pt,
+backgroundcolor=\color{white},
+showspaces=false,
+showstringspaces=false,
+showtabs=false,
+%frame=single,
+tabsize=2,
+captionpos=b,
+breaklines=true,
+breakatwhitespace=false,
+%title=\lstname,
+escapeinside={},
+keywordstyle={},
+morekeywords={}
+} 
+ 
+\begin{document}
+ 
+% --------------------------------------------------------------
+%                         Start here
+% --------------------------------------------------------------
+
+
+\title{Stat 151A - Homework 1}
+\author{Michael Knopf}
+ 
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%     1     %%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{enumerate}[leftmargin=0cm,itemindent=.5cm,labelwidth=\itemindent,labelsep=0cm,align=left]
+\item Consider the linear model $Y = X\beta + e$ where $\E e = 0$ and $\Cov(e) = \sigma^2 I_n$.  Suppose I can find real numbers $a_1, \dots, a_n$ such that $$\E[a_1Y_1 + \cdots + a_nY_n] = \beta_1.$$  Show then that $\beta_1$ is estimable.
+
+\begin{proof}
+
+\ Let $a = (a_1, \dots , a_n)$.  Then $\beta_1 = \E[a^T Y] = a^T \E[X\beta + e] = a^T (X\beta + 0) = a^T X \beta = (X^T a)^T \beta$.  Since $X^Ta \in \Col(X^T)$, $\beta_1$ is estimable.
+
+\end{proof}
+
+\item Consider the data: $Y_i = \beta_0 + \beta_1 + e_i$ where $e_1, \dots, e_n$ are uncorrelated errors with mean zero and variance $\sigma^2$.
+\begin{enumerate}
+\item \ Write this model in the form $Y = X\beta + e$ with $\beta = (\beta_0, \beta_1)^T$.  Specify the matrix $X$.
+
+$$Y = \begin{pmatrix}
+1 & 1 \\ 
+1 & 1 \\ 
+\vdots & \vdots \\ 
+1 & 1
+\end{pmatrix}
+\begin{pmatrix}
+\beta_0 \\ 
+\beta_1 \vphantom{\vdots}
+\end{pmatrix}
++ 
+\begin{pmatrix}
+e_1 \\
+e_2 \\
+\vdots \\
+e_n
+\end{pmatrix}
+$$
+
+\item \ Write down the normal equations.  Find a solution to them.  Is the solution unique?
+
+\begin{proof}
+
+\ The normal equations are given by 
+\begin{align*}
+X^T X \hat{\beta} &= X^T Y \\
+\begin{pmatrix}						%%% X^T
+1 & 1 & \cdots & 1 \\ 
+1 & 1 & \cdots & 1 \\ 
+\end{pmatrix}
+\begin{pmatrix}						%%% X
+1 & 1 \\ 
+1 & 1 \\ 
+\vdots & \vdots \\ 
+1 & 1
+\end{pmatrix}
+\begin{pmatrix}						%%% Beta
+\hat{\beta_0} \\ 
+\hat{\beta_1}
+\end{pmatrix}
+&= \begin{pmatrix}					%%% X^T
+1 & 1 & \cdots & 1 \\ 
+1 & 1 & \cdots & 1 \\ 
+\end{pmatrix}
+\begin{pmatrix}						%%% Y
+Y_1 \\
+Y_2 \\
+\vdots \\
+Y_n
+\end{pmatrix}
+\\									%%%%%%%%%%%%%%%%%%
+\begin{pmatrix}						%%% X^T X
+n & n \\
+n & n
+\end{pmatrix}
+\begin{pmatrix}						%%% Beta
+\hat{\beta_0} \\ 
+\hat{\beta_1}
+\end{pmatrix}
+&=
+\begin{pmatrix}						%%% X^T Y
+\sum\limits_{i=1}^n Y_i \\
+\sum\limits_{i=1}^n Y_i
+\end{pmatrix} \\
+\begin{pmatrix}						
+\hat{\beta_0} + \hat{\beta_1} \\
+\hat{\beta_0} + \hat{\beta_1}
+\end{pmatrix}
+&=
+\begin{pmatrix}
+\overline{Y} \\
+\overline{Y}
+\end{pmatrix}.
+\end{align*}
+
+\noindent Therefore, the solution set for the normal equations is $\{ (\hat{\beta_0}, \hat{\beta_1}) : \hat{\beta_0} + \hat{\beta_1} = \overline{Y} \}$.  One solution is $\hat{\beta} = (\overline{Y}, 0)$.  However, this solution is not unique.
+
+\end{proof}
+
+\item What is the least squares estimate of $\beta_0 + \beta_1$? \\
+The least squares estimate of $\beta_0 + \beta_1$ is $\overline{Y}$.
+\item Is $\beta_1$ estimable? \\
+No.  The unique expression of $\beta_1$ in the form $\lambda^T \beta$ is $\begin{pmatrix}
+0 & 1
+\end{pmatrix}
+\beta$, but $\begin{pmatrix}
+0 \\
+1
+\end{pmatrix} \not \in \Col(X^T) = \text{span}\left(\{ \begin{pmatrix}
+1 \\
+1
+\end{pmatrix} \} \right)$
+\item Consider now another observation $Y_{n+1} = \beta_0 + 2\beta_1 + e_{n+1}$ where $e_1, \dots, e_{n+1}$ are uncorrelated errors with mean zero and variance $\sigma^2$.  Write this model in the form $Y = X\beta + e$ and calculate the least squares estimate of $\beta$.
+
+\begin{proof}
+
+$$Y = \begin{pmatrix}
+1 & 1 \\ 
+\vdots & \vdots \\ 
+1 & 1 \\ 
+1 & 2
+\end{pmatrix}
+\begin{pmatrix}
+\beta_0 \\ 
+\beta_1 \vphantom{\vdots}
+\end{pmatrix}
++ 
+\begin{pmatrix}
+e_1 \\
+\vdots \\
+e_n \\
+e_{n+1}
+\end{pmatrix}
+$$
+
+
+\noindent The normal equations are given by 
+\begin{align*}
+X^T X \hat{\beta} &= X^T Y \\
+\begin{pmatrix}						%%% X^T
+1 & \cdots & 1 & 1 \\ 
+1 & \cdots & 1 & 2 \\ 
+\end{pmatrix}
+\begin{pmatrix}						%%% X
+1 & 1 \\ 
+\vdots & \vdots \\ 
+1 & 1 \\ 
+1 & 2
+\end{pmatrix}
+\begin{pmatrix}						%%% Beta
+\hat{\beta_0} \\ 
+\hat{\beta_1}
+\end{pmatrix}
+&= \begin{pmatrix}						%%% X^T
+1 & \cdots & 1 & 1 \\ 
+1 & \cdots & 1 & 2 \\ 
+\end{pmatrix}
+\begin{pmatrix}						%%% Y
+Y_1 \\
+\vdots \\
+Y_n \\
+Y_{n+1}
+\end{pmatrix}
+\\									%%%%%%%%%%%%%%%%%%
+\begin{pmatrix}						%%% X^T X
+n+1 & n+2 \\
+n+2 & n+4
+\end{pmatrix}
+\begin{pmatrix}						%%% Beta
+\hat{\beta_0} \\ 
+\hat{\beta_1}
+\end{pmatrix}
+&=
+\begin{pmatrix}						%%% X^T Y
+\sum\limits_{i=1}^{n+1} Y_i \\
+\sum\limits_{i=1}^{n+1} Y_i + Y_{n+1}
+\end{pmatrix} \\
+\end{align*}
+
+\noindent Note that $\det \left(X^T X \right) = (n+1)(n+4) - (n+2)^2 = n$.  We may assume that $n \neq 0$, thus $X^T X$ is invertible.  Multiplying both sides by $(X^T X)^{-1}$ gives
+$$
+\begin{pmatrix}
+\hat{\beta_0} \\ 
+\hat{\beta_1}
+\end{pmatrix}
+=\frac1n
+\begin{pmatrix}
+n+4 & -n-2 \\
+-n-2 & n+1
+\end{pmatrix}
+\begin{pmatrix}						%%% X^T Y
+\sum\limits_{i=1}^{n+1} Y_i \\
+\sum\limits_{i=1}^{n+1} Y_i + Y_{n+1}
+\end{pmatrix}
+$$
+$$=\frac1n
+\begin{pmatrix}
+2\sum\limits_{i=1}^{n+1} Y_i - (n+2)Y_{n+1} \\
+- \sum\limits_{i=1}^{n+1} Y_i + (n+1)Y_{n+1}
+\end{pmatrix}
+=
+\frac{n+1}{n}
+\begin{pmatrix}
+\vphantom{\sum\limits_{i=1}^{n+1} Y_i}
+2\overline{Y} - \dfrac{n+2}{n+1}Y_{n+1} \\
+\vphantom{\sum\limits_{i=1}^{n+1} Y_i}
+-\overline{Y} + Y_{n+1}
+\end{pmatrix}
+$$
+which is the least squares estimate of $\beta$.
+
+\end{proof}
+\end{enumerate}
+
+\item Consider a simple one-way Analysis of Variance model: $y_i = \beta_0 + \beta_i + e_i$ for $i = 1, \dots , n$ where $e_1, \dots , e_n$ are mean zero and uncorrelated errors.  For each of the following parameter functions, specify whether they are estimable or not.  If estimable, provide their least squares estimate.  If not, explain why.
+
+\begin{enumerate}
+\item $\beta_0 + \beta_2$ \\ Yes
+\item $\beta_1$ \\ No
+\item $\beta_1 - \beta_2$ \\ Yes
+\item $\beta_1 + \beta_2 + \beta_3 - 3\beta_4$ \\ Yes
+\end{enumerate}
+
+\begin{proof}
+\ The design matrix and its transpose are given below. $$X =
+\begin{pmatrix}
+1 & 1 & 0 & 0 & \cdots & 0 \\
+1 & 0 & 1 & 0 & \cdots & 0 \\
+1 & 0 & 0 & 1 & \cdots & 0 \\
+\vdots & \vdots & \vdots & \vdots & \ddots & \vdots \\
+1 & 0 & 0 & 0 & \cdots & 1
+\end{pmatrix} \hspace{1.2cm}
+X^T =
+\begin{pmatrix}
+1 & 1 & 1 & \cdots & 1 \\
+1 & 0 & 0 & \cdots & 0 \\
+0 & 1 & 0 & \cdots & 0 \\
+0 & 0 & 1 & \cdots & 0 \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+1 & 0 & 0 & \cdots & 1
+\end{pmatrix}
+$$
+
+\noindent Let $v_1, \dots , v_n$ be the columns of $X^T$, so that its column space is $\text{span}(\{ v_1, \dots , v_n \} )$.  A parameter is estimable if and only if we can express it as $\lambda^T \beta$ for some $\lambda \in \Col(X^T)$.  So we express each given parameter in this form and check whether the corresponding $\lambda$ is in the column space of $X^T$.
+
+\begin{align*}
+\beta_0 + \beta_2 &= v_2^T \beta \\
+\beta_1 &= \begin{pmatrix}
+0 & 1 & 0 & \cdots & 0
+\end{pmatrix} \beta \\
+\beta_1 - \beta_2 &= (v_1 - v_2)^T \beta \\
+\beta_1 + \beta_2 + \beta_3 - 3\beta_4 &= (v_1 + v_2 + v_3 - 3v_4)^T \beta
+\end{align*}
+
+\noindent The only parameter for which $\lambda$ which is not in $\Col(X^T)$ is $\beta_1$.
+
+\noindent To find the least squares estimates of these parameters, note that
+\begin{align*}
+X^T X \beta &= X^T Y \\
+\begin{pmatrix}
+n & 1 & 1 & \cdots & 1 \\
+1 & 1 & 0 & \cdots & 0 \\
+1 & 0 & 1 & \cdots & 0 \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+1 & 0 & 0 & \cdots & 1
+\end{pmatrix}
+\begin{pmatrix}
+\hat{\beta_0} \\
+\vphantom{0} \\
+\vdots\\
+\vphantom{0} \\
+\hat{\beta_n}
+\end{pmatrix}
+&=
+\begin{pmatrix}
+1 & 1 & 1 & \cdots & 1 \\
+1 & 0 & 0 & \cdots & 0 \\
+0 & 1 & 0 & \cdots & 0 \\
+0 & 0 & 1 & \cdots & 0 \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+1 & 0 & 0 & \cdots & 1
+\end{pmatrix}
+\begin{pmatrix}
+Y_1 \\
+\vphantom{0} \\
+\vdots\\
+\vphantom{0} \\
+Y_n
+\end{pmatrix} \\
+\begin{pmatrix}
+n\hat{\beta_0} + \hat{\beta_1} + \cdots + \hat{\beta_n} \\
+\hat{\beta_0} + \hat{\beta_1} \\
+\hat{\beta_0} + \hat{\beta_2} \\
+\vdots \\
+\hat{\beta_0} + \hat{\beta_n}
+\end{pmatrix}
+&=
+\begin{pmatrix}
+\sum\limits_{i=1}^n Y_i \\
+Y_1 \\
+Y_2 \\
+\vdots \\
+Y_n
+\end{pmatrix}.
+\end{align*}
+The least squares estimates of the estimable parameters are
+
+\begin{align*}
+\hat{\beta_0} + \hat{\beta_2} &= Y_2\\
+\hat{\beta_1} - \hat{\beta_2} &= (\hat{\beta_0} + \hat{\beta_1}) - (\hat{\beta_0} + \hat{\beta_2}) = Y_1 - Y_2 \\
+\hat{\beta_1} + \hat{\beta_2} + \hat{\beta_3} - 3\hat{\beta_4} &= (\hat{\beta_0} + \hat{\beta_1}) + (\hat{\beta_0} + \hat{\beta_2}) + (\hat{\beta_0} + \hat{\beta_3}) - 3(\hat{\beta_0} + \hat{\beta_3})
+\\
+&= Y_1 + Y_2 + Y_3 - 3Y_4
+\end{align*}
+
+\end{proof}
+
+\item In the Bodyfat dataset, consider the linear model:
+$$\text{BODYFAT} = \beta_0 + \beta_1 \text{AGE} + \beta_2 \text{WEIGHT} + \beta_3 \text{HEIGHT} + \beta_4 (\text{AGE} + 10*\text{WEIGHT}) + e.$$
+
+\begin{enumerate}
+\item Is $\beta_1$ estimable? \\ \emph{No}
+\item Find the least squares estimates (using R) of $\beta_0$, $(\beta_1 + \beta_4)$, $(\beta_2 + 10\beta_4)$, and $\beta_3$.
+\item Can the estimates above be read off from the output to the following command in R?
+\begin{lstlisting}
+summary(lm(BODYFAT ~ AGE + HEIGHT + I(AGE + 10*WEIGHT), data = bodyfat.dataset))
+\end{lstlisting} \emph{Yes}
+\end{enumerate}
+
+\begin{proof}
+\ (a) $\beta_1$ is not estimable.  Since $\beta_1 = (\begin{matrix} 0 & 1 & 0 & 0 & 0 \end{matrix}) \beta$, we would need $(\begin{matrix}0 & 1 & 0 & 0 & 0 \end{matrix})^T \in \Col(X^T)$.  So assume
+$$
+\left(
+\begin{matrix}
+0 \\ 1 \\ 0 \\ 0 \\ 0
+\end{matrix}
+\right)
+=
+\sum\limits_{i=1}^{252} a_i
+\left(
+\begin{matrix}
+1 \\
+x_{i1} \\
+x_{i2} \\
+x_{i3} \\
+x_{i1} + 10x_{2i}
+\end{matrix}
+\right).
+$$
+
+\noindent The resulting system of equations requires that $$\sum\limits_{i=1}^{252} a_i x_{i1} = 1 \hspace{1.5cm} \sum\limits_{i=1}^{252} a_ix_{i2} = 0 \hspace{1.5cm} \sum\limits_{i=1}^{252} a_ix_{i1} + 10\sum\limits_{i=1}^{252} a_i x_{i2} = 0$$ all be solved simultaneously by some $a_1, \dots, a_{252}$.  However, substituting the second equation into the third gives $\sum\limits_{i=1}^{252} a_i x_{i1} = 0$, which contradicts the first.
+
+\noindent (b) We can edit the formula to leave out the last term I(AGE + 10*WEIGHT).  The estimates for the coefficients given for (INTERCEPT), AGE, WEIGHT, and HEIGHT are $\beta_0$, $(\beta_1 + \beta_4)$, $(\beta_2 + 10\beta_4)$, and $\beta_3$, respectively:
+\lstinputlisting{./bodyfat1.R}
+
+
+\noindent (c) If we keep the last term in the formula, R actually gives these same coefficients for each of these variables, meaning that it is actually estimating $\beta_0$, $(\beta_1 + \beta_4)$, $(\beta_2 + 10\beta_4)$, and $\beta_3$ for both formulas:
+\lstinputlisting{./bodyfat2.R}
+
+\end{proof}
+
+\item Consider simple linear regression where there is one response variable $y$ and an explanatory variable $x$ and there are $n$ subjects with values $y_1, \dots , y_n$ and $x_1, \dots , x_n$.
+\begin{enumerate}
+\item \ Write down (no need to calculate) the least squares estimates $\hat{\beta}_0$ and $\hat{\beta}_1$ of $\beta_0$ and $\beta_1$ in the model $y_i = \beta_0 + \beta_1 x_i + e_i$.
+
+$$ \hat{\beta}_0 = \overline{y} - \hat{\beta}_1\overline{x} \hspace{2cm} \hat{\beta}_1 = \frac{\sum\limits_{i=1}^n (x_i - x)(y_i - y) }{\sum\limits_{i=1}^n (x_i - \overline{x})^2} = r \frac{s_y}{s_x} $$
+
+\item \ Write down (again no need to calculate) the estimates $\hat{\alpha_0}$ and $\hat{\alpha_1}$ of $\alpha_0$ and $\alpha_1$ in the model $x_i = \alpha_0 + \alpha_1 y_i + e_i$.
+
+$$ \hat{\alpha}_0 = \overline{x} - \hat{\alpha}_1\overline{t} \hspace{2cm} \hat{\alpha}_1 = \frac{\sum\limits_{i=1}^n (x_i - x)(y_i - y) }{\sum\limits_{i=1}^n (y_i - \overline{y})^2} = r \frac{s_x}{s_y} $$
+
+\item \ Intuition might suggest that $\hat{\alpha}_1 = 1 / \hat{\beta}_1$.  Is this true?
+
+\begin{proof}
+
+\ No.  $1 / \hat{\beta}_1 = \dfrac1r \dfrac{s_x}{s_y} = r \dfrac{s_x}{s_y} = \hat{\alpha}_1$ if and only if $r = \pm 1$.  However, it is true in general that $\hat{\alpha}_1 = r^2 / \hat{\beta}_1$.
+
+\end{proof}
+
+\item \ Consider the BODYFAT dataset with $y =$ BODYFAT and $x =$ THIGH.  Plot the data and the two lines $y = \hat{\beta}_0 + \hat{\beta}_1 x$ and $x = \hat{\alpha}_0 + \hat{\alpha}_1 y$.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=120mm]{rplot.png}
+\end{figure}
+
+\end{enumerate}
+
+\item Consider the Anscombe dataset available in R, which can be accessed (and plotted) via
+
+\begin{lstlisting}
+library(datasets)
+a <- anscombe
+par(mfrow=c(2,2))
+plot(a$x1,a$y1, main=paste("Dataset One"))
+plot(a$x2,a$y2, main=paste("Dataset Two"))
+plot(a$x3,a$y3, main=paste("Dataset Three"))
+plot(a$x4,a$y4, main=paste("Dataset Four"))
+\end{lstlisting}
+
+\begin{enumerate}
+\item \ For each of these four datasets, fit a linear model for the response variable on the explanatory variable (including the intercept term).  Plot these four datasets (in the same graphics window as above) along with the fitted regression lines.  Does the linear model make sense for these datasets?
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=150mm]{rplot2.png}
+\end{figure}
+
+\item \ In each of the four datasets, predict the response variable when the explanatory variable equals 10.  Do these predictions make sense?
+
+The respective predicted responses for $x = 10$ are 8.001, 8.00909, 7.999727, and 8.000818.  For dataset 1, this prediction makes sense.  The dataset appears to have a linear relationship.  Dataset two is clearly not linear (it looks quadratic), and dataset three contains an outlier that probably should not have been included in the model.  Dataset four is a horrible set to make a linear model on, and the prediction is basically useless.
+
+\end{enumerate}
+
+\item Suppose there are 4 objects whose individual weights $\beta_1, \dots , \beta_4$ need to be estimated.  We have a weighing balance which gives measurements with error having mean zero and variance $\sigma^2$.  One approach is to weigh each object a number of times and take the average measurement value as the estimate of its weight.  Such a procedure needs a total of 32 weighings (8 for each of the 4 objects) to estimate the weight of each object with precision (variance) $\sigma^2 / 8$.
+
+Another method is to weigh the objects in combinations. Each operation consists of placing some of the objects in one pan of the balance and the others in the other pan. One then places some weights in the two pans to achieve equilibrium. This results in an observational equation
+of the type
+
+$$y = x_1 \beta_1 + x_2 \beta_2 + x_3 \beta_3 + x_4 \beta_4 + e$$
+
+where $x_i$ is 0, 1, or -1 according as the $i$th object is not used, placed in the left pan or in the right pan of the balance and $y$ is the weight required for equilibrium.  After $n$ measurements, one can get data that can be represented in an $n \times 1$ vector $Y$ and an $n \times 4$ matrix $X$.
+
+
+(a) Suppose $n = 8$ and $$X = \left[ \begin{matrix}
+1 & 1 & 1 & 1 \\
+1 & -1 & 1 & -1 \\
+1 & 1 & -1 & -1 \\
+1 & -1 & -1 & 1 \\
+1 & 1 & 1 & 1 \\
+1 & -1 & 1 & -1 \\
+1 & 1 & -1 & -1 \\
+1 & -1 & -1 & 1 \\
+\end{matrix} \right].$$
+What are the least squares estimates of $\beta_1, \beta_2, \beta_3,$ and $\beta_4$?
+
+\begin{proof}
+$$X^T X =
+\left(
+\begin{matrix}
+1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+1 & -1 & 1 & -1 & 1 & -1 & 1 & -1 \\
+1 & 1 & -1 & -1 & 1 & 1 & -1 & -1 \\
+1 & -1 & -1 & 1 & 1 & -1 & -1 & 1
+\end{matrix}\right)
+\left( \begin{matrix}
+1 & 1 & 1 & 1 \\
+1 & -1 & 1 & -1 \\
+1 & 1 & -1 & -1 \\
+1 & -1 & -1 & 1 \\
+1 & 1 & 1 & 1 \\
+1 & -1 & 1 & -1 \\
+1 & 1 & -1 & -1 \\
+1 & -1 & -1 & 1 \\
+\end{matrix} \right)
+=
+\left(
+\begin{matrix}
+8 & 0 & 0 & 0 \\
+0 & 8 & 0 & 0 \\
+0 & 0 & 8 & 0 \\
+0 & 0 & 0 & 8 \\
+\end{matrix}
+\right)
+$$
+$$
+X^T Y =
+\left(
+\begin{matrix}
+1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+1 & -1 & 1 & -1 & 1 & -1 & 1 & -1 \\
+1 & 1 & -1 & -1 & 1 & 1 & -1 & -1 \\
+1 & -1 & -1 & 1 & 1 & -1 & -1 & 1
+\end{matrix}\right)
+\left(
+\begin{matrix}
+y_1 \\ y_2 \\ y_3 \\ y_4 \\ y_5 \\ y_6 \\ y_7 \\ y_8
+\end{matrix}
+\right)
+=
+\left(
+\begin{matrix}
+y_1 + y_2 + y_3 + y_4 + y_5 + y_6 + y_7 + y_8 \\
+y_1 - y_2 + y_3 - y_4 + y_5 - y_6 + y_7 - y_8 \\
+y_1 + y_2 - y_3 - y_4 + y_5 + y_6 - y_7 - y_8 \\
+y_1 - y_2 - y_3 + y_4 + y_5 - y_6 - y_7 + y_8
+\end{matrix}
+\right)
+$$
+So the estimates of the parameters are given by
+$$
+\left(
+\begin{matrix}
+\hat{\beta}_1 \\ \hat{\beta}_2 \\ \hat{\beta}_3 \\ \hat{\beta}_4
+\end{matrix}
+\right)
+= I_4 \hat{\beta}
+= \frac18 X^T X
+=
+\frac18 X^T Y
+=
+\frac18
+\left(
+\begin{matrix}
+y_1 + y_2 + y_3 + y_4 + y_5 + y_6 + y_7 + y_8 \\
+y_1 - y_2 + y_3 - y_4 + y_5 - y_6 + y_7 - y_8 \\
+y_1 + y_2 - y_3 - y_4 + y_5 + y_6 - y_7 - y_8 \\
+y_1 - y_2 - y_3 + y_4 + y_5 - y_6 - y_7 + y_8
+\end{matrix}
+\right).
+$$
+\end{proof}
+
+(b) For $X$ as above, what is the Covariance matrix of $\hat{\beta}$? Show that this scheme gives a way of taking 8 weighings and estimating all the weights with individual precision $\sigma^2 / 8$. This should be contrasted with the naive weighing scheme described previously that takes 32 weighings to get estimates with precision $\sigma^2 / 8$.
+
+\begin{proof}
+
+\ Since $X^T X$ is invertible, we have $$\Cov(\hat{\beta}) = (X^TX)^{-1} \sigma^2 = \frac{\sigma^2}{8}I_4.$$
+
+So the variance of each $\hat{\beta}_i$ is $\dfrac{\sigma^2}{8}$.  Since we accomplish the same precision with one fourth as many observations, this is obviously the better experiment.
+
+\end{proof}
+
+(c) (\textbf{Bonus}) Does there exist a scheme of designing the $8 \times 4$ matrix $X$ (each of whose elements is one among 0, 1, and -1) so that the variance of any of the 4 weight estimates is strictly smaller than $\sigma^2 / 8$.  Why or why not?
+
+\begin{proof}
+
+\ No.  Suppose we wanted to minimize the variance of one of the estimates, regardless of how it affects the variance of the others.  Our best strategy would be to observe the weight of this object 8 times and ignore the others, since observing the others does not help us estimate the weight of this one.
+
+In this experiment, there would be only one parameter, $\beta_1$, and the design matrix would be
+
+$$X =
+\left(
+\begin{matrix}
+1 \\ 1 \\ 1 \\ 1 \\ 1 \\ 1 \\ 1 \\ 1
+\end{matrix}
+\right).
+$$
+
+\noindent Thus $X^T X = (8)$, so $\Cov(\hat{\beta}) = \left(\dfrac{\sigma^2}{8} \right) = \text{Var}(\hat{\beta}_1)$.  Diverting our attention to observing the other weights will at best increase this variance.
+
+Equivalently, we could use the $8 \times 4$ design matrix
+$$X = 
+\left(
+\begin{matrix}
+1 & 0 & 0 & 0 \\
+1 & 0 & 0 & 0 \\
+1 & 0 & 0 & 0 \\
+1 & 0 & 0 & 0 \\
+1 & 0 & 0 & 0 \\
+1 & 0 & 0 & 0 \\
+1 & 0 & 0 & 0 \\
+1 & 0 & 0 & 0 \\
+\end{matrix}
+\right).
+$$
+$\beta_1$ is estimable and the least squares estimate would be $\overline{Y}$, which has a variance of $\dfrac{\sigma^2}{8}$.
+\end{proof}
+
+\end{enumerate}
+\end{document}
+
+
+
+
+

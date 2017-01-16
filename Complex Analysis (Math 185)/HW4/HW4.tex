@@ -1,0 +1,251 @@
+% Insert HW number and date into heading!
+
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+%\addtolength{\oddsidemargin}{-.1in} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{lipsum}
+\usepackage[]{units}
+\usepackage{relsize}
+\usepackage{verbatim}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{graphicx}
+\usepackage{xfrac}
+
+\setenumerate{listparindent=\parindent}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}}
+
+\DeclareMathOperator*{\dom}{dom}
+\DeclareMathOperator*{\re}{Re}
+\DeclareMathOperator*{\im}{Im}
+\renewcommand{\bar}{\overline}
+
+\definecolor{mygray}{rgb}{.8,.8,0.8}
+
+\newtheorem*{lem}{Lemma}
+
+%%% Heading %%%
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Math 185 (HW 4)}
+\chead{Michael Knopf (24457981)}
+\rhead{July $23^{\text{rd}}$, 2015}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+\renewcommand\headrulewidth{0.4pt}
+
+\begin{document}
+
+\begin{enumerate}
+\setcounter{enumi}{24}
+\item Let $f: \Omega \rightarrow \C$ be holomorphic, and suppose in addition that $f'$ is continuous.  Use Green's Theorem to show that whenever $T \subseteq \Omega$ is a triangular path, the inside of which is also in $\Omega$, we have $\int_T f(z)dz = 0$.
+
+\begin{proof}
+Let $D$ be the interior of the triangle.  Then $f = u+iv$ is defined on the open region $\Omega$ containing $D$.  Since $f'$ is continuous, the partial derivatives of $u$ and $v$ are continuous.  So Green's Theorem implies that
+$$
+\int_T f(z)dz = \int_T (u dx - v dy) + i \int_T (vdx + udy) = \iint_{D} - \left( \frac{\partial v}{\partial x} + \frac{\partial u}{\partial y} \right) dxdy + \iint_{D} \left( \frac{\partial u}{\partial x} - \frac{\partial v}{\partial y} \right) dxdy.
+$$
+However, since $f$ is holomorphic, the Cauchy-Riemann equations state that $\frac{\partial v}{\partial x} + \frac{\partial u}{\partial y} = \frac{\partial u}{\partial x} - \frac{\partial v}{\partial y} = 0$.  Therefore, $\int_T f(z)dz = 0$.
+\end{proof}
+
+\item For any $r > 0$ and $n \in \Z$, compute $\int_{C_r} z^n dz$ and $\int_{C_r} \bar{z^n} dz$, where $C_r$ is the circle of radius $r$ centered at the origin with positive orientation.
+\begin{proof}
+
+If $n \neq -1$, then $\frac{d}{dz}[ \frac{z^{n+1}}{n+1}] = z^n$, thus $z^n$ has a primitive.  So, by Corollary II.1.4, the first integral must be 0.  If $n=-1$, then we computed this integral in an example following this corollary:
+$$
+\int_{C_r} z^{-1} dz = \int_0^{2\pi} e^{-it}e^{it} i dt = 2\pi i.
+$$
+
+For the second integral, notice that $|z^n| = |z|^n = r$ on $C_r$, so $\bar{z^n} = \frac{|z^n|^2}{z^n} = \frac{r^2}{z^n}$.  Thus,
+$$
+\int_{C_r} z^n dz = \int_{C_r} \frac{r^2}{z^n} dz = r^2 \int_{C_r} z^{-n} dz.
+$$
+Therefore, by the previous paragraph, this integral is $0$ if $n \neq 1$ and is $2\pi r^2i$ if $n = 1$.
+\end{proof}
+
+\item Compute $\int_{C_r} \re (z) dz$.
+\begin{proof}
+$$
+\int_{C_r} \re(z)dz = \int_{C_r} \frac{z + \bar{z}}{2}dz = \frac12 \left( \int_{C_r}zdz + \int_{C_r} \bar{z}dz \right) = \frac{0 + 2\pi r^2 i}{2} = \pi r^2i
+$$
+\end{proof}
+
+\item Show that, for any $n \in \N$,
+$$
+\frac{1}{2\pi}\int_0^{2\pi} \cos^{2n} t dt = \frac{1\cdot 3 \cdot 5 \cdots (2n-1)}{2 \cdot 4 \cdot 6 \cdots (2n)}
+$$
+\begin{proof}
+
+Let $\gamma(t) = e^{it}$ be a parametrization of the unit circle.  If we can find a function $f:\gamma \rightarrow \C$ such that $f(\gamma(t))\gamma'(t) = \cos^{2n} t$, then we will have $\int_0^{2\pi} \cos^{2n} t dt = \int_{\gamma} f(z) dz$.  Differentiating $\gamma$ gives $\gamma'(t) = i e^{it}$; substituting and solving shows that $f(z) = -i(\frac{z + z^{-1}}{2})^{2n}z^{-1}$ suffices, as we will verify:
+$$
+f(\gamma(t))\gamma'(t) = -i\left(\frac{e^{it} + e^{-it}}{2} \right)^{2n} e^{-it} (ie^{it})
+=
+\left(\frac{e^{it} + e^{-it}}{2} \right)^{2n}
+=
+\cos^{2n}(t).
+$$
+This implies
+\begin{align*}
+\frac{1}{2\pi}\int_0^{2\pi} \cos^{2n} t dt
+&=
+\frac{1}{2\pi}\int_{\gamma} -i \left(\frac{z + z^{-1}}{2} \right)^{2n}z^{-1}dt
+\\ &=
+-\frac{i}{2^{2n+1}\pi}\int_{\gamma} z^{-(2n+1)}\left( z^2 + 1 \right)^{2n}dt
+\\ &=
+-\frac{i}{2^{2n+1}\pi}\int_{\gamma} z^{-(2n+1)} \sum_{k=0}^{2n} \binom{2n}{k} z^{2k} dt
+\\ &=
+-\frac{i}{2^{2n+1}\pi} \sum_{k=0}^{2n} \binom{2n}{k} \int_{\gamma} z^{2(k-n)-1)} dt.
+\end{align*}
+From exercise 26, we know that this integral is 0 whenever $2(k-n)-1 \neq -1$, and is $2\pi i$ otherwise; but $2(k-n)-1= -1$ if and only if $k = n$.  Therefore, all terms of the summation are 0 except for the term where $k = n$.  So this reduces the integral to
+$$
+-\frac{i}{2^{2n+1}\pi} \binom{2n}{n} 2\pi i = \binom{2n}{n} \frac{1}{2^{2n}} = \frac{(2n)!}{n!n!}\frac{1}{2^n} = \frac{(2n)! / (n! 2^n)}{n! 2^n} = \frac{1\cdot 3 \cdot 5 \cdots (2n-1)}{2 \cdot 4 \cdot 6 \cdots (2n)}.
+$$
+\end{proof}
+
+\item Show that $\int_0^{\infty} \sin x^2 dx = \int_0^{\infty} \cos x^2 dx = \frac{\sqrt{2\pi}}{4}$.
+
+\begin{proof}
+
+Let $\gamma_1(t) = t$ for $0 \leq t \leq R$, $\gamma_2(t) = Re^{it}$ for $0 \leq t \leq \frac{\pi}{4}$, and $\gamma_3 = te^{i\frac{\pi}{4}}$ for $0 \leq t \leq R$.  Let $\Gamma = \gamma_1 + \gamma_2 + (-\gamma_3)$.  The region bounded by the closed curve $\Gamma$ is convex and $e^{iz^2}$ is holomorphic, so $\int_{\Gamma} e^{iz^2}dz = \int_{\gamma_1} e^{iz^2}dz + \int_{\gamma_2} e^{iz^2}dz + \int_{-\gamma_3} e^{iz^2}dz = 0$.
+
+Computing the third term gives
+\begin{align*}
+\int_{-\gamma_3} e^{iz^2}dz &= -\int_{\gamma_3} e^{iz^2}dz
+\\
+&= -\int_0^R e^{it^2 e^{i\frac{\pi}{2}}} (e^{i\frac{\pi}{4}} ) dt
+\\
+&= -e^{i\frac{\pi}{4}} \int_0^R e^{i^2t^2} dt
+\\
+&= -\frac{1+i}{\sqrt{2}} \int_0^R e^{-t^2} dt.
+\end{align*}
+As $R \rightarrow \infty$, the limit of this integral is $-(\frac{1+i}{\sqrt{2}})\frac{\sqrt{\pi}}{2} = -\frac{\sqrt{2\pi}}{4} - i\frac{\sqrt{2\pi}}{4}$.
+
+Computing the second term gives
+\begin{align*}
+\int_{\gamma_2} e^{iz^2}dz = \int_0^{\frac{\pi}{4}} e^{i R^2e^{2it}} (iR e^{it}) dt
+=  iR \int_0^{\frac{\pi}{4}} e^{i (R^2e^{2it} + t)} dt.
+\end{align*}
+We know that
+\begin{align}
+\left| iR \int_0^{\frac{\pi}{4}} e^{i (R^2e^{2it} + t)} dt \right|
+&\leq |iR| \int_0^{\frac{\pi}{4}} \left| iR e^{i (R^2e^{2it} + t)} dt \right|
+\\
+&= R \int_0^{\frac{\pi}{4}} \left| R e^{i (R^2e^{2it} + t)} \right| dt
+\\
+&= R \int_0^{\frac{\pi}{4}} \left| e^{i (R^2(\cos(2t) + i \sin(2t)) + t)} \right| dt
+\\
+&= R \int_0^{\frac{\pi}{4}} \left| e^{i(R^2\cos(2t) + t)} \right| \left| e^{-R^2\sin(2t)} \right| dt
+\\
+&= R \int_0^{\frac{\pi}{4}} \left| e^{-R^2\sin(2t)} \right| dt
+\\
+&\leq R \int_0^{\frac{\pi}{4}} \left| e^{-R^2t} \right| dt
+\\
+&= R \int_0^{\frac{\pi}{4}} e^{-R^2t} dt
+\\
+&= \frac{1 - e^{-R^2\frac{\pi}{4}}}{R}
+\end{align}
+A quick explanation: the factor that disappears between lines 4 and 5 was an exponential with purely imaginary argument, thus it had modulus 1.  From line 5 to line 6, we used the fact that $\sin(2x) \geq x$ for all $x \in [0,\frac{\pi}{4}]$, which we will justify now:
+
+The derivative of $g(t) = \sin(2t) - t$ is $g'(t) = 2\cos(2t) - 1$, which, on the interval $(0,\frac{\pi}{4})$, has its only zero at $t = \frac{\pi}{6}$.  Since $g'(0) = 2\cos(2\cdot 0) - 1 = 1$, $g(t)$ is increasing on this interval.  Therefore, $g(t) \geq g(0) = 0$ for all $t \in [0, \frac{\pi}{6}]$, so $g(t)$ is positive on this interval.  $g'(t)$ has no zeros on $(\frac{\pi}{6}, \frac{\pi}{4}]$, and $g'(\frac{\pi}{4}) = 2\cos(2\frac{\pi}{4}) - 1 = -1$.  Thus, $g(t)$ is decreasing on this interval.  So, for all $t \in (\frac{\pi}{6}, \frac{\pi}{4})$, $g(t) > g(\frac{\pi}{4}) = 1 - \frac{\pi}{4} = \frac{4 - \pi}{4} > 0$.  Therefore, $g(t)$ is nonnegative on this interval as well, hence $\sin(2t) \geq t$ on $[0, \frac{\pi}{4}]$. 
+
+The limit of the integral in (8) as $R \rightarrow \infty$ is 0, which leaves us with
+\begin{align*}
+\lim\limits_{R \rightarrow \infty} \int_{\Gamma} e^{iz^2}dz &= \int_{\gamma_1} e^{iz^2}dz + \int_{\gamma_2} e^{iz^2}dz + \int_{-\gamma_3} e^{iz^2}dz
+\\
+&= \int_0^R \cos(x^2) + i\sin(x^2) dx + 0 - \frac{\sqrt{2\pi}}{4}- i\frac{\sqrt{2\pi}}{4}
+\\
+&= 0.
+\end{align*}
+Therefore,
+$$
+\int_0^R \cos(x^2) + i\int_0^R \sin(x^2) dx = \frac{\sqrt{2\pi}}{4}+ i\frac{\sqrt{2\pi}}{4}
+$$
+Equating the real and imaginary parts gives the desired result.
+\end{proof}
+
+\item Compute $\int_{C} \frac{e^z}{z}$, where $C$ denotes the unit circle with positive orientation.
+
+\begin{proof}
+
+Let $f(z) = e^z$.  Since $f$ is holomorphic, Cauchy's Integral Theorem tells us that $\int_{C} \frac{e^z}{z-0} = 2\pi if(0) = 2\pi i\cdot 1 = 2 \pi i$.
+
+\end{proof}
+
+\item Compute $$\int_{|z| = 2} \dfrac{dz}{z^2 + 1}$$ understanding the circle to be oriented positively.
+
+\begin{proof}
+
+We can decompose the integrand as
+$$
+\frac{1}{z^2 + 1} = \frac{1}{(z+i)(z-i)} = \frac{a}{z+i} + \frac{b}{z-i}
+$$
+using partial fraction decomposition by solving $a(z-i) + b(z+i) = 1$.  Since this equation must hold for any $z \in \C$, we see that substituting $z = i$ yields $2bi = 1$ and substituting $z = -i$ yields $-2ai = 1$.  Thus $a = -\frac{1}{2i} = \frac{i}{2}$ and $b = \frac{1}{2i} = - \frac{i}{2}$.  Thus,
+$$
+\int_{|z| = 2} \frac{dz}{z^2 + 1} = \int_{|z| = 2} \frac{i/2}{z + i}dz - \int_{|z| = 2} \frac{i/2}{z - i}dz.
+$$
+Since $\frac{i}{2}$ is holomorphic, we can apply Cauchy's Integral Theorem to see that both of these integrals equal $2\pi i \cdot \frac{i}{2}$.  Therefore, the integral is $0$.
+\end{proof}
+
+\pagebreak
+\item Let $0 < r < 1$.  Compute $$\frac{1}{2\pi} \int_0^{2\pi} \dfrac{1-r^2}{1 - 2r \cos \theta + r^2}d \theta.$$
+
+\begin{proof}
+
+Let $\gamma(\theta) = e^{i\theta}$.  Again, we look for a function $f: \gamma \rightarrow \C$ such that $f(\gamma(\theta))\gamma ' (\theta) = f(e^{i\theta})(i e^{i\theta}) = \dfrac{1-r^2}{1 - 2r \cos \theta + r^2}$.  Solving shows that $f(z) = \dfrac{1-r^2}{i(rz-1)(r-z)}$ suffices:
+\begin{align*}
+f(e^{i\theta}) &= -ie^{-i\theta}\dfrac{1-r^2}{1 - 2r \cos \theta + r^2}
+\\
+&= -ie^{-i\theta}\dfrac{1-r^2}{1 - 2r\frac{e^{i\theta} + e^{-i\theta}}{2} + r^2}
+\\
+&= -ie^{-i\theta}\dfrac{1-r^2}{1 - re^{i\theta} - re^{-i\theta} + r^2}
+\\
+&= -ie^{-i\theta}\dfrac{1-r^2}{(re^{i\theta} - 1)(re^{-i\theta} - 1)}
+\\
+&= \dfrac{1-r^2}{i(re^{i\theta}-1)(r-e^{i\theta})}
+\end{align*}
+We can use partial fraction decomposition to obtain
+$$
+f(z) = \dfrac{1-r^2}{i(rz-1)(r-z)} = \frac{r}{i(rz-1)} - \frac{1}{i(r-z)} = \frac{1}{i(z-r^{-1})} + \frac{1}{i(z-r)}
+$$
+which can be checked easily.  Therefore,
+$$
+\frac{1}{2\pi} \int_0^{2\pi} \dfrac{1-r^2}{1 - 2r \cos \theta + r^2}d \theta
+=
+\frac{1}{2\pi i}\int_C \frac{1}{z-r^{-1}}dz + \frac{1}{2\pi i} \int_C \frac{1}{z-r}dz = 0 + 1 = 1
+$$
+because $\dfrac{1}{z-r^{-1}}$ is holomorphic on the disk $C$ (since $r^{-1} > 1$), so Cauchy's Theorem states the lefthand integral is $0$; and by Cauchy's Integral Theorem, the second integral equals $g(r)$, where $g(z)$ is the constant function $1$ (since $0 < r < 1$).
+\end{proof}
+
+\end{enumerate}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

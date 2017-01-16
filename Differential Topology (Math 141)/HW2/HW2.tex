@@ -1,0 +1,113 @@
+% --------------------------------------------------------------
+% This is all preamble stuff that you don't have to worry about.
+% Head down to where it says "Start here"
+% --------------------------------------------------------------
+ 
+\documentclass[12pt]{article}
+ 
+%\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{enumitem}
+ 
+ 
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\U}{\mathcal{U}}
+ 
+\newenvironment{theorem}[2][Theorem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{lemma}[2][Lemma]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{question}[2][Question]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+\newenvironment{corollary}[2][Corollary]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+ 
+\begin{document}
+ 
+% --------------------------------------------------------------
+%                         Start here
+% --------------------------------------------------------------
+ 
+\title{Homework 2}
+\author{Michael Knopf}
+\date{September 17, 2014}
+ 
+\maketitle
+
+\begin{exercise}{3}
+
+Show that $\mathbb{R}$ is not homeomorphic to $\mathbb{R}^2$.
+
+\end{exercise}
+
+\begin{proof}
+
+Suppose that $\mathbb{R}$ is homeomorphic to $\mathbb{R}^2$.  Then there exists a homeomorphism $f:\R^2 \to \R$, and thus $f(x,y) = 0$ for some $(x,y) \in \R^2$.  Now, let $B_\epsilon$ be an open ball around $(x,y)$.  Any open ball is connected and continuous maps preserve connectedness.  So, since $f^{-1}$ is continuous, we know that $f(B_\epsilon)$ is some open, connected set in $\R$.  The only connected sets in $\R$ are intervals, so $f(B_\epsilon) = (a,b) \subseteq \R$ for some $a,b \in \R$.
+
+Now, since $(x,y) \in B_\epsilon$, we know that $0 = f(x,y) \in (a,b)$.  So, if we remove $(x,y)$ from $B_\epsilon$, the image of the resulting set will be $(a,b)$ with $0$ removed, i.e. $f(B_\epsilon \setminus \{ (x,y) \}) = (a,b) \setminus \{ 0 \}$.  However, this is a contradiction, because $f$ should preserve connectedness, yet $B_\epsilon \setminus \{ (x,y) \}$ is still connected (since it is obviously still path connected) while $(a,b) \setminus \{ 0 \}$ can be separated into a union of the nonempty disjoint sets $(a,0)$ and $(0,b)$, and is thus disconnected.
+
+Therefore, no such map $f$ exists, so $\R$ is not homeomorphic to $\R^2$.
+
+\end{proof}
+
+\begin{exercise}{4}
+
+Let $(X, \T_X)$ be a topological space and $(Y, \T_Y)$ be a topological space that is Hausdorff.  For a function $f: X \to Y$, let $\Gamma_f$ denote the graph of $f$.  Show that if $f$ is continuous, then $\Gamma_f$ is closed in the product topology on $X \times Y$.
+
+\end{exercise}
+
+\begin{proof}
+
+Assume that $f$ is continuous.  We will show that $\Gamma_f^C$ is open by proving that every point is interior.
+
+Let $(x,y) \in \Gamma_f^C$.  We know that $y \neq f(x)$ because $(x,y)$ is not on the graph of $f$.  Thus, since $Y$ is Hausdorff, we can find disjoint open sets $\U_y, \U_{f(x)} \subset Y$ that contain $y$ and $f(x)$, respectively.  Since $f$ is continuous, we know that $f^{-1}(\U_{f(x)})$ is open in $X$.  So $f^{-1}(\U_{f(x)}) \times \U_y$ is open in the product topology on $X \times Y$.  Now, $\U_{f(x)}$ contains $f(x)$, so $f^{-1}(\U_{f(x)})$ contains $x$.  Also, $\U_y$ contains $y$.  So $f^{-1}(\U_{f(x)}) \times \U_y$ contains $(x,y)$.
+
+Now we will show that $f^{-1}(\U_{f(x)}) \times \U_y$ is contained within $\Gamma_f^C$.  Let $(x_0,y_0) \in f^{-1}(\U_{f(x)}) \times \U_y$, and so $f(x_0) \in \U_{f(x)}$ and $y_0 \in \U_y$.  Therefore, if $y_0 = f(x_0)$ then $y_0 \in \U_y \cap \U_{f(x)}$, contradicting that $\U_y$ and $\U_{f(x)}$ are disjoint.  Thus $y_0 \neq f(x_0)$, and so $(x_0,y_0) \not \in \Gamma_f$.  So $(x_0,y_0) \in \Gamma_f^C$.  Since $(x_0,y_0)$ was arbitrary, we know that $f^{-1}(\U_{f(x)}) \times \U_y$ is contained within $\Gamma_f^C$.
+
+Since every point $(x,y) \in \Gamma_f^C$ has an open neighborhood $f^{-1}(\U_{f(x)}) \times \U_y$ which is completely contained within $\Gamma_f^C$, every point of $\Gamma_f^C$ is interior.  So $\Gamma_f^C$ is open in the product topology on $X \times Y$.  Therefore, $\Gamma_f$ is closed.
+\end{proof}
+
+\begin{exercise}{5}
+
+Show that if $(X, \T )$ is second-countable and $S \subset X$, then every limit point of $S$ is a limit of a sequence in $S$.
+
+\end{exercise}
+
+\begin{proof}
+
+Suppose that $(X, \T)$ is second-countable and $S \subset X$, and assume that $x$ is a limit point of $S$.  A countable basis exists for $(X, \T)$, so we can arrange all the basis elements that contains $x$ into a sequence $\{ B_n \}$.  Next, construct another sequence $\{ S_n \}$ defined by $$S_n = \left( \  \bigcap_{k=1}^n B_k  \right) \cap S \textrm{ for each } n \in \N.$$  Note that $S_n$ is nonempty for all $n \in \N$ because every $B_k$ contains $x$, so this finite iterated intersection is an open set containing $x$, and thus it has a nonempty intersection with $S$ (since $S$ has $x$ as a limit point).  Also, note that for all $i > j$ we have $S_i \subseteq B_j$.  Finally, we can construct a sequence $\{ x_n \}$ in $S$ that converges to $x$ by choosing $x_n$, for each $n \in \N$, to be any element of $S_n$.  
+
+Now, let $\U$ be a subset of $X$ that contains $x$.  We know that there must be a basis element contained within $\U$ that contains $x$.  Thus this basis element is in our sequence $ \{ B_n \}$, so let it be $B_N$.  Now, for all $n > N$, we know that $x_n \in S_n \subseteq B_N \subseteq \U$.  Therefore, since $\U$ was arbitrary, $\{ x_n \}$ converges to $x$.
+
+Since $x$ was an arbitrary limit point of $S$, we have shown that every limit point of $S$ is a limit of a sequence in $S$.
+
+
+\end{proof}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

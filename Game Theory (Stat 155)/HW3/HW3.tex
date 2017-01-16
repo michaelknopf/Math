@@ -1,0 +1,246 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+%\addtolength{\oddsidemargin}{-.1in} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{lipsum}
+\usepackage[]{units}
+\usepackage{relsize}
+\usepackage{verbatim}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{graphicx}
+\usepackage{xfrac}
+\usepackage{collectbox}
+
+\setenumerate{listparindent=\parindent}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+
+
+
+\makeatletter
+\newcommand{\sqbox}{%
+    \collectbox{%
+        \@tempdima=\dimexpr\width-\totalheight\relax
+        \ifdim\@tempdima<\z@
+            \fbox{\hbox{\hspace{-.5\@tempdima}\BOXCONTENT\hspace{-.5\@tempdima}}}%
+        \else
+            \ht\collectedbox=\dimexpr\ht\collectedbox+.5\@tempdima\relax
+            \dp\collectedbox=\dimexpr\dp\collectedbox+.5\@tempdima\relax
+            \fbox{\BOXCONTENT}%
+        \fi
+    }%
+}
+\makeatother
+
+\DeclareMathOperator*{\dom}{dom}
+\renewcommand{\bar}{\overline}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Stat 155 (HW3)}
+\chead{Michael Knopf (24457981)}
+\rhead{July $22^\text{nd}$, 2015}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+\renewcommand\headrulewidth{0.4pt}
+
+\begin{document}
+
+\begin{enumerate}
+\item Mark each of the following statements true or false.  if true, prove the statement.  Otherwise, provide a counterexample.
+\begin{enumerate}
+\item $x \oplus y = 0$ if and only if $x=y$.  \textbf{True}
+\begin{proof}
+  Let $x = x_1 \cdots x_n$ be the binary expansion of $x$, where $x_i$ is the $i$th digits in the expansion.  Then $x \oplus y = (x_1 + x_1) \cdots (x_n + x_n) = 0 \cdots 0 = 0$, since the addition is taken modulo 2 without carry.  Thus $x \oplus x = 0$.
+
+Notice that $\oplus$ is associative, since modular addition is associative.  Also, $0$ is clearly the additive identity.  Thus, if $x \oplus y = 0$, then $x = x \oplus 0 = x \oplus (x \oplus y) = (x \oplus x) \oplus y = 0 \oplus y = y$.
+\end{proof}
+\item $x \oplus y \leq x + y$. \textbf{False}
+\begin{proof}
+$1 \oplus 1 = 0 > 2 = 1 + 1$.
+\end{proof}
+\item Suppose we are playing Nim with an odd number of piles. If each pile has the same number of chips, then you want to be Player I. \textbf{True}
+\begin{proof}
+Suppose each pile of the $2k+1$ has $x$ chips.  Then the Nimsum is $\oplus_{i=0}^{2k+1} x = (\oplus_{i=0}^{2k} x) \oplus x = 0 \oplus x = x \neq 0$, thus Player I has a winning strategy.
+\end{proof}
+\item For the game corresponding to the following bimatrix, every PSNE is also an ESS. \textbf{True}
+$$
+\begin{pmatrix}
+(5,5) & (2,4) \\
+(4,2) & (6,6)
+\end{pmatrix}
+$$
+\begin{proof}
+The PSNEs are $(5,5)$ and $(6,6)$.  However, neither player can even obtain a neutral payoff by changing strategies, thus $z^T A x < x^T A x$ for all pure strategies $z \neq x$.
+\end{proof}
+\end{enumerate}
+\item Let $G$ be a single pile subtraction game where the number of chips currently on the board is $n$. During each players turn, they must remove $m$ chips from the board, where $m$ is a divisor of $n$ but $m < n$. Conjecture the Sprague-Grundy function and prove your claim using induction.
+
+\begin{proof}
+Let $f(n)$ be the set of followers of $n$, let $g$ be the Sprague-Grundy function, and define $h(n)$ to be the exponent of $2$ in the prime factorization of $n$.
+
+\begin{center}
+\noindent Claim: $g(n) = h(n)$.
+\end{center}
+
+We will prove this by induction on $n$.  1 is a terminal position, since it has no divisors other than itself.  So $g(x) = 0$.  Thus the base case holds, since $h(1) = 0$.
+
+Assume the claim holds for numbers less than some $n$.  Let the prime factorization of $n$ be $n = 2^k p_1^{k_1}\cdots p_m^{k_m}$, so that $h(n) = k$.  Any proper divisor $d$ of $n$ has prime factorization $d = 2^j p_1^{j_1} \cdots p_m^{k_m}$, where $j \leq k$ and $j_i \leq k_i$ for each $i$.  Therefore,
+$$
+n - d = 2^k p_1^{k_1}\cdots p_m^{k_m} - 2^j p_1^{j_1} \cdots p_m^{k_m}
+= 2^j p_1^{j_1} \cdots p_m^{k_m}
+(2^{k-j} p_1^{k_1 - j_1}\cdots p_m^{k_m - j_m} -1)
+$$
+Now, if $j \neq k$, then $2^{k-j} p_1^{k_1 - j_1}\cdots p_m^{k_m - j_m} -1$ is an even number minus an odd number, and thus is odd.  So $g(n-d) = h(n-d) = j$.  For each $j \in \{0, \dots , k-1 \}$, $2^j$ divides $n$; therefore, $\{0, \dots , k-1 \} \subseteq g \circ f (n-d)$.
+
+If $j = k$, then $2^{k-j} p_1^{k_1 - j_1}\cdots p_m^{k_m - j_m} -1$ is an odd number minus an odd number, and hence is even.  Further, in this case there must be some $i$ for which $k_i \neq j_i$, since otherwise we would have $d = n$.  So the right-hand factor is not just even, but a nonzero even number.  The lefthand factor is then divisible by $2^k$.  Therefore, their product must be divisible by $2^{k+1}$.  So, in this case, $g(n-d) = h(n-d) > k$.  This proves that $k \not \in g \circ f (n-d)$.  Thus, $k$ is the least number not in this set, so $g(n) = k$.
+\end{proof}
+
+\item Let $g(x)$ be the Sprague-Grundy function for an impartial combinatorial game. Using the characteristic property, show that
+$$
+P = \{ x | g(x) = 0 \} \text{ and } N = \{x | g(x) \neq 0 \}.
+$$
+
+\begin{proof}
+Defining $N$ and $P$ as above, we will show they satisfy the characteristic property.  Let $x \in N$.  Then $g(x) \neq 0$, so by the definition of $g$, some follower $y$ of $x$ has $g(y) = 0$; otherwise, $0$ would be the least number not in $g \circ f (x)$.  So $y \in N$.
+
+Let $x \in N$.  Then $g(x) = 0$, so no follower $y$ of $x$ satisfies $g(y) = 0$, otherwise $0$ could not be the least number in $g \circ f(x)$.  Thus no follower of $x$ is in $N$.
+\end{proof}
+
+\item Suppose two players, I and II, call out a number from $\{1, \dots , K \}$ (for $K > 1$) simultaneously.  If Player I calls out $i$ and Player II calls out $j$, then Player I receives \$$(i-j)$ from Player II.  Find the value of this game.
+
+\noindent \emph{The value is 0.}
+
+\begin{proof}
+This is a zero sum game, since Player I's loss is Player II's gain, and the payoff matrix for Player 1 is defined by $(a_{ij}) = i-j$.  Since $a_{ji} = j - i = -(i-j) = - a_{ij}$, the game is symmetric.  Thus the value must be 0.
+\end{proof}
+
+\item Two smart students form a study group in some math class where homeworks are handed in jointly by each study group. In the last homework of the semester, each of the two students can choose to either work (``$W$") or defect (``$D$"). If at least one of them solves the homework that week (chooses ``$W$"), then they will both receive 10 points. But solving the homework incurs an effort worth $-7$ points for a student doing it alone and an effort worth $-2$ points for each student if both students work together. Assume that the students do not communicate prior to deciding whether they will work or defect.
+
+\noindent Write this situation as a matrix game and determine all Nash equilibria.
+
+\noindent \emph{Let strategy 1 correspond to ``$W$" and strategy 2 correspond to ``$D$".  The only pure strategy equilibria are $((1,0),(0,1))$ and $((0,1),(1,0))$.  The only mixed strategy equilibrium is $((\frac35, \frac25), (\frac35, \frac25))$.}
+
+\begin{proof}
+The payoff bimatrix for this game is
+$$
+A =
+\begin{pmatrix}
+(8,8) & (\underline{3},\underline{\underline{10}}) \\
+(\underline{10},\underline{\underline{3}}) & (0,0)
+\end{pmatrix}.
+$$
+Since $10 > 8$ and $3 > 0$, this proves the claim regarding pure strategy Nash equilibria.
+
+No row or column is dominated, so we must check for mixed strategy equilibria as well (by Lemma 3.3.6, if a domination occurred then the method we are about to apply would actually not lead to an equilibrium).  Let $p$ be the probability that Player I plays strategy 1.  There is one mixed strategy equilibrium, and it is of the form $((p,1-p), (p,1-p))$ because the game is symmetric.  $p$ can be found by solving
+$$
+8p + 3(1-p) = 10p + 0(1-p).
+$$
+The solution to this equation is $p = \frac35$, so the only mixed strategy equilibrium is $((\frac35, \frac25), (\frac35, \frac25))$.
+\end{proof}
+
+\item Consider the following game:
+\\
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline 
+ & C & D \\ 
+\hline 
+A & $(6,-10)$ & $(0,10)$ \\ 
+\hline 
+B & $(4,1)$ & $(1,0)$ \\ 
+\hline 
+\end{tabular}
+\end{center}
+%\begin{itemize}
+%\item
+Show that this game has a unique mixed Nash equilibrium.
+\begin{proof}
+No row or column is dominated, so a mixed Nash equilibrium exists.  Suppose Player I plays strategy A with probability $p$ in this equilibrium strategy.  Then $p$ satisfies
+$$
+-10p + 1(1-p) = 10p + 0(1-p)
+$$
+which has solution $p = \frac{1}{21}$.  Suppose, in the equilibrium strategy, Player II plays C with probability $q$.  Then $q$ satisfies
+$$
+-10q + 10(1-q) = 1q + 1(1-q)
+$$
+which has solution $q = \frac13$.  So the equilibrium strategy pair is $((\frac{1}{21}, \frac{20}{21}),(\frac13, \frac23))$.  This pair is the only solution to this system of equations, so it is the unique mixed Nash equilibrium.
+\end{proof}
+%\item Show that if player I can commit to playing strategy A with probability slightly move than $x^*$ (the probability she plays A in the mixed Nash equilibrium), then (a) player I can increase her payoff and (b) player II also benefits, obtaining a greater payoff than he did in the Nash equilibrium.
+%\item Show similarly that if player II can commit to playing strategy C with probability slightly less than $y^*$ (the probability he plays C in the mixed Nash equilibrium), then (a) player II can increase his payoff, and (b) player I also benefits, obtaining a greater payoff than she did in the Nash equilibrium.
+%\end{itemize}
+
+\item \textbf{The welfare game:} John has no job and might try to get one. Or, he may prefer to take it easy. The government would like to aid John if he is looking for a job, but not if he stays idle. The payoffs for each of the parties are given by:
+\\
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline 
+ & try & not try \\ 
+\hline 
+aid & $(\underline{3},2)$ & $(-1,\underline{\underline{3}})$ \\ 
+\hline 
+no aid & $(-1,\underline{\underline{1}})$ & $(\underline{0},0)$ \\ 
+\hline
+\end{tabular}
+\end{center}
+\noindent Find the Nash equilibria.
+
+\begin{proof}
+Again, there are no saddle points or dominations, so we must solve the system
+$$
+2p + 1(1-p) = 3p + 0(1-p)
+$$
+$$
+3q - 1(1-q) = -1q + 0(1-q)
+$$
+which has solution $p = \frac{1}{2}$, $q = \frac15$.  Since this is the only solution, the only Nash equilibrium is $((\frac12, \frac12),(\frac15, \frac45))$.
+\end{proof}
+
+
+\item \textbf{The game of Hawks and Doves.} Find the Nash equilibria in the game of Hawks and Doves whose payoffs are given by the matrix:
+\\
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline 
+ & try & not try \\ 
+\hline 
+aid & $(1,1)$ & $(\underline{0},\underline{\underline{3}})$ \\ 
+\hline 
+no aid & $(\underline{3},\underline{\underline{0}})$ & $(-4,-4)$ \\ 
+\hline
+\end{tabular}
+\end{center}
+\begin{proof}
+There are two saddle points in the off-diagonal entries, thus there are two pure strategy equilibriums: $((0,1),(1,0))$ and $((1,0),(0,1))$.  However, no row or column is dominated, so we may check for mixed strategy equilibria by checking for a solution $p$ to
+$$
+1p + 0(1-p) = 3p - 4(1-p)
+$$
+which has solution $p = \frac23$.  By symmetry, the only mixed strategy Nash equilibrium is $((\frac23, \frac13),(\frac23, \frac13))$, since there are no other solutions to this equation.
+\end{proof}
+\end{enumerate}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

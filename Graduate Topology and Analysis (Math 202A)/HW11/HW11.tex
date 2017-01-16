@@ -1,0 +1,166 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+%\addtolength{\oddsidemargin}{-.1in} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{lipsum}
+\usepackage[]{units}
+\usepackage{relsize}
+\usepackage{verbatim}
+\usepackage{bbm}
+\usepackage{mathtools}
+\usepackage{eufrak}
+\usepackage[mathscr]{euscript}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{graphicx}
+\usepackage{xfrac}
+%\usetikzlibrary{cd}
+\usepackage{tikz-cd}
+\usepackage{tkz-berge}
+\usetikzlibrary{shapes,snakes}
+
+\setenumerate{listparindent=\parindent}
+
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Int}{{\displaystyle \int}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\U}{\mathcal{U}}
+\renewcommand{\L}{\mathcal{L}}
+\newcommand{\T}{\mathcal{T}}
+
+\newcommand{\dd}[2]{\frac{d#1}{d#2}}
+
+\DeclareMathOperator*{\dom}{dom}
+\DeclareMathOperator*{\Aut}{Aut}
+\DeclareMathOperator*{\Ann}{Ann}
+\DeclareMathOperator*{\Tor}{Tor}
+\DeclareMathOperator*{\Gal}{Gal}
+\DeclareMathOperator*{\Hom}{Hom}
+\DeclareMathOperator*{\End}{End}
+\DeclareMathOperator*{\im}{Im}
+\DeclareMathOperator*{\card}{card}
+\DeclareMathOperator*{\id}{id}
+
+\renewcommand{\bar}{\overline}
+\renewcommand{\P}{\mathcal{P}}
+
+\usepackage{fancyhdr} % Required for custom headers 
+%\usepackage{lastpage} % Required to determine the last page for the footer
+
+\pagestyle{fancy}
+\lhead{Math 202A (HW 11)}
+\chead{Michael Knopf (24457981)}
+\rhead{November $24^\text{th}$, 2015}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+%\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}
+\renewcommand\headrulewidth{0.4pt}
+%\renewcommand\footrulewidth{0.4pt}
+
+\begin{document}
+
+\begin{enumerate}
+\item[20.1] If $X$ is a nonempty set and $\T_1$ and $\T_2$ are two topologies on $X$, show that $\T_1 \cap \T_2$ is also a topology on $X$.
+
+\begin{proof}
+Clearly $\T_1 \cap \T_2$ contains $\emptyset$ and $X$ since these are in both $\T_1$ and $\T_2$ (since they are topologies on $X$).  Let $I$ be an index set and let $\{\U_\alpha\}_{\alpha \in I}$ be a collection of sets in $\T_1 \cap \T_2$.  Then $\bigcup_{\alpha \in I} \U_\alpha \in \T_1$ because $\U_\alpha \in \T_1$ for all $\alpha \in I$ and $\T_1$ is a topology on $X$.  Similarly, $\bigcup_{\alpha \in I} \U_\alpha \in \T_2$.  Therefore, $\bigcup_{\alpha \in I} \U_\alpha \in \T_1 \cap \T_2$.  Now, let $\U_1, \dots , \U_n$ be a finite collection of sets in $\T_1 \cap \T_2$.  Then $\bigcap_1^n \U_n \in \T_1$ because $\U_1, \dots, \U_n \in \T_1$ and $\T_1$ is a topology.  Similarly, $\bigcap_1^n \U_n \in \T_2$.  So $\bigcap_1^n \U_n \in \T_1 \cap \T_2$.  Therefore, $\T_1 \cap \T_2$ is a topology on $X$.
+\end{proof}
+
+\item[20.3] Let $X$ be $\R^2$ with the usual topology and say that $x \sim y$ if $x = Ay$ for some matrix $A$ of the form
+$$
+A = \begin{pmatrix}
+\cos \theta & - \sin \theta \\
+\sin \theta & \cos \theta
+\end{pmatrix}
+$$
+with $\theta \in \R$.  Geometrically, $x \sim y$ if $x$ can be obtained from $y$ by a rotation of $\R^2$ about the origin.
+\begin{enumerate}
+\item[(1)] Show that $\sim$ is an equivalence relationship.
+\begin{proof}
+The identity matrix is obtained by letting $\theta = 0$, so it is of this form.  Thus, $x = Ix$, so $x \sim x$, meaning $\sim$ is reflexive.
+Now, let $A$ be a matrix of this form.  The determinant of $A$ is $\cos^2 \theta + \sin^2 \theta = 1$, thus $A$ is invertible and its inverse is
+$$
+A^{-1} = \begin{pmatrix}
+\cos \theta & \sin \theta \\
+-\sin \theta & \cos \theta
+\end{pmatrix}
+$$
+which is also of this form.  So if $x = Ay$, then $y = A^{-1}x$, hence $\sim$ is symmetric.  If $B$ is another matrix of this form, say
+$$
+B = \begin{pmatrix}
+\cos \phi & - \sin \phi \\
+\sin \phi & \cos \phi
+\end{pmatrix}
+$$
+then
+$$
+AB = \begin{pmatrix}
+\cos \theta & - \sin \theta \\
+\sin \theta & \cos \theta
+\end{pmatrix}
+\begin{pmatrix}
+\cos \phi & - \sin \phi \\
+\sin \phi & \cos \phi
+\end{pmatrix}
+=
+\begin{pmatrix}
+\cos (\theta + \phi) & - \sin (\theta + \phi) \\
+\sin (\theta + \phi) & \cos (\theta + \phi)
+\end{pmatrix}
+$$
+hence $AB$ is of this form.  So if $x = Ay$ and $y = Bz$, then $x = ABz$, thus $\sim$ is transitive.
+\end{proof}
+\item[(2)] Show that the quotient space is homeomorphic to $[0,\infty)$ with the usual topology.
+\begin{proof}
+The equivalence classes of this relation are all sets of the form $\{(x,y) : x^2 + y^2 = r\}$ for $r \geq 0$, i.e. the circles in $\R^2$ centered at the origin (and the set containing the origin alone).  This is obvious if we interpret these matrices as representations of rotation maps.  The action of the group of rotation matrices on $\R^2$ has these circles as its orbits.  There's not really much more to say without going into overkill on this one, except that $x \sim y$ if and only if $x$ can be obtained from $y$ by a rotation, which means $x$ and $y$ lie on a circle centered at the origin (or both are the origin).
+
+Every circle in $\R^2$ has exactly one nonnegative radius, thus we have a surjection $f: \R^2 \rightarrow [0,\infty)$ given by $x \mapsto \bar{x}$.
+%Thus, viewing $\U$ as a subset of $[0,\infty)$, we see that $f^{-1}(\U) = \bigcup_{r \in \U} \{(x,y) : x^2 + y^2 = r\}$, where $f$ is the composition of the natural projection $\pi$ with the bijection $g : \R^2 / \sim \rightarrow [0,\infty)$ taking each equivalence class to this chosen representative.
+We will show that $f^{-1}(\U)$ is open in $\R^2$ if and only if $\U$ is open in $[0,\infty)$ under the subspace topology.
+
+First, suppose $\U$ is open in $[0,\infty)$.  Then $\U = \bigcup_1^\infty I_i$ is a countable union of disjoint open intervals, where $[0,a)$ is taken to be open for any $a \in [0,\infty)$ (per the subspace topology).  Then $f^{-1}(\U) = \bigcup_1^\infty f^{-1}(I_i)$, so it suffices to show that $f^{-1}(I)$ is open for an open interval $I$.  This is clear, since $f^{-1}((a,b)) = B_b(0) \setminus \bar{B_a(0)}$ is a finite intersection of open sets; also, $f^{-1}([0,b)) = B_b(0)$ is open.
+
+Now, suppose $f^{-1}(\U)$ is open in $\R^2$, and let $y \in \U$.  Since $f$ is surjective, $y = f(x)$ for some $x \in f^{-1}(\U)$.  Since $f^{-1}(\U)$ is open, any $x \in f^{-1}(\U)$ is interior, so there is a nonempty open ball $B \subset \U$ containing $x$; for convenience, we may also assume $B$ does not contain the origin.  Let $a = \inf \{|x|: x \in B\}$ and $a = \sup \{|x|: x \in B\}$.  Then clearly $a < |x| < b$, and $f(B) = (a,b)$ (because a ball is path connected), so $y = f(x) \in (a,b)$ is interior, hence $\U$ is open.
+
+\begin{center}
+$$
+\begin{tikzcd}
+\R^2 \arrow[rr,"f"] \arrow[dd,"\pi"'] & & \text{[} 0,\infty) \\
+& & \\
+\R^2 / \sim \arrow[uurr, "\bar{f}"'] &  &
+\end{tikzcd}
+$$
+\end{center}
+
+Since $x \sim y$ whenever $f(x) = f(y)$, $f$ factors through $\R^2 / \sim$, inducing a surjection $\bar{f}: \R^2 / \sim \rightarrow [0,\infty)$.  Furthermore, $x \sim y$ only if $f(x) = f(y)$, and so $\bar{f}$ is actually a bijection.  Let $\pi: \R^2 \rightarrow \R^2 / \sim$.  If $\U$ is open in $\R^2 / \sim$, then $\pi^{-1}(\U)$ is open in $\R^2$ by definition.  By the previous paragraphs, $\bar{f}(\U) = f(\pi^{-1}(\U))$ is open.  Conversely, if $\U \subset [0,\infty)$ is open, then $\bar{f}^{-1}(\U)$ is open in $\R^2$.  But then $\bar{f}^{-1}(\U) = \pi(\bar{f}^{-1}(\U))$ is open in $\R^2 / \sim$.  Thus, $\bar{f}$ is a homeomorphism.
+\end{proof}
+\end{enumerate}
+\item[20.7] Prove that a subset $A$ of $X$ is dense if and only if $A$ intersects every open set.
+
+\begin{proof}
+First, suppose $A$ is dense in $X$.  Let $B = A \setminus A'$ be the set of limit points of $A$ not also contained in $A$.  Then $X = A \cup B$ because $A$ is dense, and this union is disjoint.  Now, let $\U$ be open in $X$, and suppose for a contradiction that $\U \cap A = \emptyset$.  Then we must have $\U \subseteq B$.  However, this makes no sense.  If $x \in \U \subseteq B$ then $x$ is a limit point of $A$, and so every open set containing $x$ has nonempty intersection with $A$.  But since $x \in \U$ it is also interior, and so we should be able to find an open neighborhood $N$ of $x$ contained completely within $\U$, and thus within $B$.  This is a contradiction, because the first statement says $N \cap A \neq \emptyset$ and the second says $N \subseteq B$, but $A$ and $B$ are disjoint.
+
+Now, suppose $A$ intersects every open set.  Let $x \not \in A$.  Every open set containing $x$ must also intersect $A$, and since $x \not \in A$ this open set contains a point of $A$ other than $x$.  By definition, $x$ is a limit point of $A$.  Since $x$ was arbitrary, $X = A \cup A'$.
+\end{proof}
+
+\end{enumerate}
+
+\end{document}
+
+
+
+
+
+
+

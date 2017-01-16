@@ -1,0 +1,383 @@
+% Insert HW number and date into heading!
+
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+%\addtolength{\oddsidemargin}{-.1in} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{lipsum}
+\usepackage[]{units}
+\usepackage{relsize}
+\usepackage{verbatim}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{graphicx}
+\usepackage{xfrac}
+
+\setenumerate{listparindent=\parindent}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}}
+
+\DeclareMathOperator*{\dom}{dom}
+\DeclareMathOperator*{\re}{Re}
+\DeclareMathOperator*{\im}{Im}
+\DeclareMathOperator*{\Log}{Log}
+%\DeclareMathOperator*{\arg}{arg}
+\renewcommand{\bar}{\overline}
+
+\definecolor{mygray}{rgb}{.8,.8,0.8}
+
+\newtheorem*{lem}{Lemma}
+
+%%% Heading %%%
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{Math 185 (HW 3)}
+\chead{Michael Knopf (24457981)}
+\rhead{July $17^{\text{th}}$, 2015}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+\renewcommand\headrulewidth{0.4pt}
+
+\begin{document}
+
+\begin{enumerate}
+\setcounter{enumi}{16}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%% 17 %%%%%%%%%%%%%%%%
+
+
+
+
+
+
+
+\item Compute, for all values of $n \in \Z$, $(1+i)^n + (1-i)^n$.
+
+\begin{proof}
+
+Observe that
+$$
+(1+i)^n + (1-i)^n
+= 2^{\frac{n}{2}}( e^{i\frac{n\pi}{4}} + e^{-i\frac{n\pi}{4}})
+= 2^{\frac{n}{2}} \cdot 2 \re (e^{i\frac{n\pi}{4}})
+= 2^{\frac{n}{2} + 1} \cos \left( \frac{n\pi}{4} \right).
+$$
+Since $\cos \left( \frac{n\pi}{4} \right)$ has a period of $8$, we can evaluate the given expression based on the value of $n \pmod{8}$.
+$$
+(1+i)^n + (1-i)^n
+=
+2^{\frac{n}{2} + 1} \cos \left( \frac{n\pi}{4} \right)
+=
+\begin{cases}
+2^{\frac{n}{2} + 1} \cdot 1 & n \equiv 0 \pmod{8} \\
+2^{\frac{n}{2} + 1} \cdot (-1) & n \equiv 4 \pmod{8} \\
+2^{\frac{n}{2} + 1} \cdot 2^{-\frac12} & n \equiv 1 \text{ or } 7 \pmod{8} \\
+2^{\frac{n}{2} + 1} \cdot (-2^{-\frac12}) & n \equiv 3 \text{ or } 5 \pmod{8}
+\end{cases}
+$$
+$$
+=
+\begin{cases}
+2^{\frac{n}{2} + 1} & n \equiv 0 \pmod{8} \\
+-2^{\frac{n}{2} + 1} & n \equiv 4 \pmod{8} \\
+2^{\frac{n+1}{2}} & n \equiv 1 \text{ or } 7 \pmod{8} \\
+-2^{\frac{n+1}{2}} & n \equiv 3 \text{ or } 5 \pmod{8}
+\end{cases}
+$$
+\end{proof}
+
+
+
+
+
+%%%%%%%%%%%%%%%% 18 %%%%%%%%%%%%%%%%
+
+
+
+
+
+
+
+\item Prove that, for all $z \in \C$, $\sin^2(z) + \cos^2(z) = 1$.
+
+\begin{proof}
+
+\begin{align*}
+\sin^2(z) + \cos^2(z)
+&=
+\left( \frac{e^{iz} + e^{-iz}}{2} \right)^2 + \left( \frac{e^{iz} + e^{-iz}}{2i} \right)^2
+\\ &=
+\frac{e^{2zi} + e^{-2zi} + 2}{4} + \frac{e^{2zi} + e^{-2zi} - 2}{-4}
+\\ &=
+\frac{e^{2zi} + e^{-2zi} + 2 - e^{2zi} - e^{-2zi} + 2}{4}
+\\ &=
+1
+\end{align*}
+
+\end{proof}
+
+
+
+
+%%%%%%%%%%%%%%%% 19 %%%%%%%%%%%%%%%%
+
+
+
+
+
+
+
+\item Find the real and imaginary parts of $\sin(z)$, $\cos(z)$, and $e^{e^z}$.
+
+\begin{proof}
+
+For any $x \in \R$, $\cos(ix) = \dfrac{e^{i(ix)} + e^{-i(ix)}}{2} = \dfrac{e^{-x} + e^{x}}{2} = \cosh(x)$, where $\cosh$ is the hyperbolic cosine function.  Similarly, $\sin(ix) = \dfrac{e^{i(ix)} - e^{-i(ix)}}{2i} = \dfrac{e^{-x} - e^x}{2i} = i\dfrac{e^{x} - e^{-x}}{2} = i\sinh(x)$, where $\sinh$ is the hyperbolic sine function.
+
+Letting $z = x + iy$, we have
+\begin{align*}
+\cos(z) + i\sin(z)
+&= e^{iz} \\
+&= e^{ix}e^{i(iy)} \\
+&= (\cos (x) + i \sin (x)) (\cos (iy) + i \sin(iy)) \\
+&= [\cos (x) \cos(iy) - \sin (x) \sin(iy) ] + i [ \sin (x) \cos (iy) + \cos (x) \sin (iy) ].
+\end{align*}
+Thus, $\cos (z) = \cos (x) \cos(iy) - \sin (x) \sin(iy)$ and $\sin(z) = \sin (x) \cos (iy) + \cos (x) \sin (iy)$.  From the first paragraph, this implies
+$$
+\cos (z) = \cos(x)\cosh(y) - i\sin(x)\sinh(y)
+$$
+$$
+\sin (z) = \sin(x)\cosh(y) + i\cos(x)\sinh(y).
+$$
+Therefore,
+$$
+\re(\cos (z)) = \cos(x)\cosh(y)
+$$
+$$
+\im(\cos(z)) = \sin(x)\sinh(y)
+$$
+$$
+\re(\sin (z)) = \sin(x)\cosh(y)
+$$
+$$
+\im(\sin(z)) = \cos(x)\sinh(y)
+$$
+\end{proof}
+
+
+
+
+%%%%%%%%%%%%%%%% 20 %%%%%%%%%%%%%%%%
+
+
+
+
+
+
+
+\item Prove that $e^{i\frac{\pi}{4}} = \frac{\sqrt{2}}{2} + \frac{\sqrt{2}}{2}i$.
+
+\begin{proof}
+
+In the proof of Theorem I.5.1, we proved the following:
+\begin{itemize}
+\item $e^{i\frac{\pi}{2}} = i$.
+\item $\cos(x)$ and $\sin(x)$ are strictly positive for $x \in (0, \frac{\pi}{2})$.
+\end{itemize}
+We also showed, immediately afterwards, that every complex number has exactly two square roots (which are negatives of each other, as we saw on the previous homework).  Since $e^{i\frac{\pi}{4}} = (e^{i\frac{\pi}{2}})^{\frac12}$, this number is a square root of $i$, and therefore must be either $\frac{\sqrt{2}}{2} + \frac{\sqrt{2}}{2}i$ or $-\frac{\sqrt{2}}{2} - \frac{\sqrt{2}}{2}i$.  However, the second option implies that $\cos(\frac{\pi}{2})$ and $\sin(\frac{\pi}{2})$ are negative, contradicting that these functions are positive for $x \in (0,\frac{\pi}{2})$.  Thus we must have $e^{i\frac{\pi}{4}} = \frac{\sqrt{2}}{2} + \frac{\sqrt{2}}{2}i$.
+\end{proof}
+
+
+
+
+%%%%%%%%%%%%%%%% 21 %%%%%%%%%%%%%%%%
+
+
+
+
+
+
+
+\item Find all $z \in \C$ such that $\cos(z) = 2$.
+
+\begin{proof}
+
+We want to find all solutions to $\cos(z) = \frac{e^{iz} + e^{-iz}}{2} = 2$.  Since $e^{iz}$ is never 0 for $z \in \C$, we can subtract $2$ and multiply by $e^{iz}$ to obtain an equation with the same solution set.  This equation is
+$$
+(e^{iz})^2 - 4(e^{iz})^2 + 1 = 0.
+$$
+The quadratic formula tells us that this equation is equivalent to
+$$
+e^{iz} = \frac{4 \pm \sqrt{16 - 4}}{2} = 2 \pm \sqrt{3},
+$$
+which is equivalent to
+$$
+iz = \log(2 \pm \sqrt{3})
+$$
+where, here, $\log$ is the ``multi-valued" function of complex numbers.  All solutions to this equation are given by
+$$
+iz = \log |2 \pm \sqrt{3} | + 2\pi n i
+$$
+for $n \in \Z$, where $\log$ here is the real-valued function of real numbers.  Multiplying by $-i$ gives $z = 2\pi n - i \log (2 \pm \sqrt{3})$, since $2 \pm \sqrt{3} > 0$.  So the solution set is
+$$
+\{ 2\pi n - i \log (2 \pm \sqrt{3}) : n \in \Z \}.
+$$
+\end{proof}
+
+
+
+
+%%%%%%%%%%%%%%%% 22 %%%%%%%%%%%%%%%%
+
+
+
+
+
+
+
+\item Let $\Log$ denote the principal branch of the logarithm.  Find $z_1, z_2 \in \C \setminus (-\infty, 0]$ such that $\Log(z_1 z_2) \neq \Log z_1 + \Log z_2$.
+
+\begin{proof}
+
+Let $z_1 = z_2 = e^{i\frac{2\pi}{3}}$.  Then $$\Log(z_1z_2) = \Log(e^{i\frac{4\pi}{3}}) = -\frac{2\pi}{3}i.$$  However, $$\Log(z_1) + \Log(z_2) = 2\Log(e^{i\frac{2\pi}{3}}) = 2\left(\frac{2\pi}{3} \right)i = \frac{4\pi}{3}i.$$
+\end{proof}
+
+
+
+
+%%%%%%%%%%%%%%%% 23 %%%%%%%%%%%%%%%%
+
+
+
+
+
+
+\noindent Note: I abuse notation in the following problem.  When $n$ appears in an expression, that expression actually represents ``the set of all numbers of that form" for $n \in \Z$.  Sometimes, two expressions I claim are equal are actually only equal up to a relabeling of $n$; but this is okay, since the sets they represent (under this notation) are actually equal.  I only do this to turn as many negatives into positives as possible without having to create new variables.
+\item Compute all values of
+\begin{enumerate}
+\item $\sin i$, $\cos i$, $\tan(1+i)$.
+\begin{proof}
+
+In exercise 19, we showed that for any $x \in \R$, $\cos(ix) = \cosh(x)$ and $\sin(ix) = i \sinh(x)$.  So
+$$
+\cos(i) = \cosh(i) = \frac{e + e^{-1}}{2}.
+$$
+$$
+\sin(i) = i\sinh(i) = i\frac{e - e^{-1}}{2}.
+$$
+$$
+\tan(1+i) = \frac{\sin(1+i)}{\cos(1+i)} = 
+\frac{\frac{e^{(1+i)i} - e^{-(1+i)i}}{2i}}{\frac{e^{(1+i)i} + e^{-(1+i)i}}{2}}
+=
+\frac{e^{1-i} - e^{-(1-i)}}{e^{1-i} + e^{-(1-i)}}i
+$$
+
+\end{proof}
+\item $\log(-1)$, $\log(i)$, $\log(1+i)$, $\log(\log(i))$.
+\begin{proof}
+$$
+\log(-1) = \log |-1| + i\arg(-1) = 0 + (\pi + 2\pi n)i = (2n+1)\pi i
+$$
+$$
+\log(i) = \log |i| + i \arg(i) = 0 + \left( \frac{\pi}{2} + 2\pi n \right) i = \left( \frac{\pi}{2} + 2\pi n \right) i
+$$
+$$
+\log(1+i) = \log |1+i| + i \arg(1+i) = \log(\sqrt{2}) + \left( \frac{\pi}{4} + 2\pi n \right) i
+$$
+for any $n \in \Z$.
+$$
+\log(\log(i)) = \log \left(\left( \frac{\pi}{2} + 2\pi n \right) i \right) = \log \left| \left( \frac{\pi}{2} + 2\pi n \right) i \right| + i \arg \left( \left( \frac{\pi}{2} + 2\pi n \right) i \right)
+$$
+$$
+= \log \left| \frac{\pi}{2} + 2\pi n \right| + i\left( \frac{\pi}{2} + 2\pi k \right) i
+$$
+for any $n,k \in \Z$, where $\log$ in the final expressions denotes the real-valued function of real numbers, and $\left| \frac{\pi}{2} + 2\pi n \right|$ denotes the absolute value of this number, since it will be negative if $n < 0$.
+\end{proof}
+\item $2^i$, $i^i$, $(-1)^{2i}$, $(1+i)^i$, $(-1)^{\frac{1}{\pi}}$.
+\begin{proof}
+$$
+2^i = e^{i \log(2)} = e^{i(\log(2) + 2\pi n i)} = e^{2\pi n + i\log(2)}
+$$
+$$
+i^i = e^{i \log(i)} = e^{i\left( \frac{\pi}{2} + 2\pi n \right) i} = e^{2\pi n - \frac{\pi}{2}}
+$$
+$$
+(-1)^{2i} = e^{2i \log(-1)} = e^{2i(2n+1)\pi i} = e^{2(2n+1)\pi}
+$$
+$$
+(1+i)^i = e^{i \log(1+i)} = e^{i \left(\log(\sqrt{2}) + \left( \frac{\pi}{4} + 2\pi n \right) i \right)} =
+e^{-\frac{\pi}{4} + 2\pi n + i\log(\sqrt{2})}
+$$
+$$
+(-1)^{\frac{1}{\pi}} = e^{\frac{1}{\pi}\log(-1)} = e^{\frac{1}{\pi}(2n+1)\pi i} = e^{(2n+1)i}
+$$
+for any $n \in \Z$.
+\end{proof}
+\end{enumerate}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%% 24 %%%%%%%%%%%%%%%%
+
+
+
+
+
+
+
+\item Show that $\log(i^{\frac{1}{2}}) = \frac12 \log(i)$, in the sense that each denotes the same infinite set of complex numbers.  However, show that $\log(i^2) \neq 2 \log(i)$.
+
+\begin{proof}
+
+First, note that the square roots of $i$ are $e^{\frac{\pi}{4}i}$ and $e^{\frac{5\pi}{4}i}$.  So, if we consider the values of $\log$ and $\arg$ to be sets, we have
+\begin{align*}
+\log(i^{\frac12})
+&= \log(e^{i\frac{\pi}{4}}) \cup \log(e^{i\frac{5\pi}{4}}) \\
+&= (\log |e^{i \frac{\pi}{4}}| + i \arg (e^{i \frac{\pi}{4}})) \cup (\log |e^{i \frac{5\pi}{4}}| + i \arg (e^{i \frac{5\pi}{4}})) \\
+&= \{i \left(\frac{\pi}{4} + 2\pi n \right) : n \in \Z\} \cup  \{i \left(\frac{5\pi}{4} + 2\pi n \right) : n \in \Z \} \\
+&= \{i \left(\frac{\pi}{4} + 2\pi n \right) : n \in \Z\} \cup  \{i \left(\frac{\pi}{4} + \pi + 2\pi n \right) : n \in \Z \} \\
+&= \{i \left(\frac{\pi}{4} + 2\pi n \right) : n \in \Z\} \cup  \{i \left(\frac{\pi}{4} + \pi (2n+1) \right) : n \in \Z \} \\
+&= \{i \left(\frac{\pi}{4} + \pi n \right) : n \in \Z\}.
+\end{align*}
+Also,
+\begin{align*}
+\frac12 \log(i)
+&= \{\frac{1}{2} (\frac{\pi}{2} + 2 \pi n)i : n \in \Z \}
+= \{i \left(\frac{\pi}{4} + \pi n \right) : n \in \Z\}.
+\end{align*}
+Thus, $\log(i^{\frac{1}{2}}) = \frac{1}{2}\log(i)$.
+
+Next, observe that
+\begin{align*}
+\log(i^2) &= \log(-1) = \{(2n+1)\pi i : n \in \Z \}
+\end{align*}
+but
+\begin{align*}
+2 \log(i) &= \left\{2 (\frac{\pi}{2} + 2\pi n)i : n \in \Z \right\} = \left\{(4n+1)\pi i : n \in \Z \right\}.
+\end{align*}
+Therefore, $-\pi i \in \log(i^2)$, but $-\pi i \not \in 2 \log(i)$.  So $\log(i^2) \neq 2 \log(i)$.
+\end{proof}
+
+
+\end{enumerate}
+
+\end{document}
+

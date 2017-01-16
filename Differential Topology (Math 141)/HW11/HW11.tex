@@ -1,0 +1,114 @@
+\documentclass[12pt]{article}
+ 
+%\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb, mathtools, enumitem}
+\usepackage{stackengine}[2013-09-11]
+\usepackage{scalerel}
+\stackMath
+\def\ptt{\mathrel{\ThisStyle{\raisebox{-.2ex}{$\SavedStyle\scalerel*%
+    {\stackinset{c}{}{t}{.5ex}{\smash{-}}{\pitchfork}}{\pitchfork}$}}}} 
+ 
+ 
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\U}{\mathcal{U}}
+ 
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+ 
+\begin{document}
+ 
+% --------------------------------------------------------------
+%                         Start here
+% --------------------------------------------------------------
+ 
+\title{Homework 2}
+\author{Michael Knopf}
+\date{December 4, 2014}
+ 
+\maketitle
+
+
+
+\begin{exercise}{1}
+
+Show that $S^n$ and $T^n = S^1 \times \cdots \times S^1$ are not diffeomorphic, for $n \geq 2$.
+
+\end{exercise}
+
+\begin{proof}
+
+First, as a lemma, we will show that diffeomorphisms preserve mod $2$ intersection numbers.  Suppose $f:Y \rightarrow W$ is a diffeomorphism and that $I_2(X,Z)$ is defined.  We may assume $X \ptt Z$.  If not, then we may deform $X$ via a map homotopic to the inclusion map on $Z$, and simply redefine $X$ to be the resulting submanifold.  If $x \in X \cap Z$, then $x \in X$ and $x \in Z$ so $f(x) \in f(X)$ and $f(z) \in f(Z)$.  So $f(x) \in f(X) \cap f(Z)$.  Similarly, if $y \in f(X) \cap f(Z) = f(X \cap Z)$ (equality holds because $f$ is a diffeomorphism), then $f^{-1}(y) \in f^{-1}(f(X \cap Z)) = X \cap Z$ (again, equality holds because $f$ is a diffeomorphism).  Therefore, $f$ is a bijection between $X \cap Z$ and its image, so these submanifolds have the same cardinality and hence the same mod $2$ intersection number.
+
+Now, notice that the submanifolds $U = \left\{ \frac{1}{2}\right\} \times (S^1)^{n-1}$ and $V = S^1 \times \left\{\frac{1}{2}\right\}^{n-1}$ of $T^n$ have mod $2$ intersection number of $1$, since their only point of intersection is $\left(\frac{1}{2}, \dots, \frac{1}{2} \right)$, at which they are transversal.  Also, it is clear that $U$ is diffeomorphic to $(S^1)^{n-1}$ and $V$ is diffeomorphic to $S^1$.
+
+Therefore, it suffices to show that any two submanifolds of $S^n$ which are diffeomorphic to $(S^1)^{n-1}$ and $S^1$, respectively, will necessarily have a mod $2$ intersection number of 0.  Since diffeomorphisms preserve mod $2$ intersection numbers, this will mean that any two submanifolds of the torus which are diffeomorphic to $(S^1)^{n-1}$ and $S^1$ will have to have a mod $2$ intersection number of 0, contradicting the example we have just presented.
+
+Let $X \cong (S^1)^{n-1}$ and $Y \cong S^1$ be submanifolds of the $n$-sphere.  By a corollary to Sard's Theorem, we know that the set of points that are simultaneously regular values of any two maps is dense.  So let $p$ be any element of this dense set of points which are regular values for the inclusion maps $X \xrightarrow{i} S^n$ and $Y \xrightarrow{i} S^n$.  Since $\textrm{dim}(X) = n-1 < n$ and $\textrm{dim}(Y) = 1 < n$, neither inclusion can be a submersion at any point in its image.  So $p \not \in X \cap Y$.
+
+Now, let $\phi: S^n \rightarrow \R^n$ be the stereographic projection map that uses the point $p$ as its pole, so that both $X$ and $Y$ are in the domain of $\phi$.  Thus, $\phi(X)$ and $\phi(Y)$ are submanifolds of $\R^n$ that are diffeomorphic to $S^{n-1}$ and $S^1$, respectively.  So both are compact and connected.
+
+Since $\phi(X)$ also has dimension $n-1$, we may apply the Jordan-Brouwer Separation Theorem to assert that $\phi(X)$ is the boundary of a compact submanifold $W$ of $\R^n$.  Since the inclusion map $i:\phi(X) \rightarrow \R^n$ extends to all of $W$, and $\phi(Y)$ is closed and has complementary dimension to $\phi(X)$, we derive from the Boundary Theorem that the mod $2$ intersection number of $\phi(X)$ and $\phi(Y)$ must be $0$.
+
+Since $\phi$ preserves mod $2$ intersection numbers, then, $X$ and $Y$ also have a mod $2$ intersection number of 0.  Since $X$ and $Y$ were arbitrary submanifolds of $S^n$ diffeomorphic to $S^{n-1}$ and $S^1$, this is true of all such submanifolds.  Therefore, if $S^n$ and $T^n$ were diffeomorphic, then the two submanifolds of $T^n$ described in the first paragraph, which were diffeomorphic to $S^{n-1}$ and $S^1$ yet had intersection number $1$, would have diffeomorphic images in $S^n$ with intersection number $0$, a contradiction.
+
+Thus $S^n \not \cong T^n$ for $n \geq 2$.
+
+
+\end{proof}
+
+\begin{exercise}{2}
+
+\emph{The Smooth Urysohn Theorem.} If $A$ and $B$ are disjoint, smooth, closed subsets of a manifold $X$, prove that there is a smooth function $\phi$ on $X$ such that $0 \leq \phi \leq 1$ with $\phi = 0$ on $A$ and $\phi = 1$ on $B$.
+
+\end{exercise}
+
+\begin{proof}
+
+Since $A$ and $B$ are disjoint and closed, their complements in $X$, $A^C$ and $B^C$, form an open cover of $X$.  Thus, by the theorem on pg. 52, a partition of unity $\{\theta_i\}$ exists for which the support of each $\theta_i$ is contained either completely within $A^C$ or completely within $B^C$, and $\sum_i \theta_i(x) = 1$ for all $x \in X$.
+
+Let $I = \{i: \textrm{supp}(\theta_i) \subset A^C \}$, where $\textrm{supp}(\theta_i)$ denotes the support of $\theta_i$.  This implies that, for $i \in I$, $\theta_i(x) = 0$ for all $x \in A$.
+Now, let $$\phi = \sum\limits_{i \in I} \theta_i.$$
+
+For any $x \in A$, we have $$\phi(x) = \sum\limits_{i \in I} \theta_i(x) = \sum\limits_{i \in I} 0 = 0.$$
+
+The key point to note is that, if $j \not \in I$, then $\textrm{supp}(\theta_j) \subset B^C$.  Thus, $\theta_j(x) = 0$ for all $x \in B$.
+
+Thus, for any $x \in B \subset A^C$, we have $$\phi(x) = \sum\limits_{i \in I} \theta_i(x) = \sum\limits_{i \in I} \theta_i(x) + 0 = \sum\limits_{i \in I} \theta_i(x) + \sum\limits_{j \in \N - I} \theta_j(x) 
+=\sum\limits_{i \in \N} \theta_i(x) = 1$$ for all $x \in B$.
+
+Since $\phi$ is a sum of smooth functions, it is also smooth.  Since each $\theta_i$ is bounded between $0$ and $1$, a sum of some collection of those functions must also be bounded between $0$ and $1$.  Thus $0 \leq \phi \leq 1$.
+
+\end{proof}
+
+\begin{exercise}{3}
+
+\emph{Tubular Neighborhood Theorem.}  Prove that there exists a diffeomorphism from an open neighborhood of $Z$ in $N(Z;Y)$ onto an open neighborhood of $Z$ in $Y$.
+
+\begin{proof}
+
+Let $Y^\epsilon \xrightarrow{\pi} Y$ be as in the $\epsilon$-Neighborhood Theorem.  Consider the map $h:N(Z;Y) \rightarrow \R^M$ defined by $h(z,v) = z + v$.  Clearly this map is smooth, since it is the sum of two smooth functions.
+
+Let $W = h^{-1}(Y^\epsilon)$.  $W$ is open because $h$ is continuous and $Y^\epsilon$ is open by definition.  Also, if $(z,0) \in Z \times \{0\}$ then $h(z,0) = z + 0 = z \in Y^\epsilon$, therefore $h^{-1}$ contains $Z \times \{0\}$.  So $W$ is an open neighborhood of $Z$ in $N(Z;Y)$.
+
+Consider the sequence of maps $W \xrightarrow{h} Y^\epsilon \xrightarrow{\pi} Y$.  If $(z,0) \in Z \times \{0\}$ then $\pi \circ h (z,0) = \pi (z+0) = \pi(z) = z$, since $z \in Y$ and $\pi$ is the identity on $Y$.  Therefore, this sequence of maps iss the natural projection of $Z \times \{0\} \subset N(Z;Y)$ onto $Z \subset Y$.  So $\pi \circ h$ maps $Z \times \{0\}$ diffeomorphically onto $Z$.
+
+Since $h \circ \pi$ is a diffeomorphism on $Z \times \{0\}$, it is locally equivalent to the identity map.  Thus, it's derivative at every point of $Z$ is an isomorphism.  Therefore, by exercise 14 from section 8, $h \circ \pi$ maps an open neighborhood of $Z \times \{0\}$ in $N(Z;Y)$ diffeomorphically onto an open neighborhood of $Z$ in $Y$.
+
+\end{proof}
+
+\end{exercise}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
