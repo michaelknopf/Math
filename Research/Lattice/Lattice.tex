@@ -1,0 +1,129 @@
+\documentclass[10pt]{article}
+\usepackage[margin=1in]{geometry}
+\addtolength{\oddsidemargin}{-.2in} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{lipsum}
+\usepackage[]{units}
+\usepackage{relsize}
+\usepackage{verbatim}
+\usepackage{bbm}
+
+\usepackage{tikz}
+\usetikzlibrary  {positioning}
+\usepackage{graphicx}
+\usepackage{xfrac}
+\usetikzlibrary{cd}
+
+
+\setenumerate{listparindent=\parindent}
+
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\thefield}{\Q(\sqrt{-D})}
+\newcommand{\thering}{\mathcal{O}_{\Q(\sqrt{-D})}}
+\newcommand{\Ord}{\mathcal{O}}
+\newcommand{\norm}[1]{\left[#1\right]}
+
+\newcommand{\Q}{\mathbf{Q}}
+\newcommand{\Z}{\mathbf{Z}}
+\newcommand{\R}{\mathbf{R}}
+\newcommand{\C}{\mathbf{C}}
+\newcommand{\p}{\mathfrak{p}}
+\renewcommand{\a}{\mathfrak{a}}
+\renewcommand{\b}{\mathfrak{b}}
+\newcommand{\m}{\mathfrak{m}}
+\newcommand{\gen}[1]{\langle #1 \rangle}
+\DeclareMathOperator*{\dom}{dom}
+\DeclareMathOperator*{\Aut}{Aut}
+\DeclareMathOperator*{\Ann}{Ann}
+\DeclareMathOperator*{\Tor}{Tor}
+\DeclareMathOperator*{\Gal}{Gal}
+\DeclareMathOperator*{\Hom}{Hom}
+\DeclareMathOperator*{\End}{End}
+\DeclareMathOperator*{\im}{Im}
+\let\ker\relax
+\DeclareMathOperator*{\ker}{Ker}
+\DeclareMathOperator*{\spn}{span}
+\DeclareMathOperator*{\Perm}{Perm}
+\DeclareMathOperator*{\card}{card}
+\DeclareMathOperator*{\Alt}{Alt}
+\DeclareMathOperator*{\id}{id}
+\renewcommand{\bar}{\overline}
+
+\newtheorem*{thm}{Theorem}
+\newtheorem*{prop}{Proposition}
+
+\usepackage{fancyhdr} % Required for custom headers 
+%\usepackage{lastpage} % Required to determine the last page for the footer
+
+\pagestyle{fancy}
+\lhead{Math 250A (HW 6)}
+\chead{Michael Knopf (24457981)}
+\rhead{October $8^\text{th}$, 2015}
+\lfoot{}
+\cfoot{}
+\rfoot{}
+%\rfoot{Page\ \thepage\ of\ \pageref{LastPage}}
+\renewcommand\headrulewidth{0.4pt}
+%\renewcommand\footrulewidth{0.4pt}
+
+\begin{document}
+
+\begin{thm}
+\normalfont
+If $A$ be an additive subgroup of Euclidean space $\R^n$ such that every bounded region of space contains only finitely many elements of $A$, then $A$ is a lattice of dimension $\leq n$.
+\end{thm}
+
+\begin{proof}
+Let $\{v_1, \dots , v_m\}$ be a maximal $\R$-linearly independent set of elements from $A$ (if $A=\{0\}$, take the empty set; otherwise, add linearly independent vectors until no new elements from $A$ can be added).  Let $m$ be the maximum possible size of such a set, since any such set has size $\leq n$.  We will prove the statement by induction on $m$.  Clearly, if $m = 0$ then $A = \{0\}$, hence is a lattice of dimension $0$.
+
+Let $A_0 = A \cap \spn \{v_1, \dots , v_{m-1}\}$.  Then $\{v_1, \dots , v_{m-1}\}$ is a maximal linearly independent subset of $A_0$, so by induction $A_0$ is a lattice with some basis $\{u_1, \dots , u_k\}$, where $k \leq m-1$.  However, $\{v_1, \dots , v_{m-1}\} \subseteq A_0$, thus $\{v_1, \dots , v_{m-1}\}$ is in the vector space spanned by $\{u_1, \dots , u_k\}$ over $\R$.  Since $\{v_1, \dots , v_{m-1}\}$ is linearly independent over $\R$, this means that $k \geq m-1$.  Therefore, we know $k = m-1$.
+
+
+%However, the vector space spanned by $\{u_1, \dots , u_k\}$ over $\R$ contains $\{v_1, \dots , v_{m-1}\}$, thus we must have $m-1 \leq k$ as well.  So $k = m-1$.
+
+Let $S = A \cap \{a_1u_1 + \cdots + a_{m-1}u_{m-1} + a_mv_m \mid 0 \leq a_i < 1 \text{ for } 1 \leq i \leq m-1, 0 \leq a_m \leq 1 \}$.  By the triangle inequality, $S$ is contained within a ball of radius $|u_1| + \cdots + |u_{m-1}| + |v_m|$ about the origin, hence is finite.  Now, $\{u_1, \dots , u_{m-1}, v_m\}$ must be linearly independent, since if $v_m$ were in the span of the $u_i$s, then $\spn\{u_1, \dots , u_{m-1}\}$ would contain $\spn\{v_1, \dots , v_m\}$, contradicting that this latter set is linearly independent.  So every element of $S$ has a unique representation of the form
+$$
+a_1u_1 + \cdots + a_{m-1}u_{m-1} + a_mv_m$$
+with $0 \leq a_i < 1 \text{ for } 1 \leq i \leq m-1$ and $0 \leq a_m \leq 1$.  So there is some $v_m' \in S$ which has a minimal but nonzero coefficient $a_m$ when expanded as
+$$
+v_m' = a_1u_1 + \cdots + a_{m-1}u_{m-1} + a_mv_m.
+$$
+We know this because these expansions are unique and $S$ is finite.
+
+Replacing $v_m$ with $v_m'$, we now see that $\{u_1, \dots , u_{m-1}, v_m'\}$ is still linearly independent because $\{u_1, \dots , u_{m-1}\}$ is linearly independent and, due to the uniqueness of the representations we just discussed, $v_m'$ is not a linear combination of $\{u_1, \dots , u_{m-1}\}$.  Also, $\{u_1, \dots , u_{m-1}, v_m'\}$ spans $A$ over $\R$: if there were some $v \in A \setminus \spn (\{u_1, \dots , u_{m-1}, v_m'\})$ then $v$ would be linearly independent of $\{u_1, \dots , u_{m-1}, v_m'\}$, meaning that $\{u_1, \dots , u_{m-1} , v_m', v\}$ is a linearly independent set, contradicting that $m$ is the largest possible size of a linearly independent set in $A$.
+
+Let $v \in A$.  Then $v$ can be expressed uniquely as a linear combination $v = b_1u_1 + \cdots + b_{m-1}u_{m-1} + b_mv_m'$.  Letting $v_m' = a_1u_1 + \cdots + a_{m-1}u_{m-1} + a_mv_m$ be the expansion of $v_m'$ given previously, we have
+\begin{align*}
+v &= b_1u_1 + \cdots + b_{m-1}u_{m-1} + b_mv_m' \\
+&= b_1u_1 + \cdots + b_{m-1}u_{m-1} + b_m(a_1u_1 + \cdots + a_{m-1}u_{m-1} + a_mv_m) \\
+&= (b_1 + b_ma_1)u_1 + \cdots + (b_{m-1} + b_ma_{m-1})u_{m-1} + (b_ma_m)v_m.
+\end{align*}
+Let $c_m = \lfloor b_m \rfloor$.  Note that the coefficient of $v_m$ in $v - c_m v_m'$ is $(b_m - c_m)a_m$, which satisfies $0 \leq (b_m - c_m)a_m < a_m$ since $0 \leq b_m - c_m < 1$.  Next, for each $i = 1, \dots , m-1$ let $c_i$ be the floor of the coefficient of $u_i$ in $v - c_m v_m'$.  Let
+$$
+v' = v - c_1u_1 - \cdots - c_{m-1}u_{m-1} - c_mv_m'
+$$
+Each $u_i$ is in $A$, $v_m'$ is in $A$, and each $c_i$ is an integer.  So $v'$ is a $\Z$-linear combination of elements in $A$, hence $v' \in A$.  Furthermore, the coeffecients of $u_1, \dots , u_{m-1}, v_m$ in $v'$ are all less than 1 and at least 0 by construction; therefore, $v' \in S$.  The coefficient of $v_m$ in $v'$ is the same as the coefficient of $v_m$ in $v$, which we previously noted is strictly less than $a_m$.  By the minimality of $a_m$ (recall how $a_m$ was defined), we realize that this coefficient must be $0$.  Therefore, $v'$ is a $\Z$-linear combination of $\{u_1, \dots , u_{m-1}\}$.  But also, $w' = c_1u_1 + \cdots + c_{m-1}u_{m-1} + c_m v_m'$ is in the span of $\{u_1, \dots , u_{m-1}, v_m'\}$ over $\Z$.  Thus, $v = v' + w$ is in the span of $ \spn\{u_1, \dots , u_{m-1}, v_m'\}$ over $\Z$, and so this set generates $A$.  We have already shown this set to be linearly independent over $\R$, and that $m \leq n$.  Therefore, $A$ is a lattice of dimension $\leq n$.
+\end{proof}
+
+\pagebreak
+
+\begin{prop}
+\normalfont
+Let $\M \subseteq \R^n$ be such that $0 \in \M$ and $\norm{\alpha - \beta} \in \Z$ for all $\alpha, \beta \in \M$.  Then the additive group $\Z[\M]$ generated by $\M$ also satisfies $\norm{\alpha - \beta} \in \Z$ for all $\alpha,\beta \in \Z[\M]$, and contains finitely many points in any bounded region of $\R^n$.  Therefore, $\Z[\M]$ is a lattice in $\R^n$.
+\end{prop}
+
+\begin{proof}
+Let $\alpha \in \Z[\M]$, so that $\alpha = \sum_{t=1}^m \alpha_t$ for some $\alpha_1, \dots , \alpha_m \in \M$.  We have
+$$
+\norm{\alpha} = \norm{ \sum_{t=1}^m \alpha_t } = \norm{\sum_{t=1}^m \alpha_t, \sum_{t=1}^m \alpha_t} = \sum_{s=1}^m \sum_{t=1}^m \norm{\alpha_s,\alpha_t} = 
+\sum_{t=1}^m \norm{\alpha_t} +
+\sum_{1 \leq s < t \leq m} 2\norm{\alpha_s,\alpha_t}.
+$$
+Since $\norm{\alpha_s} = \norm{\alpha_s - 0} \in \Z$, and $\norm{\alpha_s - \alpha_t} = \norm{\alpha_s} + \norm{\alpha_t} - 2\norm{\alpha_s,\alpha_t} \in \Z$ for all $s,t \in \Z$, we know $2 \norm{\alpha_s,\alpha_t} \in \Z$ for all $s,t \in \Z$.  Therefore, $\norm{\alpha} \in \Z$.  Since $\Z[\M]$ is a subgroup, we know that $\alpha - \beta \in \Z[\M]$ for any $\beta \in \Z[\M]$, thus $\norm{\alpha - \beta} \in \Z$ as well.
+
+Let $R$ be any bounded region of $\R^n$.  We aim to show that $\Z[\M] \cap R$ is finite.  We may assume $R$ is closed, since $R$ is certainly contained within its closure and hence so is $\Z[\M] \cap R$.  Let $\mathcal{C}$ be the set of all open balls in $\R^n$ of radius $\frac12$.  $\mathcal{C}$ is an open cover of the compact set $R$, hence it has a finite subcover $\mathcal{C}' \subset \mathcal{C}$ containing $N \in \Z_{>0}$ elements.  If $B \in \mathcal{C}'$, then $B$ may contain at most one point of $\Z[\M]$, since we have $\norm{\alpha - \beta} \in \Z$, and thus $|\alpha - \beta| \geq 1 > \frac12$, for any distinct $\alpha, \beta \in \Z[\M]$.  Therefore, $\Z[\M] \cap R$ contains at most $N$ points.  By the previous theorem, we see that $\Z[\M]$ must be a lattice in $\R^n$.
+\end{proof}
+\end{document}
